@@ -4,6 +4,7 @@
   "tabWidth": 2,
   "trailingComma": "es5",
   "printWidth": 80,
+  "endOfLine": "crlf",
   "overrides": [
     {
       "files": ["*.css", "*.scss", "*.html"],
