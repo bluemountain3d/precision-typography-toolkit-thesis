@@ -1,0 +1,10 @@
+# Dependencies
+node_modules
+dist
+dist-ssr
+
+# Markdown files
+*.md
+
+# Assets
+assets/
