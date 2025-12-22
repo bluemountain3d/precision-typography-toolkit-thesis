@@ -1,0 +1,13 @@
+/// @group Base
+/// @name Base Styles
+/// @description Absolute minimum - just colors
+/// All interactive elements are React components
+/// ===========================================================================
+
+html {}
+
+body {
+  font-size: var(--text-base);
+  color: var(--color-text, #1a1a1a);
+  background-color: var(--color-background, #ffffff);
+}
