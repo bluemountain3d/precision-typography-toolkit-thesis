@@ -1,0 +1,194 @@
+/// @group Abstracts/Mixins
+/// @name Responsive Breakpoints
+/// @description Auto-generated responsive breakpoint mixins
+/// Provides consistent media query patterns across the design system
+/// @example
+///   @use '@styles/abstracts/mixins/mx_breakpoints' as bp;
+///
+///   .component {
+///     padding: var(--space-sm);
+///
+///     @include bp.tablet-and-up {
+///       padding: var(--space-md);
+///     }
+///
+///     @include bp.desktop-and-up {
+///       padding: var(--space-lg);
+///     }
+///   }
+/// ===========================================================================
+
+@use '../variables/breakpoints' as bp;
+@use 'sass:map';
+
+// ============================================================================
+// And Up Mixins (includes breakpoint and larger)
+// ============================================================================
+
+/// Generate mixins for "and up" breakpoints
+/// Creates: mobile-and-up, phablet-and-up, tablet-and-up, laptop-and-up, desktop-and-up
+/// @example
+///   @include tablet-and-up {
+///     font-size: var(--text-lg);
+///   }
+///   // Output: @media (min-width: 48rem) { ... }
+@each $name, $value in bp.$breakpoints {
+  @mixin #{$name}-and-up {
+    @media (min-width: $value) {
+      @content;
+    }
+  }
+}
+
+// ============================================================================
+// Up To Mixins (excludes the breakpoint itself)
+// ============================================================================
+
+/// Up to breakpoint queries (smaller than breakpoint)
+/// @type Map
+$up-to-map: (
+  'phablet': bp.$bp-up-to-phablet,
+  'tablet': bp.$bp-up-to-tablet,
+  'laptop': bp.$bp-up-to-laptop,
+  'desktop': bp.$bp-up-to-desktop,
+);
+
+/// Generate mixins for "up to" breakpoints
+/// Creates: up-to-phablet, up-to-tablet, up-to-laptop, up-to-desktop
+/// @example
+///   @include up-to-tablet {
+///     display: none;
+///   }
+///   // Output: @media (max-width: 47.99rem) { ... }
+@each $name, $query in $up-to-map {
+  @mixin up-to-#{$name} {
+    @media #{$query} {
+      @content;
+    }
+  }
+}
+
+// ============================================================================
+// And Down Mixins (includes the breakpoint and smaller)
+// ============================================================================
+
+/// And down breakpoint queries (includes breakpoint)
+/// @type Map
+$and-down-map: (
+  'phablet': bp.$bp-phablet-and-down,
+  'tablet': bp.$bp-tablet-and-down,
+  'laptop': bp.$bp-laptop-and-down,
+  'desktop': bp.$bp-desktop-and-down,
+);
+
+/// Generate mixins for "and down" breakpoints
+/// Creates: phablet-and-down, tablet-and-down, laptop-and-down, desktop-and-down
+/// @example
+///   @include tablet-and-down {
+///     grid-template-columns: 1fr;
+///   }
+///   // Output: @media (max-width: 48rem) { ... }
+@each $name, $query in $and-down-map {
+  @mixin #{$name}-and-down {
+    @media #{$query} {
+      @content;
+    }
+  }
+}
+
+// ============================================================================
+// Only Mixins (specific breakpoint range)
+// ============================================================================
+
+/// Only breakpoint queries (between two breakpoints)
+/// @type Map
+$only-map: (
+  'mobile': bp.$bp-mobile-only,
+  'phablet': bp.$bp-phablet-only,
+  'tablet': bp.$bp-tablet-only,
+  'laptop': bp.$bp-laptop-only,
+);
+
+/// Generate mixins for "only" breakpoints
+/// Creates: mobile-only, phablet-only, tablet-only, laptop-only
+/// @example
+///   @include tablet-only {
+///     columns: 2;
+///   }
+///   // Output: @media (min-width: 48rem) and (max-width: 71.99rem) { ... }
+@each $name, $query in $only-map {
+  @mixin #{$name}-only {
+    @media #{$query} {
+      @content;
+    }
+  }
+}
+
+// ============================================================================
+// Usage Examples
+// ============================================================================
+
+/// @example scss - Mobile-first approach
+///   .card {
+///     // Base styles (mobile)
+///     padding: var(--space-sm);
+///     grid-template-columns: 1fr;
+///
+///     // Tablet and up
+///     @include tablet-and-up {
+///       padding: var(--space-md);
+///       grid-template-columns: repeat(2, 1fr);
+///     }
+///
+///     // Desktop and up
+///     @include desktop-and-up {
+///       padding: var(--space-lg);
+///       grid-template-columns: repeat(3, 1fr);
+///     }
+///   }
+
+/// @example scss - Desktop-first approach (less common)
+///   .sidebar {
+///     // Base styles (desktop)
+///     width: 300px;
+///
+///     // Tablet and down
+///     @include tablet-and-down {
+///       width: 200px;
+///     }
+///
+///     // Up to tablet (mobile + phablet)
+///     @include up-to-tablet {
+///       width: 100%;
+///     }
+///   }
+
+/// @example scss - Specific breakpoint only
+///   .feature {
+///     // Only visible on tablet
+///     @include tablet-only {
+///       display: block;
+///     }
+///   }
+
+/// @example scss - Complex responsive patterns
+///   .hero {
+///     font-size: var(--fs-500);
+///
+///     // Show different content on mobile
+///     @include mobile-only {
+///       .hero__subtitle {
+///         display: none;
+///       }
+///     }
+///
+///     // Medium screens get medium size
+///     @include tablet-and-up {
+///       font-size: var(--fs-600);
+///     }
+///
+///     // Large screens get large size
+///     @include laptop-and-up {
+///       font-size: var(--fs-700);
+///     }
+///   }

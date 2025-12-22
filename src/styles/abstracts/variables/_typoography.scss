@@ -1,0 +1,75 @@
+/// @group Abstracts/Variables
+/// @name Typography Configuration
+/// @description Font role mappings and exported font-family variables
+/// 
+/// CONFIGURATION LAYER - Maps semantic roles to actual fonts
+/// 
+/// Font Role Philosophy:
+/// - Hierarchical (primary/secondary/tertiary): Core system - use these by default
+/// - Category (sans/serif/mono): Type classification - use when type matters
+/// - Contextual (display/body/heading/etc): Convenience aliases - use when it improves clarity
+/// 
+/// All roles map to fonts defined in $font-metrics (font-metrics.scss)
+/// Font family strings are automatically extracted from metrics data
+/// 
+/// @requires abstracts/variables/font-metrics
+/// @see abstracts/mixins/mx_font-setup For applying these fonts with metrics
+/// ===========================================================================
+
+@use './font-metrics' as metrics;
+@use 'sass:map';
+
+// ============================================================================
+// Font Role Mapping
+// ============================================================================
+
+/// Semantic font assignments
+/// @type Map
+$fonts: (
+  // Hierarchical
+  'primary': 'Source Sans 3',
+  'secondary': 'SourceCode Pro',
+  'tertiary': 'Cormorant Garamond',
+
+  // Category
+  'sans': 'Source Sans 3',
+  'serif': 'Cormorant Garamond',
+  'mono': 'SourceCode Pro',
+
+  // Contextual
+  'display': 'Source Sans 3',
+  'body': 'Source Sans 3',
+  'heading': 'Source Sans 3',
+  'quote': 'Cormorant Garamond',
+  'code': 'SourceCode Pro',
+  'ui': 'Source Sans 3',
+  ) !default;
+
+// ============================================================================
+// Exported Font Family Variables
+// ============================================================================
+
+/// Get font family string from metrics
+/// @access private
+@function _get-family($font-key) {
+  $font-name: map.get($fonts, $font-key);
+  @return map.get(map.get(metrics.$font-metrics, $font-name), 'family');
+}
+
+// Primary/Secondary/Tertiary
+$ff-primary: _get-family('primary') !default;
+$ff-secondary: _get-family('secondary') !default;
+$ff-tertiary: _get-family('tertiary') !default;
+
+// Categories
+$ff-sans: _get-family('sans') !default;
+$ff-serif: _get-family('serif') !default;
+$ff-mono: _get-family('mono') !default;
+
+// Contextual
+$ff-display: _get-family('display') !default;
+$ff-heading: _get-family('heading') !default;
+$ff-body: _get-family('body') !default;
+$ff-quote: _get-family('quote') !default;
+$ff-code: _get-family('code') !default;
+$ff-ui: _get-family('ui') !default;
