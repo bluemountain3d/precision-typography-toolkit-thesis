@@ -1,3 +1,5 @@
+import '@styles/globals.scss';
+
 const App = () => {
   return (
     <>
