@@ -1,0 +1,1 @@
+export { FontMetricsArticle } from './FontMetricsArticle';
