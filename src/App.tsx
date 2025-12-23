@@ -1,9 +1,11 @@
 import '@styles/globals.scss';
+import { RouterProvider } from 'react-router-dom';
+import { appRouter } from './Router';
 
 const App = () => {
   return (
     <>
-      <div>Hello world! Test Vercel.</div>
+      <RouterProvider router={appRouter}></RouterProvider>
     </>
   );
 };
