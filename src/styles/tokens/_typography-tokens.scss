@@ -5,7 +5,7 @@
 /// Base: 16px @ 384px → 20px @ 1536px
 /// ===========================================================================
 
-@use '../abstracts/functions/fn_fluid' as fluid;
+@use '../abstracts/functions/' as fn;
 @use '../abstracts/variables/' as var;
 
 // ============================================================================
@@ -19,39 +19,39 @@
 
   /// 100 level - Smallest text (legal, captions)
   /// Range: ~11px @ 384px → ~14px @ 1536px
-  --fs-100: #{fluid.fluidFontSize(-2, 'vwx')};
+  --fs-100: #{fn.fluidFontSize(-2, 'vwx')};
 
   /// 200 level - Small text (secondary info, metadata)
   /// Range: ~13px @ 384px → ~19px @ 1536px
-  --fs-200: #{fluid.fluidFontSize(-1, 'vwx')};
+  --fs-200: #{fn.fluidFontSize(-1, 'vwx')};
 
   /// 300 level - Base font size
   /// Range: 16px @ 384px → 20px @ 1536px
-  --fs-300: #{fluid.fluidFontSize(0, 'vwx')};
+  --fs-300: #{fn.fluidFontSize(0, 'vwx')};
 
   /// 400 level - Emphasized text
   /// Range: ~19px @ 384px → ~27px @ 1536px
-  --fs-400: #{fluid.fluidFontSize(1, 'vwx')};
+  --fs-400: #{fn.fluidFontSize(1, 'vwx')};
 
   /// 500 level - Small heading
   /// Range: ~23px @ 384px → ~36px @ 1536px
-  --fs-500: #{fluid.fluidFontSize(2, 'vwx')};
+  --fs-500: #{fn.fluidFontSize(2, 'vwx')};
 
   /// 600 level - Medium heading (h3)
   /// Range: ~28px @ 384px → ~47px @ 1536px
-  --fs-600: #{fluid.fluidFontSize(3, 'vwx')};
+  --fs-600: #{fn.fluidFontSize(3, 'vwx')};
 
   /// 700 level - Large heading (h2)
   /// Range: ~33px @ 384px → ~63px @ 1536px
-  --fs-700: #{fluid.fluidFontSize(4, 'vwx')};
+  --fs-700: #{fn.fluidFontSize(4, 'vwx')};
 
   /// 800 level - Extra large heading (h1)
   /// Range: ~40px @ 384px → ~84px @ 1536px
-  --fs-800: #{fluid.fluidFontSize(5, 'vwx')};
+  --fs-800: #{fn.fluidFontSize(5, 'vwx')};
 
   /// 900 level - Display heading
   /// Range: ~48px @ 384px → ~112px @ 1536px
-  --fs-900: #{fluid.fluidFontSize(6, 'vwx')};
+  --fs-900: #{fn.fluidFontSize(6, 'vwx')};
 
   // ==========================================================================
   // Semantic Display Sizes

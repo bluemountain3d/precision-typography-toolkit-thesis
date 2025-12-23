@@ -28,20 +28,21 @@
 $fonts: (
   // Hierarchical
   'primary': 'Source Sans 3',
-  'secondary': 'SourceCode Pro',
+  'secondary': 'Source Code Pro',
   'tertiary': 'Cormorant Garamond',
 
   // Category
   'sans': 'Source Sans 3',
   'serif': 'Cormorant Garamond',
-  'mono': 'SourceCode Pro',
+  'mono': 'Source Code Pro',
 
   // Contextual
   'display': 'Source Sans 3',
-  'body': 'Source Sans 3',
   'heading': 'Source Sans 3',
+  'subheading': 'Source Sans 3',
+  'body': 'Source Sans 3',
   'quote': 'Cormorant Garamond',
-  'code': 'SourceCode Pro',
+  'code': 'Source Code Pro',
   'ui': 'Source Sans 3',
   ) !default;
 
@@ -69,6 +70,7 @@ $ff-mono: _get-family('mono') !default;
 // Contextual
 $ff-display: _get-family('display') !default;
 $ff-heading: _get-family('heading') !default;
+$ff-subheading: _get-family('subheading') !default;
 $ff-body: _get-family('body') !default;
 $ff-quote: _get-family('quote') !default;
 $ff-code: _get-family('code') !default;

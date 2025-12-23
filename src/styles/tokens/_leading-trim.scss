@@ -39,8 +39,8 @@
 ///   }
 /// ===========================================================================
 
-@use '../functions' as fn;
-@use '../variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/variables' as var;
 @use 'sass:map';
 @use 'sass:math';
 
@@ -115,8 +115,8 @@
   letter-spacing: var(--_letter-spacing);
   text-transform: var(--_text-transform);
   text-rendering: geometricPrecision;
-  margin-left: $_lsbAdjust;
-  margin-right: $_rsbAdjust;
+  margin-left: var(--_lsb-adjust);
+  margin-right: var(--_rsb-adjust);
 
   /// Fallback implementation for browsers without native text-box-trim
   @supports not (text-box-trim: trim-both) {
