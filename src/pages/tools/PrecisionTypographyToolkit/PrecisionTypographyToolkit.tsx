@@ -1,7 +1,11 @@
+import { Container } from '@components/layout/Container';
+
 export const PrecisionTypographyToolkit = () => {
   return (
     <>
-      <p>Precision Typography Toolkit Page</p>
+      <Container variant="boxed">
+        <p>Precision Typography Toolkit Page</p>
+      </Container>
     </>
   );
 };

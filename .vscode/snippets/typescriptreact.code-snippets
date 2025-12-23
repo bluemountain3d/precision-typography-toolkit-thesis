@@ -1,0 +1,225 @@
+{
+  "Console Log": {
+    "prefix": "cl",
+    "body": [
+      "consol.log($1);"
+    ],
+    "description": "Log output to console"
+  },
+
+  "Console Log Variable": {
+    "prefix": "clv",
+    "body": [
+      "console.log('$1:', $1);"
+    ],
+    "description": "Log variable with label"
+  },
+
+  "Console Error": {
+    "prefix": "cerr",
+    "body": [
+      "console.error('$1:', $1);"
+    ],
+    "description": "Log error to console"
+  },
+
+  "React Component": {
+    "prefix": "rcomp",
+    "body": [
+      "export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} = () => {",
+      "  return (",
+      "    <$2>",
+      "      $3",
+      "    </>",
+      "  );",
+      "};"
+    ],
+    "description": "React Component base with filename as component name"
+  },
+
+  "React Component with Props": {
+    "prefix": "rcompp",
+    "body": [
+      "interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props {",
+      "  $1",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} = ({ $2 }: ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props) => {",
+      "  return (",
+      "    <$3>",
+      "      $4",
+      "    </$3>",
+      "  );",
+      "};"
+    ],
+    "description": "React Component with Props interface"
+  },
+
+  "React Component with Props and CSS Module": {
+    "prefix": "rcompcss",
+    "body": [
+      "import styles from './${TM_FILENAME_BASE}.module.scss';",
+      "import classNames from 'clsx';",
+      "",
+      "interface ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props {",
+      "  $1",
+      "}",
+      "",
+      "export const ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/} = ({ $2 }: ${TM_FILENAME_BASE/(.*)/${1:/pascalcase}/}Props) => {",
+      "  return (",
+      "    <div className={classNames(",
+      "      styles.${TM_FILENAME_BASE/(.*)/${1:/camelcase}/},",
+      "    )}>",
+      "      $3",
+      "    </div>",
+      "  );",
+      "};"
+    ],
+    "description": "React Component with Props and CSS Module"
+  },
+
+  "useState": {
+    "prefix": "ust",
+    "body": [
+      "const [$1, set${1/(.*)/${1:/capitalize}/}] = useState$2($3);"
+    ],
+    "description": "useState hook"
+  },
+
+  "useRef": {
+    "prefix": "uref",
+    "body": [
+      "const $1Ref = useRef$2(null);"
+    ],
+    "description": "useRef hook"
+  },
+
+  "useContext": {
+    "prefix": "uctx",
+    "body": [
+      "const $1 = useContext(${2:Context});"
+    ],
+    "description": "useContext hook"
+  },
+
+  "Async Function": {
+    "prefix": "afn",
+    "body": [
+      "const $1 = async ($2) => {",
+      "  $3",
+      "};"
+    ],
+    "description": "Async arrow function"
+  },
+
+  "Try Catch": {
+    "prefix": "tryc",
+    "body": [
+      "try {",
+      "  $1",
+      "} catch (error) {",
+      "  console.error('${2:Error}:', error);",
+      "  $3",
+      "}"
+    ],
+    "description": "Try catch block"
+  },
+
+  "Try Catch Finally": {
+    "prefix": "trycf",
+    "body": [
+      "try {",
+      "  $1",
+      "} catch (error) {",
+      "  console.error('${2:Error}:', error);",
+      "  $3",
+      "} finally {",
+      "  $4",
+      "}"
+    ],
+    "description": "Try catch finally block"
+  },
+
+  "If Else": {
+    "prefix": "ifel",
+    "body": [
+      "if ($1) {",
+      "  $2",
+      "}",
+      "else {",
+      "  $3",
+      "}"
+    ],
+    "description": "If Else if"
+  },
+
+  "Else IF": {
+    "prefix": "elif",
+    "body": [
+      "if ($1) {",
+      "  $2",
+      "}",
+      "else if ($3) {",
+      "  $4",
+      "}",
+      "else {",
+      "  $5",
+      "}"
+    ],
+    "description": "If Else base"
+  },
+
+  "JSX Map": {
+    "prefix": "jmap",
+    "body": [
+      "{$1.map(($2) => (",
+      "  <$3 key={$2.$4}>",
+      "    $5",
+      "  </$3>",
+      "))}"
+    ],
+    "description": "JSX map with key"
+  },
+
+  "Filter": {
+    "prefix": "filter",
+    "body": [
+      "$1.filter(($2) => $3)"
+    ],
+    "description": "Array filter"
+  },
+
+  "Find": {
+    "prefix": "find",
+    "body": [
+      "$1.find(($2) => $3)"
+    ],
+    "description": "Array find"
+  },
+
+  "Reduce": {
+    "prefix": "reduce",
+    "body": [
+      "$1.reduce((acc, $2) => {",
+      "  return $3;",
+      "}, $4)"
+    ],
+    "description": "Array reduce"
+  },
+
+  "Import": {
+    "prefix": "imp",
+    "body": [
+      "import { $2 } from '$1';"
+    ],
+    "description": "ES6 import"
+  },
+
+  "Import Default": {
+    "prefix": "impd",
+    "body": [
+      "import $2 from '$1';"
+    ],
+    "description": "ES6 import default"
+  },
+}

@@ -1,0 +1,103 @@
+@use "../tokens/spacing-tokens" as *;
+
+// ==========================================================================
+// T-shirt Size Scale
+// ==========================================================================
+
+/// Semantic spacing utility classes using t-shirt sizes
+@each $size, $factor in $space-values {
+  .m-#{$size} {
+    margin: calc(var(--unit) * #{$factor});
+  }
+  .mbl-#{$size} {
+    margin-block: calc(var(--unit) * #{$factor});
+  }
+  .mbl-start-#{$size} {
+    margin-block-start: calc(var(--unit) * #{$factor});
+  }
+  .mbl-end-#{$size} {
+    margin-block-end: calc(var(--unit) * #{$factor});
+  }
+  .mil-#{$size} {
+    margin-inline: calc(var(--unit) * #{$factor});
+  }
+  .mil-start-#{$size} {
+    margin-inline-start: calc(var(--unit) * #{$factor});
+  }
+  .mil-end-#{$size} {
+    margin-inline-end: calc(var(--unit) * #{$factor});
+  }
+
+  .p-#{$size} {
+    padding: calc(var(--unit) * #{$factor});
+  }
+  .pbl-#{$size} {
+    padding-block: calc(var(--unit) * #{$factor});
+  }
+  .pbl-start-#{$size} {
+    padding-block-start: calc(var(--unit) * #{$factor});
+  }
+  .pbl-end-#{$size} {
+    padding-block-end: calc(var(--unit) * #{$factor});
+  }
+  .pil-#{$size} {
+    padding-inline: calc(var(--unit) * #{$factor});
+  }
+  .pil-start-#{$size} {
+    padding-inline-start: calc(var(--unit) * #{$factor});
+  }
+  .pil-end-#{$size} {
+    padding-inline-end: calc(var(--unit) * #{$factor});
+  }
+}
+
+// ==========================================================================
+// Numeric Scale (1-48)
+// ==========================================================================
+
+/// Numeric spacing utility classes for fine-grained control
+@for $i from 1 through 48 {
+  .m-#{$i} {
+    margin: calc(var(--unit) * #{$i});
+  }
+  .mbl-#{$i} {
+    margin-block: calc(var(--unit) * #{$i});
+  }
+  .mbl-start-#{$i} {
+    margin-block-start: calc(var(--unit) * #{$i});
+  }
+  .mbl-end-#{$i} {
+    margin-block-end: calc(var(--unit) * #{$i});
+  }
+  .mil-#{$i} {
+    margin-inline: calc(var(--unit) * #{$i});
+  }
+  .mil-start-#{$i} {
+    margin-inline-start: calc(var(--unit) * #{$i});
+  }
+  .mil-end-#{$i} {
+    margin-inline-end: calc(var(--unit) * #{$i});
+  }
+
+  .p-#{$i} {
+    padding: calc(var(--unit) * #{$i});
+  }
+  .pbl-#{$i} {
+    padding-block: calc(var(--unit) * #{$i});
+  }
+  .pbl-start-#{$i} {
+    padding-block-start: calc(var(--unit) * #{$i});
+  }
+  .pbl-end-#{$i} {
+    padding-block-end: calc(var(--unit) * #{$i});
+  }
+  .pil-#{$i} {
+    padding-inline: calc(var(--unit) * #{$i});
+  }
+  .pil-start-#{$i} {
+    padding-inline-start: calc(var(--unit) * #{$i});
+  }
+  .pil-end-#{$i} {
+    padding-inline-end: calc(var(--unit) * #{$i});
+  }
+}
