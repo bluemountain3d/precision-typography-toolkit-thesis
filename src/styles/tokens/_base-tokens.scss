@@ -3,8 +3,7 @@
 /// @description Foundation CSS custom properties for fluid typography and spacing system
 /// ===========================================================================
 
-@use '../abstracts/functions/fn_fluid' as fluid;
-@use '../abstracts/functions/fn_unit-utils' as unit;
+@use '../abstracts/functions/' as fn;
 @use '../abstracts/variables' as var;
 
 // ============================================================================
@@ -19,7 +18,7 @@
 
   /// Switch to height-based scaling on ultrawide displays
   /// Prevents text from becoming too large on very wide screens
-  @media (min-aspect-ratio: 21/9) and (min-height: #{unit.pxToRem(var.$ultrawide-threshold-px)}) {
+  @media (min-aspect-ratio: 21/9) and (min-height: #{fn.pxToRem(var.$ultrawide-threshold-px)}) {
     --vwx: 2vh;
   }
 
@@ -30,7 +29,7 @@
   /// Fluid base font size
   /// Scales from 16px @ 384px viewport to 20px @ 1536px viewport
   /// Formula: clamp(1rem, 0.9167rem + 0.3472 * var(--vwx), 1.25rem)
-  --fluid-base: #{fluid.fluidFontSize(0, 'vwx')};
+  --fluid-base: #{fn.fluidFontSize(0, 'vwx')};
 
   /// Base spacing unit (1/4 of fluid base)
   /// Used as foundation for all spacing tokens

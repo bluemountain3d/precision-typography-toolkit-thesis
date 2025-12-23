@@ -4,10 +4,15 @@
 /// All interactive elements are React components
 /// ===========================================================================
 
+// Abstracts - Project-specific utilities
+@use '../abstracts/variables' as var;
+
 html {}
 
 body {
   font-size: var(--text-base);
-  color: var(--color-text, #1a1a1a);
-  background-color: var(--color-background, #ffffff);
+  color: var(--color-text-primary, var.$color-text-primary);
+
+  background-attachment: fixed;
+  background-image: var(--bg-main, var.$color-primary);
 }

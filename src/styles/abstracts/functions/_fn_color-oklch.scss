@@ -110,14 +110,19 @@
 /// @example
 ///   $overlay: adjustOklchAlpha(#009700, 40, 0.2);
 ///   // Returns: "oklch(86% 0.17 142 / 0.2)"
+/// Adjust lightness with alpha
+/// @param {Color} $color - Sass color value
+/// @param {Number} $l-adjustment - Lightness adjustment (-100 to 100)
+/// @param {Number} $alpha - Alpha value (0 to 1)
 @function adjustOklchAlpha($color, $l-adjustment, $alpha) {
-  $l: math.div(color.channel($color, 'lightness', $space: oklch), 1%);
-  $c: math.div(color.channel($color, 'chroma', $space: oklch), 1);
-  $h: math.div(color.channel($color, 'hue', $space: oklch), 1deg);
+  $l: getOklchLightness($color);
+  $c: getOklchChroma($color);
+  $h: getOklchHue($color);
 
-  $l-adjusted: $l + $adjustment;
+  $l-adjusted: math.clamp(0, $l + $l-adjustment, 100);
+  $alpha-safe: math.clamp(0, $alpha, 1);
 
-  @return string.unquote('oklch(#{$l-adjusted}% #{$c} #{$h} / #{$alpha})');
+  @return string.unquote('oklch(#{$l-adjusted}% #{$c} #{$h} / #{$alpha-safe})');
 }
 
 /// Rotate hue in OKLCH space
@@ -128,13 +133,36 @@
 ///   $rotated: rotateOklchHue(#E4DCCA, 180);
 ///   // Returns: "oklch(90% 0.05 265)" (complementary color)
 @function rotateOklchHue($color, $degrees) {
-  $l: math.div(color.channel($color, 'lightness', $space: oklch), 1%);
-  $c: math.div(color.channel($color, 'chroma', $space: oklch), 1);
-  $h: math.div(color.channel($color, 'hue', $space: oklch), 1deg);
+  $l: getOklchLightness($color);
+  $c: getOklchChroma($color);
+  $h: getOklchHue($color);
 
-  $h-rotated: ($h + $degrees) % 360;
+  $h-rotated: (
+    $h + $degrees) % 360;
 
-  @return string.unquote('oklch(#{$l}% #{$c} #{$h-rotated})');
+  @if $h-rotated < 0 {
+    $h-rotated: $h-rotated + 360;
+  }
+
+  @return string.unquote('oklch(#{$l}% #{$c} #{$h-rotated})'
+);
+}
+
+/// Set OKLCH hue from source using HSL saturation/lightness values
+/// @param {Color} $source-color - Color to extract OKLCH hue from
+/// @param {Number} $target-s - HSL saturation percentage (0-100, from Figma)
+/// @param {Number} $target-l - HSL lightness percentage (0-100, from Figma)
+/// @return {Color} OKLCH color with source hue and target saturation/lightness
+/// @example
+///   $new-color: set-oklch-hue(#3B82F6, 70, 60);
+///   // Returns: OKLCH color with blue hue at 70% saturation and 60% lightness
+@function setOklchHue($source-color, $target-s, $target-l) {
+  $temp-hsl: hsl(0, $target-s, $target-l);
+  $new-hue: color.channel($source-color, "hue", $space: oklch);
+
+  @return color.oklch(color.channel($temp-hsl, "lightness", $space: oklch),
+    color.channel($temp-hsl, "chroma", $space: oklch),
+    $new-hue );
 }
 
 // ============================================================================

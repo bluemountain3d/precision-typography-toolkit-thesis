@@ -3,8 +3,8 @@
 /// @description base entry point - forwards all base styles
 /// ===========================================================================
 
-@forward 'base/reset';
-@forward 'base/fonts';
-@forward 'base/base';
-@forward 'base/typography';
-@forward 'base/a11y';
+@forward './reset';
+@forward './fonts';
+@forward './base';
+@forward './typography';
+@forward './a11y';

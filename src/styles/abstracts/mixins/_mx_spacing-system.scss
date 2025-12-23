@@ -4,7 +4,7 @@
 /// ===========================================================================
 
 @use '../variables' as var;
-@use '../functions/fn_fluid' as fluid;
+@use '../functions' as fn;
 
 // Sass built-in modules - Only import what you actually use
 // @use 'sass:math';
@@ -40,7 +40,7 @@
 
   // Remap CSS variables locally for this element and its children
   // Base font size scales with container width
-  --fluid-base: #{fluid.fluidFontSize(0, $unit-key)};
+  --fluid-base: #{fn.fluidFontSize(0, $unit-key)};
 
   // Unit is 1/4 of base (matching grid system)
   --unit: calc(var(--fluid-base) / #{var.$base-grid-size});
@@ -70,7 +70,7 @@
   container-type: inline-size;
   container-name: $name;
 
-  --fluid-base: #{fluid.fluidFontSize(0, $unit-key)};
+  --fluid-base: #{fn.fluidFontSize(0, $unit-key)};
   --unit: calc(var(--fluid-base) / #{var.$base-grid-size});
 
   @content;
