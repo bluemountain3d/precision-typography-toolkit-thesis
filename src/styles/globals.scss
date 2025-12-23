@@ -4,7 +4,10 @@
 /// ===========================================================================
 
 // Tokens - CSS custom properties
-@forward './tokens/';
+@forward "./tokens/";
+
+// Utilities - Utility classes
+@forward "./utilities/";
 
 // Base - Global HTML element styling
-@forward './base/';
+@forward "./base/";
