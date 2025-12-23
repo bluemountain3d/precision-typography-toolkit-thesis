@@ -43,3 +43,9 @@ assets/images/raw/*
 !assets/images/raw/.gitkeep
 assets/images/optimized/*
 !assets/images/optimized/.gitkeep
+
+# TEMP folder
+temp
+
+# Noted folder
+notes

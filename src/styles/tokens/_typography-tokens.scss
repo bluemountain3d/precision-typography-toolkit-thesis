@@ -1,0 +1,130 @@
+/// @group Tokens
+/// @name Typography Tokens
+/// @description Fluid typography scale using modular scale ratios
+/// Scale: 1.2 @ 384px → 1.333 @ 1536px
+/// Base: 16px @ 384px → 20px @ 1536px
+/// ===========================================================================
+
+@use '../abstracts/functions/' as fn;
+@use '../abstracts/variables/' as var;
+
+// ============================================================================
+// CSS Custom Properties
+// ============================================================================
+
+:root {
+  // ==========================================================================
+  // Modular Typographic Scale (100-900)
+  // ==========================================================================
+
+  /// 100 level - Smallest text (legal, captions)
+  /// Range: ~11px @ 384px → ~14px @ 1536px
+  --fs-100: #{fn.fluidFontSize(-2, 'vwx')};
+
+  /// 200 level - Small text (secondary info, metadata)
+  /// Range: ~13px @ 384px → ~19px @ 1536px
+  --fs-200: #{fn.fluidFontSize(-1, 'vwx')};
+
+  /// 300 level - Base font size
+  /// Range: 16px @ 384px → 20px @ 1536px
+  --fs-300: #{fn.fluidFontSize(0, 'vwx')};
+
+  /// 400 level - Emphasized text
+  /// Range: ~19px @ 384px → ~27px @ 1536px
+  --fs-400: #{fn.fluidFontSize(1, 'vwx')};
+
+  /// 500 level - Small heading
+  /// Range: ~23px @ 384px → ~36px @ 1536px
+  --fs-500: #{fn.fluidFontSize(2, 'vwx')};
+
+  /// 600 level - Medium heading (h3)
+  /// Range: ~28px @ 384px → ~47px @ 1536px
+  --fs-600: #{fn.fluidFontSize(3, 'vwx')};
+
+  /// 700 level - Large heading (h2)
+  /// Range: ~33px @ 384px → ~63px @ 1536px
+  --fs-700: #{fn.fluidFontSize(4, 'vwx')};
+
+  /// 800 level - Extra large heading (h1)
+  /// Range: ~40px @ 384px → ~84px @ 1536px
+  --fs-800: #{fn.fluidFontSize(5, 'vwx')};
+
+  /// 900 level - Display heading
+  /// Range: ~48px @ 384px → ~112px @ 1536px
+  --fs-900: #{fn.fluidFontSize(6, 'vwx')};
+
+  // ==========================================================================
+  // Semantic Display Sizes
+  // ==========================================================================
+
+  /// Hero/landing page display text
+  --display-1: var(--fs-900);
+
+  /// Secondary display text
+  --display-2: var(--fs-800);
+
+  // ==========================================================================
+  // Semantic Heading Sizes
+  // ==========================================================================
+
+  /// H1 - Main page heading
+  --heading-1: var(--fs-700);
+
+  /// H2 - Section heading
+  --heading-2: var(--fs-600);
+
+  /// H3 - Subsection heading
+  --heading-3: var(--fs-500);
+
+  /// H4 - Minor heading
+  --heading-4: var(--fs-400);
+
+  // ==========================================================================
+  // Body Text Sizes (linear scale from base)
+  // ==========================================================================
+
+  /// Lead paragraph / intro text
+  --text-lg: calc(var(--fs-300) * 1.25);
+
+  /// Slightly emphasized body text
+  --text-md: calc(var(--fs-300) * 1.15);
+
+  /// Default body text size
+  --text-base: var(--fs-300);
+
+  /// Small body text (sidebar, captions)
+  --text-sm: calc(var(--fs-300) * 0.875);
+
+  /// Extra small text (footnotes, legal)
+  --text-xs: calc(var(--fs-300) * 0.75);
+
+  // ==========================================================================
+  // Font Weights
+  // ==========================================================================
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --font-weight-extrabold: 800;
+
+  // ==========================================================================
+  // Font Families
+  // ==========================================================================
+
+  --font-family-primary: #{var.$ff-primary};
+  --font-family-secondary: #{var.$ff-secondary};
+  --font-family-tertiary: #{var.$ff-tertiary};
+
+  --font-family-sans: #{var.$ff-sans};
+  --font-family-serif: #{var.$ff-serif};
+  --font-family-mono: #{var.$ff-mono};
+
+  --font-family-display: #{var.$ff-display};
+  --font-family-body: #{var.$ff-body};
+  --font-family-heading: #{var.$ff-heading};
+  --font-family-quote: #{var.$ff-quote};
+  --font-family-code: #{var.$ff-code};
+  --font-family-ui: #{var.$ff-ui};
+} 

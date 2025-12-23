@@ -1,0 +1,87 @@
+/// @group Base
+/// @name Font Face Declarations
+/// @description Web font loading configuration for all typefaces
+/// 
+/// FONT LOADING LAYER - Defines @font-face rules for web fonts
+/// 
+/// All fonts are variable fonts (VF) with weight ranges:
+/// - Source Sans 3: 200-900 (regular + italic)
+/// - Source Code Pro: 200-900 (regular only)
+/// - Cormorant Garamond: 300-700 (italic only)
+/// 
+/// Fonts are subsetted for balanced web use (Latin + extended Latin)
+/// Format: woff2-variations for optimal compression and variable font support
+/// 
+/// Font loading strategy:
+/// - font-display: swap - Show fallback immediately, swap when loaded
+/// - local("") - Prevent matching local fonts (ensures consistent rendering)
+/// - Served from /public/fonts/ (static assets, not processed by Vite)
+/// 
+/// Font family naming:
+/// Current: Matches internal font file names ("Source Sans 3", "Source Code Pro")
+/// Future: Will use "VF" suffix when font files are updated
+/// Fallback chain in abstracts/variables/_font-metrics.scss handles both
+/// 
+/// @see abstracts/variables/font-metrics For font metrics and family fallback chains
+/// @see abstracts/variables/typoography For semantic font role assignments
+/// ===========================================================================
+
+// ============================================================================
+// Sans-Serif Fonts
+// ============================================================================
+
+// Source Sans 3 - Regular (200-900)
+@font-face {
+  font-family: "Source Sans 3";
+  src:
+    local(""),
+    url("/fonts/SourceSans3-Variable-VariableFont_wght-200-900_subset-balanced-web.woff2")
+      format("woff2-variations");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Source Sans 3 - Italic (200-900)
+@font-face {
+  font-family: "Source Sans 3";
+  src:
+    local(""),
+    url("/fonts/SourceSans3-Variable-VariableFont_wght-200-900-italic_subset-balanced-web.woff2")
+      format("woff2-variations");
+  font-weight: 200 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+// ============================================================================
+// Monospace Fonts
+// ============================================================================
+
+// Source Code Pro - Regular (200-900)
+@font-face {
+  font-family: "Source Code Pro";
+  src:
+    local(""),
+    url("/fonts/SourceCodePro-Variable-VariableFont_wght-200-900_subset-balanced-web.woff2")
+      format("woff2-variations");
+  font-weight: 200 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+// ============================================================================
+// Serif Fonts
+// ============================================================================
+
+// Cormorant Garamond - Italic (300-700)
+@font-face {
+  font-family: "Cormorant Garamond VF";
+  src:
+    local(""),
+    url("/fonts/CormorantGaramond-Variable-VariableFont_wght-300-700-Italic_subset-balanced-web.woff2")
+      format("woff2-variations");
+  font-weight: 300 700;
+  font-style: italic;
+  font-display: swap;
+}

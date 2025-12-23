@@ -1,0 +1,112 @@
+/// @group Abstracts/Variables
+/// @name Breakpoints
+/// @description Responsive breakpoints and typography scale configuration
+/// ===========================================================================
+
+// No @use statements - variables should be pure data
+@use "sass:map";
+
+// ============================================================================
+// Pixel Values (for reference/documentation only)
+// ============================================================================
+
+$min-width-px: 384px;
+$tablet-width-px: 768px;
+$laptop-width-px: 1152px;
+$max-width-px: 1536px;
+$ultrawide-threshold-px: 944px; // viewport height
+
+// ============================================================================
+// Grid System
+// ============================================================================
+
+/// Base grid unit
+/// @type Number
+$base-grid-size: 4 !default; // 4px grid
+
+// ============================================================================
+// Breakpoints
+// ============================================================================
+
+/// Responsive breakpoints map (in rem)
+/// @type Map
+/// 384px = 24rem, 768px = 48rem, 1152px = 72rem, 1536px = 96rem, 2048px = 128rem
+$breakpoints: (
+  "mobile": 20rem,
+  "phablet": 36rem,
+  "tablet": 48rem,
+  "laptop": 72rem,
+  "desktop": 96rem,
+  "ultrawide": 59rem // viewport height
+  ) !default;
+
+// ============================================================================
+// Breakpoint Shortcuts
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Up to (excludes the breakpoint itself)
+// ----------------------------------------------------------------------------
+
+/// Up to phablet (smaller than phablet)
+$bp-up-to-phablet: "(max-width: #{map.get($breakpoints, 'phablet') - 0.01rem})";
+
+/// Up to tablet (smaller than tablet)
+$bp-up-to-tablet: "(max-width: #{map.get($breakpoints, 'tablet') - 0.01rem})";
+
+/// Up to laptop (smaller than laptop)
+$bp-up-to-laptop: "(max-width: #{map.get($breakpoints, 'laptop') - 0.01rem})";
+
+/// Up to desktop (smaller than desktop)
+$bp-up-to-desktop: "(max-width: #{map.get($breakpoints, 'desktop') - 0.01rem})";
+
+// ----------------------------------------------------------------------------
+// And up (includes the breakpoint and larger)
+// ----------------------------------------------------------------------------
+
+/// Mobile and up (≥20rem)
+$bp-mobile-and-up: map.get($breakpoints, "mobile");
+
+/// Phablet and up (≥36rem)
+$bp-phablet-and-up: map.get($breakpoints, "phablet");
+
+/// Tablet and up (≥48rem)
+$bp-tablet-and-up: map.get($breakpoints, "tablet");
+
+/// Laptop and up (≥72rem)
+$bp-laptop-and-up: map.get($breakpoints, "laptop");
+
+/// Desktop and up (≥96rem)
+$bp-desktop-and-up: map.get($breakpoints, "desktop");
+
+// ----------------------------------------------------------------------------
+// And down (includes the breakpoint and smaller)
+// ----------------------------------------------------------------------------
+
+/// Phablet and down (≤36rem)
+$bp-phablet-and-down: "(max-width: #{map.get($breakpoints, 'phablet')})";
+
+/// Tablet and down (≤48rem)
+$bp-tablet-and-down: "(max-width: #{map.get($breakpoints, 'tablet')})";
+
+/// Laptop and down (≤72rem)
+$bp-laptop-and-down: "(max-width: #{map.get($breakpoints, 'laptop')})";
+
+/// Desktop and down (≤96rem)
+$bp-desktop-and-down: "(max-width: #{map.get($breakpoints, 'desktop')})";
+
+// ----------------------------------------------------------------------------
+// Only (specific breakpoint range)
+// ----------------------------------------------------------------------------
+
+/// Mobile only (20rem - 35.99rem)
+$bp-mobile-only: "(min-width: #{map.get($breakpoints, 'mobile')}) and (max-width: #{map.get($breakpoints, 'phablet') - 0.01rem})";
+
+/// Phablet only (36rem - 47.99rem)
+$bp-phablet-only: "(min-width: #{map.get($breakpoints, 'phablet')}) and (max-width: #{map.get($breakpoints, 'tablet') - 0.01rem})";
+
+/// Tablet only (48rem - 71.99rem)
+$bp-tablet-only: "(min-width: #{map.get($breakpoints, 'tablet')}) and (max-width: #{map.get($breakpoints, 'laptop') - 0.01rem})";
+
+/// Laptop only (72rem - 95.99rem)
+$bp-laptop-only: "(min-width: #{map.get($breakpoints, 'laptop')}) and (max-width: #{map.get($breakpoints, 'desktop') - 0.01rem})";

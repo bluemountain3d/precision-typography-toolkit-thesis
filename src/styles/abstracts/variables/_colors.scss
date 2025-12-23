@@ -1,0 +1,76 @@
+/// @group Abstracts/Variables
+/// @name Colors
+/// @description Brief description of this variable group's purpose
+/// ===========================================================================
+
+// No @use statements needed in variable files to avoid circular dependencies
+// Variables should be pure data - no functions or mixins
+
+// ============================================================================
+// Configuration
+// ============================================================================
+
+/// Primary brand color
+/// @type Color
+$color-primary: #0A1526;
+
+/// Primary brand color
+/// @type Color
+$color-primary-dark: #050911;
+
+/// Secondary brand color
+/// @type Color
+$color-secondary: #172439;
+
+/// Tertiary brand color
+/// @type Color
+$color-tertiary: #1E2C41;
+
+/// Accent
+/// @type Color
+$color-accent: #614B9F;
+
+/// Accent Secondary
+/// @type Color
+$color-accent-secondary: #6083C6; //#6792F9;
+
+
+/// Text Primary
+/// @type Color
+$color-text-primary: #D9DEEA;
+
+/// Text Secondary
+/// @type Color
+$color-text-secondary: #93A3B9;
+
+/// Text Muted
+/// @type Color
+$color-text-muted: #767F93;
+
+/// Text Primary
+/// @type Color
+$color-inline-link: $color-accent-secondary;
+
+/// Success State
+/// @type Color
+$color-success-title: #89F6D7;
+$color-success-surface: #001400;
+$color-success-border: #40574d;
+
+/// Warning State
+/// @type Color
+$color-warning-title: #FFBF80;
+$color-warning-surface: #1F0F00;
+$color-warning-border: #5F554C;
+
+/// Error State
+/// @type Color
+$color-danger-title: #FDBFBF;
+$color-danger-surface: #1F0000;
+$color-danger-border: #8A5A5A;
+
+/// Info State
+/// @type Color
+$color-info-title: #B6C2FC;
+$color-info-surface: #00061F;
+$color-info-border: #5474A3;

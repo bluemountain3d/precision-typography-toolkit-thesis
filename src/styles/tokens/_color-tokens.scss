@@ -1,0 +1,135 @@
+/// @group Tokens
+/// @name Colors
+/// Description of the module's purpose
+/// on multiple lines if necessary
+/// ===========================================================================
+
+// Abstracts - Project-specific utilities
+@use '../abstracts/variables' as var;
+@use '../abstracts/functions' as fn;
+@use '../abstracts/mixins' as mx;
+
+// Sass built-in modules - Only import what you actually use
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+// ============================================================================
+// Base colors
+// ============================================================================
+
+$color-primary-oklch: fn.toOklch(var.$color-primary);
+// $color-primary-dark-oklch: fn.adjustOklch(var.$color-primary, -6, 0.5);
+$color-primary-dark-oklch: fn.toOklch(var.$color-primary-dark);
+$color-secondary-oklch: fn.toOklch(var.$color-secondary);
+$color-tertiary-oklch: fn.toOklch(var.$color-tertiary);
+$color-accent-oklch: fn.toOklch(var.$color-accent);
+$color-accent-secondary-oklch: fn.toOklch(var.$color-accent-secondary);
+$color-text-primary-oklch: fn.toOklch(var.$color-text-primary);
+$color-text-secondary-oklch: fn.toOklch(var.$color-text-secondary);
+$color-text-muted-oklch: fn.toOklch(var.$color-text-muted);
+
+// ============================================================================
+// State Base colors
+// ============================================================================
+
+$color-success-title-oklch: fn.toOklch(var.$color-success-title);
+$color-success-surface-oklch: fn.toOklch(var.$color-success-surface);
+$color-success-border-oklch: fn.toOklch(var.$color-success-border);
+
+$color-warning-title-oklch: fn.toOklch(var.$color-warning-title);
+$color-warning-surface-oklch: fn.toOklch(var.$color-warning-surface);
+$color-warning-border-oklch: fn.toOklch(var.$color-warning-border);
+
+$color-danger-title-oklch: fn.toOklch(var.$color-danger-title);
+$color-danger-surface-oklch: fn.toOklch(var.$color-danger-surface);
+$color-danger-border-oklch: fn.toOklch(var.$color-danger-border);
+
+$color-info-title-oklch: fn.toOklch(var.$color-info-title);
+$color-info-surface-oklch: fn.toOklch(var.$color-info-surface);
+$color-info-border-oklch: fn.toOklch(var.$color-info-border);
+
+// CSS Custom Properties
+:root {
+  // ============================================================================
+  // Brand colors
+  // ============================================================================
+
+  --color-primary: #{$color-primary-oklch};
+  --color-primary-dark: #{$color-primary-dark-oklch};
+  --color-secondary: #{$color-secondary-oklch};
+  --color-tertiary: #{$color-tertiary-oklch};
+  --color-accent: #{$color-accent-oklch};
+  --color-accent-secondary: #{$color-accent-secondary-oklch};
+
+  --color-text-primary: #{$color-text-primary-oklch};
+  --color-text-secondary: #{$color-text-secondary-oklch};
+  --color-text-muted: #{$color-text-muted-oklch};
+
+  --color-inline-link: #{$color-accent-secondary-oklch};
+  --color-inline-link-hover: ;
+  --color-inline-link-active: ;
+
+  // ============================================================================
+  // State colors
+  // ============================================================================
+
+  --color-success-title: #{$color-success-title-oklch};
+  --color-success-surface: #{$color-success-surface-oklch};
+  --color-success-surface-dark: fn.setOklchHue($color-success-surface, 100, 2);
+  --color-success-border: #{$color-success-border-oklch};
+  --color-success-border-light: #{$color-success-title-oklch};
+
+  --color-warning-title: #{$color-warning-title-oklch};
+  --color-warning-surface: #{$color-warning-surface-oklch};
+  --color-warning-surface-dark: fn.setOklchHue($color-warning-surface, 100, 2);
+  --color-warning-border: #{$color-warning-border-oklch};
+  --color-warning-border-light: #{$color-warning-title-oklch};
+
+  --color-danger-title: #{$color-danger-title-oklch};
+  --color-danger-surface: #{$color-danger-surface-oklch};
+  --color-danger-surface-dark: fn.setOklchHue($color-danger-surface, 100, 2);
+  --color-danger-border: #{$color-danger-border-oklch};
+  --color-danger-border-light: #{$color-danger-title-oklch};
+
+  --color-info-title: #{$color-info-title-oklch};
+  --color-info-surface: #{$color-info-surface-oklch};
+  --color-info-surface-dark: fn.setOklchHue($color-info-surface, 100, 2);
+  --color-info-border: #{$color-info-border-oklch};
+  --color-info-border-light: #{$color-info-title-oklch};
+
+  // ============================================================================
+  // Component Tokens (Buttons, etc.)
+  // ============================================================================
+
+  // Backgrounds
+  --bg-main: radial-gradient(
+    circle farthest-corner at 50% 50%,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+
+  // Primary Button (-26deg)
+  --color-button-primary: #{$color-accent-oklch};
+  --color-button-primary-surface-light: #{$color-accent-oklch};  
+  --color-button-primary-surface-dark: fn.setOklchHue($color-accent-oklch, 58, 9);
+  --color-button-primary-border-light: fn.setOklchHue($color-accent-oklch, 79, 92);
+  --color-button-primary-border-dark: fn.setOklchHue($color-accent-oklch, 47, 58);
+
+  // Secondary Button (-26deg)
+  --color-button-secondary: #{$color-tertiary-oklch};
+  --color-button-secondary-surface-light: #{$color-tertiary-oklch};
+  --color-button-secondary-surface-dark: #{$color-primary-oklch};
+  --color-button-secondary-border-light: fn.setOklchHue($color-accent-secondary-oklch, 79, 92);
+  --color-button-secondary-border-dark: fn.setOklchHue($color-accent-secondary-oklch, 47, 58);
+
+  // Card
+  --color-card-surface-light: #{$color-tertiary-oklch};
+  --color-card-surface-dark: #{$color-primary-oklch};
+  --color-card-border-light: fn.setOklchHue($color-accent-secondary-oklch, 37, 81);
+  --color-card-border-transparent: transparent;
+}
