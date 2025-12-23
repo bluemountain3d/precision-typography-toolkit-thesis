@@ -32,26 +32,40 @@
 ///     font-size: var(--text-lg);
 ///   }
 ///   // Output: @media (min-width: 48rem) { ... }
-@each $name, $value in bp.$breakpoints {
-  @mixin #{$name}-and-up {
-    @media (min-width: $value) {
-      @content;
-    }
+
+@mixin mobile-and-up {
+  @media (min-width: map.get(bp.$breakpoints, 'mobile')) {
+    @content;
+  }
+}
+
+@mixin phablet-and-up {
+  @media (min-width: map.get(bp.$breakpoints, 'phablet')) {
+    @content;
+  }
+}
+
+@mixin tablet-and-up {
+  @media (min-width: map.get(bp.$breakpoints, 'tablet')) {
+    @content;
+  }
+}
+
+@mixin laptop-and-up {
+  @media (min-width: map.get(bp.$breakpoints, 'laptop')) {
+    @content;
+  }
+}
+
+@mixin desktop-and-up {
+  @media (min-width: map.get(bp.$breakpoints, 'desktop')) {
+    @content;
   }
 }
 
 // ============================================================================
 // Up To Mixins (excludes the breakpoint itself)
 // ============================================================================
-
-/// Up to breakpoint queries (smaller than breakpoint)
-/// @type Map
-$up-to-map: (
-  'phablet': bp.$bp-up-to-phablet,
-  'tablet': bp.$bp-up-to-tablet,
-  'laptop': bp.$bp-up-to-laptop,
-  'desktop': bp.$bp-up-to-desktop,
-);
 
 /// Generate mixins for "up to" breakpoints
 /// Creates: up-to-phablet, up-to-tablet, up-to-laptop, up-to-desktop
@@ -60,26 +74,34 @@ $up-to-map: (
 ///     display: none;
 ///   }
 ///   // Output: @media (max-width: 47.99rem) { ... }
-@each $name, $query in $up-to-map {
-  @mixin up-to-#{$name} {
-    @media #{$query} {
-      @content;
-    }
+
+@mixin up-to-phablet {
+  @media #{bp.$bp-up-to-phablet} {
+    @content;
+  }
+}
+
+@mixin up-to-tablet {
+  @media #{bp.$bp-up-to-tablet} {
+    @content;
+  }
+}
+
+@mixin up-to-laptop {
+  @media #{bp.$bp-up-to-laptop} {
+    @content;
+  }
+}
+
+@mixin up-to-desktop {
+  @media #{bp.$bp-up-to-desktop} {
+    @content;
   }
 }
 
 // ============================================================================
 // And Down Mixins (includes the breakpoint and smaller)
 // ============================================================================
-
-/// And down breakpoint queries (includes breakpoint)
-/// @type Map
-$and-down-map: (
-  'phablet': bp.$bp-phablet-and-down,
-  'tablet': bp.$bp-tablet-and-down,
-  'laptop': bp.$bp-laptop-and-down,
-  'desktop': bp.$bp-desktop-and-down,
-);
 
 /// Generate mixins for "and down" breakpoints
 /// Creates: phablet-and-down, tablet-and-down, laptop-and-down, desktop-and-down
@@ -88,26 +110,34 @@ $and-down-map: (
 ///     grid-template-columns: 1fr;
 ///   }
 ///   // Output: @media (max-width: 48rem) { ... }
-@each $name, $query in $and-down-map {
-  @mixin #{$name}-and-down {
-    @media #{$query} {
-      @content;
-    }
+
+@mixin phablet-and-down {
+  @media #{bp.$bp-phablet-and-down} {
+    @content;
+  }
+}
+
+@mixin tablet-and-down {
+  @media #{bp.$bp-tablet-and-down} {
+    @content;
+  }
+}
+
+@mixin laptop-and-down {
+  @media #{bp.$bp-laptop-and-down} {
+    @content;
+  }
+}
+
+@mixin desktop-and-down {
+  @media #{bp.$bp-desktop-and-down} {
+    @content;
   }
 }
 
 // ============================================================================
 // Only Mixins (specific breakpoint range)
 // ============================================================================
-
-/// Only breakpoint queries (between two breakpoints)
-/// @type Map
-$only-map: (
-  'mobile': bp.$bp-mobile-only,
-  'phablet': bp.$bp-phablet-only,
-  'tablet': bp.$bp-tablet-only,
-  'laptop': bp.$bp-laptop-only,
-);
 
 /// Generate mixins for "only" breakpoints
 /// Creates: mobile-only, phablet-only, tablet-only, laptop-only
@@ -116,11 +146,28 @@ $only-map: (
 ///     columns: 2;
 ///   }
 ///   // Output: @media (min-width: 48rem) and (max-width: 71.99rem) { ... }
-@each $name, $query in $only-map {
-  @mixin #{$name}-only {
-    @media #{$query} {
-      @content;
-    }
+
+@mixin mobile-only {
+  @media #{bp.$bp-mobile-only} {
+    @content;
+  }
+}
+
+@mixin phablet-only {
+  @media #{bp.$bp-phablet-only} {
+    @content;
+  }
+}
+
+@mixin tablet-only {
+  @media #{bp.$bp-tablet-only} {
+    @content;
+  }
+}
+
+@mixin laptop-only {
+  @media #{bp.$bp-laptop-only} {
+    @content;
   }
 }
 
