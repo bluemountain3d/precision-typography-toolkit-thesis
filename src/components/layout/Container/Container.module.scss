@@ -1,0 +1,54 @@
+@use "../../../styles/abstracts/functions" as fn;
+@use "../../../styles/abstracts/variables" as var;
+
+.container {
+  container-type: inline-size;
+  width: 100%;
+
+  &-boxed,
+  &-full,
+  &-narrow {
+    @extend .container;
+    // padding-inline: max(#{fn.pxToRem(var.$min-width)}, 3.125cqi);
+    padding-inline: #{fn.fluidSpaceStep(4, 10, "vwx")};
+  }
+
+  &-boxed,
+  &-narrow {
+    margin-inline: auto;
+  }
+
+  &-boxed {
+    max-width: #{fn.pxToRem(var.$max-width-px)};
+  }
+
+  &-narrow {
+    --_ideal-measure: calc(var(--fs-300) * 36);
+    --_layout-limit: #{fn.pxToRem(var.$max-width-px * 0.75)};
+    max-width: min(var(--_ideal-measure), var(--_layout-limit));
+  }
+
+  &-xs {
+    height: max(12.5rem, 20vh);
+  }
+  &-sm {
+    height: max(18.75rem, 37.5vh);
+  }
+  &-md {
+    height: max(25rem, 50vh);
+  }
+  &-lg {
+    height: max(31.25rem, 62.5vh);
+  }
+  &-xl {
+    height: max(37.5rem, 75vh);
+  }
+  &-viewport {
+    height: 100vh;
+    height: 100dvh;
+  }
+}
+
+.no-gap {
+  padding-inline: 0 !important;
+}
