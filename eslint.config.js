@@ -30,7 +30,13 @@ export default tseslint.config(
         'warn',
         { allowConstantExport: true },
       ],
-      'react/prop-types': 'off', // TypeScript hanterar detta
+      'react/prop-types': 'off',
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
     },
     settings: {
       react: {
@@ -38,5 +44,5 @@ export default tseslint.config(
       },
     },
   },
-  prettier // Måste vara sist för att overrida formatting rules
+  prettier
 );
