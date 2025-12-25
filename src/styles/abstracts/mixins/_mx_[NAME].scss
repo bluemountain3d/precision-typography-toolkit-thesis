@@ -12,16 +12,16 @@
 ///   }
 /// ===========================================================================
 
-@use '../variables' as var;
-@use '../functions' as fn;
+@use "../variables" as var;
+@use "../functions" as fn;
 // Only import mixins from mixin files to avoid dependency cycle
 // @use '../mixins/mx_other-mixin' as *;
 
 // Sass built-in modules - Only import what you actually use
 // @use 'sass:color';
 // @use 'sass:list';
-@use 'sass:map';
-@use 'sass:math';
+@use "sass:map";
+@use "sass:math";
 // @use 'sass:meta';
 // @use 'sass:selector';
 // @use 'sass:string';
@@ -29,10 +29,9 @@
 /// Mixin implementation
 /// @param {String} $my-param ['default-value'] - Parameter description
 /// @content Optional content block for custom styles
-@mixin my-mixin($my-param: 'default-value') {
-
+@mixin my-mixin($my-param: "default-value") {
   // Validate input
-  @if type-of($my-param) !='string' {
+  @if type-of($my-param) != "string" {
     @error 'my-mixin() expects a string, got #{type-of($my-param)}';
   }
 

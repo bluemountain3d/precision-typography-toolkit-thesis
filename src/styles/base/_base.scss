@@ -5,9 +5,10 @@
 /// ===========================================================================
 
 // Abstracts - Project-specific utilities
-@use '../abstracts/variables' as var;
+@use "../abstracts/variables" as var;
 
-html {}
+html {
+}
 
 body {
   font-size: var(--text-base);

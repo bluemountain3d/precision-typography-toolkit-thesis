@@ -7,7 +7,7 @@
 // @use '../functions/fn_other-function' as *;
 
 // Sass built-in modules - Only import what you actually use
-@use 'sass:math';
+@use "sass:math";
 
 /// Round a number to specified decimal places
 /// @param {Number} $number - Number to round

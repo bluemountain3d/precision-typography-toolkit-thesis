@@ -3,8 +3,8 @@
 /// @description Mixins for fluid spacing based on container queries and CSS custom properties
 /// ===========================================================================
 
-@use '../variables' as var;
-@use '../functions' as fn;
+@use "../variables" as var;
+@use "../functions" as fn;
 
 // Sass built-in modules - Only import what you actually use
 // @use 'sass:math';
@@ -59,7 +59,7 @@
 /// @example
 ///   .sidebar {
 ///     @include container-spacing-provider-named('sidebar', 'cqw');
-///     
+///
 ///     .widget {
 ///       @container sidebar (min-width: 300px) {
 ///         padding: var(--space-8);

@@ -18,8 +18,8 @@
 ///   }
 /// ===========================================================================
 
-@use '../variables/breakpoints' as bp;
-@use 'sass:map';
+@use "../variables/breakpoints" as bp;
+@use "sass:map";
 
 // ============================================================================
 // And Up Mixins (includes breakpoint and larger)
@@ -34,31 +34,31 @@
 ///   // Output: @media (min-width: 48rem) { ... }
 
 @mixin mobile-and-up {
-  @media (min-width: map.get(bp.$breakpoints, 'mobile')) {
+  @media (min-width: map.get(bp.$breakpoints, "mobile")) {
     @content;
   }
 }
 
 @mixin phablet-and-up {
-  @media (min-width: map.get(bp.$breakpoints, 'phablet')) {
+  @media (min-width: map.get(bp.$breakpoints, "phablet")) {
     @content;
   }
 }
 
 @mixin tablet-and-up {
-  @media (min-width: map.get(bp.$breakpoints, 'tablet')) {
+  @media (min-width: map.get(bp.$breakpoints, "tablet")) {
     @content;
   }
 }
 
 @mixin laptop-and-up {
-  @media (min-width: map.get(bp.$breakpoints, 'laptop')) {
+  @media (min-width: map.get(bp.$breakpoints, "laptop")) {
     @content;
   }
 }
 
 @mixin desktop-and-up {
-  @media (min-width: map.get(bp.$breakpoints, 'desktop')) {
+  @media (min-width: map.get(bp.$breakpoints, "desktop")) {
     @content;
   }
 }

@@ -10,7 +10,7 @@
 ///   }
 /// ===========================================================================
 
-@use '../variables' as var;
+@use "../variables" as var;
 // Only import functions from function files to avoid dependency cycle
 // @use '../functions/fn-other-function' as *;
 
@@ -18,18 +18,17 @@
 // @use 'sass:color';
 // @use 'sass:list';
 // @use 'sass:map';
-@use 'sass:math';
+@use "sass:math";
 // @use 'sass:meta';
 // @use 'sass:selector';
-@use 'sass:string';
+@use "sass:string";
 
 /// Function implementation
 /// @param {String} $my-var ['default-value'] - Parameter description
 /// @return {String} Result description
-@function my-function($my-var: 'default-value') {
-
+@function my-function($my-var: "default-value") {
   // Validate input
-  @if type-of($my-var) !='string' {
+  @if type-of($my-var) != "string" {
     @error 'my-function() expects a string, got #{type-of($my-var)}';
   }
 

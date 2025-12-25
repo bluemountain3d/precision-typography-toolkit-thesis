@@ -4,13 +4,13 @@
 /// @link https://www.smashingmagazine.com/2022/01/modern-fluid-typography-css-clamp/
 /// ===========================================================================
 
-@use '../variables' as var;
-@use './fn_unit-utils' as *;
-@use './fn_number-utils' as *;
+@use "../variables" as var;
+@use "./fn_unit-utils" as *;
+@use "./fn_number-utils" as *;
 
 // Sass built-in modules - Only import what you actually use
-@use 'sass:math';
-@use 'sass:map';
+@use "sass:math";
+@use "sass:map";
 
 // ============================================================================
 // Private Helper Functions
@@ -24,19 +24,19 @@
 ///   $unit: _getUnitSyntax('vwx'); // Returns: var(--vwx)
 ///   $unit: _getUnitSyntax('vw');  // Returns: 1vw
 @function _getUnitSyntax($type) {
-  @if $type =="vwx" {
+  @if $type == "vwx" {
     @return var(--vwx);
   }
 
-  @if $type =="cqw" {
+  @if $type == "cqw" {
     @return 1cqw;
   }
 
-  @if $type =="cqi" {
+  @if $type == "cqi" {
     @return 1cqi;
   }
 
-  @if $type =="vw" {
+  @if $type == "vw" {
     @return 1vw;
   }
 
@@ -65,7 +65,11 @@
   $max-rem: pxToRem($max-size);
 
   // Multiply slope by 100 because we start from 1 unit (1% of width)
-  @return clamp(#{$min-rem}, #{$intercept-rem} + #{round($slope * 100, 4)} * #{$unit-syntax}, #{$max-rem});
+  @return clamp(
+    #{$min-rem},
+    #{$intercept-rem} + #{round($slope * 100, 4)} * #{$unit-syntax},
+    #{$max-rem}
+  );
 }
 
 // ============================================================================
@@ -98,9 +102,11 @@
 
   $unit: _getUnitSyntax($unit-key);
 
-  @return clamp(#{round(pxToRem($min-size))},
+  @return clamp(
+    #{round(pxToRem($min-size))},
     #{round(pxToRem($intercept))} + #{round($slope * 100)} * #{$unit},
-    #{round(pxToRem($max-size))});
+    #{round(pxToRem($max-size))}
+  );
 }
 
 /// Generate fluid spacing based on grid system
@@ -126,9 +132,11 @@
 
   $unit: _getUnitSyntax($unit-key);
 
-  @return clamp(#{round(pxToRem($min-size))},
+  @return clamp(
+    #{round(pxToRem($min-size))},
     #{round(pxToRem($intercept))} + #{round($slope * 100)} * #{$unit},
-    #{round(pxToRem($max-size))});
+    #{round(pxToRem($max-size))}
+  );
 }
 
 /// Generate fluid spacing between two different grid levels
@@ -156,7 +164,9 @@
 
   $unit: _getUnitSyntax($unit-key);
 
-  @return clamp(#{round(pxToRem($min-size))},
+  @return clamp(
+    #{round(pxToRem($min-size))},
     #{round(pxToRem($intercept))} + #{round($slope * 100)} * #{$unit},
-    #{round(pxToRem($max-size))});
+    #{round(pxToRem($max-size))}
+  );
 }

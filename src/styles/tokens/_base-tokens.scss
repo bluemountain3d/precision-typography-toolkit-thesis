@@ -3,8 +3,8 @@
 /// @description Foundation CSS custom properties for fluid typography and spacing system
 /// ===========================================================================
 
-@use '../abstracts/functions/' as fn;
-@use '../abstracts/variables' as var;
+@use "../abstracts/functions/" as fn;
+@use "../abstracts/variables" as var;
 
 // ============================================================================
 // Viewport Unit System
@@ -29,7 +29,7 @@
   /// Fluid base font size
   /// Scales from 16px @ 384px viewport to 20px @ 1536px viewport
   /// Formula: clamp(1rem, 0.9167rem + 0.3472 * var(--vwx), 1.25rem)
-  --fluid-base: #{fn.fluidFontSize(0, 'vwx')};
+  --fluid-base: #{fn.fluidFontSize(0, "vwx")};
 
   /// Base spacing unit (1/4 of fluid base)
   /// Used as foundation for all spacing tokens

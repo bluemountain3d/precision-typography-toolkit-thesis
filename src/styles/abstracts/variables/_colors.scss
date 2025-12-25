@@ -18,106 +18,104 @@ $color-primary-dark: #050911;
 
 /// Primary
 /// @type Color
-$color-primary: #0A1526;
+$color-primary: #0a1526;
 
 /// Secondary
 /// @type Color
-$color-secondary: #0F2038;
+$color-secondary: #0f2038;
 
 /// Tertiary
 /// @type Color
-$color-tertiary: #1F3C65;
+$color-tertiary: #1f3c65;
 
 /// Accent
 /// @type Color
-$color-accent: #614B9F;
-
+$color-accent: #614b9f;
 
 /// Text Colors
 
 /// Text Primary
 /// @type Color
-$color-text-primary: #FFFFFF;
+$color-text-primary: #ffffff;
 
 /// Text Secondary
 /// @type Color
-$color-text-secondary: #ABBACE;
+$color-text-secondary: #abbace;
 
 /// Text Muted
 /// @type Color
-$color-text-muted: #A6A7AB;
+$color-text-muted: #a6a7ab;
 
 /// Text Disabled
 /// @type Color
-$color-text-disabled: #5F6B7C;
+$color-text-disabled: #5f6b7c;
 
 /// Text Link
 /// @type Color
-$color-inline-link: #9DC4FB;
-$color-inline-link-hover: #CBE6FF;
-
+$color-inline-link: #9dc4fb;
+$color-inline-link-hover: #cbe6ff;
 
 /// Buttons/Cards/State Colors
 
 /// Primary
 /// @type Color
-$color-primary-title: #FFFFFF;
+$color-primary-title: #ffffff;
 $color-primary-surface: $color-tertiary;
 $color-primary-surface-dark: $color-primary-dark;
 $color-primary-border: $color-tertiary;
-$color-primary-border-hover: #5684D4;
+$color-primary-border-hover: #5684d4;
 $color-primary-border-bright: $color-inline-link-hover;
 
 /// Secondary
 /// @type Color
-$color-secondary-title: #FFFFFF;
+$color-secondary-title: #ffffff;
 $color-secondary-surface: $color-primary-dark; // in token it will have opacity 0.01.
 $color-secondary-surface-dark: $color-primary-dark; // in token it will have opacity 0.01.
 $color-secondary-border: $color-tertiary;
-$color-secondary-border-hover: #5684D4;
+$color-secondary-border-hover: #5684d4;
 $color-secondary-border-bright: $color-inline-link-hover;
 
 /// Accent
 /// @type Color
-$color-accent-title: #B8A1F7;
-$color-accent-surface: #614B9F;
-$color-accent-surface-dark: #03000A;
-$color-accent-border: #321F65;
-$color-accent-border-hover: #7856D4;
-$color-accent-border-bright: #DED5F6;
+$color-accent-title: #b8a1f7;
+$color-accent-surface: #614b9f;
+$color-accent-surface-dark: #03000a;
+$color-accent-border: #321f65;
+$color-accent-border-hover: #7856d4;
+$color-accent-border-bright: #ded5f6;
 
 /// Success State
 /// @type Color
-$color-success-title: #A6F7A1;
-$color-success-surface: #143C11;
-$color-success-surface-dark: #010A00;
-$color-success-border: #24651F;
-$color-success-border-hover: #6AAC65;
-$color-success-border-bright: #D5F6E0;
+$color-success-title: #a6f7a1;
+$color-success-surface: #143c11;
+$color-success-surface-dark: #010a00;
+$color-success-border: #24651f;
+$color-success-border-hover: #6aac65;
+$color-success-border-bright: #d5f6e0;
 
 /// Warning State
 /// @type Color
-$color-warning-title: #F7D0A1;
+$color-warning-title: #f7d0a1;
 $color-warning-surface: #372106;
-$color-warning-surface-dark: #0C0906;
-$color-warning-border: #65491F;
-$color-warning-border-hover: #D8993C;
-$color-warning-border-bright: #F6EED5;
+$color-warning-surface-dark: #0c0906;
+$color-warning-border: #65491f;
+$color-warning-border-hover: #d8993c;
+$color-warning-border-bright: #f6eed5;
 
 /// Error State
 /// @type Color
-$color-danger-title: #F7AFA1;
-$color-danger-surface: #320A02;
-$color-danger-surface-dark: #0A0200;
-$color-danger-border: #652B1F;
-$color-danger-border-hover: #A74C2D;
-$color-danger-border-bright: #F6D3D6;
+$color-danger-title: #f7afa1;
+$color-danger-surface: #320a02;
+$color-danger-surface-dark: #0a0200;
+$color-danger-border: #652b1f;
+$color-danger-border-hover: #a74c2d;
+$color-danger-border-bright: #f6d3d6;
 
 /// Info State
 /// @type Color
-$color-info-title: #A1BFF7;
-$color-info-surface: #11203C;
-$color-info-surface-dark: #00000A;
-$color-info-border: #1F3965;
-$color-info-border-hover: #5684D4;
-$color-info-border-bright: #D5E7F6;
+$color-info-title: #a1bff7;
+$color-info-surface: #11203c;
+$color-info-surface-dark: #00000a;
+$color-info-border: #1f3965;
+$color-info-border-hover: #5684d4;
+$color-info-border-bright: #d5e7f6;
