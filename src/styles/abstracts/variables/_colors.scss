@@ -10,67 +10,114 @@
 // Configuration
 // ============================================================================
 
-/// Primary brand color
-/// @type Color
-$color-primary: #0A1526;
+/// Brand Base Colors
 
-/// Primary brand color
+/// Primary Dark
 /// @type Color
 $color-primary-dark: #050911;
 
-/// Secondary brand color
+/// Primary
 /// @type Color
-$color-secondary: #172439;
+$color-primary: #0A1526;
 
-/// Tertiary brand color
+/// Secondary
 /// @type Color
-$color-tertiary: #1E2C41;
+$color-secondary: #0F2038;
+
+/// Tertiary
+/// @type Color
+$color-tertiary: #1F3C65;
 
 /// Accent
 /// @type Color
 $color-accent: #614B9F;
 
-/// Accent Secondary
-/// @type Color
-$color-accent-secondary: #6083C6; //#6792F9;
 
+/// Text Colors
 
 /// Text Primary
 /// @type Color
-$color-text-primary: #D9DEEA;
+$color-text-primary: #FFFFFF;
 
 /// Text Secondary
 /// @type Color
-$color-text-secondary: #93A3B9;
+$color-text-secondary: #ABBACE;
 
 /// Text Muted
 /// @type Color
-$color-text-muted: #767F93;
+$color-text-muted: #A6A7AB;
 
-/// Text Primary
+/// Text Disabled
 /// @type Color
-$color-inline-link: $color-accent-secondary;
+$color-text-disabled: #5F6B7C;
+
+/// Text Link
+/// @type Color
+$color-inline-link: #9DC4FB;
+$color-inline-link-hover: #CBE6FF;
+
+
+/// Buttons/Cards/State Colors
+
+/// Primary
+/// @type Color
+$color-primary-title: #FFFFFF;
+$color-primary-surface: $color-tertiary;
+$color-primary-surface-dark: $color-primary-dark;
+$color-primary-border: $color-tertiary;
+$color-primary-border-hover: #5684D4;
+$color-primary-border-bright: $color-inline-link-hover;
+
+/// Secondary
+/// @type Color
+$color-secondary-title: #FFFFFF;
+$color-secondary-surface: $color-primary-dark; // in token it will have opacity 0.01.
+$color-secondary-surface-dark: $color-primary-dark; // in token it will have opacity 0.01.
+$color-secondary-border: $color-tertiary;
+$color-secondary-border-hover: #5684D4;
+$color-secondary-border-bright: $color-inline-link-hover;
+
+/// Accent
+/// @type Color
+$color-accent-title: #B8A1F7;
+$color-accent-surface: #614B9F;
+$color-accent-surface-dark: #03000A;
+$color-accent-border: #321F65;
+$color-accent-border-hover: #7856D4;
+$color-accent-border-bright: #DED5F6;
 
 /// Success State
 /// @type Color
-$color-success-title: #89F6D7;
-$color-success-surface: #001400;
-$color-success-border: #40574d;
+$color-success-title: #A6F7A1;
+$color-success-surface: #143C11;
+$color-success-surface-dark: #010A00;
+$color-success-border: #24651F;
+$color-success-border-hover: #6AAC65;
+$color-success-border-bright: #D5F6E0;
 
 /// Warning State
 /// @type Color
-$color-warning-title: #FFBF80;
-$color-warning-surface: #1F0F00;
-$color-warning-border: #5F554C;
+$color-warning-title: #F7D0A1;
+$color-warning-surface: #372106;
+$color-warning-surface-dark: #0C0906;
+$color-warning-border: #65491F;
+$color-warning-border-hover: #D8993C;
+$color-warning-border-bright: #F6EED5;
 
 /// Error State
 /// @type Color
-$color-danger-title: #FDBFBF;
-$color-danger-surface: #1F0000;
-$color-danger-border: #8A5A5A;
+$color-danger-title: #F7AFA1;
+$color-danger-surface: #320A02;
+$color-danger-surface-dark: #0A0200;
+$color-danger-border: #652B1F;
+$color-danger-border-hover: #A74C2D;
+$color-danger-border-bright: #F6D3D6;
 
 /// Info State
 /// @type Color
-$color-info-title: #B6C2FC;
-$color-info-surface: #00061F;
-$color-info-border: #5474A3;
+$color-info-title: #A1BFF7;
+$color-info-surface: #11203C;
+$color-info-surface-dark: #00000A;
+$color-info-border: #1F3965;
+$color-info-border-hover: #5684D4;
+$color-info-border-bright: #D5E7F6;
