@@ -14,7 +14,8 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,scss}\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,scss}\""
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,css,scss}\"",
+    "clean:svg": "node scripts/processSvgIcons.js"
   },
   "dependencies": {
     "buffer": "^6.0.3",
@@ -49,6 +50,7 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
+    "vite-plugin-svgr": "^4.5.0",
     "vitest": "^4.0.16"
   }
 }
