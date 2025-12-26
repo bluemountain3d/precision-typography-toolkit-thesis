@@ -9,13 +9,13 @@ export const getCorrectedAscenderDescender = (
   if (totalHeight > unitsPerEm) {
     const overshoot = (totalHeight - unitsPerEm) / 2;
     return {
-      actualAscender: ascender - overshoot,
-      actualDescender: absDescender - overshoot,
+      upmAscender: ascender - overshoot,
+      upmDescender: absDescender - overshoot,
     };
   }
 
   return {
-    actualAscender: ascender,
-    actualDescender: absDescender,
+    upmAscender: ascender,
+    upmDescender: absDescender,
   };
 };

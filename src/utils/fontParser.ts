@@ -29,30 +29,29 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           font = fontOrCollection;
         }
 
-        const { actualAscender, actualDescender } =
-          getCorrectedAscenderDescender(
-            font.hhea.ascent,
-            font.hhea.descent,
-            font.unitsPerEm
-          );
+        const { upmAscender, upmDescender } = getCorrectedAscenderDescender(
+          font.hhea.ascent,
+          font.hhea.descent,
+          font.unitsPerEm
+        );
 
-        const topTrim =
-          Math.round(
-            Math.abs((font.capHeight - actualAscender) / font.unitsPerEm) * 1000
-          ) / 1000;
+        const topTrim = Math.round(
+          Math.abs((font.capHeight - upmAscender) / font.unitsPerEm) * 1000
+        );
 
-        const bottomTrim =
-          Math.round(Math.abs(actualDescender / font.unitsPerEm) * 1000) / 1000;
+        const bottomTrim = Math.round(
+          Math.abs(upmDescender / font.unitsPerEm) * 1000
+        );
 
         const metrics = {
           familyName: font.familyName,
           subFamilyName: font.subfamilyName,
           category: getCategory(font),
           unitsPerEm: font.unitsPerEm,
-          hheaAscent: font.hhea.ascent,
-          visualAscent: actualAscender,
-          hheaDescent: font.hhea.descent,
-          visualDescent: actualDescender,
+          hheaAscender: font.hhea.ascent,
+          upmAscender: upmAscender,
+          hheaDescender: font.hhea.descent,
+          upmDescender: -upmDescender,
           capHeight: font.capHeight,
           xHeight: font.xHeight,
           avgCharWidth: font['OS/2'].xAvgCharWidth,
@@ -61,7 +60,6 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           bottomTrim: bottomTrim,
         };
 
-        console.log('Parsed metrics', metrics);
         resolve(metrics);
       } catch (error) {
         reject(error);

@@ -59,7 +59,7 @@ export interface FontMetrics {
    * Same value as OS/2.sTypoAscender in most fonts
    * @example 1024
    */
-  hheaAscent: number;
+  hheaAscender: number;
 
   /**
    * Raw descender value from hhea table
@@ -68,7 +68,7 @@ export interface FontMetrics {
    * Same value as OS/2.sTypoDescender in most fonts
    * @example -400
    */
-  hheaDescent: number;
+  hheaDescender: number;
 
   /**
    * Extra spacing added between lines
@@ -84,16 +84,16 @@ export interface FontMetrics {
    * within the em square (±unitsPerEm/2 from baseline)
    * @example 812 (when hheaAscent=1024, descent=-400, upm=1000)
    */
-  visualAscent?: number;
+  upmAscender?: number;
 
   /**
    * Corrected descender fitted within UPM box (positive value)
    * Used for leading-trim calculations and visualization
    * When hheaAscent + |hheaDescent| > unitsPerEm, the line box is centered
    * within the em square (±unitsPerEm/2 from baseline)
-   * @example 188 (when hheaAscent=1024, descent=-400, upm=1000)
+   * @example -188 (when hheaAscent=1024, descent=-400, upm=1000)
    */
-  visualDescent?: number;
+  upmDescender?: number;
 
   /**
    * Height of uppercase letters with flat tops
@@ -147,8 +147,8 @@ export interface NormalizedFontMetrics {
   capHeight: number;
   xHeight: number;
   avgCharWidth: number;
-  ascender: number; // visualAscent
-  descender: number; // visualDescent
+  ascender: number; // upmAscender
+  descender: number; // upmDescender
 
   topTrim: number;
   bottomTrim: number;
