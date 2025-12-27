@@ -1,5 +1,12 @@
 @use "../tokens/spacing-tokens" as *;
 
+.m-none {
+  margin: 0;
+}
+.p-none {
+  padding: 0;
+}
+
 // ==========================================================================
 // T-shirt Size Scale
 // ==========================================================================
@@ -9,45 +16,45 @@
   .m-#{$size} {
     margin: calc(var(--unit) * #{$factor});
   }
-  .mbl-#{$size} {
-    margin-block: calc(var(--unit) * #{$factor});
-  }
-  .mbl-start-#{$size} {
-    margin-block-start: calc(var(--unit) * #{$factor});
-  }
-  .mbl-end-#{$size} {
-    margin-block-end: calc(var(--unit) * #{$factor});
-  }
-  .mil-#{$size} {
+  .mx-#{$size} {
     margin-inline: calc(var(--unit) * #{$factor});
   }
-  .mil-start-#{$size} {
-    margin-inline-start: calc(var(--unit) * #{$factor});
+  .my-#{$size} {
+    margin-block: calc(var(--unit) * #{$factor});
   }
-  .mil-end-#{$size} {
-    margin-inline-end: calc(var(--unit) * #{$factor});
+  .mt-#{$size} {
+    margin-top: calc(var(--unit) * #{$factor});
+  }
+  .ml-#{$size} {
+    margin-left: calc(var(--unit) * #{$factor});
+  }
+  .mb-#{$size} {
+    margin-bottom: calc(var(--unit) * #{$factor});
+  }
+  .mr-#{$size} {
+    margin-right: calc(var(--unit) * #{$factor});
   }
 
   .p-#{$size} {
     padding: calc(var(--unit) * #{$factor});
   }
-  .pbl-#{$size} {
-    padding-block: calc(var(--unit) * #{$factor});
-  }
-  .pbl-start-#{$size} {
-    padding-block-start: calc(var(--unit) * #{$factor});
-  }
-  .pbl-end-#{$size} {
-    padding-block-end: calc(var(--unit) * #{$factor});
-  }
-  .pil-#{$size} {
+  .px-#{$size} {
     padding-inline: calc(var(--unit) * #{$factor});
   }
-  .pil-start-#{$size} {
-    padding-inline-start: calc(var(--unit) * #{$factor});
+  .py-#{$size} {
+    padding-block: calc(var(--unit) * #{$factor});
   }
-  .pil-end-#{$size} {
-    padding-inline-end: calc(var(--unit) * #{$factor});
+  .pt-#{$size} {
+    padding-top: calc(var(--unit) * #{$factor});
+  }
+  .pl-#{$size} {
+    padding-left: calc(var(--unit) * #{$factor});
+  }
+  .pb-#{$size} {
+    padding-bottom: calc(var(--unit) * #{$factor});
+  }
+  .pr-#{$size} {
+    padding-right: calc(var(--unit) * #{$factor});
   }
 }
 
@@ -60,44 +67,44 @@
   .m-#{$i} {
     margin: calc(var(--unit) * #{$i});
   }
-  .mbl-#{$i} {
-    margin-block: calc(var(--unit) * #{$i});
-  }
-  .mbl-start-#{$i} {
-    margin-block-start: calc(var(--unit) * #{$i});
-  }
-  .mbl-end-#{$i} {
-    margin-block-end: calc(var(--unit) * #{$i});
-  }
-  .mil-#{$i} {
+  .mx-#{$i} {
     margin-inline: calc(var(--unit) * #{$i});
   }
-  .mil-start-#{$i} {
-    margin-inline-start: calc(var(--unit) * #{$i});
+  .my-#{$i} {
+    margin-block: calc(var(--unit) * #{$i});
   }
-  .mil-end-#{$i} {
-    margin-inline-end: calc(var(--unit) * #{$i});
+  .mt-#{$i} {
+    margin-top: calc(var(--unit) * #{$i});
+  }
+  .ml-#{$i} {
+    margin-left: calc(var(--unit) * #{$i});
+  }
+  .mb-#{$i} {
+    margin-bottom: calc(var(--unit) * #{$i});
+  }
+  .mr-#{$i} {
+    margin-right: calc(var(--unit) * #{$i});
   }
 
   .p-#{$i} {
     padding: calc(var(--unit) * #{$i});
   }
-  .pbl-#{$i} {
-    padding-block: calc(var(--unit) * #{$i});
-  }
-  .pbl-start-#{$i} {
-    padding-block-start: calc(var(--unit) * #{$i});
-  }
-  .pbl-end-#{$i} {
-    padding-block-end: calc(var(--unit) * #{$i});
-  }
-  .pil-#{$i} {
+  .px-#{$i} {
     padding-inline: calc(var(--unit) * #{$i});
   }
-  .pil-start-#{$i} {
-    padding-inline-start: calc(var(--unit) * #{$i});
+  .py-#{$i} {
+    padding-block: calc(var(--unit) * #{$i});
   }
-  .pil-end-#{$i} {
-    padding-inline-end: calc(var(--unit) * #{$i});
+  .pt-#{$i} {
+    padding-top: calc(var(--unit) * #{$i});
+  }
+  .pl-#{$i} {
+    padding-left: calc(var(--unit) * #{$i});
+  }
+  .pb-#{$i} {
+    padding-bottom: calc(var(--unit) * #{$i});
+  }
+  .pr-#{$i} {
+    padding-right: calc(var(--unit) * #{$i});
   }
 }
