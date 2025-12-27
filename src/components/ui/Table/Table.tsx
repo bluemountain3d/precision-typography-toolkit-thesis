@@ -5,6 +5,40 @@ import { CopyButton } from './CopyButton/CopyButton';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 
+/**
+ * Generic, type-safe table component with responsive column visibility and copy-to-clipboard functionality.
+ * Supports automatic column hiding at breakpoints and conditional rendering of copy buttons.
+ *
+ * @template T - The type of data objects to display
+ *
+ * @example
+ * // Basic table with copy functionality
+ * const data = [
+ *   { name: 'John', age: 30, email: 'john@example.com' },
+ *   { name: 'Jane', age: 25, email: 'jane@example.com' },
+ * ];
+ *
+ * const columns = [
+ *   { key: 'name', label: 'Name', copyable: true },
+ *   { key: 'age', label: 'Age', copyable: false },
+ *   { key: 'email', label: 'Email', copyable: true },
+ * ];
+ *
+ * <Table data={data} columns={columns} caption="User List" />
+ *
+ * @example
+ * // Responsive table with column hiding
+ * <Table
+ *   data={metricsData}
+ *   columns={[
+ *     { key: 'metric', label: 'Metric', copyable: false },
+ *     { key: 'value', label: 'Value', copyable: true },
+ *     { key: 'comment', label: 'Comment', copyable: false, hideAt: 'isUpToTabletLarge' },
+ *   ]}
+ *   hideColumnsAt="isUpToTabletLarge"
+ *   onRowClick={(row) => console.log('Clicked:', row)}
+ * />
+ */
 export const Table = <T,>({
   data,
   columns,

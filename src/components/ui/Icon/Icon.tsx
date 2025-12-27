@@ -1,16 +1,24 @@
 import styles from './Icon.module.scss';
 import classNames from 'clsx';
-import type { IconFill } from './Icon.types';
-import type React from 'react';
+import type { IconProps } from './Icon.types';
 import type { FontSize, Spacing } from '@/types';
 
-interface IconProps {
-  icon: React.ElementType<React.SVGProps<SVGSVGElement>>;
-  fill?: IconFill;
-  size?: FontSize | Spacing | number | string;
-  className?: string;
-}
-
+/**
+ * Icon component for rendering SVG icons with consistent sizing and coloring.
+ * Supports both predefined design system sizes and custom CSS values.
+ *
+ * @example
+ * // Basic icon with design system size
+ * <Icon icon={CopyIcon} size="textLg" fill="primary" />
+ *
+ * @example
+ * // Icon with custom size
+ * <Icon icon={SaveIcon} size="1.5em" fill="success" />
+ *
+ * @example
+ * // Icon inheriting parent color
+ * <Icon icon={InfoIcon} size="textBase" fill="inherit" />
+ */
 export const Icon = ({
   icon: IconComponent,
   fill,

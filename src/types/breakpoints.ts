@@ -1,3 +1,7 @@
+/**
+ * Breakpoint definitions in pixels
+ * Used as base values for responsive design system
+ */
 export const breakpoints = {
   mobile: 320,
   phablet: 676,
@@ -21,6 +25,9 @@ const pxToRem = (px: string | number) => {
   return `${(typeof px === 'string' ? parseFloat(px) : px) / 16}rem`;
 };
 
+/**
+ * Breakpoint values converted to rem units (px / 16)
+ */
 export const breakpointsRem = {
   mobile: pxToRem(breakpoints.mobile),
   phablet: pxToRem(breakpoints.phablet),
@@ -30,6 +37,24 @@ export const breakpointsRem = {
   desktop: pxToRem(breakpoints.desktop),
 } as const;
 
+/**
+ * Predefined media query strings for responsive design.
+ * Use with useMediaQuery hook or CSS-in-JS solutions.
+ *
+ * Naming convention:
+ * - "UpTo": max-width queries (< breakpoint) - excludes the breakpoint itself
+ * - "AndUp": min-width queries (>= breakpoint) - includes the breakpoint
+ * - "AndDown": max-width queries (<= breakpoint) - includes the breakpoint
+ * - "Only": specific range between two breakpoints
+ *
+ * @example
+ * import { queries } from '@/types';
+ * import { useMediaQuery } from '@/hooks';
+ *
+ * const isMobile = useMediaQuery(queries.isUpToTablet);
+ * const isDesktop = useMediaQuery(queries.isDesktopAndUp);
+ * const isTabletOnly = useMediaQuery(queries.isTabletOnly);
+ */
 export const queries = {
   /**
    * Up to (excludes the breakpoint itself)
@@ -73,4 +98,16 @@ export const queries = {
   isLaptopOnly: `(min-width: ${pxToRem(breakpoints.laptop)}) and (max-width: ${pxToRemValue(breakpoints.desktop) - 0.01}rem)`,
 } as const;
 
+/**
+ * Type-safe query keys for use in components
+ *
+ * @example
+ * // In component props
+ * interface TableProps {
+ *   hideColumnsAt?: BreakpointQuery;
+ * }
+ *
+ * // Usage
+ * <Table hideColumnsAt="isUpToTabletLarge" />
+ */
 export type BreakpointQuery = keyof typeof queries;
