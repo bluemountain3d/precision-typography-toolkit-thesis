@@ -101,7 +101,7 @@
 /// Hide elements with aria-hidden from visual presentation
 /// Ensures consistency between visual and accessibility tree
 [aria-hidden="true"] {
-  display: none !important;
+  speak: never;
 }
 
 /// Disabled elements should look disabled

@@ -1,0 +1,45 @@
+@use "../tokens/spacing-tokens" as *;
+
+.gap-none {
+  gap: 0;
+}
+.row-gap-none {
+  row-gap: 0;
+}
+.column-gap-none {
+  column-gap: 0;
+}
+
+// ==========================================================================
+// T-shirt Size Scale
+// ==========================================================================
+
+/// Semantic gap utility classes using t-shirt sizes
+@each $size, $factor in $space-values {
+  .gap-#{$size} {
+    gap: calc(var(--unit) * #{$factor});
+  }
+  .row-gap-#{$size} {
+    row-gap: calc(var(--unit) * #{$factor});
+  }
+  .column-gap-#{$size} {
+    column-gap: calc(var(--unit) * #{$factor});
+  }
+}
+
+// ==========================================================================
+// Numeric Scale (1-48)
+// ==========================================================================
+
+/// Numeric gap utility classes for fine-grained control
+@for $i from 1 through 48 {
+  .gap-#{$i} {
+    gap: calc(var(--unit) * #{$i});
+  }
+  .row-gap-#{$i} {
+    row-gap: calc(var(--unit) * #{$i});
+  }
+  .column-gap-#{$i} {
+    column-gap: calc(var(--unit) * #{$i});
+  }
+}

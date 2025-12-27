@@ -1,0 +1,148 @@
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  position: relative;
+  padding: 1px;
+  width: 7.6em;
+  height: 2.4em;
+  background-color: var(--color-primary-dark);
+  border: 1px solid var(--color-secondary);
+  border-radius: 0.7em;
+  overflow: hidden;
+
+  // --------------------------------------------------------------------------
+  // Accessibility - Keyboard focus indicator
+  // --------------------------------------------------------------------------
+  &:has(input:focus-visible) {
+    outline: 4px solid var(--color-inline-link);
+    outline-offset: 2px;
+  }
+
+  input[type="checkbox"] {
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Interactive states - Focus and hover
+  // --------------------------------------------------------------------------
+  &:has(input:focus-visible) > &__switch,
+  &__switch:hover {
+    --_border-dark: var(--_border-hover);
+    box-shadow:
+      inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
+      0 0 0.5em 1px oklch(from var(--color-primary-border-hover) l c h / 50%);
+  }
+
+  // --------------------------------------------------------------------------
+  // Size variants
+  // --------------------------------------------------------------------------
+  &-xs {
+    font-size: var(--text-xs);
+  }
+  &-sm {
+    font-size: var(--text-sm);
+  }
+  &-base {
+    font-size: var(--text-base);
+  }
+  &-md {
+    font-size: var(--text-md);
+  }
+  &-lg {
+    font-size: var(--text-lg);
+  }
+
+  // --------------------------------------------------------------------------
+  // Switch element - Sliding toggle indicator
+  // --------------------------------------------------------------------------
+  &__switch {
+    --_border-bright: var(--color-primary-border-bright);
+    --_border-dark: var(--color-primary-border);
+    --_border-hover: var(--color-primary-border-hover);
+    --_surface-light: var(--color-primary-surface);
+    --_surface-dark: var(--color-primary-surface-dark);
+    cursor: pointer;
+    z-index: 2;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 3.7em;
+    height: 2.2em;
+    box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+    border-radius: 0.6em;
+    border: 1px solid transparent;
+    background:
+      linear-gradient(
+          142deg,
+          var(--_surface-light) 0%,
+          var(--_surface-dark) 100%
+        )
+        padding-box,
+      linear-gradient(
+          142deg,
+          var(--_border-bright) 12.5%,
+          var(--_border-dark) 37.5%
+        )
+        border-box;
+    transition: transform 0.2s ease;
+
+    &-text {
+      color: var(--color-text-primary);
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      user-select: none;
+      opacity: 0;
+      transition: opacity 0.1s ease;
+    }
+
+    // Text fades in after switch starts moving (0.1s delay for smooth effect)
+    &--checked &-text,
+    &--unchecked &-text {
+      opacity: 1;
+      transition-delay: 0.1s;
+    }
+
+    // Position states - translateX for smooth animation
+    &--checked {
+      transform: translateX(0);
+    }
+    &--unchecked {
+      transform: translateX(3.7em);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Disabled state
+  // --------------------------------------------------------------------------
+  &:has(input:disabled) {
+    .toggle__switch {
+      cursor: not-allowed;
+      --_border-bright: var(--color-disabled-border-bright);
+      --_border-dark: var(--color-disabled-border);
+      --_border-hover: var(--color-disabled-border-hover);
+      --_surface-light: var(--color-disabled-surface);
+      --_surface-dark: var(--color-disabled-surface-dark);
+      // Remove hover glow when disabled
+      box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+    }
+    .toggle__switch-text {
+      color: var(--color-text-disabled);
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Background text - Static "On/Off" labels behind switch
+  // --------------------------------------------------------------------------
+
+  &__bg-text {
+    flex: 1;
+    text-align: center;
+    color: var(--color-text-disabled);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    user-select: none;
+  }
+}
