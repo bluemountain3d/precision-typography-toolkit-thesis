@@ -14,5 +14,5 @@ export type ColumnConfig<T> = {
   key: keyof T;
   label: string;
   copyable: boolean;
-  hideAt?: string;
+  hideAt?: BreakpointQuery;
 };

@@ -66,7 +66,12 @@ export const MetricTable = () => {
     { key: 'metric', label: 'Metric', copyable: false },
     { key: 'rawValue', label: 'Raw', copyable: true },
     { key: 'normalizedValue', label: 'CSS', copyable: true },
-    { key: 'comment', label: 'Comment', copyable: false, hideAt: '63.99rem' },
+    {
+      key: 'comment',
+      label: 'Comment',
+      copyable: false,
+      hideAt: 'isUptoTabletLarge',
+    },
   ];
 
   return (
@@ -74,7 +79,7 @@ export const MetricTable = () => {
       data={metricsData}
       columns={columns}
       copyableByDefault={true}
-      hideColumnsAt="63.99rem"
+      hideColumnsAt="isUptoTabletLarge"
     />
   );
 };
