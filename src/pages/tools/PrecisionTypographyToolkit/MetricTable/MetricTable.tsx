@@ -70,7 +70,7 @@ export const MetricTable = () => {
       key: 'comment',
       label: 'Comment',
       copyable: false,
-      hideAt: 'isUptoTabletLarge',
+      hideAt: 'isUpToTabletLarge',
     },
   ];
 
@@ -79,7 +79,7 @@ export const MetricTable = () => {
       data={metricsData}
       columns={columns}
       copyableByDefault={true}
-      hideColumnsAt="isUptoTabletLarge"
+      hideColumnsAt="isUpToTabletLarge"
     />
   );
 };

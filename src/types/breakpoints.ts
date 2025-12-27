@@ -35,11 +35,11 @@ export const queries = {
    * Up to (excludes the breakpoint itself)
    * "Up to Tablet" usually means everything BEFORE Tablet starts (< 768px)
    */
-  isUptoPhablet: `(max-width: ${pxToRemValue(breakpoints.phablet) - 0.01}rem)`,
-  isUptoTablet: `(max-width: ${pxToRemValue(breakpoints.tablet) - 0.01}rem)`,
-  isUptoTabletLarge: `(max-width: ${pxToRemValue(breakpoints.tabletLarge) - 0.01}rem)`,
-  isUptoLaptop: `(max-width: ${pxToRemValue(breakpoints.laptop) - 0.01}rem)`,
-  isUptoDesktop: `(max-width: ${pxToRemValue(breakpoints.desktop) - 0.01}rem)`,
+  isUpToPhablet: `(max-width: ${pxToRemValue(breakpoints.phablet) - 0.01}rem)`,
+  isUpToTablet: `(max-width: ${pxToRemValue(breakpoints.tablet) - 0.01}rem)`,
+  isUpToTabletLarge: `(max-width: ${pxToRemValue(breakpoints.tabletLarge) - 0.01}rem)`,
+  isUpToLaptop: `(max-width: ${pxToRemValue(breakpoints.laptop) - 0.01}rem)`,
+  isUpToDesktop: `(max-width: ${pxToRemValue(breakpoints.desktop) - 0.01}rem)`,
 
   /**
    * And up (includes the breakpoint and larger)

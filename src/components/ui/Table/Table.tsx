@@ -19,7 +19,8 @@ export const Table = <T,>({
 
   const visibleColumns = columns.filter((col) => {
     if (!col.hideAt) return true;
-    const shouldHide = window.matchMedia(`(max-width: ${col.hideAt})`).matches;
+    const colQueryString = queries[col.hideAt];
+    const shouldHide = window.matchMedia(colQueryString).matches;
     return !shouldHide;
   });
 
