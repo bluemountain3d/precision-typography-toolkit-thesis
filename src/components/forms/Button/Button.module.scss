@@ -31,6 +31,9 @@
 
   &:hover {
     --_border-dark: var(--_border-hover);
+    box-shadow:
+      inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
+      0 0 0.5em 1px oklch(from var(--_border-hover) l c h / 50%);
   }
 
   &:active {
@@ -90,10 +93,11 @@
     --_surface-dark: transparent;
     --_surface-active: transparent;
     color: var(--color-text-secondary);
-    box-shadow: unset;
+    box-shadow: none;
 
     &:hover,
     &:active {
+      box-shadow: none;
       color: var(--color-text-primary);
     }
     &:hover {
@@ -117,9 +121,10 @@
     --_surface-dark: transparent;
     --_surface-active: transparent;
     color: var(--color-text-secondary);
-    box-shadow: unset;
+    box-shadow: none;
 
     &:hover {
+      box-shadow: none;
       color: var(--color-inline-link);
       text-decoration: underline;
       text-underline-offset: 0.2em;
