@@ -3,11 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import { appRouter } from './Router';
 
 const App = () => {
-  return (
-    <>
-      <RouterProvider router={appRouter}></RouterProvider>
-    </>
-  );
+  return <RouterProvider router={appRouter}></RouterProvider>;
 };
 
 export default App;

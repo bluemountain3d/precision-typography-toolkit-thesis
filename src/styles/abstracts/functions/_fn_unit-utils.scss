@@ -3,12 +3,12 @@
 /// @description Utility functions for working with CSS units
 /// ===========================================================================
 
-@use '../variables' as var;
+@use "../variables" as var;
 // Only import functions from function files to avoid dependency cycle
 // @use '../functions/fn-other-function' as *;
 
 // Sass built-in modules - Only import what you actually use
-@use 'sass:math';
+@use "sass:math";
 
 /// Strip unit from a value
 /// @param {Number} $value - Value with or without unit
@@ -17,7 +17,6 @@
 ///   $unitless: stripUnit(16px); // Returns: 16
 ///   $already-unitless: stripUnit(16); // Returns: 16
 @function stripUnit($value) {
-
   // Return early if already unitless
   @if math.is-unitless($value) {
     @return $value;
@@ -36,7 +35,6 @@
 ///   font-size: pxToRem(24px); // Returns: 1.5rem
 ///   font-size: pxToRem(24); // Returns: 1.5rem
 @function pxToRem($px, $base: 16px) {
-
   // Validate input
   @if math.is-unitless($px) {
     $px: $px * 1px;

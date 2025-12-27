@@ -61,6 +61,11 @@
   }
 }
 
+:focus-visible {
+  outline: 4px solid var(--color-inline-link);
+  outline-offset: 2px;
+}
+
 // ============================================================================
 // Motion Preferences
 // ============================================================================
@@ -68,7 +73,6 @@
 /// Respect user's motion preferences
 /// Disable animations for users who prefer reduced motion
 @media (prefers-reduced-motion: reduce) {
-
   *,
   *::before,
   *::after {

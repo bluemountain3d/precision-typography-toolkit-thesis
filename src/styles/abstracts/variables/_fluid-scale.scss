@@ -24,16 +24,22 @@
 ///   // At 384px viewport: base = 16px, scale = 1.2
 ///   // Level 1: 16 * 1.2 = 19.2px
 ///   // Level 2: 16 * 1.2^2 = 23.04px
-///   
+///
 ///   // At 1536px viewport: base = 20px, scale = 1.333
 ///   // Level 1: 20 * 1.333 = 26.66px
 ///   // Level 2: 20 * 1.333^2 = 35.54px
 $fluid-scale: (
-  'min-width': 384,        // Smartphone portrait
-  'max-width': 1536,       // Desktop
-  'min-font-size': 16,     // Standard base size
-  'max-font-size': 20,     // Comfortable reading size
-  'min-type-scale': 1.2,   // Minor Third (compact)
-  'max-type-scale': 1.333, // Perfect Fourth (generous)
-  'precision': 4,          // Decimal places for rounding
+  "min-width": 384,
+  // Smartphone portrait
+  "max-width": 1536,
+  // Desktop
+  "min-font-size": 16,
+  // Standard base size
+  "max-font-size": 20,
+  // Comfortable reading size
+  "min-type-scale": 1.2,
+  // Minor Third (compact)
+  "max-type-scale": 1.333,
+  // Perfect Fourth (generous)
+  "precision": 4, // Decimal places for rounding
 ) !default;

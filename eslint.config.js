@@ -26,11 +26,18 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      'no-unused-vars': ['error', { varsIgnorePattern: '^_' }],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
-      'react/prop-types': 'off', // TypeScript hanterar detta
+      'react/prop-types': 'off',
+      'prettier/prettier': [
+        'error',
+        {
+          endOfLine: 'auto',
+        },
+      ],
     },
     settings: {
       react: {
@@ -38,5 +45,5 @@ export default tseslint.config(
       },
     },
   },
-  prettier // Måste vara sist för att overrida formatting rules
+  prettier
 );

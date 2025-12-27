@@ -5,9 +5,9 @@
 /// ===========================================================================
 
 // Abstracts - Project-specific utilities
-@use '../abstracts/variables' as var;
-@use '../abstracts/functions' as fn;
-@use '../abstracts/mixins' as mx;
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
+@use "../abstracts/mixins" as mx;
 
 // Sass built-in modules - Only import what you actually use
 // @use 'sass:color';

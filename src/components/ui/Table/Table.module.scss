@@ -1,0 +1,82 @@
+.table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse; /* Slår ihop kanter */
+  border-spacing: 0;
+  border: 1px solid var(--color-tertiary);
+
+  th {
+    font-size: var(--text-lg);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-primary);
+  }
+
+  td {
+    font-size: var(--text-sm);
+  }
+
+  th,
+  td {
+    width: 1%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1;
+    padding: var(--space-xs);
+    text-align: left;
+  }
+
+  th:last-child,
+  td:last-child {
+    width: auto;
+    white-space: normal;
+  }
+
+  th:not(:last-child),
+  td:not(:last-child) {
+    border-right: 1px solid var(--color-tertiary);
+  }
+
+  tbody tr:nth-child(even) {
+    background-color: var(--color-primary);
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: var(--color-secondary);
+  }
+
+  tbody tr:hover:nth-child(even) td {
+    cursor: pointer;
+    background-color: oklch(from var(--color-tertiary) l c h / 75%);
+  }
+
+  tbody tr:hover:nth-child(odd) td {
+    cursor: pointer;
+    background-color: oklch(from var(--color-tertiary) l c h / 50%);
+  }
+
+  tbody tr.active {
+    background-color: var(--color-tertiary) !important;
+    font-weight: var(--font-weight-medium);
+
+    td {
+      background-color: inherit;
+    }
+  }
+
+  &__cell {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    line-height: inherit;
+  }
+
+  &__cell-content {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-inline-end: 0.5em;
+  }
+}

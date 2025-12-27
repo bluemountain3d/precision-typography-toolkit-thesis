@@ -1,14 +1,14 @@
 /// @group Base
 /// @name Typography
 /// @description Typographic styles for HTML elements using the font setup system
-/// 
+///
 /// IMPLEMENTATION LAYER - Applies typography system to actual HTML elements
-/// 
+///
 /// This file uses the fontSetup mixin to apply:
 /// - Font families with precise metrics from font-metrics.scss
 /// - Leading trim for optical alignment
 /// - Typography properties (size, weight, line-height, etc.)
-/// 
+///
 /// @requires abstracts/variables For CSS custom properties and font configuration
 /// @requires abstracts/mixins For fontSetup mixin (primary API)
 /// @requires tokens/leading-trim For %text-properties and font-specific placeholders
@@ -16,9 +16,9 @@
 /// @see abstracts/mixins/mx_font-setup For mixin documentation
 /// ===========================================================================
 
-@use '../abstracts/variables' as var;
-@use '../abstracts/mixins/' as mx;
-@use '../tokens/leading-trim' as *;
+@use "../abstracts/variables" as var;
+@use "../abstracts/mixins/" as mx;
+@use "../tokens/leading-trim" as *;
 
 // ============================================================================
 // Document & Body Typography
@@ -26,7 +26,7 @@
 
 body {
   @include mx.fontSetup(
-    $font: 'body',
+    $font: "body",
     $font-size: var(--text-base),
     $line-height: 1.5
   );
@@ -38,7 +38,7 @@ body {
 
 .display-1 {
   @include mx.fontSetup(
-    $font: 'display',
+    $font: "display",
     $font-size: var(--fs-900),
     $line-height: 1.15,
     $font-weight: var(--font-weight-bold),
@@ -46,11 +46,15 @@ body {
     $letter-spacing: -0.02em,
     $text-transform: none
   );
+
+  &--medium {
+    --_font-weight: var(--font-weight-semibold);
+  }
 }
 
 .display-2 {
   @include mx.fontSetup(
-    $font: 'display',
+    $font: "display",
     $font-size: var(--fs-800),
     $line-height: 1.2,
     $font-weight: var(--font-weight-bold),
@@ -66,10 +70,10 @@ body {
 
 .heading-1 {
   @include mx.fontSetup(
-    $font: 'heading',
+    $font: "heading",
     $font-size: var(--fs-700),
     $line-height: 1.25,
-    $font-weight: var(--font-weight-extra-bold),
+    $font-weight: var(--font-weight-extrabold),
     $font-style: normal,
     $letter-spacing: 0,
     $text-transform: none
@@ -78,10 +82,10 @@ body {
 
 .heading-2 {
   @include mx.fontSetup(
-    $font: 'heading',
+    $font: "heading",
     $font-size: var(--fs-600),
     $line-height: 1.3,
-    $font-weight: var(--font-weight-extra-bold),
+    $font-weight: var(--font-weight-extrabold),
     $font-style: normal,
     $letter-spacing: 0,
     $text-transform: none
@@ -90,10 +94,10 @@ body {
 
 .heading-3 {
   @include mx.fontSetup(
-    $font: 'heading',
+    $font: "heading",
     $font-size: var(--fs-500),
     $line-height: 1.35,
-    $font-weight: var(--font-weight-extra-bold),
+    $font-weight: var(--font-weight-extrabold),
     $font-style: normal,
     $letter-spacing: 0.02em,
     $text-transform: none
@@ -102,10 +106,10 @@ body {
 
 .heading-4 {
   @include mx.fontSetup(
-    $font: 'heading',
+    $font: "heading",
     $font-size: var(--fs-400),
     $line-height: 1.4,
-    $font-weight: var(--font-weight-extra-bold),
+    $font-weight: var(--font-weight-extrabold),
     $font-style: normal,
     $letter-spacing: 0.02em,
     $text-transform: none
@@ -114,13 +118,21 @@ body {
 
 .overline {
   @include mx.fontSetup(
-    $font: 'heading',
+    $font: "heading",
     $font-size: var(--fs-200),
     $line-height: 1.5,
-    $font-weight: var(--font-weight-extra-bold),
+    $font-weight: var(--font-weight-extrabold),
     $letter-spacing: 0.05em,
     $text-transform: uppercase
   );
+}
+
+.heading-medium {
+  --_font-weight: var(--font-weight-semibold);
+}
+
+.heading-regular {
+  --_font-weight: var(--font-weight-medium);
 }
 
 // ============================================================================
@@ -129,51 +141,81 @@ body {
 
 .text-lg {
   @include mx.fontSetup(
-    $font: 'body',
-    $font-size: var(--text-500),
+    $font: "body",
+    $font-size: var(--text-lg),
     $line-height: 1.4,
     $font-weight: var(--font-weight-normal),
-    $letter-spacing: 0.02em,
+    $letter-spacing: 0.02em
   );
 }
 
 .text-md {
   @include mx.fontSetup(
-    $font: 'body',
-    $font-size: var(--text-400),
+    $font: "body",
+    $font-size: var(--text-md),
     $line-height: 1.45,
     $font-weight: var(--font-weight-normal),
-    $letter-spacing: 0.02em,
+    $letter-spacing: 0.02em
   );
 }
 
 .text-base {
   @include mx.fontSetup(
-    $font: 'body',
-    $font-size: var(--text-300),
+    $font: "body",
+    $font-size: var(--text-base),
     $line-height: 1.5,
     $font-weight: var(--font-weight-normal),
-    $letter-spacing: 0.02em,
+    $letter-spacing: 0.02em
   );
 }
 
 .text-sm {
   @include mx.fontSetup(
-    $font: 'body',
-    $font-size: var(--text-200),
+    $font: "body",
+    $font-size: var(--text-sm),
     $line-height: 1.55,
     $font-weight: var(--font-weight-normal),
-    $letter-spacing: 0.03em,
+    $letter-spacing: 0.03em
   );
 }
 
 .text-xs {
   @include mx.fontSetup(
-    $font: 'body',
-    $font-size: var(--text-100),
+    $font: "body",
+    $font-size: var(--text-xs),
     $line-height: 1.6,
     $font-weight: var(--font-weight-normal),
-    $letter-spacing: 0.03em,
+    $letter-spacing: 0.03em
+  );
+}
+
+.text-bold {
+  --_font-weight: var(--font-weight-semibold);
+}
+.text-medium {
+  --_font-weight: var(--font-weight-semibold);
+}
+
+// ============================================================================
+// Code
+// ============================================================================
+
+.code-inline-base {
+  @include mx.fontSetup(
+    $font: "mono",
+    $font-size: var(--text-base),
+    $line-height: 1.5,
+    $font-weight: var(--font-weight-normal)
+  );
+}
+
+.code-inline-sm,
+.code-block {
+  @include mx.fontSetup(
+    $font: "mono",
+    $font-size: var(--text-sm),
+    $line-height: 1.5,
+    $font-weight: var(--font-weight-normal)
   );
 }
 
@@ -183,7 +225,9 @@ body {
 
 .flow-em {
   // Content blocks - medium spacing
-  & > :is(p, ul, ol, blockquote, figure)+ :is(p, ul, ol, blockquote, figure) {
+  &
+    > :is(p, ul, ol, blockquote, figure)
+    + :is(p, ul, ol, blockquote, figure, span) {
     margin-block-start: 1.35em;
   }
 
@@ -193,7 +237,7 @@ body {
   }
 
   // Nested lists
-  & li> :is(ul, ol) {
+  & li > :is(ul, ol) {
     margin-block-start: 0.6em;
   }
 
@@ -203,12 +247,15 @@ body {
   }
 
   // Sequential headings (tighter)
-  & > :is(h1, h2, h3, h4, h5, h6)+ :is(h1, h2, h3, h4, h5, h6) {
+  & > :is(h1, h2, h3, h4, h5, h6) + :is(h1, h2, h3, h4, h5, h6) {
     margin-block-start: 0.75em;
   }
 
   // Heading to content
-  & > :is(h1, h2, h3, h4, h5, h6):has(+ :is(p, ul, ol, blockquote, figure)) {
+  &
+    > :is(h1, h2, h3, h4, h5, h6):has(
+      + :is(p, ul, ol, blockquote, figure, span)
+    ) {
     margin-block-end: 0.6em;
   }
 }
