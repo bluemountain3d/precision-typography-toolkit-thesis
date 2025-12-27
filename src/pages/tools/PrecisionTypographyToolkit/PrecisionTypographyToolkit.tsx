@@ -16,6 +16,8 @@ import { WarningIcon } from '@/assets/icons';
 import { DangerIcon } from '@/assets/icons';
 import { InfoIcon } from '@/assets/icons';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';
+import { Toggle } from '@/components/forms/Toggle';
+import { useState } from 'react';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -40,6 +42,16 @@ const PrecisionTypographyToolkitContent = () => {
         error instanceof Error ? error.message : 'Failed to parse font file';
       dispatch({ type: 'FONT_UPLOAD_ERROR', payload: errorMessage });
     }
+  };
+
+  // DEV
+  const [toggles, setToggles] = useState({
+    feature1: false,
+    feature2: false,
+  });
+
+  const handleToggleChange = (key: string) => (checked: boolean) => {
+    setToggles((prev) => ({ ...prev, [key]: checked }));
   };
 
   return (
@@ -99,6 +111,22 @@ const PrecisionTypographyToolkitContent = () => {
           <Button variant="disabled" icon={SassIcon}>
             Disabled
           </Button>
+        </ButtonGroup>
+      </Container>
+
+      <Container variant="boxed" marginTop="xl">
+        <ButtonGroup>
+          <Toggle
+            toggleId="toggle-1"
+            onChange={handleToggleChange('feature1')}
+            checked={toggles.feature1}
+          />
+          <Toggle
+            toggleId="toggle-2"
+            onChange={handleToggleChange('feature2')}
+            checked={toggles.feature2}
+            disabled
+          />
         </ButtonGroup>
       </Container>
     </>
