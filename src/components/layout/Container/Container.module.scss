@@ -23,12 +23,11 @@
   }
 
   &-narrow {
-    --_ideal-measure: calc(var(--fs-300) * 36);
     --_layout-limit: #{fn.pxToRem(var.$max-width-px * 0.75)};
-    // max-width: min(var(--_ideal-measure), var(--_layout-limit));
     max-width: var(--_layout-limit);
   }
 
+  // Container Heights
   &-xs {
     height: max(12.5rem, 20vh);
   }

@@ -1,3 +1,5 @@
+import type { BreakpointQuery } from '@/types';
+
 export interface TableProps<T> {
   data: T[];
   columns: ColumnConfig<T>[];
@@ -5,7 +7,7 @@ export interface TableProps<T> {
   className?: string;
   caption?: string; // A11y <caption>
   copyableByDefault?: boolean;
-  hideColumnsAt?: string;
+  hideColumnsAt?: BreakpointQuery;
 }
 
 export type ColumnConfig<T> = {

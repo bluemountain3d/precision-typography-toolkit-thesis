@@ -3,6 +3,7 @@ import classNames from 'clsx';
 import type { TableProps } from './Table.types';
 import { CopyButton } from './CopyButton/CopyButton';
 import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
 
 export const Table = <T,>({
   data,
@@ -13,9 +14,8 @@ export const Table = <T,>({
   className,
   caption,
 }: TableProps<T>) => {
-  const isUnderBreakpoint = useMediaQuery(
-    hideColumnsAt ? `(max-width: ${hideColumnsAt})` : 'none'
-  );
+  const queryString = hideColumnsAt ? queries[hideColumnsAt] : 'none';
+  const isUnderBreakpoint = useMediaQuery(queryString);
 
   const visibleColumns = columns.filter((col) => {
     if (!col.hideAt) return true;

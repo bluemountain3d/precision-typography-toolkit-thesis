@@ -21,6 +21,6 @@
   &:hover,
   &:focus-visible {
     background-color: oklch(1 0 0 / 15%);
-    color: var(--color-secondary);
+    color: var(--color-text-primary);
   }
 }

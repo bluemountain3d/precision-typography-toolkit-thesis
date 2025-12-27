@@ -2,14 +2,14 @@ import classNames from 'clsx';
 import styles from './Container.module.scss';
 import type { ContainerHeight, ContainerVariant } from './Container.types';
 import type React from 'react';
-import type { Spacing } from '@models';
+import type { SpacingSize, SpacingStep } from '@/types';
 
 interface ContainerProps {
   children: React.ReactNode;
   variant: ContainerVariant;
   noGap?: boolean;
-  marginTop?: Spacing | number;
-  marginBottom?: Spacing | number;
+  marginTop?: SpacingSize | SpacingStep;
+  marginBottom?: SpacingSize | SpacingStep;
   height?: ContainerHeight;
   className?: string;
 }
@@ -29,8 +29,8 @@ export const Container = ({
         styles.container,
         styles[`container-${variant}`],
         noGap && styles['no-gap'],
-        marginTop && `mbl-start-${marginTop}`,
-        marginBottom && `mbl-end-${marginBottom}`,
+        marginTop && `mt-${marginTop}`,
+        marginBottom && `mb-${marginBottom}`,
         height && styles[`container-${height}`],
         className
       )}

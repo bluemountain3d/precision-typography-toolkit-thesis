@@ -1,12 +1,13 @@
 import styles from './Icon.module.scss';
 import classNames from 'clsx';
-import type { IconSizeSpace, IconSizeText, IconFill } from './Icon.types';
+import type { IconFill } from './Icon.types';
 import type React from 'react';
+import type { FontSize, Spacing } from '@/types';
 
 interface IconProps {
   icon: React.ElementType<React.SVGProps<SVGSVGElement>>;
   fill?: IconFill;
-  size?: IconSizeText | IconSizeSpace | number | string;
+  size?: FontSize | Spacing | number | string;
   className?: string;
 }
 
@@ -17,7 +18,7 @@ export const Icon = ({
   className,
 }: IconProps) => {
   const isCustomSize = (
-    size: IconSizeText | IconSizeSpace | number | string
+    size: FontSize | Spacing | number | string
   ): size is number | string => {
     return (
       typeof size === 'number' ||
