@@ -8,6 +8,14 @@ import {
 import { parseFontFile } from '@/utils/fontParser';
 import { MetricTable } from './MetricTable';
 import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
+import { Button } from '@/components/forms/Button';
+import { SassIcon } from '@/assets/icons';
+import { SuccessIcon } from '@/assets/icons';
+import { WarningIcon } from '@/assets/icons';
+import { DangerIcon } from '@/assets/icons';
+import { InfoIcon } from '@/assets/icons';
+import { ButtonGroup } from '@/components/layout/ButtonGroup';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -15,7 +23,7 @@ import { useMediaQuery } from '@/hooks';
 const PrecisionTypographyToolkitContent = () => {
   const { state, dispatch } = useFontMetrics();
 
-  const isUnderBreakpoint = useMediaQuery('max-width: 63.00rem');
+  const isUnderBreakpoint = useMediaQuery(queries.isUpToTabletLarge);
 
   /**
    * Handle font file selection
@@ -54,8 +62,44 @@ const PrecisionTypographyToolkitContent = () => {
       )} */}
       </Container>
 
-      <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
+      <Container
+        variant={isUnderBreakpoint ? 'boxed' : 'narrow'}
+        marginTop="xl"
+      >
         <MetricTable />
+      </Container>
+
+      <Container variant="boxed" marginTop="xl">
+        <ButtonGroup>
+          <Button variant="primary" icon={SassIcon}>
+            Primary
+          </Button>
+          <Button variant="secondary" icon={SassIcon}>
+            Secondary
+          </Button>
+          <Button variant="accent" icon={SassIcon}>
+            Accent
+          </Button>
+          <Button variant="ghost" icon={SassIcon}>
+            Ghost
+          </Button>
+          <Button variant="link">Link</Button>
+          <Button variant="success" icon={SuccessIcon}>
+            Success
+          </Button>
+          <Button variant="warning" icon={WarningIcon}>
+            Warning
+          </Button>
+          <Button variant="danger" icon={DangerIcon}>
+            Danger
+          </Button>
+          <Button variant="info" icon={InfoIcon}>
+            Info
+          </Button>
+          <Button variant="disabled" icon={SassIcon}>
+            Disabled
+          </Button>
+        </ButtonGroup>
       </Container>
     </>
   );
