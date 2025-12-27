@@ -36,6 +36,7 @@
       "@assets/*": ["src/assets/*"],
       "@models": ["src/models"],
       "@models/*": ["src/models/*"],
+      "@types/*": ["src/types/*"],
       "@pages/*": ["src/pages/*"],
       "@stores/*": ["src/stores/*"],
       "@services/*": ["src/services/*"],
