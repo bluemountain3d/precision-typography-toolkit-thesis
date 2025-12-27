@@ -1,4 +1,4 @@
-export type IconVariant =
+export type IconFill =
   | 'primary'
   | 'secondary'
   | 'muted'

@@ -1,11 +1,11 @@
 import styles from './Icon.module.scss';
 import classNames from 'clsx';
-import type { IconSizeSpace, IconSizeText, IconVariant } from './Icon.types';
+import type { IconSizeSpace, IconSizeText, IconFill } from './Icon.types';
 import type React from 'react';
 
 interface IconProps {
   icon: React.ElementType<React.SVGProps<SVGSVGElement>>;
-  fill?: IconVariant;
+  fill?: IconFill;
   size?: IconSizeText | IconSizeSpace | number | string;
   className?: string;
 }
