@@ -262,13 +262,13 @@
       /// Firefox track - disabled colors
       /// @requires {Variable} --color-text-disabled
       &::-moz-range-track {
-        --_slider-track-color: var(--color-text-disabled);
+        --_slider-track-color: var(--color-disabled-border);
       }
 
       /// Firefox progress - disabled colors
       /// @requires {Variable} --color-disabled-border
       &::-moz-range-progress {
-        --_slider-track-progress-color: var(--color-disabled-border);
+        --_slider-track-progress-color: var(--color-text-disabled);
       }
 
       /// Firefox thumb - disabled colors
