@@ -276,6 +276,7 @@
       /// @requires {Variable} --color-disabled-surface
       /// @requires {Variable} --color-disabled-border-*
       &::-moz-range-thumb {
+        cursor: not-allowed;
         --_thumb-surface-light: var(--color-disabled-surface);
         --_thumb-surface-dark: var(--color-disabled-surface-dark);
         --_thumb-border-bright: var(--color-disabled-border-bright);
