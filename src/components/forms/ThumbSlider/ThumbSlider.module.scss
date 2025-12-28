@@ -116,6 +116,7 @@
     /// @output Base track color for unfilled portion
     &::-moz-range-track {
       background: var(--_slider-track-color);
+      border-radius: 0.25em;
     }
 
     /// Firefox Progress Track (filled portion)
@@ -125,6 +126,7 @@
     /// @output Progress fill color for filled portion
     &::-moz-range-progress {
       background: var(--_slider-track-progress-color);
+      border-radius: 0.25em;
     }
 
     // --------------------------------------------------------------------------
