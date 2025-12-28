@@ -1,0 +1,88 @@
+/// @group UI Components
+/// @name Collapsible Component Styles
+///
+/// Native HTML details/summary based collapsible disclosure component
+/// Features dual-gradient borders with hover state transitions
+
+.collapsible {
+  /// Border gradient - bright end (default)
+  /// @type Color
+  --_border-bright: var(--color-text-disabled);
+
+  /// Border gradient - bright end on hover
+  /// @type Color
+  --_border-bright-hover: var(--color-text-secondary);
+
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+  padding: var(--space-sm);
+  border-radius: var(--space-md);
+  border: 2px solid transparent;
+
+  /// Dual-gradient background (surface + border)
+  /// Surface gradient: primary-dark to primary
+  /// Border gradient: primary to custom property (changes on hover)
+  background:
+    linear-gradient(
+        -19.8deg,
+        var(--color-primary-dark) 50%,
+        var(--color-primary) 90%
+      )
+      padding-box,
+    linear-gradient(
+        -19.8deg,
+        var(--color-primary) 60%,
+        var(--_border-bright) 100%
+      )
+      border-box;
+  box-shadow: calc(var(--space-3xs) / 2) var(--space-3xs) var(--text-sm)
+    oklch(0 0 0 / 25%);
+
+  /// Hover state - brightens border gradient
+  &:hover {
+    --_border-bright: var(--_border-bright-hover);
+  }
+
+  /// Summary element (always visible header)
+  /// Contains marker icon and title
+  summary {
+    cursor: pointer;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0.5em;
+
+    /// Remove native browser disclosure triangle
+    &::marker,
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  /// Marker icon rotation when collapsible is open
+  /// @requires .collapsible__marker element
+  &[open] .collapsible__marker {
+    transform: rotate(90deg);
+  }
+
+  /// Marker icon (custom disclosure triangle)
+  /// Rotates 90° when collapsible opens
+  /// @output Smooth rotation transition
+  &__marker {
+    transform: rotate(0deg);
+    transition: transform 0.2s ease-out;
+  }
+
+  /// Title element (heading tag)
+  /// Visual size controlled by parent component via class
+  &__title {
+  }
+
+  /// Content wrapper (shown/hidden by details element)
+  /// Native browser handles visibility toggle
+  /// @output Top padding when content is visible
+  &__content {
+    padding-top: var(--space-xl);
+  }
+}
