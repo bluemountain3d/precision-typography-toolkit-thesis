@@ -76,15 +76,15 @@
     border: 1px solid transparent;
     background:
       linear-gradient(
-          142deg,
-          var(--_surface-light) 0%,
-          var(--_surface-dark) 100%
+          -37.3deg,
+          var(--_surface-dark) 0%,
+          var(--_surface-light) 100%
         )
         padding-box,
       linear-gradient(
-          142deg,
-          var(--_border-bright) 12.5%,
-          var(--_border-dark) 37.5%
+          -37.3deg,
+          var(--_border-dark) 50%,
+          var(--_border-bright) 90%
         )
         border-box;
     transition: transform 0.2s ease;

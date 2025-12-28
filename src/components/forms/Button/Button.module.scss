@@ -19,12 +19,16 @@
   box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
   color: var(--color-text-primary);
   background:
-    linear-gradient(142deg, var(--_surface-light) 0%, var(--_surface-dark) 100%)
+    linear-gradient(
+        -37.3deg,
+        var(--_surface-dark) 0%,
+        var(--_surface-light) 100%
+      )
       padding-box,
     linear-gradient(
-        142deg,
-        var(--_border-bright) 12.5%,
-        var(--_border-dark) 37.5%
+        -37.3deg,
+        var(--_border-dark) 60%,
+        var(--_border-bright) 90%
       )
       border-box;
   transition: background 0.2s ease;
