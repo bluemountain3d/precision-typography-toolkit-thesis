@@ -51,8 +51,7 @@ export type ButtonVariants =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'info'
-  | 'disabled';
+  | 'info';
 
 export type ButtonSize = 'xs' | 'sm' | 'base' | 'md' | 'lg';
 

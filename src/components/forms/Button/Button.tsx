@@ -43,10 +43,13 @@ export const Button = ({
   marginBottom,
   className,
 }: ButtonProps) => {
+  // Combine all disabled states
+  const isDisabled = disabled || loading;
+
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
   ) => {
-    if (!loading && onClick) {
+    if (!isDisabled && onClick) {
       onClick(e as React.MouseEvent<HTMLButtonElement>);
     }
   };
@@ -57,7 +60,7 @@ export const Button = ({
     styles[`button--${size}`],
     icon && styles[`button--icon-spacing`],
     {
-      [styles['button--disabled']]: disabled,
+      [styles['button--disabled']]: isDisabled,
       [styles['button--loading']]: loading,
       [styles['button--full-width']]: fullWidth,
     },
@@ -76,7 +79,8 @@ export const Button = ({
         rel={external ? 'noopener noreferrer' : undefined}
         onClick={onClick ? (e) => handleClick(e) : undefined}
         aria-busy={loading || undefined}
-        aria-disabled={disabled || loading || undefined}
+        aria-disabled={isDisabled || undefined}
+        tabIndex={isDisabled ? -1 : undefined}
         className={commonClassNames}
       >
         {icon && (
@@ -101,9 +105,9 @@ export const Button = ({
     <Component
       type={type}
       onClick={handleClick}
-      disabled={disabled || loading}
+      disabled={isDisabled}
       aria-busy={loading || undefined}
-      aria-disabled={disabled || loading || undefined}
+      aria-disabled={isDisabled || undefined}
       className={commonClassNames}
     >
       {icon && (
