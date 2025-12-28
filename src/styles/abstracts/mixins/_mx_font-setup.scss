@@ -101,9 +101,6 @@ $_valid-font-roles: (
   --_letter-spacing: #{$letter-spacing};
   --_text-transform: #{$text-transform};
 
-  // Extend base text properties
-  @extend %text-properties;
-
   // Validate and extend font-specific placeholder
   @if list.index($_valid-font-roles, $font) {
     @extend %#{$font}-text;

@@ -18,6 +18,7 @@ import { InfoIcon } from '@/assets/icons';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { Toggle } from '@/components/forms/Toggle';
 import { useState } from 'react';
+import { ThumbSlider } from '@/components/forms/ThumbSlider';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -44,7 +45,7 @@ const PrecisionTypographyToolkitContent = () => {
     }
   };
 
-  // DEV
+  // DEV Start
   const [toggles, setToggles] = useState({
     feature1: false,
     feature2: false,
@@ -53,6 +54,11 @@ const PrecisionTypographyToolkitContent = () => {
   const handleToggleChange = (key: string) => (checked: boolean) => {
     setToggles((prev) => ({ ...prev, [key]: checked }));
   };
+
+  const [slider1, setSlider1] = useState(1.2);
+  const [slider2, setSlider2] = useState(1.2);
+
+  // End DEV
 
   return (
     <>
@@ -108,14 +114,20 @@ const PrecisionTypographyToolkitContent = () => {
           <Button variant="info" icon={InfoIcon}>
             Info
           </Button>
-          <Button variant="disabled" icon={SassIcon}>
+          <Button variant="primary" icon={SassIcon} disabled>
             Disabled
+          </Button>
+          <Button variant="ghost" icon={SassIcon} disabled>
+            Disabled
+          </Button>
+          <Button variant="link" disabled>
+            Link
           </Button>
         </ButtonGroup>
       </Container>
 
       <Container variant="boxed" marginTop="xl">
-        <ButtonGroup>
+        <ButtonGroup marginBottom="lg">
           <Toggle
             toggleId="toggle-1"
             onChange={handleToggleChange('feature1')}
@@ -125,6 +137,26 @@ const PrecisionTypographyToolkitContent = () => {
             toggleId="toggle-2"
             onChange={handleToggleChange('feature2')}
             checked={toggles.feature2}
+            disabled
+          />
+        </ButtonGroup>
+        <ButtonGroup direction="column">
+          <ThumbSlider
+            inputId="slider-1"
+            min={1}
+            max={2}
+            step={0.05}
+            value={slider1}
+            onChange={setSlider1}
+            label={`value: ${slider1.toFixed(2)}`}
+          />
+          <ThumbSlider
+            inputId="slider-1"
+            min={1}
+            max={2}
+            step={0.05}
+            value={slider2}
+            onChange={setSlider2}
             disabled
           />
         </ButtonGroup>
