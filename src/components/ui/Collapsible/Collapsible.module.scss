@@ -83,6 +83,6 @@
   /// Native browser handles visibility toggle
   /// @output Top padding when content is visible
   &__content {
-    padding-top: var(--space-xl);
+    padding: var(--space-xl) var(--space-sm) var(--space-sm);
   }
 }
