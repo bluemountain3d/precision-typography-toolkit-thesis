@@ -19,6 +19,7 @@ import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { Toggle } from '@/components/forms/Toggle';
 import { useState } from 'react';
 import { ThumbSlider } from '@/components/forms/ThumbSlider';
+import { Collapsible } from '@/components/ui/Collapsible';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -118,7 +119,7 @@ const PrecisionTypographyToolkitContent = () => {
             Disabled
           </Button>
           <Button variant="ghost" icon={SassIcon} disabled>
-            Disabled
+            Ghost
           </Button>
           <Button variant="link" disabled>
             Link
@@ -140,6 +141,7 @@ const PrecisionTypographyToolkitContent = () => {
             disabled
           />
         </ButtonGroup>
+
         <ButtonGroup direction="column">
           <ThumbSlider
             inputId="slider-1"
@@ -158,8 +160,38 @@ const PrecisionTypographyToolkitContent = () => {
             value={slider2}
             onChange={setSlider2}
             disabled
+            label="disabled"
           />
         </ButtonGroup>
+      </Container>
+      <Container variant="narrow" marginTop="xl">
+        <Collapsible
+          headingLevel={2}
+          headingSize="heading-4"
+          title="Collapsible Title"
+        >
+          <div className="flow-em">
+            <h4 className="heading-3">Lorem ipsum dolor sit amet</h4>
+            <p className="text-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
+              voluptatem corporis officia dolorum aut incidunt repellat iste quo
+              recusandae non, a delectus eligendi perferendis facere et iusto
+              cupiditate dicta animi!
+            </p>
+            <p className="text-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
+              accusantium laboriosam ipsum blanditiis voluptate sed quo officia,
+              maxime fugiat, sapiente exercitationem voluptatum, inventore
+              possimus aspernatur assumenda? Dolore perspiciatis ipsa unde.
+            </p>
+            <p className="text-base">
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
+              accusantium laboriosam ipsum blanditiis voluptate sed quo officia,
+              maxime fugiat, sapiente exercitationem voluptatum, inventore
+              possimus aspernatur assumenda? Dolore perspiciatis ipsa unde.
+            </p>
+          </div>
+        </Collapsible>
       </Container>
     </>
   );
