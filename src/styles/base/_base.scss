@@ -8,10 +8,14 @@
 @use "../abstracts/variables" as var;
 
 html {
-  scrollbar-gutter: stable;
   overflow-x: hidden;
-  // overflow-y: scroll;
   background-color: var(--color-primary-dark);
+
+  @media screen and #{var.$bp-laptop-and-up} {
+    @supports not (-moz-appearance: none) {
+      scrollbar-gutter: stable; // only Chromium
+    }
+  }
 }
 
 body {
