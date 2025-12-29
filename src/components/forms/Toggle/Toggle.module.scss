@@ -118,6 +118,7 @@
   // Disabled state
   // --------------------------------------------------------------------------
   &:has(input:disabled) {
+    border-color: var(--color-disabled-border);
     .toggle__switch {
       cursor: not-allowed;
       --_border-bright: var(--color-disabled-border-bright);

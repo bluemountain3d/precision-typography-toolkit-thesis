@@ -116,6 +116,7 @@
     /// @output Base track color for unfilled portion
     &::-moz-range-track {
       background: var(--_slider-track-color);
+      border-radius: 0.25em;
     }
 
     /// Firefox Progress Track (filled portion)
@@ -125,6 +126,7 @@
     /// @output Progress fill color for filled portion
     &::-moz-range-progress {
       background: var(--_slider-track-progress-color);
+      border-radius: 0.25em;
     }
 
     // --------------------------------------------------------------------------
@@ -260,13 +262,13 @@
       /// Firefox track - disabled colors
       /// @requires {Variable} --color-text-disabled
       &::-moz-range-track {
-        --_slider-track-color: var(--color-text-disabled);
+        --_slider-track-color: var(--color-disabled-border);
       }
 
       /// Firefox progress - disabled colors
       /// @requires {Variable} --color-disabled-border
       &::-moz-range-progress {
-        --_slider-track-progress-color: var(--color-disabled-border);
+        --_slider-track-progress-color: var(--color-text-disabled);
       }
 
       /// Firefox thumb - disabled colors
@@ -274,6 +276,7 @@
       /// @requires {Variable} --color-disabled-surface
       /// @requires {Variable} --color-disabled-border-*
       &::-moz-range-thumb {
+        cursor: not-allowed;
         --_thumb-surface-light: var(--color-disabled-surface);
         --_thumb-surface-dark: var(--color-disabled-surface-dark);
         --_thumb-border-bright: var(--color-disabled-border-bright);
@@ -284,6 +287,13 @@
           box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
         }
       }
+    }
+  }
+
+  &:has(input:disabled) {
+    label {
+      color: var(--color-text-disabled);
+      user-select: none;
     }
   }
 
