@@ -1,46 +1,42 @@
-import { useState } from 'react';
-import { DropZone } from '@components/forms/DropZone';
-import { Container } from '@components/layout/Container';
-import { parseFontFile } from '@utils/fontParser';
-import type { FontMetrics } from '@models';
+import { DropZone } from '@/components/forms/DropZone';
+import { Container } from '@/components/layout/Container';
+import { Flex } from '@/layouts/Flex';
+import {
+  useFontMetrics,
+  prepareFontMetricsState,
+} from '@/pages/tools/PrecisionTypographyToolkit/context';
+import { parseFontFile } from '@/utils';
 
 export const DropZoneSG = () => {
-  const [metrics, setMetrics] = useState<FontMetrics | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
+  const { state, dispatch } = useFontMetrics();
 
-  const handleFontUpload = async (file: File) => {
-    setIsProcessing(true);
-    setError(null);
+  /**
+   * Handle font file selection
+   */
+  const handleFileSelect = async (file: File) => {
+    dispatch({ type: 'FONT_UPLOAD_START' });
 
     try {
-      const fontMetrics = await parseFontFile(file);
-      setMetrics(fontMetrics);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to parse font');
-    } finally {
-      setIsProcessing(false);
+      const metrics = await parseFontFile(file);
+      const fontMetricsState = prepareFontMetricsState(file, metrics);
+      dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : 'Failed to parse font file';
+      dispatch({ type: 'FONT_UPLOAD_ERROR', payload: errorMessage });
     }
-  };
-
-  const handleError = (errorMessage: string) => {
-    setError(errorMessage);
   };
 
   return (
     <Container variant="boxed">
-      <h1 className="heading-1">DropZone Test</h1>
-
-      <DropZone
-        inputId="font-drop"
-        onFileSelect={handleFontUpload}
-        onError={handleError}
-        isProcessing={isProcessing}
-      />
-
-      {isProcessing && <p>Processing font file...</p>}
-      {error && <p style={{ color: 'red' }}>{error}</p>}
-      {metrics && <pre>{JSON.stringify(metrics, null, 2)}</pre>}
+      <Flex direction="column" gap="2xl">
+        <h2 className="heading-2">DropZone:</h2>
+        <DropZone
+          inputId="font-drop"
+          onFileSelect={handleFileSelect}
+          isProcessing={state.isLoading}
+        />
+      </Flex>
     </Container>
   );
 };
