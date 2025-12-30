@@ -9,8 +9,7 @@ import { parseFontFile } from '@/utils/fontParser';
 import { MetricTable } from './MetricTable';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
-import { useState } from 'react';
-import { Collapsible } from '@/components/ui/Collapsible';
+// import { useState } from 'react';
 
 /**
  * Inner component that uses the FontMetrics context
