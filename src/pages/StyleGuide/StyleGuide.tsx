@@ -1,7 +1,7 @@
 import { Container } from '@/components/layout/Container';
 import { FontMetricsProvider } from '../tools/PrecisionTypographyToolkit/context';
 import { DropZoneSG } from './DropZoneSG';
-import { Flex } from '@/layouts/Flex';
+import { Flex } from '@/components/layout/Flex';
 import { MetricsTableSG } from './MetricsTableSG';
 import { ButtonsSG } from './ButtonsSG';
 import { ToggleSG } from './ToggleSG';
