@@ -5,6 +5,7 @@ import { Flex } from '@layouts/Flex';
 import { useState } from 'react';
 import styles from './Toggle.SG.module.scss';
 import classNames from 'clsx';
+import { Heading } from '@/components/typography/Heading';
 
 export const ToggleSG = () => {
   const [toggles, setToggles] = useState({
@@ -18,9 +19,13 @@ export const ToggleSG = () => {
 
   return (
     <Container variant="boxed">
-      <Flex direction="column" gap="xl">
-        <h2 className="heading-2">Toggle:</h2>
-        <h3 className="heading-4">Active</h3>
+      <Flex direction="column" gap="lg">
+        <Heading level={2} size="heading-2" marginBottom="lg">
+          Toggle:
+        </Heading>
+        <Heading level={3} size="heading-4" weight="semibold">
+          Active
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <Toggle
             toggleId="kerning-on-off"
@@ -37,7 +42,9 @@ export const ToggleSG = () => {
             labelPosition="before"
           />
         </ButtonGroup>
-        <h3 className="heading-4">Disabled</h3>
+        <Heading level={3} size="heading-4" weight="semibold">
+          Disabled
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <Toggle
             toggleId="kerning-on-off-disabled"

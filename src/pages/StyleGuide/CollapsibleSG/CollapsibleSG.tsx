@@ -1,4 +1,6 @@
 import { Container } from '@/components/layout/Container';
+import { Heading } from '@/components/typography/Heading';
+import { Text } from '@/components/typography/Text';
 import { Collapsible } from '@/components/ui/Collapsible';
 import { useMediaQuery } from '@/hooks';
 import { Flex } from '@/layouts/Flex';
@@ -8,9 +10,11 @@ export const CollapsibleSG = () => {
   const isUnderBreakpoint = useMediaQuery(queries.isUpToTabletLarge);
 
   return (
-    <Flex direction="column" gap="lg">
+    <Flex direction="column" gap="2xl">
       <Container variant="boxed">
-        <h2 className="heading-2">Collapsible:</h2>
+        <Heading level={2} size="heading-2">
+          Collapsible:
+        </Heading>
       </Container>
 
       <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
@@ -19,27 +23,44 @@ export const CollapsibleSG = () => {
           headingSize="heading-4"
           title="Collapsible Title"
         >
-          <div className="flow-em">
-            <h4 className="heading-3">Lorem ipsum dolor sit amet</h4>
-            <p className="text-base">
+          <Container variant="prose" flow="em">
+            <Heading level={3} size="heading-3">
+              Lorem ipsum dolor sit amet
+            </Heading>
+            <Text>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
               voluptatem corporis officia dolorum aut incidunt repellat iste quo
               recusandae non, a delectus eligendi perferendis facere et iusto
               cupiditate dicta animi!
-            </p>
-            <p className="text-base">
+            </Text>
+            <Text>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
               accusantium laboriosam ipsum blanditiis voluptate sed quo officia,
               maxime fugiat, sapiente exercitationem voluptatum, inventore
               possimus aspernatur assumenda? Dolore perspiciatis ipsa unde.
-            </p>
-            <p className="text-base">
+            </Text>
+            <Text>
               Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
               accusantium laboriosam ipsum blanditiis voluptate sed quo officia,
               maxime fugiat, sapiente exercitationem voluptatum, inventore
               possimus aspernatur assumenda? Dolore perspiciatis ipsa unde.
-            </p>
-          </div>
+            </Text>
+            <Heading level={4} size="heading-4">
+              Lorem ipsum dolor sit amet
+            </Heading>
+            <Text>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Incidunt
+              accusantium laboriosam ipsum blanditiis voluptate sed quo officia,
+              maxime fugiat, sapiente exercitationem voluptatum, inventore
+              possimus aspernatur assumenda? Dolore perspiciatis ipsa unde.
+            </Text>
+            <Text>
+              Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa
+              voluptatem corporis officia dolorum aut incidunt repellat iste quo
+              recusandae non, a delectus eligendi perferendis facere et iusto
+              cupiditate dicta animi!
+            </Text>
+          </Container>
         </Collapsible>
       </Container>
     </Flex>

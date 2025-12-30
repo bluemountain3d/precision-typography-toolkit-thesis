@@ -1,6 +1,6 @@
 import { DropZone } from '@/components/forms/DropZone';
 import { Container } from '@/components/layout/Container';
-import { Flex } from '@/layouts/Flex';
+import { Heading } from '@/components/typography/Heading';
 import {
   useFontMetrics,
   prepareFontMetricsState,
@@ -29,14 +29,14 @@ export const DropZoneSG = () => {
 
   return (
     <Container variant="boxed">
-      <Flex direction="column" gap="2xl">
-        <h2 className="heading-2">DropZone:</h2>
-        <DropZone
-          inputId="font-drop"
-          onFileSelect={handleFileSelect}
-          isProcessing={state.isLoading}
-        />
-      </Flex>
+      <Heading level={2} size="heading-2" marginBottom="2xl">
+        DropZone:
+      </Heading>
+      <DropZone
+        inputId="font-drop"
+        onFileSelect={handleFileSelect}
+        isProcessing={state.isLoading}
+      />
     </Container>
   );
 };

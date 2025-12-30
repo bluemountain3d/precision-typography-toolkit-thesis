@@ -3,6 +3,7 @@ import { Flex } from '@/layouts/Flex';
 import { useState } from 'react';
 import { ThumbSlider } from '@/components/forms/ThumbSlider';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';
+import { Heading } from '@/components/typography/Heading';
 
 export const ThumbSliderSG = () => {
   const [thumbSliders, setThumbSliders] = useState({
@@ -16,9 +17,13 @@ export const ThumbSliderSG = () => {
 
   return (
     <Container variant="boxed">
-      <Flex direction="column" gap="xl">
-        <h2 className="heading-2">ThumbSlider:</h2>
-        <h3 className="heading-4">Active</h3>
+      <Flex direction="column" gap="lg">
+        <Heading level={2} size="heading-2" marginBottom="lg">
+          ThumbSlider:
+        </Heading>
+        <Heading level={3} size="heading-4" weight="semibold">
+          Active
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <ThumbSlider
             inputId="line-height"
@@ -30,7 +35,9 @@ export const ThumbSliderSG = () => {
             label={`line-height: ${thumbSliders.lineHeight.toFixed(2)};`}
           />
         </ButtonGroup>
-        <h3 className="heading-4">Disabled</h3>
+        <Heading level={3} size="heading-4" weight="semibold">
+          Disabled
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <ThumbSlider
             inputId="line-height-disabled"

@@ -8,14 +8,19 @@ import {
 import { Button } from '@/components/forms/Button';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { Container } from '@/components/layout/Container';
+import { Heading } from '@/components/typography/Heading';
 import { Flex } from '@/layouts/Flex';
 
 export const ButtonsSG = () => {
   return (
     <Container variant="boxed">
-      <Flex direction="column" gap="xl">
-        <h2 className="heading-2">Button:</h2>
-        <h3 className="heading-4">Base Buttons</h3>
+      <Flex direction="column" gap="lg">
+        <Heading level={2} size="heading-2" marginBottom="lg">
+          Button:
+        </Heading>
+        <Heading level={3} size="heading-4" weight="semibold">
+          Base Buttons
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <Button variant="primary" icon={SassIcon}>
             Primary
@@ -31,7 +36,9 @@ export const ButtonsSG = () => {
           </Button>
           <Button variant="link">Link</Button>
         </ButtonGroup>
-        <h3 className="heading-4">State Buttons</h3>
+        <Heading level={3} size="heading-4" weight="semibold">
+          State Buttons
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <Button variant="success" icon={SuccessIcon}>
             Success
@@ -46,7 +53,9 @@ export const ButtonsSG = () => {
             Info
           </Button>
         </ButtonGroup>
-        <h3 className="heading-4">Disabled Buttons</h3>
+        <Heading level={3} size="heading-4" weight="semibold">
+          Disabled Buttons
+        </Heading>
         <ButtonGroup align="left" marginBottom="md">
           <Button variant="primary" icon={SassIcon} disabled>
             Disabled

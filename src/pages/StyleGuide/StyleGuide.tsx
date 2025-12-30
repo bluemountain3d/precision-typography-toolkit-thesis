@@ -7,15 +7,18 @@ import { ButtonsSG } from './ButtonsSG';
 import { ToggleSG } from './ToggleSG';
 import { ThumbSliderSG } from './ThumbSliderSG';
 import { CollapsibleSG } from './CollapsibleSG';
+import { Heading } from '@/components/typography/Heading';
 
 export const StyleGuide = () => {
   return (
     <FontMetricsProvider>
       <Container variant="full" noGap marginTop="4xl" marginBottom="4xl">
-        <Container variant="boxed" marginBottom="4xl">
-          <h1 className="heading-1">Style Guide</h1>
+        <Container variant="boxed">
+          <Heading level={1} size="heading-1" marginBottom="4xl">
+            Style Guide
+          </Heading>
         </Container>
-        <Flex direction="column" gap="3xl">
+        <Flex direction="column" gap="5xl">
           <DropZoneSG />
           <MetricsTableSG />
           <ButtonsSG />
