@@ -1,3 +1,5 @@
+import type React from 'react';
+
 /**
  * Toggle component props
  */
@@ -14,7 +16,8 @@ export interface ToggleProps {
   /** Disables the toggle and applies disabled styling */
   disabled?: boolean;
   /** Optional visible label text displayed next to toggle */
-  label?: string;
+  label?: string | React.ReactNode;
+  labelPosition?: 'before' | 'after';
   /**
    * Size variant - controls both toggle dimensions and text size
    * @default 'base'
