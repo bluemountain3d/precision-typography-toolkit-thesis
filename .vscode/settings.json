@@ -73,5 +73,13 @@
       "italic": false
     }
   ],
-  "cSpell.words": ["bbox", "Fontfile", "fontkit", "hhea", "panose", "rotateccw"]
+  "cSpell.words": [
+    "bbox",
+    "extralight",
+    "Fontfile",
+    "fontkit",
+    "hhea",
+    "panose",
+    "rotateccw"
+  ]
 }
