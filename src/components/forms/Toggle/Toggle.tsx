@@ -33,6 +33,30 @@ import type { ToggleProps } from './Toggle.types';
  * />
  *
  * @example
+ * // Toggle with label positioning
+ * <Toggle
+ *   toggleId="notifications"
+ *   checked={notificationsEnabled}
+ *   onChange={setNotificationsEnabled}
+ *   label="Enable Notifications"
+ *   labelPosition="before"
+ * />
+ *
+ * @example
+ * // Toggle with custom ReactNode label and dynamic content
+ * <Toggle
+ *   toggleId="font-kerning"
+ *   checked={isKerningEnabled}
+ *   onChange={setIsKerningEnabled}
+ *   label={
+ *     <>
+ *       font-kerning: <span className={styles.value}>{isKerningEnabled ? 'normal' : 'none'}</span>;
+ *     </>
+ *   }
+ *   labelPosition="after"
+ * />
+ *
+ * @example
  * // Disabled toggle
  * <Toggle
  *   toggleId="locked-setting"
@@ -48,37 +72,48 @@ export const Toggle = ({
   onChange,
   disabled,
   label,
+  labelPosition = 'before',
   size = 'base',
 }: ToggleProps) => {
   return (
-    <label
-      htmlFor={toggleId}
-      className={classNames(styles.toggle, styles[`toggle--${size}`])}
-    >
-      <input
-        type="checkbox"
-        id={toggleId}
-        onChange={(e) => onChange(e.target.checked)}
-        checked={checked}
-        disabled={disabled}
-        className="sr-only"
-      />
-      <span
-        className={classNames(
-          styles.toggle__switch,
-          checked && styles['toggle__switch--checked'],
-          !checked && styles['toggle__switch--unchecked']
-        )}
+    <div className={classNames(styles.toggle)}>
+      {label && labelPosition === 'before' && (
+        <span className={styles.toggle__label}>{label}</span>
+      )}
+      <label
+        htmlFor={toggleId}
+        className={classNames(styles[`toggle--${size}`])}
       >
+        <input
+          type="checkbox"
+          id={toggleId}
+          onChange={(e) => onChange(e.target.checked)}
+          checked={checked}
+          disabled={disabled}
+          className="sr-only"
+        />
         <span
-          className={classNames(styles['toggle__switch-text'], `text-${size}`)}
+          className={classNames(
+            styles.toggle__switch,
+            checked && styles['toggle__switch--checked'],
+            !checked && styles['toggle__switch--unchecked']
+          )}
         >
-          {checked ? 'On' : 'Off'}
+          <span
+            className={classNames(
+              styles['toggle__switch-text'],
+              `text-${size}`
+            )}
+          >
+            {checked ? 'On' : 'Off'}
+          </span>
         </span>
-      </span>
-      <span className={classNames(styles['toggle__bg-text'])}>On</span>
-      <span className={classNames(styles['toggle__bg-text'])}>Off</span>
-      {label && <span className={styles.toggle__label}>{label}</span>}
-    </label>
+        <span className={classNames(styles['toggle__bg-text'])}>On</span>
+        <span className={classNames(styles['toggle__bg-text'])}>Off</span>
+      </label>
+      {label && labelPosition === 'after' && (
+        <span className={styles.toggle__label}>{label}</span>
+      )}
+    </div>
   );
 };

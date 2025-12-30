@@ -49,4 +49,6 @@ export type ColumnConfig<T> = {
    * Hidden columns can be shown in a dialog when row is clicked
    */
   hideAt?: BreakpointQuery;
+  /** Custom render function for cell content */
+  render?: (value: T[keyof T], row: T, index: number) => React.ReactNode;
 };

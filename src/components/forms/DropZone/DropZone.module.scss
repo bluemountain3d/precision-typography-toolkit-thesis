@@ -1,4 +1,12 @@
 .drop-zone {
+  /// Border gradient - bright end (default)
+  /// @type Color
+  --_border-bright: var(--color-text-disabled);
+
+  /// Border gradient - bright end on hover
+  /// @type Color
+  --_border-bright-hover: var(--color-text-secondary);
+
   position: relative;
   display: block;
   margin-inline: auto;
@@ -9,18 +17,23 @@
   background:
     linear-gradient(var(--color-primary-dark) 100%) padding-box,
     linear-gradient(
-        165deg,
-        var(--color-text-disabled) 12.5%,
-        var(--color-primary) 50%
+        -19.8deg,
+        var(--color-primary) 50%,
+        var(--_border-bright) 87.5%
       )
       border-box;
   box-shadow: var(--space-3xs) var(--space-2xs) var(--space-md)
     oklch(0 0 0 / 25%);
 
+  &:has(.drop-zone__label:hover) {
+    --_border-bright: var(--_border-bright-hover);
+  }
+
   // --------------------------------------------------------------------------
   // A11y & Interaction
   // --------------------------------------------------------------------------
   &:has(input:focus-visible) {
+    --_border-bright: var(--_border-bright-hover);
     outline: 4px solid var(--color-inline-link);
     outline-offset: 2px;
   }

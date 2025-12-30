@@ -44,6 +44,14 @@ export default tseslint.config(
         version: 'detect',
       },
     },
+    overrides: [
+      {
+        files: ['*.types.ts'],
+        rules: {
+          '@typescript-eslint/no-unused-vars': 'off',
+        },
+      },
+    ],
   },
   prettier
 );

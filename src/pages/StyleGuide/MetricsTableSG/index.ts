@@ -1,0 +1,1 @@
+export { MetricsTableSG } from './MetricsTableSG';
