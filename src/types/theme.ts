@@ -11,6 +11,32 @@ export type FontSize =
   | 'text-sm'
   | 'text-xs';
 
+export type HeadingSize =
+  | 'display-1'
+  | 'display-2'
+  | 'heading-1'
+  | 'heading-2'
+  | 'heading-3'
+  | 'heading-4';
+
+export type TextSize = 'lg' | 'md' | 'base' | 'sm' | 'xs';
+
+export type TextWeight =
+  // | 'thin'
+  // | 'extralight'
+  'light' | 'normal' | 'medium' | 'semibold' | 'bold' | 'extrabold';
+// | 'black';
+
+export type TextColor =
+  | 'primary'
+  | 'secondary'
+  | 'muted'
+  | 'disabled'
+  | 'success'
+  | 'warning'
+  | 'danger'
+  | 'info';
+
 export type Spacing =
   | 'space-3xs'
   | 'space-2xs'

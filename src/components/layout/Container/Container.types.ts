@@ -13,6 +13,7 @@ export interface ContainerProps {
    * @default 'boxed'
    */
   variant: ContainerVariant;
+  flow?: 'em' | 'space';
   /**
    * Removes default internal padding/gap
    * @default false
@@ -30,7 +31,7 @@ export interface ContainerProps {
 /**
  * Container width variants
  */
-export type ContainerVariant = 'boxed' | 'narrow' | 'full';
+export type ContainerVariant = 'boxed' | 'narrow' | 'full' | 'prose';
 
 /**
  * Predefined container height options

@@ -228,7 +228,7 @@ body {
   &
     > :is(p, ul, ol, blockquote, figure)
     + :is(p, ul, ol, blockquote, figure, span) {
-    margin-block-start: 1.35em;
+    margin-block-start: 1.5em;
   }
 
   // List items - tight spacing
@@ -243,7 +243,7 @@ body {
 
   // Large gap before headings
   & > * + :is(h1, h2, h3, h4, h5, h6) {
-    margin-block-start: 3em;
+    margin-block-start: 2em;
   }
 
   // Sequential headings (tighter)
@@ -256,14 +256,14 @@ body {
     > :is(h1, h2, h3, h4, h5, h6):has(
       + :is(p, ul, ol, blockquote, figure, span)
     ) {
-    margin-block-end: max(0.6em, var(--heading-4));
+    margin-block-end: max(0.6em, var(--heading-3));
   }
 }
 
 .flow-space {
   // Content blocks - medium spacing
   & > :is(p, ul, ol, blockquote, figure) + :is(p, ul, ol, blockquote, figure) {
-    margin-block-start: var(--space-md);
+    margin-block-start: var(--space-lg);
   }
 
   // List items - tight spacing
@@ -278,7 +278,7 @@ body {
 
   // Sequential headings (tighter)
   & > * + :is(h1, h2, h3, h4, h5, h6) {
-    margin-block-start: var(--space-2xl);
+    margin-block-start: var(--space-3xl);
   }
 
   // Sequential headings (tighter)
@@ -288,7 +288,7 @@ body {
 
   // Heading to content
   & > :is(h1, h2, h3, h4, h5, h6):has(+ :is(p, ul, ol)) {
-    margin-block-end: max(0.6em, var(--heading-4));
+    margin-block-end: max(0.6em, var(--heading-3));
   }
 }
 
