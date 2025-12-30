@@ -38,6 +38,29 @@ import { queries } from '@/types';
  *   hideColumnsAt="isUpToTabletLarge"
  *   onRowClick={(row) => console.log('Clicked:', row)}
  * />
+ *
+ * @example
+ * // Custom cell rendering with Select component
+ * <Table
+ *   data={fontMetrics}
+ *   columns={[
+ *     { key: 'familyName', label: 'Font Family', copyable: true },
+ *     {
+ *       key: 'category',
+ *       label: 'Category',
+ *       copyable: false,
+ *       render: (value, row, index) => (
+ *         <Select
+ *           value={value as string}
+ *           onChange={(newValue) => handleCategoryChange(newValue)}
+ *           options={['serif', 'sans-serif', 'monospace', 'cursive', 'fantasy']}
+ *         />
+ *       )
+ *     },
+ *     { key: 'capHeight', label: 'Cap Height', copyable: true },
+ *   ]}
+ *   caption="Font Metrics"
+ * />
  */
 export const Table = <T,>({
   data,
@@ -81,9 +104,15 @@ export const Table = <T,>({
               return (
                 <td key={String(col.key)}>
                   <div className={classNames(styles['table__cell'])}>
-                    <span>{String(value)}</span>
-                    {!isUnderBreakpoint && isCopyable && hasValue && (
-                      <CopyButton value={String(value)} />
+                    {col.render ? (
+                      col.render(value, row, rowIndex)
+                    ) : (
+                      <>
+                        <span>{String(value)}</span>
+                        {!isUnderBreakpoint && isCopyable && hasValue && (
+                          <CopyButton value={String(value)} />
+                        )}
+                      </>
                     )}
                   </div>
                 </td>
