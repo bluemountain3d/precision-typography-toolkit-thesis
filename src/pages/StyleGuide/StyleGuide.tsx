@@ -8,6 +8,7 @@ import { ToggleSG } from './ToggleSG';
 import { ThumbSliderSG } from './ThumbSliderSG';
 import { CollapsibleSG } from './CollapsibleSG';
 import { Heading } from '@/components/typography/Heading';
+import { ImgSG } from './ImageSG';
 
 export const StyleGuide = () => {
   return (
@@ -25,6 +26,7 @@ export const StyleGuide = () => {
           <ToggleSG />
           <ThumbSliderSG />
           <CollapsibleSG />
+          <ImgSG />
         </Flex>
       </Container>
     </FontMetricsProvider>
