@@ -10,6 +10,7 @@ export interface FlexProps {
   children: React.ReactNode;
 
   // Layout
+  width?: Width;
   direction?: FlexDirection;
   wrap?: FlexWrap;
 
@@ -34,6 +35,8 @@ export interface FlexProps {
   marginTop?: SpacingSize | SpacingStep;
   marginBottom?: SpacingSize | SpacingStep;
 }
+
+export type Width = 'auto' | 'full' | 'fit-content' | 'max-content';
 
 // ============================================================================
 // Global CSS Values

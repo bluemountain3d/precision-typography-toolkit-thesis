@@ -1,4 +1,5 @@
 import type {
+  FontFamily,
   HeadingSize,
   SpacingSize,
   SpacingStep,
@@ -13,6 +14,7 @@ export interface HeadingProps {
   size: HeadingSize;
   weight?: TextWeight;
   align?: 'left' | 'center' | 'right';
+  family?: FontFamily;
   variant?: TextColor;
   marginTop?: SpacingSize | SpacingStep;
   marginBottom?: SpacingSize | SpacingStep;
