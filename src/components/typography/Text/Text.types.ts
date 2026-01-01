@@ -1,4 +1,5 @@
 import type {
+  FontFamily,
   SpacingSize,
   SpacingStep,
   TextColor,
@@ -14,6 +15,8 @@ export interface TextProps {
   weight?: TextWeight;
   align?: 'left' | 'center' | 'right';
   variant?: TextColor;
+  italic?: boolean;
+  family?: FontFamily;
   marginTop?: SpacingSize | SpacingStep;
   marginBottom?: SpacingSize | SpacingStep;
   className?: string;
