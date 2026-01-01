@@ -6,5 +6,9 @@ interface MainProps {
 }
 
 export const Main = ({ children }: MainProps) => {
-  return <main className={classNames(styles.main)}>{children}</main>;
+  return (
+    <main id="main-content" className={classNames(styles.main)}>
+      {children}
+    </main>
+  );
 };
