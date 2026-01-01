@@ -3,6 +3,7 @@ export { default as SassIcon } from './sass-logo.svg?react';
 export { default as JsonIcon } from './json-logo.svg?react';
 
 export { default as MenuIcon } from './menu.svg?react';
+export { default as CloseIcon } from './close.svg?react';
 export { default as CopyIcon } from './copy.svg?react';
 export { default as DownloadIcon } from './download.svg?react';
 export { default as RightSmallIcon } from './right-small.svg?react';
