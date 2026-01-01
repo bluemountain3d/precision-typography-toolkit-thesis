@@ -1,7 +1,7 @@
 import { Toggle } from '@/components/forms/Toggle';
 import { ButtonGroup } from '@components/layout/ButtonGroup';
 import { Container } from '@components/layout/Container';
-import { Flex } from '@layouts/Flex';
+import { Flex } from '@/components/layout/Flex';
 import { useState } from 'react';
 import styles from './Toggle.SG.module.scss';
 import classNames from 'clsx';

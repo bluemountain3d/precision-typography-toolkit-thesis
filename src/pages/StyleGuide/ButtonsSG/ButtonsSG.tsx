@@ -9,7 +9,7 @@ import { Button } from '@/components/forms/Button';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { Container } from '@/components/layout/Container';
 import { Heading } from '@/components/typography/Heading';
-import { Flex } from '@/layouts/Flex';
+import { Flex } from '@/components/layout/Flex';
 
 export const ButtonsSG = () => {
   return (
