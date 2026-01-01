@@ -10,6 +10,7 @@ export const Heading = ({
   weight,
   align,
   variant,
+  family,
   marginTop,
   marginBottom,
   className,
@@ -22,9 +23,10 @@ export const Heading = ({
       className={classNames(
         styles.heading,
         `${size}`,
-        weight && styles[`text--${weight}`],
-        align && styles[`text--${align}`],
-        variant && styles[`text--${variant}`],
+        family && `font-family-${family}`,
+        weight && `font-weight-${weight}`,
+        align && `text-align-${align}`,
+        variant && `color-text-${variant}`,
         marginTop && `mt-${marginTop}`,
         marginBottom && `mb-${marginBottom}`,
         className

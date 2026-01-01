@@ -1,0 +1,122 @@
+@use "@/styles/abstracts/variables" as var;
+
+/// Font Families
+// Primary/Secondary/Tertiary
+.font-family-primary {
+  font-family: var.$ff-primary;
+}
+.font-family-secondary {
+  font-family: var.$ff-secondary;
+}
+.font-family-tertiary {
+  font-family: var.$ff-tertiary;
+}
+// Categories
+.font-family-sans {
+  font-family: var.$ff-sans;
+}
+.font-family-serif {
+  font-family: var.$ff-serif;
+}
+.font-family-mono {
+  font-family: var.$ff-mono;
+}
+// Contextual
+.font-family-display {
+  font-family: var.$ff-display;
+}
+.font-family-heading {
+  font-family: var.$ff-heading;
+}
+.font-family-subheading {
+  font-family: var.$ff-subheading;
+}
+.font-family-body {
+  font-family: var.$ff-body;
+}
+.font-family-quote {
+  font-family: var.$ff-quote;
+}
+.font-family-code {
+  font-family: var.$ff-code;
+}
+.font-family-ui {
+  font-family: var.$ff-ui;
+}
+
+/// Font Weights
+.font-weight-thin {
+  font-weight: var(--font-weight-thin);
+}
+.font-weight-extralight {
+  font-weight: var(--font-weight-extralight);
+}
+.font-weight-light {
+  font-weight: var(--font-weight-light);
+}
+.font-weight-normal {
+  font-weight: var(--font-weight-normal);
+}
+.font-weight-medium {
+  font-weight: var(--font-weight-medium);
+}
+.font-weight-semibold {
+  font-weight: var(--font-weight-semibold);
+}
+.font-weight-bold {
+  font-weight: var(--font-weight-bold);
+}
+.font-weight-extrabold {
+  font-weight: var(--font-weight-extrabold);
+}
+.font-weight-black {
+  font-weight: var(--font-weight-black);
+}
+
+/// Text Align
+.text-align-left {
+  text-align: left;
+}
+.text-align-center {
+  text-align: center;
+}
+.text-align-right {
+  text-align: right;
+}
+
+/// Color variants
+.color-text-primary {
+  color: var(--color-text-primary);
+}
+.color-text-secondary {
+  color: var(--color-text-secondary);
+}
+.color-text-muted {
+  color: var(--color-text-muted);
+}
+.color-text-disabled {
+  color: var(--color-text-disabled);
+}
+.color-text-link {
+  color: var(--color-inline-link);
+}
+.color-text-success {
+  color: var(--color-success-title);
+}
+.color-text-warning {
+  color: var(--color-warning-title);
+}
+.color-text-danger {
+  color: var(--color-danger-title);
+}
+.color-text-info {
+  color: var(--color-info-title);
+}
+
+/// Text Styles
+.font-style-normal {
+  font-style: normal;
+}
+.font-style-italic {
+  font-style: italic;
+}
