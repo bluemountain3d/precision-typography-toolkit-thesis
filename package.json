@@ -20,9 +20,11 @@
   "dependencies": {
     "buffer": "^6.0.3",
     "clsx": "^2.1.1",
+    "focus-trap-react": "^11.0.4",
     "fontkit": "^2.0.4",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
+    "react-remove-scroll": "^2.7.2",
     "react-router-dom": "^7.11.0"
   },
   "devDependencies": {
