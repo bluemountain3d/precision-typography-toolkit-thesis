@@ -6,6 +6,7 @@ import type { JSX } from 'react';
 export const Flex = ({
   children,
   as = 'div',
+  width,
   direction,
   wrap,
   justifyContent,
@@ -24,6 +25,7 @@ export const Flex = ({
     <Component
       className={classNames(
         styles.flex,
+        width && styles[`flex--width-${width}`],
         direction && styles[`flex--${direction}`],
         wrap && styles[`flex--${wrap}`],
         justifyContent && styles[`flex--justify-${justifyContent}`],

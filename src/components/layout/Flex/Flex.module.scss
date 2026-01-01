@@ -1,7 +1,20 @@
 .flex {
   display: flex;
   position: relative;
-  width: 100%;
+
+  // Width
+  &--width-full {
+    width: 100%;
+  }
+  &--width-auto {
+    width: auto;
+  }
+  &--width-fit-content {
+    width: fit-content;
+  }
+  &--width-max-content {
+    width: max-content;
+  }
 
   // Direction (main-axis direction)
   &--row {

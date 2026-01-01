@@ -31,11 +31,27 @@ export type TextColor =
   | 'primary'
   | 'secondary'
   | 'muted'
+  | 'link'
   | 'disabled'
   | 'success'
   | 'warning'
   | 'danger'
   | 'info';
+
+export type FontFamily =
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'sans'
+  | 'serif'
+  | 'mono'
+  | 'display'
+  | 'heading'
+  | 'subheading'
+  | 'body'
+  | 'quote'
+  | 'cod'
+  | 'ui';
 
 export type Spacing =
   | 'space-3xs'
