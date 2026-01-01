@@ -9,6 +9,8 @@ import { parseFontFile } from '@/utils/fontParser';
 import { MetricTable } from './MetricTable';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
+import { ProductLockup } from './ProductLockup';
+import { Flex } from '@/layouts/Flex';
 // import { useState } from 'react';
 
 /**
@@ -52,23 +54,19 @@ const PrecisionTypographyToolkitContent = () => {
 
   return (
     <>
-      <Container variant="boxed">
-        <h1>Precision Typography Toolkit</h1>
-
-        <DropZone
-          inputId="font-loader"
-          onFileSelect={handleFileSelect}
-          isProcessing={state.isLoading}
-        />
-
-        {/* {state.isLoading && <p>Loading font...</p>} */}
-
-        {/* {state.error && (
-        <div style={{ color: 'red' }}>
-          <p>Error: {state.error}</p>
-        </div>
-      )} */}
-      </Container>
+      {/* Hero Section */}
+      <section id="hero-section">
+        <Container variant="boxed">
+          <Flex direction="column" alignItems="center" gap="2xl">
+            <ProductLockup />
+            <DropZone
+              inputId="font-loader"
+              onFileSelect={handleFileSelect}
+              isProcessing={state.isLoading}
+            />
+          </Flex>
+        </Container>
+      </section>
 
       <Container
         variant={isUnderBreakpoint ? 'boxed' : 'narrow'}
