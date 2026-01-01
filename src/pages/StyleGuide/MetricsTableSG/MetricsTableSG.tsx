@@ -1,7 +1,7 @@
 import { Container } from '@/components/layout/Container';
 import { Heading } from '@/components/typography/Heading';
 import { useMediaQuery } from '@/hooks';
-import { Flex } from '@/components/layout/Flex';
+import { Flex } from '@/layouts/Flex';
 import { MetricTable } from '@/pages/tools/PrecisionTypographyToolkit/MetricTable';
 import { queries } from '@/types';
 

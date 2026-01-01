@@ -3,7 +3,7 @@ import { Heading } from '@/components/typography/Heading';
 import { Text } from '@/components/typography/Text';
 import { Collapsible } from '@/components/ui/Collapsible';
 import { useMediaQuery } from '@/hooks';
-import { Flex } from '@/components/layout/Flex';
+import { Flex } from '@/layouts/Flex';
 import { queries } from '@/types';
 
 export const CollapsibleSG = () => {

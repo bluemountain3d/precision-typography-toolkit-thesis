@@ -1,5 +1,5 @@
 import { Container } from '@/components/layout/Container';
-import { Flex } from '@/components/layout/Flex';
+import { Flex } from '@/layouts/Flex';
 import { useState } from 'react';
 import { ThumbSlider } from '@/components/forms/ThumbSlider';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';

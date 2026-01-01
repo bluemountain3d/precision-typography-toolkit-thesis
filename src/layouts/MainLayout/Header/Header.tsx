@@ -1,7 +1,7 @@
 import classNames from 'clsx';
 import styles from './Header.module.scss';
 import { Container } from '@/components/layout/Container';
-import { Flex } from '@/components/layout/Flex';
+import { Flex } from '@/layouts/Flex';
 import { Brand } from './Brand';
 import { MenuButton } from './MenuButton';
 import { Navigation } from './Navigation';
