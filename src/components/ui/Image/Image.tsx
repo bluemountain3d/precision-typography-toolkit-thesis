@@ -233,7 +233,7 @@ export const Img = forwardRef<HTMLImageElement, ImageProps>(
 
     // Format values for CSS
     const aspectRatioValue = formatAspectRatio(currentAspectRatio);
-    const objectPositionValue = formatFocusPoint(focusPoint);
+    // const objectPositionValue = formatFocusPoint(focusPoint); // TODO: Use if needed
 
     // Event handlers
     const handleLoad = () => {
