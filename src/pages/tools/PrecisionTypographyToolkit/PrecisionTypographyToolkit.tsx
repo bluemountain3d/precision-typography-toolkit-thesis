@@ -3,7 +3,7 @@ import { FontMetricsProvider, useFontMetrics } from './context';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 import { Flex } from '@/components/layout/Flex';
-import { MetricVisualizerBlock } from './MetricVisualizerBlock';
+// import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 import { MetricTableBlock } from './MetricTableBlock';
 import { HeroBlock } from './HeroBlock/HeroBlock';
 
@@ -29,7 +29,7 @@ const PrecisionTypographyToolkitContent = () => {
           <section id="metrics-visualizer">
             <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
               <Flex width="full" direction="column" gap="2xl">
-                <MetricVisualizerBlock />
+                {/* <MetricVisualizerBlock /> */}
                 <p className="text-align-center">
                   !! Metrics Visualizer will be placed here !!
                 </p>
