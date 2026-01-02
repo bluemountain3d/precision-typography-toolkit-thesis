@@ -2,8 +2,8 @@ import { Container } from '@/components/layout/Container';
 import { Heading } from '@/components/typography/Heading';
 import { useMediaQuery } from '@/hooks';
 import { Flex } from '@/components/layout/Flex';
-import { MetricTable } from '@/pages/tools/PrecisionTypographyToolkit/MetricTable';
 import { queries } from '@/types';
+import { MetricTable } from '@/pages/tools/PrecisionTypographyToolkit/MetricTableBlock/MetricTable';
 
 export const MetricsTableSG = () => {
   const isUnderBreakpoint = useMediaQuery(queries.isUpToTabletLarge);
