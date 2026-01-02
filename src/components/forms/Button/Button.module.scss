@@ -50,13 +50,13 @@
   /// Dual-gradient background (surface + border)
   /// Uses padding-box and border-box for layered effect
   background:
-    linear-gradient(
+    linear-gradient(in oklch
         -37.3deg,
         var(--_surface-dark) 0%,
         var(--_surface-light) 100%
       )
       padding-box,
-    linear-gradient(
+    linear-gradient(in oklch
         -37.3deg,
         var(--_border-dark) 60%,
         var(--_border-bright) 90%

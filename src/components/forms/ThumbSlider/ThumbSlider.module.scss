@@ -69,7 +69,8 @@
     appearance: none;
     background: transparent; // Track background is set separately per browser
 
-    @media screen and (min-width: 30rem) { //#{var.$bp-phablet-and-up} {
+    @media screen and (min-width: 30rem) {
+      //#{var.$bp-phablet-and-up} {
       width: auto;
     }
 
@@ -113,7 +114,7 @@
       height: 0.25em;
       border-radius: 0.25em;
       background: linear-gradient(
-        to right,
+        in oklch to right,
         var(--_slider-track-progress-color) 0%,
         var(--_slider-track-progress-color) var(--_progress),
         var(--_slider-track-color) var(--_progress),
@@ -165,14 +166,14 @@
       // Dual-gradient background (surface + border)
       background:
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-surface-dark) 0%,
             var(--_thumb-surface-light) 100%
           )
           padding-box,
         // Surface gradient
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-border-dark) 60%,
             var(--_thumb-border-bright) 90%
           )
@@ -211,13 +212,13 @@
       border: 1px solid transparent;
       background:
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-surface-dark) 0%,
             var(--_thumb-surface-light) 100%
           )
           padding-box,
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-border-dark) 60%,
             var(--_thumb-border-bright) 90%
           )
