@@ -15,3 +15,21 @@ export const getItem = (key: string) => {
     console.log(error);
   }
 };
+
+/**
+ * Safely removes an item from localStorage.
+ * Includes a check for the browser environment to prevent SSR crashes.
+ *
+ * @param key - The key of the item to remove.
+ */
+export const removeLocalStorage = (key: string): void => {
+  if (typeof window === 'undefined') {
+    return;
+  }
+
+  try {
+    localStorage.removeItem(key);
+  } catch (error) {
+    console.warn(`Error removing ${key} from localStorage:`, error);
+  }
+};
