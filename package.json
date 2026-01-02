@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "dev": "vite",
+    "dev:network": "vite --host",
     "blur": "tsx scripts/generate-blur-placeholders.ts",
     "prebuild": "npm run blur",
     "build": "tsc -b && vite build",
