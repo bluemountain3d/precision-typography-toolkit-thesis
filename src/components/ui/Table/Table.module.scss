@@ -44,7 +44,7 @@
   /// Table header styling with larger font and semibold weight
   th {
     font-size: var(--text-md);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-semibold);
     background-color: var(--color-primary);
   }
 
@@ -153,6 +153,7 @@
     align-items: center;
     width: 100%;
     line-height: inherit;
+    color: var(--color-text-secondary);
   }
 
   // ---------------------------------------------------------------------------

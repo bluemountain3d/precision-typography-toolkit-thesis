@@ -81,11 +81,11 @@ export const queries = {
    * NOTE: "Tablet and Down" usually means you want to INCLUDE Tablet.
    * Therefore, max-width must be "next breakpoint" minus 0.01.
    */
-  isMobileAndDown: `(max-width: ${pxToRem(breakpoints.mobile)})`,
-  isPhabletAndDown: `(max-width: ${pxToRem(breakpoints.phablet)})`,
-  isTabletAndDown: `(max-width: ${pxToRem(breakpoints.tablet)})`,
-  isTabletLargeAndDown: `(max-width: ${pxToRem(breakpoints.tabletLarge)})`,
-  isLaptopAndDown: `(max-width: ${pxToRem(breakpoints.laptop)})`,
+  isMobileAndDown: `(max-width: ${pxToRemValue(breakpoints.phablet) - 0.01}rem)`,
+  isPhabletAndDown: `(max-width: ${pxToRemValue(breakpoints.tablet) - 0.01}rem)`,
+  isTabletAndDown: `(max-width: ${pxToRemValue(breakpoints.tabletLarge) - 0.01}rem)`,
+  isTabletLargeAndDown: `(max-width: ${pxToRemValue(breakpoints.laptop) - 0.01}rem)`,
+  isLaptopAndDown: `(max-width: ${pxToRemValue(breakpoints.desktop) - 0.01}rem)`,
   isDesktopAndDown: `(min-width: 0rem)`,
 
   /**

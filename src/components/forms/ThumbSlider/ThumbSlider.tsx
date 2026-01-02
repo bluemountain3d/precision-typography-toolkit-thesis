@@ -36,6 +36,7 @@ export const ThumbSlider = ({
   value,
   onChange,
   label,
+  labelWidth,
   disabled,
 }: ThumbSliderProps) => {
   /**
@@ -45,8 +46,11 @@ export const ThumbSlider = ({
    * - Calls parent onChange callback with new value
    */
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newValue = parseFloat(e.target.value);
-    const percentage = ((newValue - min) / (max - min)) * 100;
+    const newValue = e.target.valueAsNumber;
+    const percentage = Math.min(
+      Math.max(Math.round(((newValue - min) / (max - min)) * 100), 0),
+      100
+    );
 
     // Update CSS custom property for progress fill visualization
     e.target.style.setProperty('--_progress', `${percentage}%`);
@@ -58,7 +62,7 @@ export const ThumbSlider = ({
   return (
     <div className={classNames(styles['thumb-slider'])}>
       {/* Optional label for slider context */}
-      {label && <label>{label}</label>}
+      {label && <label style={{ minWidth: `${labelWidth}ch` }}>{label}</label>}
 
       <input
         type="range"
@@ -72,7 +76,7 @@ export const ThumbSlider = ({
         style={
           {
             // Initial progress percentage for CSS linear gradient
-            '--_progress': `${((value - min) / (max - min)) * 100}%`,
+            '--_progress': `${Math.round(((value - min) / (max - min)) * 100)}%`,
           } as React.CSSProperties
         }
       />

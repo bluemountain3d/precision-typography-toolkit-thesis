@@ -1,3 +1,16 @@
 .text {
   width: 100%;
+  text-wrap: pretty;
+
+  &--hyphens-manual {
+    hyphens: manual;
+  }
+
+  &--hyphens-auto {
+    hyphens: auto;
+  }
+
+  &--hyphens-none {
+    hyphens: none;
+  }
 }

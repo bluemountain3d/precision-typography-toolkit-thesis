@@ -108,21 +108,24 @@
 /// @param {Number} $alpha - Alpha value (0 to 1)
 /// @return {String} Adjusted OKLCH color string with alpha
 /// @example
-///   $overlay: adjustOklchAlpha(#009700, 40, 0.2);
+///   $overlay: adjustOklchAlpha(#009700, 40, 1.2, 0.2);
 ///   // Returns: "oklch(86% 0.17 142 / 0.2)"
 /// Adjust lightness with alpha
 /// @param {Color} $color - Sass color value
 /// @param {Number} $l-adjustment - Lightness adjustment (-100 to 100)
 /// @param {Number} $alpha - Alpha value (0 to 1)
-@function adjustOklchAlpha($color, $l-adjustment, $alpha) {
+@function adjustOklchAlpha($color, $l-adjustment, $c-multiplier: 1, $alpha) {
   $l: getOklchLightness($color);
   $c: getOklchChroma($color);
   $h: getOklchHue($color);
 
   $l-adjusted: math.clamp(0, $l + $l-adjustment, 100);
+  $c-adjusted: $c * $c-multiplier;
   $alpha-safe: math.clamp(0, $alpha, 1);
 
-  @return string.unquote("oklch(#{$l-adjusted}% #{$c} #{$h} / #{$alpha-safe})");
+  @return string.unquote(
+    "oklch(#{$l-adjusted}% #{$c-adjusted} #{$h} / #{$alpha-safe})"
+  );
 }
 
 /// Rotate hue in OKLCH space

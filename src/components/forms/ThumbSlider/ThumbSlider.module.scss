@@ -3,7 +3,8 @@
 ///
 /// Custom range slider with progress fill visualization and gradient thumb.
 /// Supports both Webkit (Chrome, Safari, Edge) and Firefox browsers.
-///
+
+@use "@/styles/abstracts/variables" as var;
 
 .thumb-slider {
   width: 100%;
@@ -44,8 +45,10 @@
   --_thumb-border-hover: var(--color-primary-border-hover);
 
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  gap: 1rem;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-lg);
 
   // --------------------------------------------------------------------------
   // Slider Input Element
@@ -56,12 +59,20 @@
   /// @output Custom styled range input with progress fill
   input[type="range"] {
     position: relative;
+    flex-grow: 1;
     width: 100%;
+    max-width: 100%;
+    margin-block: calc(0.125em - 2px);
     // Remove native browser styling
     -webkit-appearance: none;
     font-size: inherit; // Allow parent font-size to control thumb size (1em = parent font-size)
     appearance: none;
     background: transparent; // Track background is set separately per browser
+
+    @media screen and (min-width: 30rem) {
+      //#{var.$bp-phablet-and-up} {
+      width: auto;
+    }
 
     /// Remove default focus outline (custom focus styling on thumb instead)
     &:focus {
@@ -103,7 +114,7 @@
       height: 0.25em;
       border-radius: 0.25em;
       background: linear-gradient(
-        to right,
+        in oklch to right,
         var(--_slider-track-progress-color) 0%,
         var(--_slider-track-progress-color) var(--_progress),
         var(--_slider-track-color) var(--_progress),
@@ -155,14 +166,14 @@
       // Dual-gradient background (surface + border)
       background:
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-surface-dark) 0%,
             var(--_thumb-surface-light) 100%
           )
           padding-box,
         // Surface gradient
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-border-dark) 60%,
             var(--_thumb-border-bright) 90%
           )
@@ -201,13 +212,13 @@
       border: 1px solid transparent;
       background:
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-surface-dark) 0%,
             var(--_thumb-surface-light) 100%
           )
           padding-box,
         linear-gradient(
-            -37.3deg,
+            in oklch -37.3deg,
             var(--_thumb-border-dark) 60%,
             var(--_thumb-border-bright) 90%
           )
