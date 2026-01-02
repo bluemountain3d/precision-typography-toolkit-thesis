@@ -33,7 +33,7 @@ $color-inline-link-hover-oklch: fn.adjustOklch(
 );
 
 // --- State Colors: Primary ---
-$color-primary-title-oklch: fn.adjustOklch(var.$color-primary-title, 0, 1.2);
+$color-primary-title-oklch: fn.adjustOklch(var.$color-primary-title, 0, 1.1);
 $color-primary-surface-oklch: fn.adjustOklch(
   var.$color-primary-surface,
   0,
@@ -186,7 +186,7 @@ $color-warning-border-bright-oklch: fn.adjustOklch(
 
 // --- State Colors: Danger ---
 $color-danger-title-oklch: fn.adjustOklch(var.$color-danger-title, 0, 1.2);
-$color-danger-surface-oklch: fn.adjustOklch(var.$color-danger-surface, 0, 1.2);
+$color-danger-surface-oklch: fn.adjustOklch(var.$color-danger-surface, 0, 1.15);
 $color-danger-surface-dark-oklch: fn.adjustOklch(
   var.$color-danger-surface-dark,
   0,
@@ -195,18 +195,18 @@ $color-danger-surface-dark-oklch: fn.adjustOklch(
 $color-danger-surface-active-oklch: fn.adjustOklch(
   var.$color-danger-surface-active,
   0,
-  1.2
+  1.15
 );
 $color-danger-border-oklch: fn.adjustOklch(var.$color-danger-border, 0, 1.2);
 $color-danger-border-hover-oklch: fn.adjustOklch(
   var.$color-danger-border-hover,
   0,
-  1.2
+  1.15
 );
 $color-danger-border-bright-oklch: fn.adjustOklch(
   var.$color-danger-border-bright,
   0,
-  1.2
+  1.15
 );
 
 // --- State Colors: Info ---
