@@ -4,7 +4,8 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  column-gap: var(--space-sm);
+  row-gap: var(--space-xs);
   align-items: center;
   justify-content: space-between;
 

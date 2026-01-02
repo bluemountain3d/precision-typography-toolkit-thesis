@@ -17,6 +17,7 @@ export interface ToggleProps {
   disabled?: boolean;
   /** Optional visible label text displayed next to toggle */
   label?: string | React.ReactNode;
+  labelWidth?: number;
   labelPosition?: 'before' | 'after';
   /**
    * Size variant - controls both toggle dimensions and text size
