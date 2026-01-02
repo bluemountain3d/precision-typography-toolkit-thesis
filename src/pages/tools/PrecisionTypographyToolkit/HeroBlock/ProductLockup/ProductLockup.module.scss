@@ -1,0 +1,6 @@
+.product-lockup {
+  &__logo {
+    width: clamp(10rem, 9.3333rem + 2.7778 * var(--vwx), 12rem);
+    height: auto;
+  }
+}

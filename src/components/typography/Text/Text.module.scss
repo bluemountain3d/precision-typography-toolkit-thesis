@@ -1,4 +1,17 @@
 .text {
   width: 100%;
   transition: color 0.2s ease;
+  text-wrap: pretty;
+
+  &--hyphens-manual {
+    hyphens: manual;
+  }
+
+  &--hyphens-auto {
+    hyphens: auto;
+  }
+
+  &--hyphens-none {
+    hyphens: none;
+  }
 }

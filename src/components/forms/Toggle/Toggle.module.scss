@@ -4,7 +4,8 @@
   width: 100%;
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-sm);
+  column-gap: var(--space-sm);
+  row-gap: var(--space-xs);
   align-items: center;
   justify-content: space-between;
 
@@ -92,13 +93,13 @@
     border: 1px solid transparent;
     background:
       linear-gradient(
-          -37.3deg,
+          in oklch -37.3deg,
           var(--_surface-dark) 0%,
           var(--_surface-light) 100%
         )
         padding-box,
       linear-gradient(
-          -37.3deg,
+          in oklch -37.3deg,
           var(--_border-dark) 50%,
           var(--_border-bright) 90%
         )

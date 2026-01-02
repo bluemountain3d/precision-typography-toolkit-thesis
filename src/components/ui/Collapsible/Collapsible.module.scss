@@ -25,13 +25,13 @@
   /// Border gradient: primary to custom property (changes on hover)
   background:
     linear-gradient(
-        -19.8deg,
+        in oklch -19.8deg,
         var(--color-primary-dark) 50%,
         var(--color-primary) 90%
       )
       padding-box,
     linear-gradient(
-        -19.8deg,
+        in oklch -19.8deg,
         var(--color-primary) 60%,
         var(--_border-bright) 100%
       )

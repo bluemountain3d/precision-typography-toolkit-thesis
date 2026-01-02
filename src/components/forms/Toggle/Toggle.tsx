@@ -72,13 +72,19 @@ export const Toggle = ({
   onChange,
   disabled,
   label,
+  labelWidth,
   labelPosition = 'before',
   size = 'base',
 }: ToggleProps) => {
   return (
     <div className={classNames(styles.toggle)}>
       {label && labelPosition === 'before' && (
-        <span className={styles.toggle__label}>{label}</span>
+        <span
+          className={styles.toggle__label}
+          style={{ minWidth: `${labelWidth}ch` }}
+        >
+          {label}
+        </span>
       )}
       <label
         htmlFor={toggleId}
@@ -112,7 +118,12 @@ export const Toggle = ({
         <span className={classNames(styles['toggle__bg-text'])}>Off</span>
       </label>
       {label && labelPosition === 'after' && (
-        <span className={styles.toggle__label}>{label}</span>
+        <span
+          className={styles.toggle__label}
+          style={{ minWidth: `${labelWidth}ch` }}
+        >
+          {label}
+        </span>
       )}
     </div>
   );

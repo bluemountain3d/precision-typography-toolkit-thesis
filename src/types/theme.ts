@@ -50,7 +50,7 @@ export type FontFamily =
   | 'subheading'
   | 'body'
   | 'quote'
-  | 'cod'
+  | 'code'
   | 'ui';
 
 export type Spacing =

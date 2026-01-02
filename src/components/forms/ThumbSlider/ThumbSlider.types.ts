@@ -20,5 +20,6 @@ export interface ThumbSliderProps {
   onChange: (value: number) => void;
 
   label?: string;
+  labelWidth?: number;
   disabled?: boolean;
 }
