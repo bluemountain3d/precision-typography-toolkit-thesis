@@ -26,14 +26,16 @@ body {
 
   background-attachment: fixed;
   // background-image: var(--bg-main, var.$color-primary);
-  @include mx.smooth-gradient(radial-gradient(
-    in oklch circle farthest-corner at top center,
-    var(--color-primary) 0%,
-    oklch(from var(--color-primary) calc(l * 0.80) c h) 25%,
-    oklch(from var(--color-primary) calc(l * 0.60) c h) 50%,
-    oklch(from var(--color-primary) calc(l * 0.40) c h) 75%,
-    var(--color-primary-dark) 100%
-  ));
+  @include mx.smooth-gradient(
+    radial-gradient(
+      in oklch circle farthest-corner at top center,
+      var(--color-primary) 0%,
+      oklch(from var(--color-primary) calc(l * 0.8) c h) 25%,
+      oklch(from var(--color-primary) calc(l * 0.6) c h) 50%,
+      oklch(from var(--color-primary) calc(l * 0.4) c h) 75%,
+      var(--color-primary-dark) 100%
+    )
+  );
 }
 
 /// Scrollbar Styling
