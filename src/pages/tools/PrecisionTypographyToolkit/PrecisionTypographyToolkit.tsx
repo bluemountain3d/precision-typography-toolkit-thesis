@@ -1,80 +1,59 @@
-import { DropZone } from '@/components/forms/DropZone';
 import { Container } from '@components/layout/Container';
-import {
-  FontMetricsProvider,
-  useFontMetrics,
-  prepareFontMetricsState,
-} from './context';
-import { parseFontFile } from '@/utils/fontParser';
-import { MetricTable } from './MetricTable';
+import { FontMetricsProvider, useFontMetrics } from './context';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
-import { ProductLockup } from './ProductLockup';
-import { Flex } from '@/layouts/Flex';
-// import { useState } from 'react';
+import { Flex } from '@/components/layout/Flex';
+import { MetricVisualizerBlock } from './MetricVisualizerBlock';
+import { MetricTableBlock } from './MetricTableBlock';
+import { HeroBlock } from './HeroBlock/HeroBlock';
 
 /**
  * Inner component that uses the FontMetrics context
  */
 const PrecisionTypographyToolkitContent = () => {
-  const { state, dispatch } = useFontMetrics();
-  // const [toggles, setToggles] = useState({
-  //   kerning: false,
-  // });
-  // const [thumbSliders, setThumbSliders] = useState({
-  //   lineHeight: 1.2,
-  // });
-
-  const isUnderBreakpoint = useMediaQuery(queries.isUpToTabletLarge);
-
-  /**
-   * Handle font file selection
-   */
-  const handleFileSelect = async (file: File) => {
-    dispatch({ type: 'FONT_UPLOAD_START' });
-
-    try {
-      const metrics = await parseFontFile(file);
-      const fontMetricsState = prepareFontMetricsState(file, metrics);
-      dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
-    } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : 'Failed to parse font file';
-      dispatch({ type: 'FONT_UPLOAD_ERROR', payload: errorMessage });
-    }
-  };
-
-  // const handleToggleChange = (key: string) => (checked: boolean) => {
-  //   setToggles((prev) => ({ ...prev, [key]: checked }));
-  // };
-
-  // const handleThumbSliderChange = (key: string) => (value: number) => {
-  //   setThumbSliders((prev) => ({ ...prev, [key]: value }));
-  // };
+  const { state } = useFontMetrics();
+  const isUnderBreakpoint = useMediaQuery(queries.isTabletLargeAndDown);
 
   return (
-    <>
+    <Flex width="full" direction="column" gap="6xl">
       {/* Hero Section */}
       <section id="hero-section">
         <Container variant="boxed">
-          <Flex direction="column" alignItems="center" gap="2xl">
-            <ProductLockup />
-            <DropZone
-              inputId="font-loader"
-              onFileSelect={handleFileSelect}
-              isProcessing={state.isLoading}
-            />
-          </Flex>
+          <HeroBlock />
         </Container>
       </section>
 
-      <Container
-        variant={isUnderBreakpoint ? 'boxed' : 'narrow'}
-        marginTop="xl"
-      >
-        <MetricTable />
-      </Container>
-    </>
+      {/* Metrics Visualizer */}
+      {state.fontFile && (
+        <>
+          <section id="metrics-visualizer">
+            <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
+              <Flex width="full" direction="column" gap="2xl">
+                <MetricVisualizerBlock />
+                <p className="text-align-center">
+                  !! Metrics Visualizer will be placed here !!
+                </p>
+                <MetricTableBlock />
+              </Flex>
+            </Container>
+          </section>
+
+          {/* Export Metrics */}
+          <section id="export-metrics">
+            <p className="text-align-center">
+              !! Export metrics as different languages will be here !!
+            </p>
+          </section>
+        </>
+      )}
+
+      {/* Metrics learn intro */}
+      <section id="metrics-intro">
+        <p className="text-align-center">
+          !! Intro to font metrics with a link to the "learn" article !!
+        </p>
+      </section>
+    </Flex>
   );
 };
 
