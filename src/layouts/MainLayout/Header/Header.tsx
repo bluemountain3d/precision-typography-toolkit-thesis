@@ -1,10 +1,12 @@
 import classNames from 'clsx';
 import styles from './Header.module.scss';
 import { Container } from '@/components/layout/Container';
-import { Flex } from '@/layouts/Flex';
 import { Brand } from './Brand';
 import { MenuButton } from './MenuButton';
 import { Navigation } from './Navigation';
+import { Flex } from '@/components/layout/Flex';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
 
 /**
  * Props for Header component
@@ -36,6 +38,9 @@ export const Header = ({
   isMenuOpen,
   onMenuToggle,
 }: HeaderProps) => {
+  /** Detect if we're on mobile/tablet breakpoint */
+  const isMobile = useMediaQuery(queries.isTabletAndDown);
+
   return (
     <>
       <header
@@ -58,6 +63,7 @@ export const Header = ({
         isOpen={isMenuOpen}
         onClose={() => onMenuToggle()}
         isScrolled={isScrolled}
+        isMobile={isMobile}
       />
     </>
   );

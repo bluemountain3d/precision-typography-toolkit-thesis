@@ -14,11 +14,13 @@ import { FocusTrap } from 'focus-trap-react';
  * @property {boolean} [isOpen] - Whether navigation is visible
  * @property {function} onClose - Callback to close navigation
  * @property {boolean} [isScrolled] - Whether user has scrolled (affects positioning)
+ * @property {boolean} [isMobile] - Whether we're on mobile/tablet (passed from parent to avoid duplicate calculation)
  */
 interface NavigationProps {
   isOpen?: boolean;
   onClose: () => void;
   isScrolled?: boolean;
+  isMobile?: boolean;
 }
 
 /**
@@ -44,9 +46,11 @@ export const Navigation = ({
   isOpen,
   onClose,
   isScrolled,
+  isMobile: isMobileProp,
 }: NavigationProps) => {
-  /** Detect if we're on mobile/tablet breakpoint */
-  const isMobile = useMediaQuery(queries.isTabletAndDown);
+  /** Detect if we're on mobile/tablet breakpoint (use prop if provided, otherwise calculate) */
+  const isMobileCalculated = useMediaQuery(queries.isTabletAndDown);
+  const isMobile = isMobileProp ?? isMobileCalculated;
 
   /**
    * Tracks which sub-menu is open on mobile (accordion pattern)
@@ -89,9 +93,15 @@ export const Navigation = ({
       )}
 
       {/* Prevent body scroll when menu is open on mobile */}
-      <RemoveScroll enabled={isOpen && isMobile}>
-        {/* Trap keyboard focus inside menu when open on mobile */}
-        <FocusTrap active={isOpen && isMobile}>
+      <RemoveScroll enabled={isOpen && isMobile} removeScrollBar={false}>
+        {/* Trap keyboard focus inside menu when open on mobile, but allow clicks outside */}
+        <FocusTrap 
+          active={isOpen && isMobile}
+          focusTrapOptions={{
+            allowOutsideClick: true,
+            returnFocusOnDeactivate: true,
+          }}
+        >
           <nav
             id="main-navigation"
             aria-label="Main navigation"

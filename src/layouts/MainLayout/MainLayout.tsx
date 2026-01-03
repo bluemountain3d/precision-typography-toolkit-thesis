@@ -38,20 +38,20 @@ export const MainLayout = () => {
       </a>
 
       {/* 
-        Invisible sentinel element at top of page
+        Invisible sentinel element at very top of scrollable area
         Used by Intersection Observer to detect scroll
+        Positioned just before the header so it scrolls out of view first
       */}
       <div
         ref={sentinelRef}
         style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '1px',
+          gridArea: 'sentinel',
+          width: '100%',
           height: '1px',
           pointerEvents: 'none',
-          zIndex: -1,
+          visibility: 'hidden',
         }}
+        aria-hidden="true"
       />
 
       <Header

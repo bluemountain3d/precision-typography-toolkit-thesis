@@ -4,9 +4,13 @@
   min-height: 100dvh;
 
   display: grid;
-  grid-template-areas: "header" "main" "footer";
+  grid-template-areas: 
+    "sentinel"
+    "header" 
+    "main" 
+    "footer";
   grid-template-columns: 1fr;
-  grid-template-rows: auto 1fr auto;
+  grid-template-rows: 1px auto 1fr auto;
 }
 
 .skip-link {
