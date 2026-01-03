@@ -13,6 +13,7 @@
     "blur": "tsx scripts/generate-blur-placeholders.ts",
     "prebuild": "npm run blur",
     "build": "tsc -b && vite build",
+    "check-types": "tsc -b --noEmit",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
