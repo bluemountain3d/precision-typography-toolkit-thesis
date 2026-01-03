@@ -52,7 +52,7 @@ export const Header = ({
       >
         <Container variant="boxed">
           <Flex justifyContent="space-between" alignItems="center">
-            <Brand size="lg" />
+            <Brand size={isScrolled ? 'md' : 'lg'} />
             <MenuButton isOpen={isMenuOpen} onClick={onMenuToggle} />
           </Flex>
         </Container>
