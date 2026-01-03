@@ -1,7 +1,7 @@
 import classNames from 'clsx';
 import styles from './Header.module.scss';
 import { Container } from '@/components/layout/Container';
-import { Brand } from './Brand';
+import { Brand } from '@/components/common/Brand';
 import { MenuButton } from './MenuButton';
 import { Navigation } from './Navigation';
 import { Flex } from '@/components/layout/Flex';
@@ -52,7 +52,7 @@ export const Header = ({
       >
         <Container variant="boxed">
           <Flex justifyContent="space-between" alignItems="center">
-            <Brand />
+            <Brand size="lg" />
             <MenuButton isOpen={isMenuOpen} onClick={onMenuToggle} />
           </Flex>
         </Container>
