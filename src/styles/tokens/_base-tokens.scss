@@ -13,7 +13,7 @@
 :root {
   /// Header Height
   --header-height-default: calc(var(--space-lg) * 2 + 2.75rem);
-  --header-height-scrolled: calc(var(--space-3xs) * 2 + 2.75rem);
+  --header-height-scrolled: 2.75rem; //calc(var(--space-3xs) * 2 + 2.75rem);
 
   /// Custom viewport unit that adapts to ultrawide displays
   /// Standard: 1vw (viewport width)

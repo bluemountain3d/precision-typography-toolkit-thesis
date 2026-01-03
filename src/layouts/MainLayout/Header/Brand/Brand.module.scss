@@ -14,8 +14,9 @@
 
   &__first-part {
     font-family: var(--font-family-primary);
-    margin-top: -0.17em;
-    margin-left: -0.074em;
+    margin-top: -0.152em;
+    margin-bottom: -0.188em;
+    margin-left: -0.088em;
     font-size: clamp(1.625rem, 1.4375rem + 0.7813 * var(--vwx), 2.1875rem);
     letter-spacing: -0.01em;
     line-height: 1.025;
@@ -25,11 +26,12 @@
 
   &__second-part {
     font-family: var(--font-family-secondary);
-    margin-top: -0.256em;
+    margin-top: -0.196em;
+    margin-bottom: -0.144em;
     margin-right: -0.046em;
     font-size: clamp(1.375rem, 1.2083rem + 0.6944 * var(--vwx), 1.875rem);
     letter-spacing: -0.02em;
-    line-height: 1.11;
+    line-height: 1;
     color: var(--color-inline-link);
     font-weight: var(--font-weight-medium);
   }
