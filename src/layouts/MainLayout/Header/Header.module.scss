@@ -26,6 +26,7 @@
   /// Layout integration
   grid-area: header; // Fits into MainLayout grid
   width: 100%;
+  height: var(--header-height);
 
   /// Positioning - sticky keeps header visible during scroll
   position: sticky;
@@ -52,14 +53,16 @@
   /// --default modifier
   /// Applied when user is at top of page (not scrolled)
   &--default {
-    height: var(--header-height-default); // Larger height (e.g., 80px)
+    --header-height: var(--header-height-default);
+    // height: var(--header-height-default); // Larger height (e.g., 80px)
     background: transparent; // Blends with page content
   }
 
   /// --scrolled modifier
   /// Applied when user has scrolled down the page
   &--scrolled {
-    height: var(--header-height-scrolled); // Compact height (e.g., 60px)
+    --header-height: var(--header-height-scrolled);
+    // height: var(--header-height-scrolled); // Compact height (e.g., 60px)
     background: var(--color-primary-dark); // Solid background
     box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%); // Depth shadow
   }
