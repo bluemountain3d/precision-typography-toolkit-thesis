@@ -37,7 +37,20 @@ type PageSectionProps<T extends ElementType> = {
    * If not provided, inherits background from parent/body
    */
   background?: 'primary-dark' | 'primary' | 'secondary' | 'tertiary';
+  /**
+   * Makes the section fill the viewport height minus header
+   * Sets `min-height: calc(100dvh - var(--header-height, 0px))`
+   * and converts display to flex column for proper content distribution.
+   * Useful for hero sections or full-page layouts.
+   * @default false
+   */
   fullHeight?: boolean;
+  /**
+   * Centers content both vertically and horizontally within the section.
+   * Requires `fullHeight` to be true for vertical centering to work.
+   * Uses flexbox justify-content and align-content.
+   * @default false
+   */
   centerContent?: boolean;
 } & ComponentPropsWithoutRef<T>;
 
@@ -61,6 +74,13 @@ type PageSectionProps<T extends ElementType> = {
  * </PageSection>
  *
  * @example
+ * // Full-height hero section with centered content
+ * <PageSection fullHeight centerContent background="primary-dark">
+ *   <h1>Welcome to Our Site</h1>
+ *   <p>Centered vertically and horizontally</p>
+ * </PageSection>
+ *
+ * @example
  * // Render as article with no background
  * <PageSection as="article" padding="small">
  *   <h2>Article Content</h2>
@@ -74,6 +94,13 @@ type PageSectionProps<T extends ElementType> = {
  *   background="secondary"
  * >
  *   <h2 id="features-heading">Features</h2>
+ * </PageSection>
+ *
+ * @example
+ * // Full-height section without centering (content at top)
+ * <PageSection fullHeight padding="large">
+ *   <h2>This stays at the top</h2>
+ *   <p>But section fills viewport height</p>
  * </PageSection>
  *
  * @example
