@@ -35,12 +35,12 @@
   position: fixed;
   inset: 0; // Shorthand for top/right/bottom/left: 0
   z-index: 997; // Below Navigation (998), above content
-  
+
   /// Initial state - invisible and non-interactive
   background-color: oklch(0 0 0 / 0); // Transparent black
   opacity: 0;
   pointer-events: none; // Click-through when closed
-  
+
   /// Smooth fade transition
   transition:
     background-color 0.3s ease,
@@ -74,10 +74,10 @@
     max-width: 24rem; // Limited width for better UX
     height: 100vh; // Fallback for older browsers
     height: 100dvh; // Dynamic viewport height (accounts for mobile browser UI)
-    
+
     /// Top padding accounts for header height + spacing
     padding-block-start: calc(var(--header-height-default) + var(--space-lg));
-    
+
     /// Initial state - hidden off-screen to the right
     transform: translateX(100%);
     transition: transform 0.5s ease-out;
@@ -87,25 +87,24 @@
   @media #{var.$bp-tablet-and-up} {
     top: 0;
     width: 50vw; // Half viewport width
-
   }
 
   /// DESKTOP: Full-width dropdown below header
   @media #{var.$bp-tablet-lg-and-up} {
     /// Responsive padding using fluid spacing
     padding-inline: #{fn.fluidSpaceStep(4, 10, "vwx")};
-    
+
     /// Positioned below header
     top: var(--header-height-default);
-    
+
     /// Initial state - hidden above viewport
     transform: translateY(-100%);
     opacity: 0;
     // background: linear-gradient(0deg, var(--color-primary) 0%, var(--color-primary-dark) 100%);
-    
+
     width: 100%;
     font-size: var(--text-base); // Standard text size on desktop
-    
+
     /// Smooth slide-down and fade-in
     transition:
       top 0.3s ease,
@@ -145,14 +144,16 @@
       box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%); // Bottom shadow
       opacity: 1;
       transform: translateY(0); // Slides down into view
-      
+
       /// Delayed transitions create sequence:
-      /// 1. Wait 0.3s (for Header to finish)
+      /// 1. Wait 0.4s (for Header to finish)
       /// 2. Then animate Navigation
       transition:
-        top 0.3s 0.3s ease, // 0.3s delay
-        opacity 0.5s 0.3s ease, // 0.3s delay
-        transform 0.5s 0.3s ease; // 0.3s delay
+        top 0.3s 0.4s ease,
+        // 0.3s delay
+        opacity 0.5s 0.4s ease,
+        // 0.3s delay
+        transform 0.5s 0.4s ease; // 0.3s delay
     }
   }
 
