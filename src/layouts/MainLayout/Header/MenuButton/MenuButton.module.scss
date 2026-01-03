@@ -1,0 +1,81 @@
+/// ============================================================================
+/// MenuButton Component Styles
+/// ============================================================================
+/// Styles for the hamburger menu button that toggles navigation visibility.
+///
+/// Features:
+/// - Hover effect: Color change and gap increase
+/// - Smooth transitions on all interactive properties
+/// - Flexible layout for optional text label
+/// - Icon container with consistent sizing
+///
+/// Responsive behavior:
+/// - Mobile: Icon only (text hidden via React)
+/// - Tablet+: Text + Icon (text shown via React)
+///
+/// @group Components
+/// ============================================================================
+
+/// Main menu button container
+.menu-button {
+  margin-block: calc(
+    (
+        2.75rem -
+          (clamp(1.625rem, 1.4375rem + 0.7813 * var(--vwx), 2.1875rem) * 0.66)
+      ) /
+      2 * -1
+  );
+
+  /// Flexbox layout for text + icon arrangement
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: var(--space-3xs); // Space between text and icon
+
+  /// Typography and color
+  color: var(--color-text-primary);
+  font-size: var(--text-base);
+
+  /// Visual styling
+  border-radius: 0.5rem; // Subtle rounded corners
+
+  /// Smooth transitions for interactive states
+  /// - gap: Increases on hover for playful effect
+  /// - color: Changes to link color on hover
+  transition:
+    gap 0.2s ease,
+    color 0.2s ease;
+
+  /// Hover state
+  /// Provides visual feedback when user hovers over button
+  &:hover {
+    color: var(--color-inline-link); // Highlight color
+    gap: var(--space-2xs); // Slightly larger gap (playful effect)
+  }
+
+  /// Icon wrapper
+  /// Ensures consistent icon sizing and centering
+  &__icon {
+    padding: 0.5rem; // Touch target padding
+    width: 2.75rem;
+    height: 2.75rem;
+    aspect-ratio: 1; // Enforces square shape
+
+    /// Centering icon inside wrapper
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    /// Inherits color from parent for consistency
+    color: inherit;
+    transition: color 0.2s ease;
+  }
+
+  /// Text label (conditional rendering in React)
+  /// Only visible on tablet and up
+  &__text {
+    color: inherit; // Matches parent color
+    transition: color 0.2s ease;
+  }
+}

@@ -17,7 +17,7 @@
 
 @mixin smooth-gradient($gradient) {
   position: relative;
-  background: $gradient;
+  background-image: $gradient; // Use background-image to preserve background-attachment
 
   // &::after {
   //   content: "";

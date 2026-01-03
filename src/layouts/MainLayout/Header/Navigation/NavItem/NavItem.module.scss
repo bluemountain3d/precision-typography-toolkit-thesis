@@ -1,0 +1,323 @@
+/// ============================================================================
+/// NavItem Component Styles
+/// ============================================================================
+/// Styles for navigation items with responsive accordion/dropdown behavior.
+///
+/// MOBILE (tablet and down):
+/// - Accordion pattern with <button> parent
+/// - Vertical stack layout
+/// - Sub-items with indent and border
+/// - Conditional rendering (no CSS transitions on sub-menu)
+///
+/// DESKTOP (tablet-lg and up):
+/// - Dropdown pattern with <Link> parent
+/// - Horizontal layout
+/// - Hover state with background highlight
+/// - Always-rendered dropdown (CSS transitions)
+///
+/// Features:
+/// - Active state highlighting (parent and child)
+/// - Has-active-child indicator (parent highlighted when child is active)
+/// - Rotating icon (0° → 90°)
+/// - Smooth transitions on interactive states
+/// - BEM naming convention
+///
+/// @group Components
+/// ============================================================================
+
+@use "@/styles/abstracts/variables/" as var;
+@use "@/styles/abstracts/mixins/" as mx;
+@use "@/styles/tokens/leading-trim" as *;
+
+/// Nav item container
+/// Wrapper for individual navigation items
+.nav-item {
+  width: 100%;
+
+  /// Mobile: Vertical stacking
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+
+  /// Desktop: Horizontal layout with relative positioning for dropdown
+  @media #{var.$bp-tablet-lg-and-up} {
+    position: relative; // Positioning context for dropdown
+    width: auto; // Fit content
+    flex-direction: row;
+    align-items: stretch; // Fill height of navigation bar
+  }
+
+  /// Sub-item modifier (mobile accordion children)
+  /// Indented with visual indicator
+  &--sub-item {
+    padding-inline-start: var(--space-lg); // Indent
+  }
+
+  /// Inner wrapper (desktop dropdown container)
+  /// Needed for proper focus/blur event handling
+  &__inner {
+    position: relative;
+    display: flex;
+
+    @media #{var.$bp-tablet-lg-and-up} {
+      height: 100%; // Fill parent height
+    }
+  }
+}
+
+/// Navigation link/button
+/// Can be either <Link> or <button> depending on hasChildren
+.nav-link {
+  width: 100%;
+
+  /// Mobile: Large tap target with vertical padding calculation
+  /// Padding ensures consistent height (3.625rem total)
+  padding-block: calc((3.625rem - 0.66em) / 2);
+  font-size: var(--heading-4); // Large text on mobile
+
+  /// Grid layout for label + icon
+  display: inline-grid;
+  grid-template-columns: auto auto; // Two columns: label | icon
+  gap: var(--space-2xs);
+  justify-content: start;
+  align-items: center;
+  background-color: transparent;
+
+  /// Mobile: Horizontal padding
+  @media #{var.$bp-tablet-and-down} {
+    padding-inline: var(--space-lg);
+  }
+
+  /// Desktop: Compact size, flex layout, hover state
+  @media #{var.$bp-tablet-lg-and-up} {
+    display: flex; // Switch from grid to flex
+    height: 100%; // Fill parent height
+    padding-block: var(--space-xs); // Smaller padding
+    padding-inline: var(--space-sm);
+    font-size: var(--text-base); // Standard size
+    justify-content: center;
+
+    /// Smooth background transition on hover
+    transition: background-color 0.2s ease;
+
+    &:hover {
+      background-color: var(--color-tertiary); // Highlight on hover
+    }
+  }
+
+  /// Active modifier
+  /// Applied when this link is the current page
+  &--active {
+    background-color: var(--color-tertiary);
+    font-weight: var(--font-weight-semibold); // Bold for emphasis
+  }
+
+  /// Has-active-child modifier
+  /// Applied when a child link is the current page
+  &--has-active-child {
+    color: var(--color-inline-link); // Color indicator for parent
+  }
+
+  /// Sub-link modifier
+  /// Applied to accordion/dropdown children
+  &--sub-link {
+    font-size: var(--heading-3); // Mobile size
+
+    /// Mobile: Indented with left border
+    @media #{var.$bp-tablet-and-down} {
+      width: 100%;
+      padding-inline: var(--space-sm);
+      border-left: 2px solid var(--color-tertiary); // Visual hierarchy
+    }
+
+    /// Desktop: Smaller text
+    @media #{var.$bp-tablet-lg-and-up} {
+      font-size: var(--text-sm);
+    }
+  }
+
+  /// Nested selector for sub-link label
+  /// Overrides font-size for sub-items
+  &--sub-link > &__label {
+    --_font-size: var(--text-md);
+
+    @media #{var.$bp-tablet-lg-and-up} {
+      --_font-size: var(--text-sm);
+    }
+  }
+
+  /// Link label element
+  /// Uses typography mixin for consistent font setup
+  &__label {
+    @include mx.fontSetup(
+      $font: "heading",
+      $font-size: var(--heading-4),
+      $line-height: 1.3,
+      $font-weight: var(--font-weight-medium),
+      $font-style: normal,
+      $letter-spacing: 0em,
+      $text-transform: none
+    );
+
+    /// Desktop: Smaller font size
+    @media #{var.$bp-tablet-lg-and-up} {
+      --_font-size: var(--text-base);
+    }
+  }
+
+  /// Icon element (arrow indicator)
+  /// Rotates when accordion/dropdown opens
+  &__icon {
+    transform: rotate(0); // Default: points right
+    transition: transform 0.2s ease; // Smooth rotation
+
+    /// Open state: rotates 90° to point down
+    &--open {
+      transform: rotate(90deg);
+    }
+  }
+}
+
+/// Sub-menu container (mobile accordion content)
+/// Only used on mobile, conditionally rendered in React
+.sub-menu {
+  margin-bottom: var(--space-sm); // Spacing after sub-menu
+  width: 100%;
+  display: flex;
+  flex-direction: column; // Vertical stack
+  justify-content: start;
+  align-items: start;
+}
+
+/// Dropdown menu (desktop only)
+/// Always in DOM, visibility controlled by CSS
+.dropdown {
+  z-index: 2; // Above parent nav-item
+  position: absolute;
+  top: 100%; // Position below parent link
+  left: 50%;
+  padding: 0;
+
+  /// Initial state - hidden and non-interactive
+  opacity: 0;
+  pointer-events: none; // Not clickable when hidden
+
+  /// Visual styling
+  // border-top: 4px solid var(--color-primary-dark); // Accent border
+  // background-color: var(--color-secondary);
+
+  /// Initial position - slightly below final position
+  /// Creates slide-up effect when opening
+  transform: translateX(-50%) translateY(0.5rem);
+
+  /// Smooth slide and fade transitions
+  transition:
+    transform 0.75s ease,
+    opacity 0.3s ease;
+
+  &::before {
+    content: "";
+    position: absolute;
+    z-index: -2;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%) rotate(45deg);
+    width: var(--space-xs);
+    height: var(--space-xs);
+    background-color: var(--color-primary-dark);
+
+    transition: background-color 0.2s ease;
+  }
+
+  &:has(.dropdown__link:hover)::before {
+    background-color: var(--color-tertiary);
+  }
+
+  &:has(.dropdown__link:hover)::after {
+    border-color: var(--color-tertiary);
+  }
+
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1; // Under texten, men över pilen (-1 > -2)
+    inset: 0; // Fyller hela .dropdown ytan
+
+    background-color: var(--color-secondary);
+    border-top: 4px solid var(--color-primary-dark);
+
+    // Om du vill ha skugga på boxen måste den sitta här på ::after
+    // annars syns skuggan runt den transparenta containern
+    box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%);
+
+    // Transition på skuggan om du vill animera den
+    transition: box-shadow 0.3s ease;
+    opacity: 0; // Följer förälderns fade om vi vill, eller sätt opacity: 1
+
+    transition: border-color 0.2s ease;
+  }
+
+  /// Open state - visible and interactive
+  &--open {
+    transform: translateX(-50%) translateY(-4px); // Slides up slightly
+    opacity: 1;
+    pointer-events: auto; // Clickable when visible
+    box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%); // Depth shadow
+
+    &::after {
+      opacity: 1;
+    }
+  }
+
+  /// Dropdown item
+  /// Container for each link in dropdown
+  &__item {
+    width: auto;
+
+    /// Separator between items (not on last item)
+    &:not(:last-child) {
+      border-bottom: 1px solid var(--color-primary-dark);
+    }
+  }
+
+  /// Dropdown link
+  /// Individual clickable links within dropdown
+  &__link {
+    display: flex;
+    width: auto;
+    padding: var(--space-sm) var(--space-sm);
+    text-wrap: nowrap; // Prevent text wrapping
+    background-color: transparent;
+
+    /// Smooth background transition
+    transition: background-color 0.2s ease;
+
+    /// Hover state
+    &:hover {
+      background-color: var(--color-tertiary);
+    }
+
+    /// Active state (current page)
+    &--active {
+      background-color: var(--color-tertiary);
+      font-weight: var(--font-weight-semibold);
+    }
+
+    /// Sub-link modifier (placeholder, currently unused)
+    &--sub-link {
+    }
+  }
+
+  /// Dropdown link label
+  /// Typography for dropdown items
+  &__link-label {
+    @include mx.fontSetup(
+      $font: "heading",
+      $font-size: var(--text-sm),
+      $line-height: 1.3,
+      $font-weight: var(--font-weight-normal),
+      $letter-spacing: 0.02em
+    );
+  }
+}
