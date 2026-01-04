@@ -3,9 +3,13 @@ import { DropZone } from '@/components/forms/DropZone';
 import { Flex } from '@/components/layout/Flex';
 import { parseFontFile } from '@/utils';
 import { useFontMetrics, prepareFontMetricsState } from '../../context';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
 
 export const FontUpload = () => {
   const { state, dispatch } = useFontMetrics();
+
+  const isTablet = useMediaQuery(queries.isTabletOnly);
 
   /**
    * Handle font file selection
@@ -25,7 +29,12 @@ export const FontUpload = () => {
   };
 
   return (
-    <Flex direction="column" alignItems="center" gap="xl">
+    <Flex
+      direction="column"
+      alignItems="center"
+      gap="xl"
+      marginTop={isTablet ? '3xl' : 'sm'}
+    >
       <DropZone
         inputId="font-loader"
         onFileSelect={handleFileSelect}

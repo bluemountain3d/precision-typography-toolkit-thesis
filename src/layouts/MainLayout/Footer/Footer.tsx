@@ -16,7 +16,7 @@ export const Footer = () => {
       className={classNames(styles.footer)}
     >
       <Container variant="boxed">
-        <Flex direction="column" alignItems="center" rowGap="md">
+        <Flex direction="column" alignItems="center" rowGap="md" className={styles['footer__inner']}>
           <Flex direction="column" rowGap="md">
             <Brand size="md"></Brand>
             <ButtonGroup gap="none">

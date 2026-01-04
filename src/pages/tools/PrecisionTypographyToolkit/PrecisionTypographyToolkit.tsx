@@ -6,6 +6,7 @@ import { Flex } from '@/components/layout/Flex';
 // import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 import { MetricTableBlock } from './MetricTableBlock';
 import { HeroBlock } from './HeroBlock/HeroBlock';
+import { PageSection } from '@/components/layout/PageSection';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -15,18 +16,18 @@ const PrecisionTypographyToolkitContent = () => {
   const isUnderBreakpoint = useMediaQuery(queries.isTabletLargeAndDown);
 
   return (
-    <Flex width="full" direction="column" gap="6xl">
+    <>
       {/* Hero Section */}
-      <section id="hero-section">
+      <PageSection id="hero-section" fullHeight centerContent>
         <Container variant="boxed">
           <HeroBlock />
         </Container>
-      </section>
+      </PageSection>
 
       {/* Metrics Visualizer */}
       {state.fontFile && (
         <>
-          <section id="metrics-visualizer">
+          <PageSection id="metrics-visualizer" padding="large">
             <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
               <Flex width="full" direction="column" gap="2xl">
                 {/* <MetricVisualizerBlock /> */}
@@ -36,24 +37,24 @@ const PrecisionTypographyToolkitContent = () => {
                 <MetricTableBlock />
               </Flex>
             </Container>
-          </section>
+          </PageSection>
 
           {/* Export Metrics */}
-          <section id="export-metrics">
+          <PageSection id="export-metrics" padding="large">
             <p className="text-align-center">
               !! Export metrics as different languages will be here !!
             </p>
-          </section>
+          </PageSection>
         </>
       )}
 
       {/* Metrics learn intro */}
-      <section id="metrics-intro">
+      <PageSection id="metrics-intro" padding="large">
         <p className="text-align-center">
           !! Intro to font metrics with a link to the "learn" article !!
         </p>
-      </section>
-    </Flex>
+      </PageSection>
+    </>
   );
 };
 
