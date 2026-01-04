@@ -8,14 +8,12 @@ import pttLogo_2x_webp from '@/assets/images/precision-typography/logo/precision
 import pttLogo_3x_webp from '@/assets/images/precision-typography/logo/precision-typography-logo-@3x.webp';
 
 import { Img } from '@/components/ui/Image';
-import { Heading } from '@/components/typography/Heading';
 import { Flex } from '@/components/layout/Flex';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
-import { Text } from '@/components/typography/Text';
 
 export const ProductLockup = () => {
-  const isMobile = useMediaQuery(queries.isUpToPhablet);
+  const isMobile = useMediaQuery(queries.isUpToTabletLarge);
 
   return (
     <Flex
@@ -45,26 +43,18 @@ export const ProductLockup = () => {
         )}
       />
       <Flex
-        as="hgroup"
+        as="div"
         direction="column"
         justifyContent="center"
-        alignItems={isMobile ? 'center' : 'start'}
-        gap="lg"
+        // alignItems={isMobile ? 'center' : 'start'}
+        alignItems="start"
         width="auto"
+        className={styles['product-lockup__brand']}
       >
-        <Heading level={2} size="heading-2" variant="primary">
-          Precision Typography{'\n'}
-          <span></span>
-        </Heading>
-        <Text
-          variant="link"
-          weight="medium"
-          family="mono"
-          align="left"
-          className="font-size-heading-3"
-        >
-          Toolkit
-        </Text>
+        <span className={styles['product-lockup__brand-pt1']}>
+          Precision Typography
+        </span>
+        <span className={styles['product-lockup__brand-pt2']}>Toolkit</span>
       </Flex>
     </Flex>
   );
