@@ -11,6 +11,10 @@
     "footer";
   grid-template-columns: 1fr;
   grid-template-rows: 1px auto 1fr auto;
+  
+  // Disable scroll anchoring to prevent Firefox adjustments
+  // when header height changes during scroll
+  overflow-anchor: none;
 }
 
 .skip-link {
