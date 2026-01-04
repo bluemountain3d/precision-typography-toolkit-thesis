@@ -1,8 +1,8 @@
 import styles from './Button.module.scss';
 import classNames from 'clsx';
 import type { ButtonProps } from './Button.types';
-import type React from 'react';
 import { Icon } from '@/components/ui/Icon';
+import { useLayoutEffect, useRef } from 'react';
 
 /**
  * A versatile Button component supporting multiple variants, sizes, icons, and states.
@@ -17,6 +17,16 @@ import { Icon } from '@/components/ui/Icon';
  * - Link functionality with external link support
  * - Full-width option
  * - Spacing utilities via margin props
+ * - Dynamic gradient angle optimization based on button dimensions
+ *
+ * ## Gradient Angle Optimization
+ * The button automatically calculates and applies an optimized gradient angle based on its
+ * dimensions. This creates a visually consistent diagonal gradient regardless of button size:
+ * - Uses `useLayoutEffect` to measure rendered dimensions before paint
+ * - Compresses width by 0.6× to maintain gradient steepness across different aspect ratios
+ * - Calculates angle using `atan2(height, adjustedWidth)` for proper diagonal flow
+ * - Sets CSS custom property `--_gradient-angle` for use in button styles
+ * - Updates on mount to ensure gradient matches actual rendered dimensions
  *
  * ## Accessibility
  * - Properly handles disabled and loading states with aria attributes
@@ -87,6 +97,25 @@ export const Button = ({
   // Combine all disabled states
   const isDisabled = disabled || loading;
 
+  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
+
+  useLayoutEffect(() => {
+    const el = btnRef.current;
+    if (!el) return;
+
+    const { offsetWidth: width, offsetHeight: height } = el;
+
+    // THE MAGIC: We compress the width by a factor of 0.6 to maintain the steepness
+    const adjustedWidth = width * 0.6;
+
+    // Calculate angle
+    const angleInRad = Math.atan2(height, adjustedWidth);
+    const angleInDeg = angleInRad * (180 / Math.PI);
+
+    // Make negative
+    el.style.setProperty('--_gradient-angle', `${angleInDeg * -1}deg`);
+  }, []);
+
   const handleClick = (
     e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
   ) => {
@@ -155,7 +184,7 @@ export const Button = ({
   );
 
   return (
-    <Tag {...commonProps} {...specificProps}>
+    <Tag ref={btnRef as any} {...commonProps} {...specificProps}>
       {content}
     </Tag>
   );

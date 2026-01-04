@@ -82,6 +82,10 @@
   /// @type Length
   --_button-height: clamp(2.75rem, 2.5rem + 1.0417 * var(--vwx), 3.5rem);
 
+  /// Initial gradient direction; updated to optimal angle based on button dimensions
+  /// @type angle
+  --_gradient-angle: to top left;
+
   // ---------------------------------------------------------------------------
   // Base Button Styles
   // ---------------------------------------------------------------------------
@@ -102,7 +106,7 @@
   justify-content: center;
 
   // Spacing and shape
-  padding-inline: 1em;
+  padding-inline: 1.75em;
   border-radius: 0.75em;
   border: 1px solid transparent; // Required for border-box gradient
 
@@ -122,14 +126,14 @@
   // OKLCH color space provides perceptually uniform gradients
   background:
     linear-gradient(
-        in oklch -37.3deg,
+        in oklch var(--_gradient-angle),
         var(--_surface-dark) 0%,
         var(--_surface-light) 100%
       )
       padding-box,
     linear-gradient(
-        in oklch -37.3deg,
-        var(--_border-dark) 60%,
+        in oklch var(--_gradient-angle),
+        var(--_border-dark) 55%,
         var(--_border-bright) 90%
       )
       border-box;
@@ -180,6 +184,7 @@
   /// @modifier
   &--icon-only {
     gap: 0;
+    padding-inline: 1em;
   }
 
   // ---------------------------------------------------------------------------
@@ -271,6 +276,7 @@
     --_surface-light: transparent;
     --_surface-dark: transparent;
     --_surface-active: transparent;
+    padding-inline: 1em;
     color: var(--color-text-secondary);
     box-shadow: none;
 
