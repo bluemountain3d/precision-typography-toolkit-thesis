@@ -13,9 +13,9 @@
 
 // --- Base Colors ---
 $color-primary-dark-oklch: fn.adjustOklch(var.$color-primary-dark, -5, 1.3);
-$color-primary-oklch: fn.adjustOklch(var.$color-primary, 2, 1.3);
+$color-primary-oklch: fn.adjustOklch(var.$color-primary, 2, 1.5);
 $color-secondary-oklch: fn.adjustOklch(var.$color-secondary, 0, 1.2);
-$color-tertiary-oklch: fn.adjustOklch(var.$color-tertiary, 0, 1.2);
+$color-tertiary-oklch: fn.adjustOklch(var.$color-tertiary, 0, 1);
 $color-accent-oklch: fn.adjustOklch(var.$color-accent, 0, 1.2);
 
 // --- Text Colors ---
