@@ -1,5 +1,7 @@
 import type { FontSize, Spacing } from '@/types';
 
+export type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement>>;
+
 /**
  * Icon component props
  */
@@ -8,7 +10,7 @@ export interface IconProps {
    * SVG icon component (imported with ?react suffix)
    * @example icon={CopyIcon}
    */
-  icon: React.ElementType<React.SVGProps<SVGSVGElement>>;
+  icon: IconComponent;
   /**
    * Icon color variant - uses design system color tokens
    * @default 'inherit'

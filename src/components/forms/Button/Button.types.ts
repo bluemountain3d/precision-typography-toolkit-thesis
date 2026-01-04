@@ -1,47 +1,144 @@
-import type { IconFill } from '@/components/ui/Icon';
+import type { IconComponent, IconFill } from '@/components/ui/Icon';
 import type { SpacingSize } from '@/types';
 import type React from 'react';
 
 /**
- * Button component props
+ * Base properties shared by all button variants
  */
-export interface ButtonProps {
-  /** Button text content */
-  children: string;
-  variant?: ButtonVariants;
-  size?: ButtonSize;
+export interface BaseButtonProps {
   /**
-   * SVG icon component to display before text
-   * @example icon={SaveIcon}
+   * Visual variant of the button
+   * @default 'primary'
    */
-  icon?: React.ElementType<React.SVGProps<SVGSVGElement>>;
+  variant?: ButtonVariants;
+
   /**
-   * Icon color variant - defaults to 'inherit' to match button text color
+   * Size variant affecting padding and font size
+   * @default 'base'
+   */
+  size?: ButtonSize;
+
+  /**
+   * Optional icon component to display alongside or instead of text
+   */
+  icon?: IconComponent;
+
+  /**
+   * Fill color for the icon
+   * @default 'inherit'
    */
   iconFill?: IconFill;
-  disabled?: boolean;
+
   /**
-   * Shows loading state - disables interaction and can display loading indicator
+   * Disables the button and prevents interaction
+   * @default false
+   */
+  disabled?: boolean;
+
+  /**
+   * Shows loading state and disables interaction
+   * @default false
    */
   loading?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+
   /**
-   * If provided, renders as an anchor tag instead of button
+   * Click handler for button interactions
+   */
+  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+
+  /**
+   * When provided, renders as an anchor tag instead of button
    */
   href?: string;
+
   /**
-   * Opens href in new tab with security attributes (rel="noopener noreferrer")
-   * Only applies when href is provided
+   * Opens link in new tab when href is provided
+   * @default false
    */
   external?: boolean;
+
+  /**
+   * HTML button type attribute
+   * @default 'button'
+   */
   type?: ButtonType;
-  /** Makes button expand to 100% width of container */
+
+  /**
+   * Makes button span full width of container
+   * @default false
+   */
   fullWidth?: boolean;
+
+  /**
+   * Adds top margin using spacing scale
+   */
   marginTop?: SpacingSize;
+
+  /**
+   * Adds bottom margin using spacing scale
+   */
   marginBottom?: SpacingSize;
+
+  /**
+   * Additional CSS classes to apply
+   */
   className?: string;
 }
 
+/**
+ * Props for regular button with text content
+ */
+interface RegularButtonProps extends BaseButtonProps {
+  /**
+   * When false, button displays both icon and text
+   * @default false
+   */
+  iconOnly?: false;
+
+  /**
+   * Button text content
+   */
+  children: React.ReactNode;
+
+  /**
+   * Accessible label for screen readers (optional for regular buttons)
+   */
+  'aria-label'?: string;
+}
+
+/**
+ * Props for icon-only button variant
+ */
+interface IconButtonProps extends BaseButtonProps {
+  /**
+   * When true, button only displays icon without text
+   */
+  iconOnly: true;
+
+  /**
+   * Icon-only buttons cannot have text children
+   */
+  children?: never;
+
+  /**
+   * Required accessible label for screen readers on icon-only buttons
+   */
+  'aria-label': string;
+
+  /**
+   * Required icon component for icon-only buttons
+   */
+  icon: IconComponent;
+}
+
+/**
+ * Union type combining regular and icon-only button props
+ */
+export type ButtonProps = RegularButtonProps | IconButtonProps;
+
+/**
+ * Available button visual variants
+ */
 export type ButtonVariants =
   | 'primary'
   | 'secondary'
@@ -53,6 +150,12 @@ export type ButtonVariants =
   | 'danger'
   | 'info';
 
+/**
+ * Available button size variants
+ */
 export type ButtonSize = 'xs' | 'sm' | 'base' | 'md' | 'lg';
 
+/**
+ * HTML button type attribute values
+ */
 export type ButtonType = 'button' | 'submit' | 'reset';

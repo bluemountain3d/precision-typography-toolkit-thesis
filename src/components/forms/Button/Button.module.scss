@@ -1,70 +1,147 @@
-/// @group Forms
-/// @name Button Component Styles
-///
-/// Flexible button component with multiple variants, sizes, and states.
-/// Uses dual-gradient technique for surface and border effects.
-/// Supports both <button> and <a> elements.
-///
+// =============================================================================
+// Button Component Styles
+// =============================================================================
+//
+// Flexible button component supporting multiple variants, sizes, and states.
+// Uses dual-gradient technique for sophisticated surface and border effects.
+// Supports rendering as both <button> and <a> elements.
+//
+// @group Forms
+// @name Button Component
+//
+// ## Features
+// - 9 visual variants (primary, secondary, accent, ghost, link, success, warning, danger, info)
+// - 5 size options (xs, sm, base, md, lg)
+// - Icon support with customizable colors
+// - Disabled and loading states
+// - Full-width option
+// - Accessible focus states
+// - Smooth transitions and animations
+//
+// ## Design Pattern
+// The button uses a dual-gradient background technique:
+// 1. Surface gradient (padding-box) - creates the main button color
+// 2. Border gradient (border-box) - creates sophisticated edge lighting
+//
+// This creates depth and visual interest while maintaining performance.
+//
+// ## Custom Properties
+// Each variant controls its appearance through scoped custom properties:
+// - --_icon-color: Icon fill color
+// - --_border-bright/--_border-dark: Border gradient endpoints
+// - --_border-hover: Border color on hover
+// - --_surface-light/--_surface-dark: Surface gradient endpoints
+// - --_surface-active: Surface color when pressed
+//
+// =============================================================================
 
 .button {
-  /// Icon color for button content
+  // ---------------------------------------------------------------------------
+  // Custom Properties
+  // ---------------------------------------------------------------------------
+  // These properties are overridden by each variant to create distinct styles
+  // while maintaining a consistent structure and animation behavior.
+
+  /// Icon fill color for button content
+  /// Inherits from variant-specific color tokens
   /// @type Color
   --_icon-color: var(--color-text-primary);
 
-  /// Border gradient - bright end
+  /// Border gradient - bright endpoint (top-left)
+  /// Creates highlight effect on button edge
   /// @type Color
   --_border-bright: var(--color-primary-border-bright);
 
-  /// Border gradient - dark end
+  /// Border gradient - dark endpoint (bottom-right)
+  /// Creates shadow effect on button edge
   /// @type Color
   --_border-dark: var(--color-primary-border);
 
-  /// Border color on hover
+  /// Border color on hover state
+  /// Enhanced border for interaction feedback
   /// @type Color
   --_border-hover: var(--color-primary-border-hover);
 
-  /// Surface gradient - light end
+  /// Surface gradient - light endpoint (top-left)
+  /// Creates button face coloring
   /// @type Color
   --_surface-light: var(--color-primary-surface);
 
-  /// Surface gradient - dark end
+  /// Surface gradient - dark endpoint (bottom-right)
+  /// Adds depth to button face
   /// @type Color
   --_surface-dark: var(--color-primary-surface-dark);
 
   /// Surface color when active (pressed)
+  /// Darkened surface for tactile feedback
   /// @type Color
   --_surface-active: var(--color-primary-surface-active);
 
+  /// Responsive button height using fluid typography
+  /// Scales between min (2.75rem) and max (3.5rem) based on viewport width
+  /// @type Length
+  --_button-height: clamp(2.75rem, 2.5rem + 1.0417 * var(--vwx), 3.5rem);
+
+  // ---------------------------------------------------------------------------
+  // Base Button Styles
+  // ---------------------------------------------------------------------------
+  // Core layout and appearance shared by all variants
+
   cursor: pointer;
-  display: flex;
-  justify-content: center;
+  height: var(--_button-height);
+  min-height: 2.75rem;
+
+  // Grid layout for icon + text alignment
+  // auto-flow: column ensures horizontal icon-text layout
+  // max-content prevents unnecessary stretching
+  display: inline-grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  gap: 0.8em;
   align-items: center;
-  padding-block: 1.025em;
-  padding-inline: 1.025em;
+  justify-content: center;
+
+  // Spacing and shape
+  padding-inline: 1em;
   border-radius: 0.75em;
-  border: 1px solid transparent;
-  // corner-shape: squircle; //!DEV
+  border: 1px solid transparent; // Required for border-box gradient
+
+  // Subtle inner shadow for depth
   box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
   color: var(--color-text-primary);
 
-  /// Dual-gradient background (surface + border)
-  /// Uses padding-box and border-box for layered effect
+  // ---------------------------------------------------------------------------
+  // Dual-Gradient Background System
+  // ---------------------------------------------------------------------------
+  // Creates sophisticated surface + border effect using two gradients:
+  //
+  // Layer 1 (padding-box): Surface gradient for button face
+  // Layer 2 (border-box): Border gradient for edge lighting
+  //
+  // The -37.3deg angle creates a diagonal light source effect
+  // OKLCH color space provides perceptually uniform gradients
   background:
-    linear-gradient(in oklch
-        -37.3deg,
+    linear-gradient(
+        in oklch -37.3deg,
         var(--_surface-dark) 0%,
         var(--_surface-light) 100%
       )
       padding-box,
-    linear-gradient(in oklch
-        -37.3deg,
+    linear-gradient(
+        in oklch -37.3deg,
         var(--_border-dark) 60%,
         var(--_border-bright) 90%
       )
       border-box;
   transition: background 0.2s ease;
 
-  /// Hover state with enhanced border and glow effect
+  // ---------------------------------------------------------------------------
+  // Interactive States
+  // ---------------------------------------------------------------------------
+
+  /// Hover state
+  /// Enhances border color and adds outer glow for visual feedback
+  /// The glow uses the hover border color at 50% opacity
   &:hover {
     --_border-dark: var(--_border-hover);
     box-shadow:
@@ -72,42 +149,49 @@
       0 0 0.5em 1px oklch(from var(--_border-hover) l c h / 50%);
   }
 
-  /// Active (pressed) state with darker surface
+  /// Active (pressed) state
+  /// Darkens surface to simulate button depression
   &:active {
     --_surface-dark: var(--_surface-active);
   }
 
-  /// Base disabled styling
-  /// More specific disabled styling is applied per variant
+  /// Disabled state base
+  /// Mutes text color - variant-specific disabled styles applied later
+  /// @see Disabled States section for variant-specific overrides
   &:disabled {
     color: var(--color-text-disabled);
   }
 
-  /// Full-width button modifier
-  /// @output Button spans full width of container
+  // ---------------------------------------------------------------------------
+  // Modifiers
+  // ---------------------------------------------------------------------------
+
+  /// Full-width modifier
+  /// Makes button span entire container width
+  /// Useful for mobile layouts and CTAs
+  /// @modifier
   &--full-width {
     width: 100%;
   }
 
-  // --------------------------------------------------------------------------
-  // Spacing Overrides
-  // --------------------------------------------------------------------------
-
-  /// Adjusted padding for buttons with icons
-  /// Provides better visual balance when icon is present
-  /// @output Reduced vertical and horizontal padding
-  &--icon-spacing {
-    padding-block: 0.75em;
-    padding-inline: 1em 0.8em;
+  /// Icon-only modifier
+  /// Removes gap when button contains only an icon
+  /// Used with aria-label for accessibility
+  /// @modifier
+  &--icon-only {
+    gap: 0;
   }
 
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Button Variants
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Each variant overrides custom properties to create distinct visual styles
+  // while maintaining consistent structure and behavior.
 
   /// Primary button variant (default)
-  /// Main call-to-action styling
-  /// @output Blue gradient with high contrast
+  /// Main call-to-action with high-contrast blue gradient
+  /// Use for primary actions like "Save", "Submit", "Continue"
+  /// @variant
   &--primary {
     --_icon-color: var(--color-secondary-title);
     --_border-bright: var(--color-primary-border-bright);
@@ -119,8 +203,9 @@
   }
 
   /// Secondary button variant
-  /// Alternative action styling with distinct colors
-  /// @output Different color scheme from primary
+  /// Alternative action with distinct color scheme
+  /// Use for secondary actions or when multiple buttons appear together
+  /// @variant
   &--secondary {
     --_icon-color: var(--color-secondary-title);
     --_border-bright: var(--color-secondary-border-bright);
@@ -131,6 +216,7 @@
     --_surface-active: var(--color-secondary-surface-active);
 
     /// Secondary variant has custom active state
+    /// Lightens surface instead of darkening for visual variety
     &:active {
       --_surface-light: var(--color-secondary-surface-active);
     }
@@ -138,7 +224,9 @@
 
   /// Ghost button variant
   /// Minimal styling with transparent background
-  /// @output Text-only appearance with subtle hover
+  /// Use for tertiary actions or subtle interface controls
+  /// Appears as text-only with subtle hover effect
+  /// @variant
   &--ghost {
     --_icon-color: var(--color-text-muted);
     --_border-bright: transparent;
@@ -156,12 +244,14 @@
       color: var(--color-text-primary);
     }
 
+    /// Hover shows subtle background tint
     &:hover {
       --_icon-color: var(--color-text-secondary);
       --_surface-light: oklch(1 0 0 /10%);
       --_surface-dark: oklch(1 0 0 /10%);
     }
 
+    /// Active shows slightly stronger tint
     &:active {
       --_icon-color: var(--color-text-primary);
       --_surface-light: oklch(1 0 0 /15%);
@@ -170,8 +260,10 @@
   }
 
   /// Link button variant
-  /// Styled as text link with underline on hover
-  /// @output Appears as hyperlink, not button
+  /// Styled as inline text link with underline on hover
+  /// Use when button should appear as hyperlink
+  /// Removes all button chrome for text-only appearance
+  /// @variant
   &--link {
     --_border-bright: transparent;
     --_border-dark: transparent;
@@ -182,6 +274,7 @@
     color: var(--color-text-secondary);
     box-shadow: none;
 
+    /// Hover underlines like standard link
     &:hover {
       box-shadow: none;
       color: var(--color-inline-link);
@@ -189,14 +282,16 @@
       text-underline-offset: 0.2em;
     }
 
+    /// Active uses link active color
     &:active {
       color: var(--color-inline-link-hover);
     }
   }
 
   /// Accent button variant
-  /// Highlighted action with accent colors
-  /// @output Distinct accent color scheme
+  /// Highlighted action with distinct accent colors
+  /// Use for special promotions or featured actions
+  /// @variant
   &--accent {
     --_icon-color: var(--color-accent-title);
     --_border-bright: var(--color-accent-border-bright);
@@ -208,8 +303,9 @@
   }
 
   /// Success button variant
-  /// Positive action confirmation (e.g., save, submit)
-  /// @output Green color scheme
+  /// Positive action confirmation with green color scheme
+  /// Use for successful operations like "Save", "Submit", "Confirm"
+  /// @variant
   &--success {
     --_icon-color: var(--color-success-title);
     --_border-bright: var(--color-success-border-bright);
@@ -221,8 +317,9 @@
   }
 
   /// Warning button variant
-  /// Caution required actions
-  /// @output Yellow/orange color scheme
+  /// Caution-required actions with yellow/orange scheme
+  /// Use for actions requiring user attention or confirmation
+  /// @variant
   &--warning {
     --_icon-color: var(--color-warning-title);
     --_border-bright: var(--color-warning-border-bright);
@@ -234,8 +331,10 @@
   }
 
   /// Danger button variant
-  /// Destructive actions (e.g., delete, remove)
-  /// @output Red color scheme
+  /// Destructive actions with red color scheme
+  /// Use for dangerous operations like "Delete", "Remove", "Reset"
+  /// Should be used sparingly and with confirmation dialogs
+  /// @variant
   &--danger {
     --_icon-color: var(--color-danger-title);
     --_border-bright: var(--color-danger-border-bright);
@@ -247,8 +346,9 @@
   }
 
   /// Info button variant
-  /// Informational actions
-  /// @output Blue info color scheme
+  /// Informational actions with blue info scheme
+  /// Use for help, documentation, or information actions
+  /// @variant
   &--info {
     --_icon-color: var(--color-info-title);
     --_border-bright: var(--color-info-border-bright);
@@ -282,25 +382,22 @@
   //   }
   // }
 
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Disabled States
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Variant-specific disabled styling to maintain visual hierarchy
+  // while clearly indicating non-interactive state.
 
   /// Solid button variants disabled state
   /// Applies unified disabled styling for all solid button types
+  /// Removes interactive effects and applies muted color scheme
   ///
   /// @group Disabled States
   /// @requires {Variable} --color-disabled-*
-  /// @output Muted colors, no focus ring, no hover effects
   ///
   /// Applies to variants:
-  /// - primary
-  /// - secondary
-  /// - accent
-  /// - success
-  /// - warning
-  /// - danger
-  /// - info
+  /// - primary, secondary, accent
+  /// - success, warning, danger, info
   &--primary,
   &--secondary,
   &--accent,
@@ -320,12 +417,14 @@
       color: var(--color-text-disabled);
 
       /// Remove focus ring for disabled solid buttons
+      /// Prevents keyboard focus on disabled elements
       &:focus-visible {
         outline: none;
         box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
       }
 
       /// Remove hover glow effect for disabled solid buttons
+      /// Maintains consistent disabled appearance
       &:hover {
         box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
       }
@@ -334,10 +433,10 @@
 
   /// Ghost variant disabled state
   /// More subtle disabled styling for minimal ghost buttons
+  /// Maintains transparent background with muted text
   ///
   /// @group Disabled States
   /// @requires {Variable} --color-text-disabled
-  /// @output Transparent background maintained, muted text
   &--ghost {
     &:disabled {
       cursor: not-allowed;
@@ -359,10 +458,10 @@
 
   /// Link variant disabled state
   /// Removes link styling and interactions when disabled
+  /// Prevents underline and color change on hover
   ///
   /// @group Disabled States
   /// @requires {Variable} --color-text-disabled
-  /// @output No underline, muted text, no color change
   &--link {
     &:disabled {
       cursor: not-allowed;
@@ -381,59 +480,77 @@
     }
   }
 
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Button Sizes
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Size variants control font size and height proportionally
+  // Base size (--text-base) uses default button height
+  // Other sizes scale height relative to base
 
   /// Extra small button size
-  /// @output Font size: var(--text-xs)
+  /// Compact size for dense interfaces or inline controls
+  /// Height: 2.75rem (44px)
+  /// @size xs
   &--xs {
     font-size: var(--text-xs);
+    height: 2.75rem;
   }
 
   /// Small button size
-  /// @output Font size: var(--text-sm)
+  /// Slightly reduced from base, good for secondary actions
+  /// Height: 87.5% of base button height
+  /// @size sm
   &--sm {
     font-size: var(--text-sm);
+    height: calc(var(--_button-height) * 0.875);
   }
 
   /// Base button size (default)
-  /// @output Font size: var(--text-base)
+  /// Standard size for most use cases
+  /// @size base
   &--base {
     font-size: var(--text-base);
   }
 
   /// Medium button size
-  /// @output Font size: var(--text-md)
+  /// Larger than base, good for prominent CTAs
+  /// Height: 112.5% of base button height
+  /// @size md
   &--md {
     font-size: var(--text-md);
+    height: calc(var(--_button-height) * 1.125);
   }
 
   /// Large button size
-  /// @output Font size: var(--text-lg)
+  /// Largest size for hero CTAs and main actions
+  /// Height: 125% of base button height
+  /// @size lg
   &--lg {
     font-size: var(--text-lg);
+    height: calc(var(--_button-height) * 1.25);
   }
 
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
   // Button Content Elements
-  // --------------------------------------------------------------------------
+  // ---------------------------------------------------------------------------
+  // Styling for button text and icon containers
 
   /// Button text container
-  /// Applies letter spacing for better readability
-  /// @output Slightly expanded letter spacing, inherits color
+  /// Applies subtle letter spacing for improved readability
+  /// Inherits color from parent button variant
+  /// @element
   &__text {
     letter-spacing: 0.05em;
     color: inherit;
   }
 
   /// Button icon container
-  /// Positioned before text with appropriate spacing and sizing
+  /// Fixed-size container for consistent icon rendering
+  /// Color controlled by variant's --_icon-color property
   ///
-  /// @requires {Variable} --_icon-color
-  /// @output Fixed size icon with right margin, colored by variant
+  /// @element
+  /// @requires {Variable} --_icon-color - Set by button variant
   &__icon {
-    margin-right: 0.8em;
     width: 1.2em;
     height: 1.2em;
     display: inline-flex;

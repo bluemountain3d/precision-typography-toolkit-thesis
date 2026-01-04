@@ -25,6 +25,12 @@
     font-size: var(--fs-600);
   }
 
+  &__first-part,
+  &__second-part {
+    line-height: 1;
+    transition: font-size 0.3s ease;
+  }
+
   &__first-part {
     font-family: var(--font-family-primary);
     font-size: 1em;
@@ -36,7 +42,6 @@
     margin-bottom: -0.188em;
     margin-left: -0.088em;
     letter-spacing: -0.01em;
-    line-height: 1;
   }
 
   &__second-part {
@@ -50,6 +55,5 @@
     margin-bottom: -0.144em;
     margin-right: -0.046em;
     letter-spacing: -0.02em;
-    line-height: 1;
   }
 }
