@@ -1,3 +1,15 @@
 .footer {
   grid-area: footer;
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: min(80%, 90rem);
+    height: 1px;
+    transform: translateX(-50%);
+    background-color: var(--color-tertiary);
+  }
 }
