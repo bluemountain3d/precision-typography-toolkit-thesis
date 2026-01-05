@@ -10,7 +10,7 @@ export const MetricVisualizerBlock = () => {
     kerning: false,
   });
   const [thumbSliders, setThumbSliders] = useState({
-    lineHeight: 1.2,
+    lineHeight: 1.5,
   });
 
   const handleToggleChange = (key: string) => (checked: boolean) => {
@@ -48,7 +48,7 @@ export const MetricVisualizerBlock = () => {
           labelWidth={labelWidth}
         />
       </Flex>
-      <MetricsVisualizer lineHeight={thumbSliders.lineHeight}/>
+      <MetricsVisualizer lineHeight={thumbSliders.lineHeight} />
     </Flex>
   );
 };

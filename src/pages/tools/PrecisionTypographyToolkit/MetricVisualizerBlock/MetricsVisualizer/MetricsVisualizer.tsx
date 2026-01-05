@@ -11,7 +11,7 @@ interface MetricsVisualizerProps {
 }
 
 export const MetricsVisualizer = ({
-  lineHeight = 1.2,
+  lineHeight = 1.5,
 }: MetricsVisualizerProps) => {
   const elemRef = useRef<HTMLDivElement>(null);
 
