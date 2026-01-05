@@ -1,4 +1,6 @@
-import { useEffect, useRef } from 'react';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
+import { useEffect, useRef, useState } from 'react';
 
 interface LineConfig {
   x1: number;
@@ -59,6 +61,7 @@ interface MetricsVisualizerSVGProps {
   vizText: string;
   fontFamily: string;
   unitsPerEm: number;
+  unitsPerRem: number;
   onTextBBoxUpdate?: (bbox: DOMRect) => void;
 }
 
@@ -70,9 +73,12 @@ export const MetricsVisualizerSVG = ({
   vizText,
   fontFamily,
   unitsPerEm,
+  unitsPerRem,
   onTextBBoxUpdate,
 }: MetricsVisualizerSVGProps) => {
+  const [selectedMetric, setSelectedMetric] = useState('');
   const textRef = useRef<SVGTextElement>(null);
+  const isTabletUp = useMediaQuery(queries.isTabletAndUp);
 
   // Calculate arrow size based on UPM
   const arrowSize = unitsPerEm * 0.025; // 2.5% of UPM
@@ -80,13 +86,19 @@ export const MetricsVisualizerSVG = ({
   const arrowHeight = arrowSize * 2;
   const refPoint = arrowSize; // Center point
 
-  const selectedMetric: string = ''; // TODO : Get from `state.selectedMetric`
+  // const selectedMetric: string = 'emBox'; // TODO : Get from `state.selectedMetric`
 
-  const baseLineColor = 'var(--color-accent)';
+  const baselineColor = 'var(--color-tertiary)';
   const rectangleColor = 'var(--color-tertiary)';
   const lineColor = 'var(--color-tertiary)';
   const measureColor = 'var(--color-tertiary)';
   const selectedMeasureColor = 'var(--color-primary-border-hover)';
+
+  const hitBoxSize = 2.75 * unitsPerRem;
+  const outerRadius = 0.75 * unitsPerRem;
+  const outerRadiusSelected = unitsPerRem;
+  const innerRadius = 0.625 * unitsPerRem;
+  const innerRadiusSelected = 0.9375 * unitsPerRem;
 
   useEffect(() => {
     if (textRef.current && onTextBBoxUpdate) {
@@ -99,6 +111,29 @@ export const MetricsVisualizerSVG = ({
     <svg viewBox={`0 ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}>
       {/* Measure line arrows */}
       <defs>
+        {/* Outer circle gradient (border) - 45° to bottom left */}
+        <linearGradient id="circle-border" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="55%" stop-color="var(--color-tertiary)" />
+          <stop offset="90%" stop-color="var(--color-tertiary)" />
+        </linearGradient>
+
+        <linearGradient
+          id="circle-border-active"
+          x1="0%"
+          y1="0%"
+          x2="100%"
+          y2="100%"
+        >
+          <stop offset="10%" stop-color="var(--color-primary-border-bright)" />
+          <stop offset="45%" stop-color="var(--color-primary-border-hover)" />
+        </linearGradient>
+
+        {/* Inner circle gradient (fill) - 45° to bottom left */}
+        <linearGradient id="circle-fill" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="var(--color-primary-surface)" />
+          <stop offset="100%" stop-color="var(--color-primary-surface-dark)" />
+        </linearGradient>
+
         <marker
           id="arrow-start"
           markerWidth={arrowWidth}
@@ -313,7 +348,7 @@ export const MetricsVisualizerSVG = ({
         x2={lines.baseline.x2}
         y1={lines.baseline.y}
         y2={lines.baseline.y}
-        stroke={baseLineColor}
+        stroke={baselineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
@@ -552,6 +587,318 @@ export const MetricsVisualizerSVG = ({
       >
         {vizText}
       </text>
+
+      {/* ================================================================= */}
+
+      {isTabletUp && (
+        <>
+          {/* Hit box: Line-box */}
+          <g
+            transform={`translate(${measureLines.lineBox.x}, ${(measureLines.lineBox.y1 + measureLines.lineBox.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'lineBox' ? outerRadiusSelected : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'lineBox' ? outerRadiusSelected : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'lineBox' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'lineBox' ? innerRadiusSelected : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--line-box"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setSelectedMetric(selectedMetric ? '' : 'lineBox')}
+            />
+          </g>
+
+          {/* Hit box: Em-box */}
+          <g
+            transform={`translate(${measureLines.emBox.x}, ${(measureLines.emBox.y1 + measureLines.emBox.y2) / 2})`}
+          >
+            <circle
+              r={selectedMetric === 'emBox' ? outerRadiusSelected : outerRadius}
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={selectedMetric === 'emBox' ? outerRadiusSelected : outerRadius}
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'emBox' ? 1 : 0}
+            />
+            <circle
+              r={selectedMetric === 'emBox' ? innerRadiusSelected : innerRadius}
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--em-box"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setSelectedMetric(selectedMetric ? '' : 'emBox')}
+            />
+          </g>
+
+          {/* Hit box: Cap Height */}
+          <g
+            transform={`translate(${measureLines.capHeight.x}, ${(measureLines.capHeight.y1 + measureLines.capHeight.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'capHeight'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'capHeight'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'capHeight' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'capHeight'
+                  ? innerRadiusSelected
+                  : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--cap-height"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                setSelectedMetric(selectedMetric ? '' : 'capHeight')
+              }
+            />
+          </g>
+
+          {/* Hit box: x-Height */}
+          <g
+            transform={`translate(${measureLines.xHeight.x}, ${(measureLines.xHeight.y1 + measureLines.xHeight.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'xHeight' ? outerRadiusSelected : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'xHeight' ? outerRadiusSelected : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'xHeight' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'xHeight' ? innerRadiusSelected : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--x-height"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setSelectedMetric(selectedMetric ? '' : 'xHeight')}
+            />
+          </g>
+
+          {/* Hit box: Ascender */}
+          <g
+            transform={`translate(${measureLines.ascender.x}, ${(measureLines.ascender.y1 + measureLines.ascender.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'ascender'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'ascender'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'ascender' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'ascender'
+                  ? innerRadiusSelected
+                  : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--ascender"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                setSelectedMetric(selectedMetric ? '' : 'ascender')
+              }
+            />
+          </g>
+
+          {/* Hit box: Descender */}
+          <g
+            transform={`translate(${measureLines.descender.x}, ${(measureLines.descender.y1 + measureLines.descender.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'descender'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'descender'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'descender' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'descender'
+                  ? innerRadiusSelected
+                  : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--descender"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                setSelectedMetric(selectedMetric ? '' : 'descender')
+              }
+            />
+          </g>
+
+          {/* Hit box: Top Trim */}
+          <g
+            transform={`translate(${measureLines.topTrim.x}, ${(measureLines.topTrim.y1 + measureLines.topTrim.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'topTrim' ? outerRadiusSelected : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'topTrim' ? outerRadiusSelected : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'topTrim' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'topTrim' ? innerRadiusSelected : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--top-trim"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() => setSelectedMetric(selectedMetric ? '' : 'topTrim')}
+            />
+          </g>
+
+          {/* Hit box: Bottom Trim */}
+          <g
+            transform={`translate(${measureLines.bottomTrim.x}, ${(measureLines.bottomTrim.y1 + measureLines.bottomTrim.y2) / 2})`}
+          >
+            <circle
+              r={
+                selectedMetric === 'bottomTrim'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border)"
+            />
+            <circle
+              r={
+                selectedMetric === 'bottomTrim'
+                  ? outerRadiusSelected
+                  : outerRadius
+              }
+              fill="url(#circle-border-active)"
+              opacity={selectedMetric === 'bottomTrim' ? 1 : 0}
+            />
+            <circle
+              r={
+                selectedMetric === 'bottomTrim'
+                  ? innerRadiusSelected
+                  : innerRadius
+              }
+              fill="url(#circle-fill)"
+            />
+            <rect
+              id="hit-box--bottom-trim"
+              x={-(hitBoxSize / 2)}
+              y={-(hitBoxSize / 2)}
+              width={hitBoxSize}
+              height={hitBoxSize}
+              fill="transparent"
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                setSelectedMetric(selectedMetric ? '' : 'bottomTrim')
+              }
+            />
+          </g>
+        </>
+      )}
     </svg>
   );
 };

@@ -17,6 +17,7 @@ export const MetricsVisualizer = ({
 
   const [visualizerData, setVisualizerData] = useState({
     fontSize: '',
+    unitsPerRem: 0,
     width: 0,
     viewBoxWidth: 0,
     vizText: '',
@@ -31,15 +32,20 @@ export const MetricsVisualizer = ({
   useEffect(() => {
     const updateVisualizerData = () => {
       if (elemRef.current) {
+        const rootFontSize = parseFloat(
+          getComputedStyle(document.documentElement).fontSize
+        );
         const computedStyle = getComputedStyle(elemRef.current);
         const fontSizeInPx = parseFloat(computedStyle.fontSize);
         const width = elemRef.current.offsetWidth;
         const unitsPerEm = state.unitsPerEm || 1000;
+        const unitsPerRem = (unitsPerEm / fontSizeInPx) * rootFontSize;
         const viewBoxWidth = (width / fontSizeInPx) * unitsPerEm;
         const vizText = isMobile ? 'Hxlj' : isDesktop ? 'Hxdg0' : 'Hxdg';
 
         setVisualizerData({
           fontSize: computedStyle.fontSize,
+          unitsPerRem,
           width,
           viewBoxWidth,
           vizText,
@@ -127,16 +133,16 @@ export const MetricsVisualizer = ({
       measureLineGap(3),
       viewBox.width - measureLineGap(3.5)
     ),
-    // baseline: getLineConfig(
-    //   yPositions.baseline,
-    //   measureLineGap(2),
-    //   viewBox.width
-    // ),
     baseline: getLineConfig(
       yPositions.baseline,
-      measureLineGap(-0.5),
-      viewBox.width + measureLineGap(0.5)
+      measureLineGap(2),
+      viewBox.width
     ),
+    // baseline: getLineConfig(
+    //   yPositions.baseline,
+    //   measureLineGap(-0.5),
+    //   viewBox.width + measureLineGap(0.5)
+    // ),
     emBoxBottom: getLineConfig(
       yPositions.emBoxBottom,
       measureLineGap(1),
@@ -215,13 +221,13 @@ export const MetricsVisualizer = ({
     capHeight: {
       x: measureLineGap(2),
       y: yPositions.capHeight,
-      width: viewBox.width - measureLineGap(2),
+      width: viewBox.width - measureLineGap(5),
       height: -yPositions.capHeight,
     },
     xHeight: {
       x: measureLineGap(3),
       y: yPositions.xHeight,
-      width: viewBox.width - measureLineGap(6.5),
+      width: viewBox.width - measureLineGap(6),
       height: -yPositions.xHeight,
     },
     descender: {
@@ -255,6 +261,7 @@ export const MetricsVisualizer = ({
         measureLines={measureLines}
         rectangles={rectangles}
         unitsPerEm={state.unitsPerEm || 0}
+        unitsPerRem={visualizerData.unitsPerRem || 0}
         fontFamily={state.loadedFontFamily || 'sans-serif'}
         vizText={visualizerData.vizText}
         onTextBBoxUpdate={setTextBBox}
