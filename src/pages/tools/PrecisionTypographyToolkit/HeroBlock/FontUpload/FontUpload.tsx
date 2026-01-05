@@ -19,7 +19,20 @@ export const FontUpload = () => {
 
     try {
       const metrics = await parseFontFile(file);
-      const fontMetricsState = prepareFontMetricsState(file, metrics);
+
+      // Load font into DOM
+      const fontUrl = URL.createObjectURL(file);
+      const fontFaceId = `uploaded-font-${Date.now()}`;
+
+      const fontFace = new FontFace(fontFaceId, `url(${fontUrl})`);
+      await fontFace.load();
+      document.fonts.add(fontFace);
+
+      const fontMetricsState = prepareFontMetricsState(
+        file,
+        metrics,
+        fontFaceId
+      );
       dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
     } catch (error) {
       const errorMessage =

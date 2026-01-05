@@ -7,6 +7,7 @@ import { Flex } from '@/components/layout/Flex';
 import { MetricTableBlock } from './MetricTableBlock';
 import { HeroBlock } from './HeroBlock/HeroBlock';
 import { PageSection } from '@/components/layout/PageSection';
+import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -25,12 +26,12 @@ const PrecisionTypographyToolkitContent = () => {
       </PageSection>
 
       {/* Metrics Visualizer */}
-      {state.fontFile && (
+      {state.fontFamily && (
         <>
           <PageSection id="metrics-visualizer" padding="large">
             <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
               <Flex width="full" direction="column" gap="2xl">
-                {/* <MetricVisualizerBlock /> */}
+                <MetricVisualizerBlock />
                 <p className="text-align-center">
                   !! Metrics Visualizer will be placed here !!
                 </p>

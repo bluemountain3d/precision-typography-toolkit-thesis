@@ -14,7 +14,6 @@ export const MetricsVisualizer = ({
   lineHeight = 1.2,
 }: MetricsVisualizerProps) => {
   const elemRef = useRef<HTMLDivElement>(null);
-  console.log(elemRef.current?.style.fontSize);
 
   const [visualizerData, setVisualizerData] = useState({
     fontSize: '',
@@ -22,7 +21,9 @@ export const MetricsVisualizer = ({
     viewBoxWidth: 0,
     vizText: '',
   });
-  const { state, dispatch } = useFontMetrics();
+  const [textBBox, setTextBBox] = useState<DOMRect | null>(null);
+
+  const { state } = useFontMetrics();
 
   const isMobile = useMediaQuery(queries.isUpToTablet);
   const isDesktop = useMediaQuery(queries.isLaptopAndUp);
@@ -46,8 +47,6 @@ export const MetricsVisualizer = ({
       }
     };
 
-    console.log('font-size', visualizerData.fontSize);
-
     updateVisualizerData();
 
     window.addEventListener('resize', updateVisualizerData);
@@ -56,30 +55,20 @@ export const MetricsVisualizer = ({
 
   const unitsPerEm = state.unitsPerEm || 1000;
   const halfLeading = (unitsPerEm * (lineHeight - 1)) / 2;
-  const textWidth = visualizerData.width;
-  // const fontFamily = state.fontFamily || 'sans-serif';
-
-  // const minY = -(state.upmAscender || 0) - halfLeading;
-  // const viewBoxHeight = unitsPerEm * lineHeight;
-
-  // Em-box positions
-  // const emBoxTop = -(state.upmAscender || 0);
-  // const emBoxBottom = -(state.upmDescender || 0);
-
-  // Line-box positions
-  // const lineBoxTop = emBoxTop - halfLeading;
-  // const lineBoxBottom = emBoxBottom + halfLeading;
-
-  // Glyph metrics
-  // const capHeight = -(state.capHeight || 0);
-  // const xHeight = -(state.xHeight || 0);
 
   const viewBox = {
     minY: -(state.upmAscender || 0) - halfLeading,
     width: visualizerData.viewBoxWidth,
     height: unitsPerEm * lineHeight,
   };
-  const lines = {
+
+  // Beräkna gap i SVG units baserat på textBBox
+  const measureLineGap = (num: number) => {
+    return textBBox ? ((viewBox.width - textBBox.width) / 8) * num : 0;
+  };
+
+  // Y-positions för varje linje
+  const yPositions = {
     lineBoxTop: -(state.upmAscender || 0) - halfLeading,
     emBoxTop: -(state.upmAscender || 0),
     capHeight: -(state.capHeight || 0),
@@ -87,6 +76,59 @@ export const MetricsVisualizer = ({
     baseline: 0,
     emBoxBottom: -(state.upmDescender || 0),
     lineBoxBottom: -(state.upmDescender || 0) + halfLeading,
+  };
+
+  // Beräkna x-positioner baserat på textBBox
+  const getLineConfig = (
+    y: number,
+    x1: number,
+    x2: number
+  ): { x1: number; x2: number; y: number } => {
+    if (!textBBox) {
+      // Full bredd när vi inte har textBBox än
+      return {
+        x1: 0,
+        x2: viewBox.width,
+        y,
+      };
+    }
+
+    // Använd de medskickade x1/x2 värdena
+    return {
+      x1,
+      x2,
+      y,
+    };
+  };
+
+  const lines = {
+    lineBoxTop: getLineConfig(yPositions.lineBoxTop, 0, viewBox.width),
+    emBoxTop: getLineConfig(
+      yPositions.emBoxTop,
+      measureLineGap(1),
+      viewBox.width - measureLineGap(2)
+    ),
+    capHeight: getLineConfig(
+      yPositions.capHeight,
+      measureLineGap(2),
+      viewBox.width
+    ),
+    xHeight: getLineConfig(
+      yPositions.xHeight,
+      measureLineGap(3),
+      viewBox.width - measureLineGap(3)
+    ),
+    baseline: getLineConfig(
+      yPositions.baseline,
+      measureLineGap(2),
+      viewBox.width
+    ),
+    emBoxBottom: getLineConfig(
+      yPositions.emBoxBottom,
+      measureLineGap(1),
+      viewBox.width - measureLineGap(2)
+    ),
+    lineBoxBottom: getLineConfig(yPositions.lineBoxBottom, 0, viewBox.width),
   };
 
   return (
@@ -97,6 +139,7 @@ export const MetricsVisualizer = ({
         unitsPerEm={state.unitsPerEm || 0}
         fontFamily={state.fontFamily || 'sans-serif'}
         vizText={visualizerData.vizText}
+        onTextBBoxUpdate={setTextBBox}
       />
     </div>
   );
