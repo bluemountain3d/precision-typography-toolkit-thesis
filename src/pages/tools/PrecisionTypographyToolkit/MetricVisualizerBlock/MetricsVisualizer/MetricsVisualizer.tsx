@@ -36,7 +36,7 @@ export const MetricsVisualizer = ({
         const width = elemRef.current.offsetWidth;
         const unitsPerEm = state.unitsPerEm || 1000;
         const viewBoxWidth = (width / fontSizeInPx) * unitsPerEm;
-        const vizText = isMobile ? 'Hxlj' : isDesktop ? 'Hxdg0' : 'Hxdpg';
+        const vizText = isMobile ? 'Hxlj' : isDesktop ? 'Hxdg0' : 'Hxdg';
 
         setVisualizerData({
           fontSize: computedStyle.fontSize,
@@ -186,8 +186,8 @@ export const MetricsVisualizer = ({
     },
   };
 
-  if (!textBBox)
-    return <div ref={elemRef} className={styles['metrics-visualizer']} />;
+  // if (!textBBox)
+  //   return <div ref={elemRef} className={styles['metrics-visualizer']} />;
 
   return (
     <div ref={elemRef} className={classNames(styles['metrics-visualizer'])}>

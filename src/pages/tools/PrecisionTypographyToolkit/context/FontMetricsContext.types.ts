@@ -12,7 +12,8 @@
 export type FontMetricsState = {
   // Font file info
   fontFile: File | null;
-  fontFamily: string | null;
+  fontFamily: string | null; // Original font family name from metrics
+  loadedFontFamily: string | null; // Dynamically loaded CSS font-family name
   subFamily: string | null;
   category: string | null;
 
@@ -51,6 +52,7 @@ export type FontMetricsState = {
 export const initialFontMetricsState: FontMetricsState = {
   fontFile: null,
   fontFamily: null,
+  loadedFontFamily: null,
   subFamily: null,
   category: null,
   unitsPerEm: null,

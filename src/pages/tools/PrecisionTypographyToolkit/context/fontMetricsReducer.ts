@@ -30,7 +30,8 @@ export const prepareFontMetricsState = (
   return {
     // Font file info
     fontFile: file,
-    fontFamily: loadedFontFamily, // Use the loaded font-family name, not metrics.familyName
+    fontFamily: metrics.familyName, // Original font name for display
+    loadedFontFamily: loadedFontFamily, // CSS font-family name for rendering
     subFamily: metrics.subFamilyName,
     category: metrics.category,
 
