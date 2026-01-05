@@ -36,7 +36,7 @@ export const MetricsVisualizer = ({
         const width = elemRef.current.offsetWidth;
         const unitsPerEm = state.unitsPerEm || 1000;
         const viewBoxWidth = (width / fontSizeInPx) * unitsPerEm;
-        const vizText = isMobile ? 'Hxlg' : isDesktop ? 'Hxdg0' : 'Hxdpg';
+        const vizText = isMobile ? 'Hxlj' : isDesktop ? 'Hxdg0' : 'Hxdpg';
 
         setVisualizerData({
           fontSize: computedStyle.fontSize,
@@ -62,30 +62,32 @@ export const MetricsVisualizer = ({
     height: unitsPerEm * lineHeight,
   };
 
-  // Beräkna gap i SVG units baserat på textBBox
+  // Calculate gap in SVG units based on textBBox
   const measureLineGap = (num: number) => {
     return textBBox ? ((viewBox.width - textBBox.width) / 8) * num : 0;
   };
 
-  // Y-positions för varje linje
+  // Y-positions for each linje
   const yPositions = {
     lineBoxTop: -(state.upmAscender || 0) - halfLeading,
+    ascender: -(state.hheaAscender || 0),
     emBoxTop: -(state.upmAscender || 0),
     capHeight: -(state.capHeight || 0),
     xHeight: -(state.xHeight || 0),
     baseline: 0,
     emBoxBottom: -(state.upmDescender || 0),
+    descender: -(state.hheaDescender || 0),
     lineBoxBottom: -(state.upmDescender || 0) + halfLeading,
   };
 
-  // Beräkna x-positioner baserat på textBBox
+  // Calculate x-positions based on textBBox
   const getLineConfig = (
     y: number,
     x1: number,
     x2: number
   ): { x1: number; x2: number; y: number } => {
     if (!textBBox) {
-      // Full bredd när vi inte har textBBox än
+      // Full width when we don't have textBBox yet
       return {
         x1: 0,
         x2: viewBox.width,
@@ -93,7 +95,7 @@ export const MetricsVisualizer = ({
       };
     }
 
-    // Använd de medskickade x1/x2 värdena
+    // Use the included x1/x2 values
     return {
       x1,
       x2,
@@ -106,6 +108,11 @@ export const MetricsVisualizer = ({
     emBoxTop: getLineConfig(
       yPositions.emBoxTop,
       measureLineGap(1),
+      viewBox.width - measureLineGap(3)
+    ),
+    ascender: getLineConfig(
+      yPositions.ascender,
+      measureLineGap(4),
       viewBox.width - measureLineGap(2)
     ),
     capHeight: getLineConfig(
@@ -116,7 +123,7 @@ export const MetricsVisualizer = ({
     xHeight: getLineConfig(
       yPositions.xHeight,
       measureLineGap(3),
-      viewBox.width - measureLineGap(3)
+      viewBox.width - measureLineGap(3.5)
     ),
     baseline: getLineConfig(
       yPositions.baseline,
@@ -126,18 +133,70 @@ export const MetricsVisualizer = ({
     emBoxBottom: getLineConfig(
       yPositions.emBoxBottom,
       measureLineGap(1),
+      viewBox.width - measureLineGap(3)
+    ),
+    descender: getLineConfig(
+      yPositions.descender,
+      measureLineGap(4),
       viewBox.width - measureLineGap(2)
     ),
     lineBoxBottom: getLineConfig(yPositions.lineBoxBottom, 0, viewBox.width),
   };
+
+  const measureLines = {
+    lineBox: {
+      x: 0,
+      y1: yPositions.lineBoxTop + 25,
+      y2: yPositions.lineBoxBottom - 25,
+    },
+    emBox: {
+      x: measureLineGap(1),
+      y1: yPositions.emBoxTop + 25,
+      y2: yPositions.emBoxBottom - 25,
+    },
+    capHeight: {
+      x: measureLineGap(2),
+      y1: yPositions.capHeight + 25,
+      y2: yPositions.baseline - 25,
+    },
+    xHeight: {
+      x: measureLineGap(3),
+      y1: yPositions.xHeight + 25,
+      y2: yPositions.baseline - 25,
+    },
+    ascender: {
+      x: viewBox.width - measureLineGap(2),
+      y1: yPositions.ascender + 25,
+      y2: yPositions.baseline - 25,
+    },
+    descender: {
+      x: viewBox.width - measureLineGap(2),
+      y1: yPositions.baseline + 25,
+      y2: yPositions.descender - 25,
+    },
+    topTrim: {
+      x: viewBox.width,
+      y1: yPositions.lineBoxTop + 25,
+      y2: yPositions.capHeight - 25,
+    },
+    bottomTrim: {
+      x: viewBox.width,
+      y1: yPositions.baseline + 25,
+      y2: yPositions.lineBoxBottom - 25,
+    },
+  };
+
+  if (!textBBox)
+    return <div ref={elemRef} className={styles['metrics-visualizer']} />;
 
   return (
     <div ref={elemRef} className={classNames(styles['metrics-visualizer'])}>
       <MetricsVisualizerSVG
         viewBox={viewBox}
         lines={lines}
+        measureLines={measureLines}
         unitsPerEm={state.unitsPerEm || 0}
-        fontFamily={state.fontFamily || 'sans-serif'}
+        fontFamily={state.loadedFontFamily || 'sans-serif'}
         vizText={visualizerData.vizText}
         onTextBBoxUpdate={setTextBBox}
       />

@@ -5,6 +5,11 @@ interface LineConfig {
   x2: number;
   y: number;
 }
+interface MeasureLineConfig {
+  x: number;
+  y1: number;
+  y2: number;
+}
 
 interface MetricsVisualizerSVGProps {
   viewBox: {
@@ -14,12 +19,24 @@ interface MetricsVisualizerSVGProps {
   };
   lines: {
     lineBoxTop: LineConfig;
+    ascender: LineConfig;
     emBoxTop: LineConfig;
     capHeight: LineConfig;
     xHeight: LineConfig;
     baseline: LineConfig;
     emBoxBottom: LineConfig;
+    descender: LineConfig;
     lineBoxBottom: LineConfig;
+  };
+  measureLines: {
+    lineBox: MeasureLineConfig;
+    emBox: MeasureLineConfig;
+    capHeight: MeasureLineConfig;
+    xHeight: MeasureLineConfig;
+    ascender: MeasureLineConfig;
+    descender: MeasureLineConfig;
+    topTrim: MeasureLineConfig;
+    bottomTrim: MeasureLineConfig;
   };
   vizText: string;
   fontFamily: string;
@@ -30,12 +47,19 @@ interface MetricsVisualizerSVGProps {
 export const MetricsVisualizerSVG = ({
   viewBox,
   lines,
+  measureLines,
   vizText,
   fontFamily,
   unitsPerEm,
   onTextBBoxUpdate,
 }: MetricsVisualizerSVGProps) => {
   const textRef = useRef<SVGTextElement>(null);
+
+  // Calculate arrow size based on UPM
+  const arrowSize = unitsPerEm * 0.025; // 2.5% of UPM
+  const arrowWidth = arrowSize * 2;
+  const arrowHeight = arrowSize * 2;
+  const refPoint = arrowSize; // Center point
 
   useEffect(() => {
     if (textRef.current && onTextBBoxUpdate) {
@@ -46,6 +70,38 @@ export const MetricsVisualizerSVG = ({
 
   return (
     <svg viewBox={`0 ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}>
+      {/* Measure line arrows */}
+      <defs>
+        <marker
+          id="arrow-start"
+          markerWidth={arrowWidth}
+          markerHeight={arrowHeight}
+          refX={refPoint}
+          refY={refPoint}
+          orient="auto-start-reverse"
+          markerUnits="userSpaceOnUse"
+        >
+          <path
+            d={`M 0 0 L ${arrowWidth} ${refPoint} L 0 ${arrowHeight} z`}
+            fill="var(--color-tertiary)"
+          />
+        </marker>
+
+        <marker
+          id="arrow-end"
+          markerWidth={arrowWidth}
+          markerHeight={arrowHeight}
+          refX={refPoint}
+          refY={refPoint}
+          orient="auto"
+          markerUnits="userSpaceOnUse"
+        >
+          <path
+            d={`M 0 0 L ${arrowWidth} ${refPoint} L 0 ${arrowHeight} z`}
+            fill="var(--color-tertiary)"
+          />
+        </marker>
+      </defs>
       {/* Lines */}
 
       {/* Line-box top */}
@@ -54,6 +110,17 @@ export const MetricsVisualizerSVG = ({
         x2={lines.lineBoxTop.x2}
         y1={lines.lineBoxTop.y}
         y2={lines.lineBoxTop.y}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Ascender */}
+      <line
+        x1={lines.ascender.x1}
+        x2={lines.ascender.x2}
+        y1={lines.ascender.y}
+        y2={lines.ascender.y}
         stroke="var(--color-tertiary)"
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
@@ -114,6 +181,17 @@ export const MetricsVisualizerSVG = ({
         vectorEffect="non-scaling-stroke"
       />
 
+      {/* descender */}
+      <line
+        x1={lines.descender.x1}
+        x2={lines.descender.x2}
+        y1={lines.descender.y}
+        y2={lines.descender.y}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+
       {/* Line-box bottom */}
       <line
         x1={lines.lineBoxBottom.x1}
@@ -122,6 +200,111 @@ export const MetricsVisualizerSVG = ({
         y2={lines.lineBoxBottom.y}
         stroke="var(--color-tertiary)"
         strokeWidth="1"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Measure lines */}
+      {/* Line-box */}
+      <line
+        x1={measureLines.lineBox.x}
+        x2={measureLines.lineBox.x}
+        y1={measureLines.lineBox.y1}
+        y2={measureLines.lineBox.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Em-box */}
+      <line
+        x1={measureLines.emBox.x}
+        x2={measureLines.emBox.x}
+        y1={measureLines.emBox.y1}
+        y2={measureLines.emBox.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Cap Height */}
+      <line
+        x1={measureLines.capHeight.x}
+        x2={measureLines.capHeight.x}
+        y1={measureLines.capHeight.y1}
+        y2={measureLines.capHeight.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* x-Height */}
+      <line
+        x1={measureLines.xHeight.x}
+        x2={measureLines.xHeight.x}
+        y1={measureLines.xHeight.y1}
+        y2={measureLines.xHeight.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Ascender (HHEA) */}
+      <line
+        x1={measureLines.ascender.x}
+        x2={measureLines.ascender.x}
+        y1={measureLines.ascender.y1}
+        y2={measureLines.ascender.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Descender (HHEA) */}
+      <line
+        x1={measureLines.descender.x}
+        x2={measureLines.descender.x}
+        y1={measureLines.descender.y1}
+        y2={measureLines.descender.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Top Trim */}
+      <line
+        x1={measureLines.topTrim.x}
+        x2={measureLines.topTrim.x}
+        y1={measureLines.topTrim.y1}
+        y2={measureLines.topTrim.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
+        vectorEffect="non-scaling-stroke"
+      />
+
+      {/* Bottom Trim */}
+      <line
+        x1={measureLines.bottomTrim.x}
+        x2={measureLines.bottomTrim.x}
+        y1={measureLines.bottomTrim.y1}
+        y2={measureLines.bottomTrim.y2}
+        stroke="var(--color-tertiary)"
+        strokeWidth="1"
+        markerStart="url(#arrow-start)"
+        markerEnd="url(#arrow-end)"
         vectorEffect="non-scaling-stroke"
       />
 
