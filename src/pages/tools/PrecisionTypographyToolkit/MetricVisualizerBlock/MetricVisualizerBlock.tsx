@@ -3,6 +3,7 @@ import { Toggle } from '@/components/forms/Toggle';
 import { Flex } from '@/components/layout/Flex';
 import { Heading } from '@/components/typography/Heading';
 import { useState } from 'react';
+import { MetricsVisualizer } from './MetricsVisualizer';
 
 export const MetricVisualizerBlock = () => {
   const [toggles, setToggles] = useState({
@@ -47,7 +48,7 @@ export const MetricVisualizerBlock = () => {
           labelWidth={labelWidth}
         />
       </Flex>
-      {/* Visualizer */}
+      <MetricsVisualizer lineHeight={thumbSliders.lineHeight}/>
     </Flex>
   );
 };
