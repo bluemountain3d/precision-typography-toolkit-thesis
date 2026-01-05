@@ -55,6 +55,8 @@ export const MetricsVisualizer = ({
 
   const unitsPerEm = state.unitsPerEm || 1000;
   const halfLeading = (unitsPerEm * (lineHeight - 1)) / 2;
+  const topTrim = (state.topTrim || 0) + halfLeading;
+  const bottomTrim = (state.bottomTrim || 0) + halfLeading;
 
   const viewBox = {
     minY: -(state.upmAscender || 0) - halfLeading,
@@ -125,10 +127,15 @@ export const MetricsVisualizer = ({
       measureLineGap(3),
       viewBox.width - measureLineGap(3.5)
     ),
+    // baseline: getLineConfig(
+    //   yPositions.baseline,
+    //   measureLineGap(2),
+    //   viewBox.width
+    // ),
     baseline: getLineConfig(
       yPositions.baseline,
-      measureLineGap(2),
-      viewBox.width
+      measureLineGap(-0.5),
+      viewBox.width + measureLineGap(0.5)
     ),
     emBoxBottom: getLineConfig(
       yPositions.emBoxBottom,
@@ -186,6 +193,57 @@ export const MetricsVisualizer = ({
     },
   };
 
+  const rectangles = {
+    lineBox: {
+      x: 0,
+      y: yPositions.lineBoxTop,
+      width: viewBox.width,
+      height: viewBox.height,
+    },
+    ascender: {
+      x: measureLineGap(4),
+      y: yPositions.ascender,
+      width: viewBox.width - measureLineGap(6),
+      height: -yPositions.ascender,
+    },
+    emBox: {
+      x: measureLineGap(1),
+      y: yPositions.emBoxTop,
+      width: viewBox.width - measureLineGap(4),
+      height: viewBox.height - halfLeading * 2,
+    },
+    capHeight: {
+      x: measureLineGap(2),
+      y: yPositions.capHeight,
+      width: viewBox.width - measureLineGap(2),
+      height: -yPositions.capHeight,
+    },
+    xHeight: {
+      x: measureLineGap(3),
+      y: yPositions.xHeight,
+      width: viewBox.width - measureLineGap(6.5),
+      height: -yPositions.xHeight,
+    },
+    descender: {
+      x: measureLineGap(4),
+      y: yPositions.baseline,
+      width: viewBox.width - measureLineGap(6),
+      height: yPositions.descender,
+    },
+    topTrim: {
+      x: measureLineGap(2),
+      y: yPositions.lineBoxTop,
+      width: viewBox.width - measureLineGap(2),
+      height: topTrim,
+    },
+    bottomTrim: {
+      x: measureLineGap(2),
+      y: yPositions.baseline,
+      width: viewBox.width - measureLineGap(2),
+      height: bottomTrim,
+    },
+  };
+
   // if (!textBBox)
   //   return <div ref={elemRef} className={styles['metrics-visualizer']} />;
 
@@ -195,6 +253,7 @@ export const MetricsVisualizer = ({
         viewBox={viewBox}
         lines={lines}
         measureLines={measureLines}
+        rectangles={rectangles}
         unitsPerEm={state.unitsPerEm || 0}
         fontFamily={state.loadedFontFamily || 'sans-serif'}
         vizText={visualizerData.vizText}

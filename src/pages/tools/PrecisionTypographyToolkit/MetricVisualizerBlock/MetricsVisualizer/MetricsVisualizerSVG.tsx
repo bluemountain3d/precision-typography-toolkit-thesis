@@ -5,10 +5,18 @@ interface LineConfig {
   x2: number;
   y: number;
 }
+
 interface MeasureLineConfig {
   x: number;
   y1: number;
   y2: number;
+}
+
+interface RectangleConfig {
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 interface MetricsVisualizerSVGProps {
@@ -38,6 +46,16 @@ interface MetricsVisualizerSVGProps {
     topTrim: MeasureLineConfig;
     bottomTrim: MeasureLineConfig;
   };
+  rectangles: {
+    lineBox: RectangleConfig;
+    ascender: RectangleConfig;
+    emBox: RectangleConfig;
+    capHeight: RectangleConfig;
+    xHeight: RectangleConfig;
+    descender: RectangleConfig;
+    topTrim: RectangleConfig;
+    bottomTrim: RectangleConfig;
+  };
   vizText: string;
   fontFamily: string;
   unitsPerEm: number;
@@ -48,6 +66,7 @@ export const MetricsVisualizerSVG = ({
   viewBox,
   lines,
   measureLines,
+  rectangles,
   vizText,
   fontFamily,
   unitsPerEm,
@@ -60,6 +79,14 @@ export const MetricsVisualizerSVG = ({
   const arrowWidth = arrowSize * 2;
   const arrowHeight = arrowSize * 2;
   const refPoint = arrowSize; // Center point
+
+  const selectedMetric: string = ''; // TODO : Get from `state.selectedMetric`
+
+  const baseLineColor = 'var(--color-accent)';
+  const rectangleColor = 'var(--color-tertiary)';
+  const lineColor = 'var(--color-tertiary)';
+  const measureColor = 'var(--color-tertiary)';
+  const selectedMeasureColor = 'var(--color-primary-border-hover)';
 
   useEffect(() => {
     if (textRef.current && onTextBBoxUpdate) {
@@ -83,7 +110,7 @@ export const MetricsVisualizerSVG = ({
         >
           <path
             d={`M 0 0 L ${arrowWidth} ${refPoint} L 0 ${arrowHeight} z`}
-            fill="var(--color-tertiary)"
+            fill={measureColor}
           />
         </marker>
 
@@ -98,215 +125,419 @@ export const MetricsVisualizerSVG = ({
         >
           <path
             d={`M 0 0 L ${arrowWidth} ${refPoint} L 0 ${arrowHeight} z`}
-            fill="var(--color-tertiary)"
+            fill={measureColor}
+          />
+        </marker>
+
+        <marker
+          id="arrow-start--selected"
+          markerWidth={arrowWidth}
+          markerHeight={arrowHeight}
+          refX={refPoint}
+          refY={refPoint}
+          orient="auto-start-reverse"
+          markerUnits="userSpaceOnUse"
+        >
+          <path
+            d={`M 0 0 L ${arrowWidth} ${refPoint} L 0 ${arrowHeight} z`}
+            fill={selectedMeasureColor}
+          />
+        </marker>
+
+        <marker
+          id="arrow-end--selected"
+          markerWidth={arrowWidth}
+          markerHeight={arrowHeight}
+          refX={refPoint}
+          refY={refPoint}
+          orient="auto"
+          markerUnits="userSpaceOnUse"
+        >
+          <path
+            d={`M 0 0 L ${arrowWidth} ${refPoint} L 0 ${arrowHeight} z`}
+            fill={selectedMeasureColor}
           />
         </marker>
       </defs>
-      {/* Lines */}
 
-      {/* Line-box top */}
+      {/* ================================================================= */}
+
+      {/* Rect: Line-box */}
+      {selectedMetric === 'lineBox' && (
+        <rect
+          x={rectangles.lineBox.x}
+          y={rectangles.lineBox.y}
+          width={rectangles.lineBox.width}
+          height={rectangles.lineBox.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: Ascender */}
+      {selectedMetric === 'ascender' && (
+        <rect
+          x={rectangles.ascender.x}
+          y={rectangles.ascender.y}
+          width={rectangles.ascender.width}
+          height={rectangles.ascender.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: Em-box */}
+      {selectedMetric === 'emBox' && (
+        <rect
+          x={rectangles.emBox.x}
+          y={rectangles.emBox.y}
+          width={rectangles.emBox.width}
+          height={rectangles.emBox.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: Cap Height */}
+      {selectedMetric === 'capHeight' && (
+        <rect
+          x={rectangles.capHeight.x}
+          y={rectangles.capHeight.y}
+          width={rectangles.capHeight.width}
+          height={rectangles.capHeight.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: x-Height */}
+      {selectedMetric === 'xHeight' && (
+        <rect
+          x={rectangles.xHeight.x}
+          y={rectangles.xHeight.y}
+          width={rectangles.xHeight.width}
+          height={rectangles.xHeight.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: Descender */}
+      {selectedMetric === 'descender' && (
+        <rect
+          x={rectangles.descender.x}
+          y={rectangles.descender.y}
+          width={rectangles.descender.width}
+          height={rectangles.descender.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: Top Trim */}
+      {selectedMetric === 'topTrim' && (
+        <rect
+          x={rectangles.topTrim.x}
+          y={rectangles.topTrim.y}
+          width={rectangles.topTrim.width}
+          height={rectangles.topTrim.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* Rect: Top Trim */}
+      {selectedMetric === 'bottomTrim' && (
+        <rect
+          x={rectangles.bottomTrim.x}
+          y={rectangles.bottomTrim.y}
+          width={rectangles.bottomTrim.width}
+          height={rectangles.bottomTrim.height}
+          fill={rectangleColor}
+        />
+      )}
+
+      {/* ================================================================= */}
+
+      {/* Line: Line-box top */}
       <line
         x1={lines.lineBoxTop.x1}
         x2={lines.lineBoxTop.x2}
         y1={lines.lineBoxTop.y}
         y2={lines.lineBoxTop.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Ascender */}
+      {/* Line: Ascender */}
       <line
         x1={lines.ascender.x1}
         x2={lines.ascender.x2}
         y1={lines.ascender.y}
         y2={lines.ascender.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Em-box top */}
+      {/* Line: Em-box top */}
       <line
         x1={lines.emBoxTop.x1}
         x2={lines.emBoxTop.x2}
         y1={lines.emBoxTop.y}
         y2={lines.emBoxTop.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Cap Height */}
+      {/* Line: Cap Height */}
       <line
         x1={lines.capHeight.x1}
         x2={lines.capHeight.x2}
         y1={lines.capHeight.y}
         y2={lines.capHeight.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* x-Height */}
+      {/* Line: x-Height */}
       <line
         x1={lines.xHeight.x1}
         x2={lines.xHeight.x2}
         y1={lines.xHeight.y}
         y2={lines.xHeight.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Baseline */}
+      {/* Line: Baseline */}
       <line
         x1={lines.baseline.x1}
         x2={lines.baseline.x2}
         y1={lines.baseline.y}
         y2={lines.baseline.y}
-        stroke="var(--color-tertiary)"
+        stroke={baseLineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Em-box bottom */}
+      {/* Line: Em-box bottom */}
       <line
         x1={lines.emBoxBottom.x1}
         x2={lines.emBoxBottom.x2}
         y1={lines.emBoxBottom.y}
         y2={lines.emBoxBottom.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* descender */}
+      {/* Line: descender */}
       <line
         x1={lines.descender.x1}
         x2={lines.descender.x2}
         y1={lines.descender.y}
         y2={lines.descender.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Line-box bottom */}
+      {/* Line: Line-box bottom */}
       <line
         x1={lines.lineBoxBottom.x1}
         x2={lines.lineBoxBottom.x2}
         y1={lines.lineBoxBottom.y}
         y2={lines.lineBoxBottom.y}
-        stroke="var(--color-tertiary)"
+        stroke={lineColor}
         strokeWidth="1"
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Measure lines */}
-      {/* Line-box */}
+      {/* ================================================================= */}
+
+      {/* Measure: Line-box */}
       <line
         x1={measureLines.lineBox.x}
         x2={measureLines.lineBox.x}
         y1={measureLines.lineBox.y1}
         y2={measureLines.lineBox.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'lineBox' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'lineBox'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'lineBox'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Em-box */}
+      {/* Measure: Em-box */}
       <line
         x1={measureLines.emBox.x}
         x2={measureLines.emBox.x}
         y1={measureLines.emBox.y1}
         y2={measureLines.emBox.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'emBox' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'emBox'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'emBox'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Cap Height */}
+      {/* Measure: Cap Height */}
       <line
         x1={measureLines.capHeight.x}
         x2={measureLines.capHeight.x}
         y1={measureLines.capHeight.y1}
         y2={measureLines.capHeight.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'capHeight' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'capHeight'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'capHeight'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* x-Height */}
+      {/* Measure: x-Height */}
       <line
         x1={measureLines.xHeight.x}
         x2={measureLines.xHeight.x}
         y1={measureLines.xHeight.y1}
         y2={measureLines.xHeight.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'xHeight' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'xHeight'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'xHeight'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Ascender (HHEA) */}
+      {/* Measure: Ascender (HHEA) */}
       <line
         x1={measureLines.ascender.x}
         x2={measureLines.ascender.x}
         y1={measureLines.ascender.y1}
         y2={measureLines.ascender.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'ascender' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'ascender'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'ascender'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Descender (HHEA) */}
+      {/* Measure: Descender (HHEA) */}
       <line
         x1={measureLines.descender.x}
         x2={measureLines.descender.x}
         y1={measureLines.descender.y1}
         y2={measureLines.descender.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'descender' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'descender'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'descender'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Top Trim */}
+      {/* Measure: Top Trim */}
       <line
         x1={measureLines.topTrim.x}
         x2={measureLines.topTrim.x}
         y1={measureLines.topTrim.y1}
         y2={measureLines.topTrim.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'topTrim' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'topTrim'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'topTrim'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
 
-      {/* Bottom Trim */}
+      {/* Measure: Bottom Trim */}
       <line
         x1={measureLines.bottomTrim.x}
         x2={measureLines.bottomTrim.x}
         y1={measureLines.bottomTrim.y1}
         y2={measureLines.bottomTrim.y2}
-        stroke="var(--color-tertiary)"
+        stroke={
+          selectedMetric === 'bottomTrim' ? selectedMeasureColor : measureColor
+        }
         strokeWidth="1"
-        markerStart="url(#arrow-start)"
-        markerEnd="url(#arrow-end)"
+        markerStart={
+          selectedMetric === 'bottomTrim'
+            ? 'url(#arrow-start--selected)'
+            : 'url(#arrow-start)'
+        }
+        markerEnd={
+          selectedMetric === 'bottomTrim'
+            ? 'url(#arrow-end--selected)'
+            : 'url(#arrow-end)'
+        }
         vectorEffect="non-scaling-stroke"
       />
+
+      {/* ================================================================= */}
 
       {/* Text */}
       <text
