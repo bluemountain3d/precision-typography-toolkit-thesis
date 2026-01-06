@@ -67,6 +67,7 @@ interface MetricsVisualizerSVGProps {
   fontFamily: string;
   unitsPerEm: number;
   unitsPerRem: number;
+  kerning?: boolean;
   onTextBBoxUpdate?: (bbox: DOMRect) => void;
 }
 
@@ -79,6 +80,7 @@ export const MetricsVisualizerSVG = ({
   fontFamily,
   unitsPerEm,
   unitsPerRem,
+  kerning = true,
   onTextBBoxUpdate,
 }: MetricsVisualizerSVGProps) => {
   const [selectedMetric, setSelectedMetric] = useState('');
@@ -258,6 +260,10 @@ export const MetricsVisualizerSVG = ({
         dominantBaseline="alphabetic"
         textAnchor="middle"
         fill="var(--color-text-primary)"
+        style={{
+          // textRendering: 'geometricPrecision',
+          fontFeatureSettings: kerning ? '"kern" 1' : '"kern" 0',
+        }}
       >
         {vizText}
       </text>

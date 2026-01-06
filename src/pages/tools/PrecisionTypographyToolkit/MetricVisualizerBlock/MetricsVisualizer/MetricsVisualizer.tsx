@@ -8,10 +8,12 @@ import { MetricsVisualizerSVG } from './MetricsVisualizerSVG';
 
 interface MetricsVisualizerProps {
   lineHeight: number;
+  kerning?: boolean;
 }
 
 export const MetricsVisualizer = ({
   lineHeight = 1.5,
+  kerning,
 }: MetricsVisualizerProps) => {
   const elemRef = useRef<HTMLDivElement>(null);
 
@@ -264,6 +266,7 @@ export const MetricsVisualizer = ({
         unitsPerRem={visualizerData.unitsPerRem || 0}
         fontFamily={state.loadedFontFamily || 'sans-serif'}
         vizText={visualizerData.vizText}
+        kerning={kerning}
         onTextBBoxUpdate={setTextBBox}
       />
     </div>
