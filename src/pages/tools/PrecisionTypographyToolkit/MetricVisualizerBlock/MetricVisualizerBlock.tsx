@@ -49,6 +49,7 @@ export const MetricVisualizerBlock = () => {
         />
       </Flex>
       <MetricsVisualizer lineHeight={thumbSliders.lineHeight} />
+      {/* Add label here */}
     </Flex>
   );
 };
