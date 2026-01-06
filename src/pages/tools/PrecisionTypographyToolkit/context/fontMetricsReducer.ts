@@ -53,8 +53,16 @@ export const prepareFontMetricsState = (
     xHeight: metrics.xHeight,
     avgCharWidth: metrics.avgCharWidth,
     lineGap: metrics.lineGap,
-    topTrim: metrics.topTrim ?? null,
-    bottomTrim: metrics.bottomTrim ?? null,
+    topTrimRaw: metrics.topTrimRaw ?? null,
+    bottomTrimRaw: metrics.bottomTrimRaw ?? null,
+    
+    // Dynamic trim values (initialized with default line-height 1.5)
+    topTrim: metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
+      ? Math.round(((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.topTrimRaw)
+      : null,
+    bottomTrim: metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
+      ? Math.round(((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.bottomTrimRaw)
+      : null,
 
     // Normalized metrics (0-1, all positive)
     capHeightRatio: round3(metrics.capHeight / unitsPerEm),
@@ -77,10 +85,19 @@ export const prepareFontMetricsState = (
       ? round3(Math.abs(metrics.upmDescender) / unitsPerEm)
       : null,
 
-    topTrimRatio: metrics.topTrim ? round3(metrics.topTrim / unitsPerEm) : null,
+    topTrimRawRatio: metrics.topTrimRaw ? round3(metrics.topTrimRaw / unitsPerEm) : null,
 
-    bottomTrimRatio: metrics.bottomTrim
-      ? round3(metrics.bottomTrim / unitsPerEm)
+    bottomTrimRawRatio: metrics.bottomTrimRaw
+      ? round3(metrics.bottomTrimRaw / unitsPerEm)
+      : null,
+
+    // Dynamic trim ratios (initialized with line-height 1.5)
+    topTrimRatio: metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
+      ? round3((((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.topTrimRaw) / unitsPerEm)
+      : null,
+    
+    bottomTrimRatio: metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
+      ? round3((((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.bottomTrimRaw) / unitsPerEm)
       : null,
 
     // UI state
@@ -149,6 +166,30 @@ export const fontMetricsReducer = (
 
     case 'RESET_FONT':
       return initialFontMetricsState;
+
+    case 'UPDATE_LINE_HEIGHT_TRIMS': {
+      const lineHeight = action.payload;
+      const { unitsPerEm, topTrimRaw, bottomTrimRaw } = state;
+
+      if (!unitsPerEm || topTrimRaw === null || bottomTrimRaw === null) {
+        return state;
+      }
+
+      // Formula: ((lineHeight * unitsPerEm - unitsPerEm) / 2) + topTrimRaw
+      const halfLeading = (lineHeight * unitsPerEm - unitsPerEm) / 2;
+      const topTrim = Math.round(halfLeading + topTrimRaw);
+      const bottomTrim = Math.round(halfLeading + bottomTrimRaw);
+
+      const round3 = (val: number): number => Math.round(val * 1000) / 1000;
+
+      return {
+        ...state,
+        topTrim,
+        bottomTrim,
+        topTrimRatio: round3(topTrim / unitsPerEm),
+        bottomTrimRatio: round3(bottomTrim / unitsPerEm),
+      };
+    }
 
     default:
       return state;

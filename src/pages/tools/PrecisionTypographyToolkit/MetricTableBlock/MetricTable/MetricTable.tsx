@@ -1,3 +1,5 @@
+import styles from './MetricsTable.module.scss';
+
 import { Table, type ColumnConfig } from '@/components/ui/Table';
 import type { MetricRow } from './MetricTable.types';
 import { useFontMetrics } from '@/pages/tools/PrecisionTypographyToolkit/context';
@@ -104,6 +106,7 @@ export const MetricTable = () => {
       columns={columns}
       copyableByDefault={true}
       hideColumnsAt="isUpToTabletLarge"
+      className={styles['metrics-table']}
     />
   );
 };

@@ -8,9 +8,11 @@ import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { useFontMetrics } from '../context';
 import { Button } from '@/components/forms/Button';
 import { MetricsNiceName, getMetricValue } from '@/utils';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
 
 export const MetricVisualizerBlock = () => {
-  const { state } = useFontMetrics();
+  const { state, updateLineHeightTrims } = useFontMetrics();
   const [toggles, setToggles] = useState({
     kerning: true,
   });
@@ -18,12 +20,15 @@ export const MetricVisualizerBlock = () => {
     lineHeight: 1.5,
   });
 
+  const isTabletUp = useMediaQuery(queries.isTabletAndUp);
+
   const handleToggleChange = (key: string) => (checked: boolean) => {
     setToggles((prev) => ({ ...prev, [key]: checked }));
   };
 
-  const handleThumbSliderChange = (key: string) => (value: number) => {
+  const handleLineHeightChange = (key: string) => (value: number) => {
     setThumbSliders((prev) => ({ ...prev, [key]: value }));
+    updateLineHeightTrims(value);
   };
 
   const labelWidth = 26;
@@ -48,7 +53,7 @@ export const MetricVisualizerBlock = () => {
           max={2}
           step={0.05}
           value={thumbSliders.lineHeight}
-          onChange={handleThumbSliderChange('lineHeight')}
+          onChange={handleLineHeightChange('lineHeight')}
           label={`line-height: ${thumbSliders.lineHeight.toFixed(2)};`}
           labelWidth={labelWidth}
         />
@@ -57,14 +62,15 @@ export const MetricVisualizerBlock = () => {
         lineHeight={thumbSliders.lineHeight}
         kerning={toggles.kerning}
       />
-      <ButtonGroup>
-        <Button variant="label" radius="sm">
-          {state.selectedMetric
-            ? `.::${'\u00A0\u00A0\u00A0'}${MetricsNiceName[state.selectedMetric]}: ${getMetricValue(state.selectedMetric, state, thumbSliders.lineHeight)}${'\u00A0\u00A0\u00A0'}::.`
-            : `.::${'\u00A0\u00A0\u00A0'}Select a metric to see its values${'\u00A0\u00A0\u00A0'}::.`}
-        </Button>
-      </ButtonGroup>
-      {/* Add label here */}
+      {isTabletUp && (
+        <ButtonGroup>
+          <Button variant="label" radius="sm">
+            {state.selectedMetric
+              ? `.::${'\u00A0\u00A0\u00A0'}${MetricsNiceName[state.selectedMetric]}: ${getMetricValue(state.selectedMetric, state, thumbSliders.lineHeight)}${'\u00A0\u00A0\u00A0'}::.`
+              : `.::${'\u00A0\u00A0\u00A0'}Select a metric to see its values${'\u00A0\u00A0\u00A0'}::.`}
+          </Button>
+        </ButtonGroup>
+      )}
     </Flex>
   );
 };

@@ -1,0 +1,18 @@
+@use "@/styles/abstracts/variables" as var;
+
+.metrics-table {
+  @media screen and #{var.$bp-up-to-phablet} {
+    td:nth-child(2),
+    th:nth-child(2) {
+      max-width: 33vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    
+    td:nth-child(3),
+    th:nth-child(3) {
+      white-space: nowrap;
+    }
+  }
+}

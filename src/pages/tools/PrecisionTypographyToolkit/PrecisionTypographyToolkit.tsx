@@ -15,6 +15,7 @@ import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 const PrecisionTypographyToolkitContent = () => {
   const { state, setSelectedMetric } = useFontMetrics();
   const isUnderBreakpoint = useMediaQuery(queries.isTabletLargeAndDown);
+  const isMobile = useMediaQuery(queries.isUpToTablet);
 
   return (
     <>
@@ -26,33 +27,31 @@ const PrecisionTypographyToolkitContent = () => {
       </PageSection>
 
       {/* Metrics Visualizer */}
-      {state.fontFamily && (
-        <>
-          <PageSection
-            id="metrics-visualizer"
-            padding="large"
-            onClick={(e) => {
-              if (e.target === e.currentTarget) {
-                setSelectedMetric('');
-              }
-            }}
-          >
-            <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
-              <Flex width="full" direction="column" gap="4xl">
-                <MetricVisualizerBlock />
-                <MetricTableBlock />
-              </Flex>
-            </Container>
-          </PageSection>
+      <>
+        <PageSection
+          id="metrics-visualizer"
+          padding="large"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedMetric('');
+            }
+          }}
+        >
+          <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
+            <Flex width="full" direction="column" gap={isMobile ? "lg" : "4xl"}>
+              <MetricVisualizerBlock />
+              <MetricTableBlock />
+            </Flex>
+          </Container>
+        </PageSection>
 
-          {/* Export Metrics */}
-          <PageSection id="export-metrics" padding="large">
-            <p className="text-align-center">
-              !! Export metrics as different languages will be here !!
-            </p>
-          </PageSection>
-        </>
-      )}
+        {/* Export Metrics */}
+        <PageSection id="export-metrics" padding="large">
+          <p className="text-align-center">
+            !! Export metrics as different languages will be here !!
+          </p>
+        </PageSection>
+      </>
 
       {/* Metrics learn intro */}
       <PageSection id="metrics-intro" padding="large">

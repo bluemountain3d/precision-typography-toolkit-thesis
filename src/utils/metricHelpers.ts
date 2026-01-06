@@ -61,12 +61,12 @@ export const getMetricValue = (
 
     case 'ascender':
       return state.hheaAscender
-        ? `${state.hheaAscender} / ${upm}upm (${(state.hheaAscender / upm).toFixed(3)}em)`
+        ? `${state.hheaAscender} / ${upm}upm (${state.hheaAscenderRatio}em)`
         : 'N/A';
 
     case 'descender':
       return state.hheaDescender
-        ? `${state.hheaDescender} / ${upm}upm (${(state.hheaDescender / upm).toFixed(3)}em)`
+        ? `${state.hheaDescender} / ${upm}upm (${state.hheaDescenderRatio}em)`
         : 'N/A';
 
     case 'emBox':
@@ -74,22 +74,22 @@ export const getMetricValue = (
 
     case 'capHeight':
       return state.capHeight
-        ? `${state.capHeight} / ${upm}upm (${state.capHeightRatio?.toFixed(3)}em)`
+        ? `${state.capHeight} / ${upm}upm (${state.capHeightRatio}em)`
         : 'N/A';
 
     case 'xHeight':
       return state.xHeight
-        ? `${state.xHeight} / ${upm}upm (${state.xHeightRatio?.toFixed(3)}em)`
+        ? `${state.xHeight} / ${upm}upm (${state.xHeightRatio}em)`
         : 'N/A';
 
     case 'topTrim':
       return state.topTrim
-        ? `${state.topTrim} / ${upm}upm (${state.topTrimRatio?.toFixed(3)}em)`
+        ? `${state.topTrim} / ${upm}upm (${state.topTrimRatio}em)`
         : 'N/A';
 
     case 'bottomTrim':
       return state.bottomTrim
-        ? `${state.bottomTrim} / ${upm}upm (${state.bottomTrimRatio?.toFixed(3)}em)`
+        ? `${state.bottomTrim} / ${upm}upm (${state.bottomTrimRatio}em)`
         : 'N/A';
 
     default:

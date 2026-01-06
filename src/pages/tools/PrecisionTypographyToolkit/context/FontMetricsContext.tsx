@@ -1,10 +1,19 @@
-import { createContext, useContext, useReducer, useEffect, type ReactNode } from 'react';
+import {
+  createContext,
+  useContext,
+  useReducer,
+  useEffect,
+  type ReactNode,
+} from 'react';
 import type {
   FontMetricsState,
   FontMetricsAction,
 } from './FontMetricsContext.types';
 import { initialFontMetricsState } from './FontMetricsContext.types';
-import { fontMetricsReducer, prepareFontMetricsState } from './fontMetricsReducer';
+import {
+  fontMetricsReducer,
+  prepareFontMetricsState,
+} from './fontMetricsReducer';
 import { getItem, removeLocalStorage } from '@/utils/localStorage';
 import { parseFontFile } from '@/utils/fontParser';
 
@@ -16,6 +25,7 @@ type FontMetricsContextValue = {
   dispatch: React.Dispatch<FontMetricsAction>;
   resetFont: () => void;
   setSelectedMetric: (metricId: string | null) => void;
+  updateLineHeightTrims: (lineHeight: number) => void;
 };
 
 /**
@@ -53,13 +63,13 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
     initialFontMetricsState,
     (initial) => {
       const saved = getItem('fontMetrics');
-      
-      // Om saved state finns men saknar fontFile, rensa localStorage
+
+      // If saved state exists but lacks fontFile, clear localStorage
       if (saved && !saved.fontFile) {
         removeLocalStorage('fontMetrics');
         return initial;
       }
-      
+
       return saved ? { ...saved, fontFile: null } : initial;
     }
   );
@@ -68,20 +78,25 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
     dispatch({ type: 'SET_SELECTED_METRIC', payload: metricId });
   };
 
+  const updateLineHeightTrims = (lineHeight: number) => {
+    dispatch({ type: 'UPDATE_LINE_HEIGHT_TRIMS', payload: lineHeight });
+  };
+
   const resetFont = () => {
     dispatch({ type: 'RESET_FONT' });
     removeLocalStorage('fontMetrics');
   };
 
-  // Ladda default font när komponenten mountar om ingen font finns
+  // Load default font when component mounts or when font is cleared
   useEffect(() => {
     const loadDefaultFont = async () => {
       if (!state.fontFamily && !state.isLoading) {
         try {
           dispatch({ type: 'FONT_UPLOAD_START' });
 
-          // Hämta Cormorant Garamond från public/fonts
-          const fontUrl = '/fonts/CormorantGaramond-Variable-VariableFont_wght-300-700-Italic_subset-balanced-web.woff2';
+          // Fetch Cormorant Garamond from public/fonts
+          const fontUrl =
+            '/fonts/CormorantGaramond-Variable-VariableFont_wght-300-700-Italic_subset-balanced-web.woff2';
           const response = await fetch(fontUrl);
           const blob = await response.blob();
           const file = new File([blob], 'CormorantGaramond-VF.woff2', {
@@ -91,7 +106,7 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
           // Parse font metrics
           const metrics = await parseFontFile(file);
 
-          // Ladda fonten (använd CSS font-family namnet)
+          // Load the font (use CSS font-family name)
           const fontFaceId = 'Cormorant Garamond';
           const fontFace = new FontFace(fontFaceId, `url(${fontUrl})`);
           await fontFace.load();
@@ -114,10 +129,18 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
     };
 
     loadDefaultFont();
-  }, []); // Kör bara en gång vid mount
+  }, [state.fontFamily, state.isLoading]); // Run when fontFamily or isLoading changes
 
   return (
-    <FontMetricsContext.Provider value={{ state, dispatch, resetFont, setSelectedMetric }}>
+    <FontMetricsContext.Provider
+      value={{
+        state,
+        dispatch,
+        resetFont,
+        setSelectedMetric,
+        updateLineHeightTrims,
+      }}
+    >
       {children}
     </FontMetricsContext.Provider>
   );

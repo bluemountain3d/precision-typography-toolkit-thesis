@@ -63,8 +63,8 @@ export const MetricsVisualizer = ({
 
   const unitsPerEm = state.unitsPerEm || 1000;
   const halfLeading = (unitsPerEm * (lineHeight - 1)) / 2;
-  const topTrim = (state.topTrim || 0) + halfLeading;
-  const bottomTrim = (state.bottomTrim || 0) + halfLeading;
+  const topTrim = (state.topTrim || 0);
+  const bottomTrim = (state.bottomTrim || 0);
 
   const viewBox = {
     minY: -(state.upmAscender || 0) - halfLeading,

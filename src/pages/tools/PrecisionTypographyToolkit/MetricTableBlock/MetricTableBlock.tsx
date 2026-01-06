@@ -4,32 +4,44 @@ import { Heading } from '@/components/typography/Heading';
 import { removeLocalStorage } from '@/utils/localStorage';
 import { useFontMetrics } from '../context';
 import { MetricTable } from './MetricTable';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
 
 export const MetricTableBlock = () => {
   const { dispatch } = useFontMetrics();
   // const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
+  const isMobile = useMediaQuery(queries.isUpToTablet);
+
   const handleClearData = () => {
     dispatch({ type: 'RESET_FONT' });
     removeLocalStorage('fontMetrics');
-    // setShowConfirmDialog(false);
   };
 
   return (
     <>
       <Flex width="full" direction="column" gap="sm">
-        <Flex justifyContent="space-between" alignItems="center">
-          <Heading level={2} size="heading-2">
-            Metrics Table
-          </Heading>
-          <Button variant="ghost" size="base" onClick={handleClearData}>
-            Clear data
-          </Button>
-        </Flex>
+        {!isMobile && (
+          <Flex justifyContent="space-between" alignItems="center">
+            <Heading level={2} size="heading-2">
+              Metrics Table
+            </Heading>
+            <Button variant="ghost" size="base" onClick={handleClearData}>
+              Reload default
+            </Button>
+          </Flex>
+        )}
         <MetricTable />
+        {isMobile && (
+          <Flex justifyContent="end" alignItems="center">
+            <Button variant="ghost" size="base" onClick={handleClearData}>
+              Reload default
+            </Button>
+          </Flex>
+        )}
       </Flex>
 
-      {/* TODO: Uncomment and configure after Header/Footer */}
+      {/* TODO: Uncomment and configure */}
       {/* {showConfirmDialog && (
         <ConfirmDialog
           title="Clear font data?"

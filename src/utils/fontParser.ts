@@ -57,8 +57,8 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           xHeight: font.xHeight,
           avgCharWidth: font['OS/2'].xAvgCharWidth,
           lineGap: font.lineGap,
-          topTrim: topTrim,
-          bottomTrim: bottomTrim,
+          topTrimRaw: topTrim,
+          bottomTrimRaw: bottomTrim,
         };
 
         resolve(metrics);

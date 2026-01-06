@@ -117,20 +117,18 @@ export interface FontMetrics {
   avgCharWidth: number;
 
   /**
-   * Space above cap height to ascender line
-   * Normalized to em units (value / unitsPerEm)
+   * Space above cap height to ascender line (raw UPM units)
    * Used for leading-trim calculations
-   * @example 0.152
+   * @example 152 (for a font with 1000 UPM)
    */
-  topTrim?: number;
+  topTrimRaw?: number;
 
   /**
-   * Space below baseline to descender line
-   * Normalized to em units (value / unitsPerEm)
+   * Space below baseline to descender line (raw UPM units)
    * Used for leading-trim calculations
-   * @example 0.188
+   * @example 188 (for a font with 1000 UPM)
    */
-  bottomTrim?: number;
+  bottomTrimRaw?: number;
 }
 
 /**

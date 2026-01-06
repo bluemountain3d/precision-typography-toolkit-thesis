@@ -154,6 +154,12 @@
     width: 100%;
     line-height: inherit;
     color: var(--color-text-secondary);
+
+    span {
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 
   // ---------------------------------------------------------------------------

@@ -55,9 +55,13 @@ export type FontMetricsState = {
   avgCharWidth: number | null;
   /** Line gap - spacing between lines */
   lineGap: number | null;
-  /** Top trim - leading trim adjustment from top (in UPM units) */
+  /** Top trim RAW - static trim from font file (in UPM units) */
+  topTrimRaw: number | null;
+  /** Bottom trim RAW - static trim from font file (in UPM units) */
+  bottomTrimRaw: number | null;
+  /** Top trim - dynamic value adjusted for current line-height (in UPM units) */
   topTrim: number | null;
-  /** Bottom trim - leading trim adjustment from bottom (in UPM units) */
+  /** Bottom trim - dynamic value adjusted for current line-height (in UPM units) */
   bottomTrim: number | null;
 
   // Normalized metrics (metric / unitsPerEm, all positive 0-1)
@@ -75,9 +79,13 @@ export type FontMetricsState = {
   ascenderRatio: number | null;
   /** UPM descender as ratio of em (Math.abs(upmDescender) / unitsPerEm) */
   descenderRatio: number | null;
-  /** Top trim as ratio of em (topTrim / unitsPerEm) */
+  /** Top trim RAW as ratio of em (topTrimRaw / unitsPerEm) */
+  topTrimRawRatio: number | null;
+  /** Bottom trim RAW as ratio of em (bottomTrimRaw / unitsPerEm) */
+  bottomTrimRawRatio: number | null;
+  /** Top trim as ratio of em (topTrim / unitsPerEm) - adjusted for line-height */
   topTrimRatio: number | null;
-  /** Bottom trim as ratio of em (bottomTrim / unitsPerEm) */
+  /** Bottom trim as ratio of em (bottomTrim / unitsPerEm) - adjusted for line-height */
   bottomTrimRatio: number | null;
 
   // UI state
@@ -106,6 +114,8 @@ export const initialFontMetricsState: FontMetricsState = {
   xHeight: null,
   avgCharWidth: null,
   lineGap: null,
+  topTrimRaw: null,
+  bottomTrimRaw: null,
   topTrim: null,
   bottomTrim: null,
   capHeightRatio: null,
@@ -115,6 +125,8 @@ export const initialFontMetricsState: FontMetricsState = {
   hheaDescenderRatio: null,
   ascenderRatio: null,
   descenderRatio: null,
+  topTrimRawRatio: null,
+  bottomTrimRawRatio: null,
   topTrimRatio: null,
   bottomTrimRatio: null,
   isLoading: false,
@@ -130,6 +142,7 @@ export const initialFontMetricsState: FontMetricsState = {
  * - **FONT_UPLOAD_ERROR**: Handles parsing/loading errors (resets to initial state)
  * - **RESET_FONT**: Clears all font data (returns to initial state)
  * - **SET_SELECTED_METRIC**: Updates currently selected metric for visualization
+ * - **UPDATE_LINE_HEIGHT_TRIMS**: Recalculates topTrim/bottomTrim based on line-height
  * - **RESTORE_FROM_STORAGE**: Restores metrics from localStorage (without File object)
  */
 export type FontMetricsAction =
@@ -138,6 +151,7 @@ export type FontMetricsAction =
   | { type: 'FONT_UPLOAD_ERROR'; payload: string }
   | { type: 'RESET_FONT' }
   | { type: 'SET_SELECTED_METRIC'; payload: string | null }
+  | { type: 'UPDATE_LINE_HEIGHT_TRIMS'; payload: number }
   | {
       type: 'RESTORE_FROM_STORAGE';
       payload: Omit<FontMetricsState, 'fontFile'>;
