@@ -3,7 +3,6 @@ interface MetricLineProps {
   x2: number;
   y: number;
   color: string;
-  label: string;
 }
 
 export const MetricLine = ({
@@ -11,7 +10,6 @@ export const MetricLine = ({
   x2 = 0,
   y = 0,
   color,
-  label,
 }: MetricLineProps) => (
   <line
     id={`id`}

@@ -229,7 +229,7 @@ export const MetricsVisualizerSVG = ({
               key={`line-${id}`}
               {...line}
               color={lineColor}
-              label={id}
+              // label={id}
             />
           )
       )}
