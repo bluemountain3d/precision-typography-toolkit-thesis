@@ -36,11 +36,12 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
         );
 
         const topTrim = Math.round(
-          Math.abs((font.capHeight - upmAscender) / font.unitsPerEm) * 1000
+          Math.abs((font.capHeight - upmAscender) / font.unitsPerEm) *
+            font.unitsPerEm
         );
 
         const bottomTrim = Math.round(
-          Math.abs(upmDescender / font.unitsPerEm) * 1000
+          Math.abs(upmDescender / font.unitsPerEm) * font.unitsPerEm
         );
 
         const metrics = {

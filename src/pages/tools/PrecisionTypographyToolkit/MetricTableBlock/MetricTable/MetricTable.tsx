@@ -22,7 +22,7 @@ export const MetricTable = () => {
       metric: 'Category',
       rawValue: state.category ?? '-',
       normalizedValue: '-',
-      comment: 'The grid resolution of the font file',
+      comment: 'The specific stylistic group the font belongs to',
     },
     {
       metric: 'Units per Em',
@@ -53,7 +53,7 @@ export const MetricTable = () => {
       comment: 'The average width of font glyphs',
     },
     {
-      metric: 'Ascender',
+      metric: 'Ascender (hhea)',
       rawValue: state.hheaAscender ?? '-',
       normalizedValue: state.hheaAscender
         ? String(state.hheaAscenderRatio + 'em')
@@ -61,12 +61,28 @@ export const MetricTable = () => {
       comment: `The highest point of the font's layout box`,
     },
     {
-      metric: 'Descender',
+      metric: 'Descender (hhea)',
       rawValue: state.hheaDescender ?? '-',
       normalizedValue: state.hheaDescender
         ? String(state.hheaDescenderRatio + 'em')
         : '-',
       comment: 'The lowest point of the layout box',
+    },
+    {
+      metric: 'Top Trim',
+      rawValue: state.topTrim ?? '-',
+      normalizedValue: state.topTrimRatio
+        ? String(state.topTrimRatio + 'em')
+        : '-',
+      comment: 'The trim space between cap-height and top of line-box',
+    },
+    {
+      metric: 'Bottom Trim',
+      rawValue: state.bottomTrim ?? '-',
+      normalizedValue: state.bottomTrimRatio
+        ? String(state.bottomTrimRatio + 'em')
+        : '-',
+      comment: 'The trim space between baseline and bottom of line-box',
     },
   ];
 

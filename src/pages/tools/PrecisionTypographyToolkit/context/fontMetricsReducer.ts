@@ -27,6 +27,11 @@ export const prepareFontMetricsState = (
 ): FontMetricsState => {
   const { unitsPerEm } = metrics;
 
+  const round3 = (val: number | null | undefined): number | null => {
+    if (val === null || val === undefined) return null;
+    return Math.round(val * 1000) / 1000;
+  };
+
   return {
     // UI state
     selectedMetric: null,
@@ -52,24 +57,30 @@ export const prepareFontMetricsState = (
     bottomTrim: metrics.bottomTrim ?? null,
 
     // Normalized metrics (0-1, all positive)
-    capHeightRatio: metrics.capHeight / unitsPerEm,
-    xHeightRatio: metrics.xHeight / unitsPerEm,
-    avgCharWidthRatio: metrics.avgCharWidth / unitsPerEm,
+    capHeightRatio: round3(metrics.capHeight / unitsPerEm),
+    xHeightRatio: round3(metrics.xHeight / unitsPerEm),
+    avgCharWidthRatio: round3(metrics.avgCharWidth / unitsPerEm),
+
     hheaAscenderRatio: metrics.hheaAscender
-      ? metrics.hheaAscender / unitsPerEm
+      ? round3(metrics.hheaAscender / unitsPerEm)
       : null,
+
     hheaDescenderRatio: metrics.hheaDescender
-      ? metrics.hheaDescender / unitsPerEm
+      ? round3(metrics.hheaDescender / unitsPerEm)
       : null,
+
     ascenderRatio: metrics.upmAscender
-      ? metrics.upmAscender / unitsPerEm
+      ? round3(metrics.upmAscender / unitsPerEm)
       : null,
+
     descenderRatio: metrics.upmDescender
-      ? Math.abs(metrics.upmDescender) / unitsPerEm
+      ? round3(Math.abs(metrics.upmDescender) / unitsPerEm)
       : null,
-    topTrimRatio: metrics.topTrim ? metrics.topTrim / unitsPerEm : null,
+
+    topTrimRatio: metrics.topTrim ? round3(metrics.topTrim / unitsPerEm) : null,
+
     bottomTrimRatio: metrics.bottomTrim
-      ? metrics.bottomTrim / unitsPerEm
+      ? round3(metrics.bottomTrim / unitsPerEm)
       : null,
 
     // UI state
