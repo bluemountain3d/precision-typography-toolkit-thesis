@@ -3,13 +3,14 @@ import { Toggle } from '@/components/forms/Toggle';
 import { Flex } from '@/components/layout/Flex';
 import { Heading } from '@/components/typography/Heading';
 import { useState } from 'react';
+import { MetricsVisualizer } from './MetricsVisualizer';
 
 export const MetricVisualizerBlock = () => {
   const [toggles, setToggles] = useState({
-    kerning: false,
+    kerning: true,
   });
   const [thumbSliders, setThumbSliders] = useState({
-    lineHeight: 1.2,
+    lineHeight: 1.5,
   });
 
   const handleToggleChange = (key: string) => (checked: boolean) => {
@@ -20,7 +21,7 @@ export const MetricVisualizerBlock = () => {
     setThumbSliders((prev) => ({ ...prev, [key]: value }));
   };
 
-  const labelWidth = 18;
+  const labelWidth = 26;
 
   return (
     <Flex direction="column" width="full" gap="xl">
@@ -32,7 +33,7 @@ export const MetricVisualizerBlock = () => {
           toggleId="kerning-on-off"
           onChange={handleToggleChange('kerning')}
           checked={toggles.kerning}
-          label={`font-kerning: ${toggles.kerning ? 'normal' : 'none'};`}
+          label={`font-feature-settings: ${toggles.kerning ? '"kern" 1' : '"kern" 0'};`}
           labelWidth={labelWidth}
           labelPosition="before"
         />
@@ -47,7 +48,11 @@ export const MetricVisualizerBlock = () => {
           labelWidth={labelWidth}
         />
       </Flex>
-      {/* Visualizer */}
+      <MetricsVisualizer
+        lineHeight={thumbSliders.lineHeight}
+        kerning={toggles.kerning}
+      />
+      {/* Add label here */}
     </Flex>
   );
 };

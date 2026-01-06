@@ -17,18 +17,21 @@ import type { FontMetrics } from '@models';
  *
  * @param file - The uploaded font file
  * @param metrics - Parsed font metrics from parseFontFile
+ * @param loadedFontFamily - The dynamically loaded font-family name
  * @returns Complete FontMetricsState ready for reducer
  */
 export const prepareFontMetricsState = (
   file: File,
-  metrics: FontMetrics
+  metrics: FontMetrics,
+  loadedFontFamily: string
 ): FontMetricsState => {
   const { unitsPerEm } = metrics;
 
   return {
     // Font file info
     fontFile: file,
-    fontFamily: metrics.familyName,
+    fontFamily: metrics.familyName, // Original font name for display
+    loadedFontFamily: loadedFontFamily, // CSS font-family name for rendering
     subFamily: metrics.subFamilyName,
     category: metrics.category,
 
