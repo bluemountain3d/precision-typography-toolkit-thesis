@@ -1,5 +1,16 @@
 import type { FontMetricsState } from '@/pages/tools/PrecisionTypographyToolkit/context';
 
+/**
+ * Human-readable names for font metrics
+ *
+ * Maps metric IDs to display names used in the UI.
+ * Used for labeling selected metrics and in tooltips.
+ *
+ * @example
+ * ```ts
+ * const displayName = MetricsNiceName['capHeight']; // "Cap Height"
+ * ```
+ */
 export const MetricsNiceName: Record<string, string> = {
   lineBox: 'Line Height',
   ascender: 'Ascender (HHEA)',
@@ -11,6 +22,31 @@ export const MetricsNiceName: Record<string, string> = {
   bottomTrim: 'Bottom Trim',
 };
 
+/**
+ * Get formatted metric value string
+ *
+ * Formats a font metric value for display, showing both absolute UPM units
+ * and relative em values. Returns "N/A" if the metric is not available.
+ *
+ * Format patterns:
+ * - Line Height: `1.50 (1500 / 1000upm)`
+ * - Other metrics: `700 / 1000upm (0.700em)`
+ * - Em Box: `1000 UPM (1em)`
+ *
+ * @param metricId - The metric identifier (e.g. 'capHeight', 'xHeight')
+ * @param state - FontMetricsState containing all font metrics
+ * @param lineHeight - Optional line-height multiplier (required for 'lineBox')
+ * @returns Formatted string with metric value in UPM and em units
+ *
+ * @example
+ * ```ts
+ * getMetricValue('capHeight', state)
+ * // Returns: "700 / 1000upm (0.700em)"
+ *
+ * getMetricValue('lineBox', state, 1.5)
+ * // Returns: "1.50 (1500 / 1000upm)"
+ * ```
+ */
 export const getMetricValue = (
   metricId: string,
   state: FontMetricsState,

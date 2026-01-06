@@ -1,16 +1,62 @@
+/**
+ * Props for MetricToggleButton component
+ */
 interface MetricToggleButtonProps {
+  /** X coordinate for button center in SVG units */
   x: number;
+  /** Y coordinate for button center in SVG units */
   y: number;
+  /** Whether this metric is currently selected */
   isSelected: boolean;
+  /** Unique identifier for the metric (e.g. 'capHeight', 'xHeight') */
   metricId: string;
+  /** Size of the clickable hit box area in SVG units */
   hitBoxSize: number;
+  /** Outer circle radius in default state (SVG units) */
   outerRadius: number;
+  /** Outer circle radius in selected state (SVG units) */
   outerRadiusSelected: number;
+  /** Inner circle radius in default state (SVG units) */
   innerRadius: number;
+  /** Inner circle radius in selected state (SVG units) */
   innerRadiusSelected: number;
+  /** Callback fired when button is clicked, receives metricId or empty string to deselect */
   onSelect: (metricId: string) => void;
 }
 
+/**
+ * MetricToggleButton - Interactive button for selecting font metrics
+ *
+ * Renders a circular button with gradient fills and glow effects that toggles
+ * metric selection. The button consists of:
+ * - Outer border circle (changes on selection)
+ * - Active state circle with glow filter (visible when selected)
+ * - Inner fill circle with shadow effect
+ * - Transparent hit box for larger click target
+ *
+ * Gradients and filters are defined in VisualizerDefs:
+ * - `#circle-border` - Default border gradient
+ * - `#circle-border-active` - Selected border gradient with glow
+ * - `#circle-fill` - Inner circle gradient
+ * - `#glow-effect` - SVG filter for selection glow
+ * - `#inner-shadow` - SVG filter for depth effect
+ *
+ * @example
+ * ```tsx
+ * <MetricToggleButton
+ *   x={100}
+ *   y={-375}
+ *   isSelected={selectedMetric === 'capHeight'}
+ *   metricId="capHeight"
+ *   hitBoxSize={44}
+ *   outerRadius={12}
+ *   outerRadiusSelected={14}
+ *   innerRadius={10}
+ *   innerRadiusSelected={12}
+ *   onSelect={(id) => setSelectedMetric(id)}
+ * />
+ * ```
+ */
 export const MetricToggleButton = ({
   x,
   y,

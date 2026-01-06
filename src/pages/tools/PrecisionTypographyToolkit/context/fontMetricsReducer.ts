@@ -38,7 +38,7 @@ export const prepareFontMetricsState = (
     subFamily: metrics.subFamilyName,
     category: metrics.category,
 
-    // Raw metrics (i UPM units, descender negative)
+    // Raw metrics (in UPM units, descender negative)
     unitsPerEm: metrics.unitsPerEm,
     hheaAscender: metrics.hheaAscender,
     hheaDescender: metrics.hheaDescender, // already negative from parser
@@ -81,7 +81,17 @@ export const prepareFontMetricsState = (
 /**
  * Font metrics reducer
  *
- * Handles state transitions for font upload, parsing, and normalization.
+ * Manages font metrics state transitions through actions:
+ * - SET_SELECTED_METRIC: Updates the currently selected metric for visualization
+ * - FONT_UPLOAD_START: Sets loading state during font processing
+ * - FONT_UPLOAD_SUCCESS: Stores parsed font metrics and persists to localStorage
+ * - FONT_UPLOAD_ERROR: Resets to initial state with error message
+ * - RESTORE_FROM_STORAGE: Restores saved metrics (without File object)
+ * - RESET_FONT: Clears all font data and returns to initial state
+ *
+ * @param state - Current FontMetricsState
+ * @param action - FontMetricsAction to perform
+ * @returns Updated FontMetricsState
  */
 export const fontMetricsReducer = (
   state: FontMetricsState,
@@ -102,6 +112,7 @@ export const fontMetricsReducer = (
       };
 
     case 'FONT_UPLOAD_SUCCESS': {
+      // Exclude File object from localStorage (can't be serialized)
       const { fontFile: _, ...stateToSave } = action.payload;
       setItem('fontMetrics', stateToSave);
 
@@ -127,12 +138,6 @@ export const fontMetricsReducer = (
 
     case 'RESET_FONT':
       return initialFontMetricsState;
-
-    case 'SET_SELECTED_METRIC':
-      return {
-        ...state,
-        selectedMetric: action.payload,
-      };
 
     default:
       return state;

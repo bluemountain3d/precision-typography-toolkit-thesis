@@ -140,11 +140,6 @@ export const MetricsVisualizer = ({
       measureLineGap(2),
       viewBox.width
     ),
-    // baseline: getLineConfig(
-    //   yPositions.baseline,
-    //   measureLineGap(-0.5),
-    //   viewBox.width + measureLineGap(0.5)
-    // ),
     emBoxBottom: getLineConfig(
       yPositions.emBoxBottom,
       measureLineGap(1),
@@ -251,9 +246,6 @@ export const MetricsVisualizer = ({
       height: bottomTrim,
     },
   };
-
-  // if (!textBBox)
-  //   return <div ref={elemRef} className={styles['metrics-visualizer']} />;
 
   return (
     <div ref={elemRef} className={classNames(styles['metrics-visualizer'])}>
