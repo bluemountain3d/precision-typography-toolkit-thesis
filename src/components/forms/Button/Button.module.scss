@@ -91,10 +91,10 @@
   // ---------------------------------------------------------------------------
   // Core layout and appearance shared by all variants
 
-  cursor: pointer;
+  width: fit-content;
   height: var(--_button-height);
   min-height: 2.75rem;
-
+  white-space: pre;
   // Grid layout for icon + text alignment
   // auto-flow: column ensures horizontal icon-text layout
   // max-content prevents unnecessary stretching
@@ -107,7 +107,7 @@
 
   // Spacing and shape
   padding-inline: 1.75em;
-  border-radius: 0.75em;
+  // border-radius: 0.75em;
   border: 1px solid transparent; // Required for border-box gradient
 
   // Subtle inner shadow for depth
@@ -146,7 +146,7 @@
   /// Hover state
   /// Enhances border color and adds outer glow for visual feedback
   /// The glow uses the hover border color at 50% opacity
-  &:hover {
+  &:hover:not(.button--label) {
     --_border-dark: var(--_border-hover);
     box-shadow:
       inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
@@ -155,7 +155,7 @@
 
   /// Active (pressed) state
   /// Darkens surface to simulate button depression
-  &:active {
+  &:active:not(.button--label) {
     --_surface-dark: var(--_surface-active);
   }
 
@@ -169,6 +169,16 @@
   // ---------------------------------------------------------------------------
   // Modifiers
   // ---------------------------------------------------------------------------
+
+  &--radius-sm {
+    border-radius: 0.4em;
+  }
+  &--radius-md {
+    border-radius: 0.75em;
+  }
+  &--radius-lg {
+    border-radius: 99em;
+  }
 
   /// Full-width modifier
   /// Makes button span entire container width
@@ -363,6 +373,19 @@
     --_surface-light: var(--color-info-surface);
     --_surface-dark: var(--color-info-surface-dark);
     --_surface-active: var(--color-info-surface-active);
+  }
+
+  &--label {
+    --_icon-color: var(--color-secondary-title);
+    --_border-bright: var(--color-inline-link);
+    --_border-dark: var(--color-tertiary);
+    --_border-hover: var(--color-tertiary);
+    --_surface-light: var(--color-secondary);
+    --_surface-dark: var(--color-primary-dark);
+    --_surface-active: var(--color-primary-dark);
+    cursor: default;
+    font-family: var(--font-family-mono);
+    height: calc(var(--_button-height) * 1.25) !important;
   }
 
   // &--disabled {

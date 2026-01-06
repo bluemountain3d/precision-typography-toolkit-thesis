@@ -79,6 +79,7 @@ export const Button = ({
   children,
   variant = 'primary',
   size = 'base',
+  radius = 'md',
   icon,
   iconFill = 'inherit',
   disabled = false,
@@ -126,8 +127,9 @@ export const Button = ({
 
   const commonClassNames = classNames(
     styles.button,
-    styles[`button--${variant}`],
     styles[`button--${size}`],
+    styles[`button--${variant}`],
+    styles[`button--radius-${radius}`],
     iconOnly && styles['button--icon-only'],
     {
       [styles['button--disabled']]: isDisabled,
@@ -173,7 +175,8 @@ export const Button = ({
         <span
           className={classNames(
             `text-${size}`,
-            'text-medium',
+            variant !== 'label' && 'text-medium',
+            variant === 'label' && 'font-family-mono',
             styles.button__text
           )}
         >

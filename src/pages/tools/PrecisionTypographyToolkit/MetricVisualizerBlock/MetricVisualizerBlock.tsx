@@ -4,8 +4,13 @@ import { Flex } from '@/components/layout/Flex';
 import { Heading } from '@/components/typography/Heading';
 import { useState } from 'react';
 import { MetricsVisualizer } from './MetricsVisualizer';
+import { ButtonGroup } from '@/components/layout/ButtonGroup';
+import { useFontMetrics } from '../context';
+import { Button } from '@/components/forms/Button';
+import { MetricsNiceName, getMetricValue } from '@/utils';
 
 export const MetricVisualizerBlock = () => {
+  const { state } = useFontMetrics();
   const [toggles, setToggles] = useState({
     kerning: true,
   });
@@ -52,6 +57,13 @@ export const MetricVisualizerBlock = () => {
         lineHeight={thumbSliders.lineHeight}
         kerning={toggles.kerning}
       />
+      <ButtonGroup>
+        <Button variant="label" radius="sm">
+          {state.selectedMetric
+            ? `.::${'\u00A0\u00A0\u00A0'}${MetricsNiceName[state.selectedMetric]}: ${getMetricValue(state.selectedMetric, state, thumbSliders.lineHeight)}${'\u00A0\u00A0\u00A0'}::.`
+            : `.::${'\u00A0\u00A0\u00A0'}Select a metric to see its values${'\u00A0\u00A0\u00A0'}::.`}
+        </Button>
+      </ButtonGroup>
       {/* Add label here */}
     </Flex>
   );

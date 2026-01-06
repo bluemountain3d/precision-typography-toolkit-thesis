@@ -10,6 +10,7 @@
  * Font metrics state shape
  */
 export type FontMetricsState = {
+  selectedMetric: string | null;
   // Font file info
   fontFile: File | null;
   fontFamily: string | null; // Original font family name from metrics
@@ -50,6 +51,7 @@ export type FontMetricsState = {
  * Initial state
  */
 export const initialFontMetricsState: FontMetricsState = {
+  selectedMetric: null,
   fontFile: null,
   fontFamily: null,
   loadedFontFamily: null,
@@ -87,6 +89,7 @@ export type FontMetricsAction =
   | { type: 'FONT_UPLOAD_SUCCESS'; payload: FontMetricsState }
   | { type: 'FONT_UPLOAD_ERROR'; payload: string }
   | { type: 'RESET_FONT' }
+  | { type: 'SET_SELECTED_METRIC'; payload: string | null }
   | {
       type: 'RESTORE_FROM_STORAGE';
       payload: Omit<FontMetricsState, 'fontFile'>;

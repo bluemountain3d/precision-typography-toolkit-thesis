@@ -21,6 +21,6 @@ export const AreaRectangle = ({
     width={width}
     height={height}
     fill={isSelected ? color : 'none'}
-    opacity="0.85"
+    opacity="0.8"
   />
 );

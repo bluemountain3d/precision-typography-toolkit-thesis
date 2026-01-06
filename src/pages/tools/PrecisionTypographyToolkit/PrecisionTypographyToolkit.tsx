@@ -13,7 +13,7 @@ import { MetricVisualizerBlock } from './MetricVisualizerBlock';
  * Inner component that uses the FontMetrics context
  */
 const PrecisionTypographyToolkitContent = () => {
-  const { state } = useFontMetrics();
+  const { state, setSelectedMetric } = useFontMetrics();
   const isUnderBreakpoint = useMediaQuery(queries.isTabletLargeAndDown);
 
   return (
@@ -28,13 +28,18 @@ const PrecisionTypographyToolkitContent = () => {
       {/* Metrics Visualizer */}
       {state.fontFamily && (
         <>
-          <PageSection id="metrics-visualizer" padding="large">
+          <PageSection
+            id="metrics-visualizer"
+            padding="large"
+            onClick={(e) => {
+              if (e.target === e.currentTarget) {
+                setSelectedMetric('');
+              }
+            }}
+          >
             <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
-              <Flex width="full" direction="column" gap="2xl">
+              <Flex width="full" direction="column" gap="4xl">
                 <MetricVisualizerBlock />
-                <p className="text-align-center">
-                  !! Metrics Visualizer will be placed here !!
-                </p>
                 <MetricTableBlock />
               </Flex>
             </Container>

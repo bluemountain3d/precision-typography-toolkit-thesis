@@ -28,6 +28,9 @@ export const prepareFontMetricsState = (
   const { unitsPerEm } = metrics;
 
   return {
+    // UI state
+    selectedMetric: null,
+
     // Font file info
     fontFile: file,
     fontFamily: metrics.familyName, // Original font name for display
@@ -85,6 +88,12 @@ export const fontMetricsReducer = (
   action: FontMetricsAction
 ): FontMetricsState => {
   switch (action.type) {
+    case 'SET_SELECTED_METRIC':
+      return {
+        ...state,
+        selectedMetric: action.payload,
+      };
+
     case 'FONT_UPLOAD_START':
       return {
         ...state,
@@ -118,6 +127,12 @@ export const fontMetricsReducer = (
 
     case 'RESET_FONT':
       return initialFontMetricsState;
+
+    case 'SET_SELECTED_METRIC':
+      return {
+        ...state,
+        selectedMetric: action.payload,
+      };
 
     default:
       return state;

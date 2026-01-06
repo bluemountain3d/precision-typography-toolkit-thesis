@@ -23,8 +23,8 @@ export const VisualizerDefs = ({
     <defs>
       {/* Outer circle gradient (border) - 45° to bottom left */}
       <linearGradient id="circle-border" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="55%" stop-color="var(--color-tertiary)" />
-        <stop offset="90%" stop-color="var(--color-tertiary)" />
+        <stop offset="55%" stopColor="var(--color-tertiary)" />
+        <stop offset="90%" stopColor="var(--color-tertiary)" />
       </linearGradient>
 
       <linearGradient
@@ -34,14 +34,14 @@ export const VisualizerDefs = ({
         x2="100%"
         y2="100%"
       >
-        <stop offset="10%" stop-color="var(--color-primary-border-bright)" />
-        <stop offset="45%" stop-color="var(--color-primary-border-hover)" />
+        <stop offset="10%" stopColor="var(--color-primary-border-bright)" />
+        <stop offset="45%" stopColor="var(--color-primary-border-hover)" />
       </linearGradient>
 
       {/* Inner circle gradient (fill) - 45° to bottom left */}
       <linearGradient id="circle-fill" x1="0%" y1="0%" x2="100%" y2="100%">
-        <stop offset="0%" stop-color="var(--color-primary-surface)" />
-        <stop offset="100%" stop-color="var(--color-primary-surface-dark)" />
+        <stop offset="0%" stopColor="var(--color-primary-surface)" />
+        <stop offset="100%" stopColor="var(--color-primary-surface-dark)" />
       </linearGradient>
 
       {/* Drop shadow for active border */}
@@ -50,8 +50,8 @@ export const VisualizerDefs = ({
           dx="0"
           dy="0"
           stdDeviation={glowBlur}
-          flood-color="var(--color-primary-border-hover)"
-          flood-opacity="0.8"
+          floodColor="var(--color-primary-border-hover)"
+          floodOpacity="0.8"
         />
       </filter>
 
@@ -63,7 +63,7 @@ export const VisualizerDefs = ({
           result="blur"
         />
         <feOffset in="blur" dx="0" dy={shadowOffset} result="offsetBlur" />
-        <feFlood flood-color="#000000" flood-opacity="0.5" result="color" />
+        <feFlood floodColor="#000000" floodOpacity="0.5" result="color" />
         <feComposite
           in="color"
           in2="offsetBlur"

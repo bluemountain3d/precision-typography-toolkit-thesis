@@ -14,6 +14,8 @@ import { parseFontFile } from '@/utils/fontParser';
 type FontMetricsContextValue = {
   state: FontMetricsState;
   dispatch: React.Dispatch<FontMetricsAction>;
+  resetFont: () => void;
+  setSelectedMetric: (metricId: string | null) => void;
 };
 
 /**
@@ -62,6 +64,15 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
     }
   );
 
+  const setSelectedMetric = (metricId: string | null) => {
+    dispatch({ type: 'SET_SELECTED_METRIC', payload: metricId });
+  };
+
+  const resetFont = () => {
+    dispatch({ type: 'RESET_FONT' });
+    removeLocalStorage('fontMetrics');
+  };
+
   // Ladda default font när komponenten mountar om ingen font finns
   useEffect(() => {
     const loadDefaultFont = async () => {
@@ -106,7 +117,7 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
   }, []); // Kör bara en gång vid mount
 
   return (
-    <FontMetricsContext.Provider value={{ state, dispatch }}>
+    <FontMetricsContext.Provider value={{ state, dispatch, resetFont, setSelectedMetric }}>
       {children}
     </FontMetricsContext.Provider>
   );
