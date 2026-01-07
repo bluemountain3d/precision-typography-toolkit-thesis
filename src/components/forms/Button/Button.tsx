@@ -194,7 +194,7 @@ export const Button = ({
           className={classNames(
             variant !== 'label' && `text-${size}`,
             variant !== 'label' && 'text-medium',
-            variant === 'label' && `text-base`,
+            variant === 'label' && `text-sm`,
             variant === 'label' && 'font-family-mono',
             styles.button__text
           )}
