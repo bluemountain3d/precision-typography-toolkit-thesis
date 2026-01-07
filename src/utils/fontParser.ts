@@ -15,6 +15,17 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
+    const getBBoxHeight = (font: fontkit.Font, chars: string[]) => {
+      const heights = chars
+        .map((char) => {
+          const glyph = font.glyphForCodePoint(char.codePointAt(0)!);
+          return glyph?.bbox?.maxY || 0;
+        })
+        .filter((h) => h > 0);
+
+      return heights.length > 0 ? Math.min(...heights) : 0;
+    };
+
     reader.onload = (e) => {
       try {
         const arrayBuffer = e.target?.result as ArrayBuffer;
@@ -29,14 +40,29 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           font = fontOrCollection;
         }
 
+        /**
+         * Check font.capHeight and font.xHeight
+         * If not capHeight ? use letter H BBox y-max
+         * If not xHeight ? use letter x BBox y-max
+         */
+        const capHeight = font.capHeight
+          ? font.capHeight
+          : getBBoxHeight(font, ['H', 'I', 'E', 'T']);
+        const xHeight = font.xHeight
+          ? font.xHeight
+          : getBBoxHeight(font, ['x', 'a', 'o', 'm', 'n']);
+
         const { upmAscender, upmDescender } = getCorrectedAscenderDescender(
           font.hhea.ascent,
           font.hhea.descent,
           font.unitsPerEm
         );
 
+        /**
+         * Trim values for `text-box-trim` polyfill
+         */
         const topTrim = Math.round(
-          Math.abs((font.capHeight - upmAscender) / font.unitsPerEm) *
+          Math.abs((capHeight - upmAscender) / font.unitsPerEm) *
             font.unitsPerEm
         );
 
@@ -44,6 +70,9 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           Math.abs(upmDescender / font.unitsPerEm) * font.unitsPerEm
         );
 
+        /**
+         * Metics object with RAW metrics in font units
+         */
         const metrics = {
           familyName: font.familyName,
           subFamilyName: font.subfamilyName,
@@ -53,8 +82,8 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           upmAscender: upmAscender,
           hheaDescender: font.hhea.descent,
           upmDescender: -upmDescender,
-          capHeight: font.capHeight,
-          xHeight: font.xHeight,
+          capHeight: capHeight,
+          xHeight: xHeight,
           avgCharWidth: font['OS/2'].xAvgCharWidth,
           lineGap: font.lineGap,
           topTrimRaw: topTrim,
