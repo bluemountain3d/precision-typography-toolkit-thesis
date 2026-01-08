@@ -1,7 +1,7 @@
 import styles from './Flex.module.scss';
 import classNames from 'clsx';
 import type { FlexProps } from './Flex.types';
-import type { JSX } from 'react';
+// import type { JSX } from 'react';
 
 export const Flex = ({
   children,
@@ -18,9 +18,9 @@ export const Flex = ({
   marginTop,
   marginBottom,
   className,
-  style,
+  ...rest
 }: FlexProps) => {
-  const Component = as as keyof JSX.IntrinsicElements;
+  const Component = as as React.ElementType;
   return (
     <Component
       className={classNames(
@@ -38,7 +38,7 @@ export const Flex = ({
         marginBottom && `mb-${marginBottom}`,
         className
       )}
-      style={style}
+      {...rest}
     >
       {children}
     </Component>

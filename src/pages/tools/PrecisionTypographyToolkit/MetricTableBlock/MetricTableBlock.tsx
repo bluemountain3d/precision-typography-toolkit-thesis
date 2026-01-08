@@ -7,16 +7,19 @@ import { MetricTable } from './MetricTable';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 import { Footnote } from '@/components/typography/Footnote';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
+import { useState } from 'react';
 
 export const MetricTableBlock = () => {
   const { state, dispatch } = useFontMetrics();
-  // const [showConfirmDialog, setShowConfirmDialog] = useState(false);
+  const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const isMobile = useMediaQuery(queries.isUpToTablet);
 
   const handleClearData = () => {
     dispatch({ type: 'RESET_FONT' });
     removeLocalStorage('fontMetrics');
+    setShowConfirmDialog(false);
   };
 
   return (
@@ -56,24 +59,28 @@ export const MetricTableBlock = () => {
             </Footnote>
           </Flex>
           <Flex justifyContent={isMobile ? 'center' : 'end'}>
-            <Button variant="ghost" size="base" onClick={handleClearData}>
+            <Button
+              variant="ghost"
+              size="base"
+              onClick={() => setShowConfirmDialog(true)}
+            >
               Reload default
             </Button>
           </Flex>
         </Flex>
       </Flex>
 
-      {/* TODO: Uncomment and configure */}
-      {/* {showConfirmDialog && (
+      {showConfirmDialog && (
         <ConfirmDialog
           title="Clear font data?"
           message="This will remove all loaded font metrics. This action cannot be undone."
-          onConfirm={handleClearData}
-          onCancel={() => setShowConfirmDialog(false)}
           confirmText="Clear data"
           confirmVariant="danger"
+          cancelText="Cancel"
+          onConfirm={handleClearData}
+          onCancel={() => setShowConfirmDialog(false)}
         />
-      )} */}
+      )}
     </>
   );
 };

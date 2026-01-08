@@ -6,7 +6,7 @@ import type { SpacingSize, SpacingStep } from '@/types';
 // Component Props
 // ============================================================================
 
-export interface FlexProps {
+export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   children: React.ReactNode;
 
   // Layout
@@ -26,10 +26,6 @@ export interface FlexProps {
 
   // Polymorphism
   as?: keyof JSX.IntrinsicElements;
-
-  // Standard HTML attributes
-  className?: string;
-  style?: React.CSSProperties;
 
   // Margin
   marginTop?: SpacingSize | SpacingStep;

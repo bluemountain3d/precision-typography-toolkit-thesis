@@ -1,0 +1,22 @@
+.confirm-dialog {
+  width: 90%;
+  max-width: 25rem;
+  padding: var(--space-xl);
+  border-radius: var(--space-lg);
+  background-color: var(--color-primary-dark);
+}
+
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  background-color: oklch(0 0 0 / 0.65);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(2px);
+}
