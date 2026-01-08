@@ -6,9 +6,10 @@ import { useFontMetrics } from '../context';
 import { MetricTable } from './MetricTable';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
+import { Footnote } from '@/components/typography/Footnote';
 
 export const MetricTableBlock = () => {
-  const { dispatch } = useFontMetrics();
+  const { state, dispatch } = useFontMetrics();
   // const [showConfirmDialog, setShowConfirmDialog] = useState(false);
 
   const isMobile = useMediaQuery(queries.isUpToTablet);
@@ -22,23 +23,44 @@ export const MetricTableBlock = () => {
     <>
       <Flex width="full" direction="column" gap="sm">
         {!isMobile && (
-          <Flex justifyContent="space-between" alignItems="center">
+          <Flex justifyContent="start" alignItems="center">
             <Heading level={2} size="heading-2">
               Metrics Table
             </Heading>
-            <Button variant="ghost" size="base" onClick={handleClearData}>
+            {/* <Button variant="ghost" size="base" onClick={handleClearData}>
               Reload default
-            </Button>
+            </Button> */}
           </Flex>
         )}
         <MetricTable />
-        {isMobile && (
-          <Flex justifyContent="end" alignItems="center">
+        <Flex
+          direction={isMobile ? 'column' : 'row'}
+          justifyContent="space-between"
+          gap={isMobile ? 'sm' : 'xl'}
+        >
+          <Flex
+            direction="column"
+            justifyContent={'start'}
+            alignContent="start"
+            width="full"
+          >
+            <Footnote>
+              Adjusted for current line-height (
+              {state.lineHeightMultiplier.toFixed(2)}). Includes a half-leading
+              offset of {Math.round(state.halfLeading)} units.
+              <br />
+              Half Leading (units) ={' '}
+              <span>
+                {'((LineHeight \u00D7 UnitsPerEm) \u2212 UnitsPerEm) \u00F7 2'}
+              </span>
+            </Footnote>
+          </Flex>
+          <Flex justifyContent={isMobile ? 'center' : 'end'}>
             <Button variant="ghost" size="base" onClick={handleClearData}>
               Reload default
             </Button>
           </Flex>
-        )}
+        </Flex>
       </Flex>
 
       {/* TODO: Uncomment and configure */}
