@@ -1,15 +1,40 @@
 @use "@/styles/abstracts/variables" as var;
 
 .metrics-table {
+  // table-layout: fixed;
+  width: 100%;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 15ch;
+  }
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 23ch;
+  }
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 13ch;
+  }
+
+  td:nth-child(4) > div,
+  th:nth-child(4) {
+    // max-width: 40rem;
+  }
+
   @media screen and #{var.$bp-up-to-phablet} {
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 36vw;
+    }
     td:nth-child(2),
     th:nth-child(2) {
-      max-width: 33vw;
+      max-width: 28vw;
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    
+
     td:nth-child(3),
     th:nth-child(3) {
       white-space: nowrap;
