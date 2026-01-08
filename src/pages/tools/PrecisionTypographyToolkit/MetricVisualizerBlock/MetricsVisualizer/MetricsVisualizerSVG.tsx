@@ -101,6 +101,7 @@ export const MetricsVisualizerSVG = ({
   const selectedMeasureColor = 'var(--color-primary-border-hover)';
 
   const hitBoxSize = 2.75 * unitsPerRem;
+  const hitBoxRadius = 0.5 * unitsPerRem;
   const outerRadius = 0.75 * unitsPerRem;
   const outerRadiusSelected = unitsPerRem;
   const innerRadius = 0.625 * unitsPerRem;
@@ -131,12 +132,6 @@ export const MetricsVisualizerSVG = ({
       line: lines.lineBoxBottom,
       measure: null,
       rectangle: null,
-    },
-    {
-      id: 'ascender',
-      line: lines.ascender,
-      measure: measureLines.ascender,
-      rectangle: rectangles.ascender,
     },
     {
       id: 'emBox',
@@ -173,6 +168,12 @@ export const MetricsVisualizerSVG = ({
       line: lines.baseline,
       measure: null,
       rectangle: null,
+    },
+    {
+      id: 'ascender',
+      line: lines.ascender,
+      measure: measureLines.ascender,
+      rectangle: rectangles.ascender,
     },
     {
       id: 'descender',
@@ -289,6 +290,7 @@ export const MetricsVisualizerSVG = ({
                 isSelected={state.selectedMetric === id}
                 metricId={id}
                 hitBoxSize={hitBoxSize}
+                hitBoxRadius={hitBoxRadius}
                 outerRadius={outerRadius}
                 outerRadiusSelected={outerRadiusSelected}
                 innerRadius={innerRadius}

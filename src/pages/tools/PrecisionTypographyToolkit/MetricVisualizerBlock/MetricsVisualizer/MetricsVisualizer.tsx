@@ -63,8 +63,8 @@ export const MetricsVisualizer = ({
 
   const unitsPerEm = state.unitsPerEm || 1000;
   const halfLeading = (unitsPerEm * (lineHeight - 1)) / 2;
-  const topTrim = (state.topTrim || 0);
-  const bottomTrim = (state.bottomTrim || 0);
+  const topTrim = state.topTrim || 0;
+  const bottomTrim = state.bottomTrim || 0;
 
   const viewBox = {
     minY: -(state.upmAscender || 0) - halfLeading,
@@ -203,12 +203,6 @@ export const MetricsVisualizer = ({
       width: viewBox.width,
       height: viewBox.height,
     },
-    ascender: {
-      x: measureLineGap(4),
-      y: yPositions.ascender,
-      width: viewBox.width - measureLineGap(6),
-      height: -yPositions.ascender,
-    },
     emBox: {
       x: measureLineGap(1),
       y: yPositions.emBoxTop,
@@ -226,6 +220,12 @@ export const MetricsVisualizer = ({
       y: yPositions.xHeight,
       width: viewBox.width - measureLineGap(6),
       height: -yPositions.xHeight,
+    },
+    ascender: {
+      x: measureLineGap(4),
+      y: yPositions.ascender,
+      width: viewBox.width - measureLineGap(6),
+      height: -yPositions.ascender,
     },
     descender: {
       x: measureLineGap(4),

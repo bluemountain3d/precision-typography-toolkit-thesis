@@ -1,3 +1,5 @@
+import styles from './MetricToggleButton.module.scss';
+
 /**
  * Props for MetricToggleButton component
  */
@@ -12,6 +14,8 @@ interface MetricToggleButtonProps {
   metricId: string;
   /** Size of the clickable hit box area in SVG units */
   hitBoxSize: number;
+  /** The border radius size of the clickable hit box area in SVG units */
+  hitBoxRadius: number;
   /** Outer circle radius in default state (SVG units) */
   outerRadius: number;
   /** Outer circle radius in selected state (SVG units) */
@@ -63,18 +67,23 @@ export const MetricToggleButton = ({
   isSelected,
   metricId,
   hitBoxSize,
+  hitBoxRadius,
   outerRadius,
   outerRadiusSelected,
   innerRadius,
   innerRadiusSelected,
   onSelect,
 }: MetricToggleButtonProps) => (
-  <g transform={`translate(${x}, ${y})`}>
+  <g
+    className={styles['metric-toggle-group']}
+    transform={`translate(${x}, ${y})`}
+  >
     <circle
       r={isSelected ? outerRadiusSelected : outerRadius}
       fill="url(#circle-border)"
     />
     <circle
+      className={styles['hover-glow-circle']}
       r={isSelected ? outerRadiusSelected : outerRadius}
       fill="url(#circle-border-active)"
       opacity={isSelected ? 1 : 0}
@@ -86,13 +95,25 @@ export const MetricToggleButton = ({
       filter="url(#inner-shadow)"
     />
     <rect
+      className={styles['hit-area']}
       x={-(hitBoxSize / 2)}
       y={-(hitBoxSize / 2)}
       width={hitBoxSize}
       height={hitBoxSize}
+      rx={hitBoxRadius}
       fill="transparent"
       style={{ cursor: 'pointer' }}
+      role="button"
+      tabIndex={0}
+      aria-pressed={isSelected}
+      aria-label={`Toggle ${metricId}`}
       onClick={() => onSelect(isSelected ? '' : metricId)}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          onSelect(isSelected ? '' : metricId);
+        }
+      }}
     />
   </g>
 );

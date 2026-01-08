@@ -4,15 +4,16 @@ import { Flex } from '@/components/layout/Flex';
 import { Heading } from '@/components/typography/Heading';
 import { useState } from 'react';
 import { MetricsVisualizer } from './MetricsVisualizer';
-import { ButtonGroup } from '@/components/layout/ButtonGroup';
+// import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { useFontMetrics } from '../context';
-import { Button } from '@/components/forms/Button';
-import { MetricsNiceName, getMetricValue } from '@/utils';
+// import { Button } from '@/components/forms/Button';
+// import { MetricsNiceName, getMetricValue, isMetricVisualized } from '@/utils';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
+import { MetricsVisualizerLabel } from './VisualizerLabel';
 
 export const MetricVisualizerBlock = () => {
-  const { state, updateLineHeightTrims } = useFontMetrics();
+  const { updateLineHeight } = useFontMetrics();
   const [toggles, setToggles] = useState({
     kerning: true,
   });
@@ -28,7 +29,7 @@ export const MetricVisualizerBlock = () => {
 
   const handleLineHeightChange = (key: string) => (value: number) => {
     setThumbSliders((prev) => ({ ...prev, [key]: value }));
-    updateLineHeightTrims(value);
+    updateLineHeight(value);
   };
 
   const labelWidth = 26;
@@ -62,15 +63,7 @@ export const MetricVisualizerBlock = () => {
         lineHeight={thumbSliders.lineHeight}
         kerning={toggles.kerning}
       />
-      {isTabletUp && (
-        <ButtonGroup>
-          <Button variant="label" radius="sm">
-            {state.selectedMetric
-              ? `.::${'\u00A0\u00A0\u00A0'}${MetricsNiceName[state.selectedMetric]}: ${getMetricValue(state.selectedMetric, state, thumbSliders.lineHeight)}${'\u00A0\u00A0\u00A0'}::.`
-              : `.::${'\u00A0\u00A0\u00A0'}Select a metric to see its values${'\u00A0\u00A0\u00A0'}::.`}
-          </Button>
-        </ButtonGroup>
-      )}
+      {isTabletUp && <MetricsVisualizerLabel />}
     </Flex>
   );
 };
