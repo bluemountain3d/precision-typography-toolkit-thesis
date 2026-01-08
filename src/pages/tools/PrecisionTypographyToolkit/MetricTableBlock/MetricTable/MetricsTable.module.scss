@@ -1,0 +1,82 @@
+@use "@/styles/abstracts/variables" as var;
+
+.metrics-table {
+  width: 100%;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 15ch;
+  }
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 23ch;
+  }
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 13ch;
+  }
+
+  th:nth-child(4) {
+    white-space: normal;
+  }
+
+  td:nth-child(4) {
+    max-width: 0;
+  }
+
+  @media screen and #{var.$bp-up-to-phablet} {
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 36vw;
+    }
+    td:nth-child(2),
+    th:nth-child(2) {
+      max-width: 28vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    td:nth-child(3),
+    th:nth-child(3) {
+      white-space: nowrap;
+    }
+  }
+
+  &__comment-text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text-secondary);
+  }
+
+  &__info-button {
+    flex-shrink: 0;
+    width: 1.5em;
+    height: 1.5em;
+    margin-inline-start: 0.5em;
+    padding: 0.4em;
+    font-size: inherit;
+    opacity: 0.5;
+    background-color: oklch(1 0 0 / 0%);
+    border-radius: 0.25em;
+    border: none;
+    cursor: pointer;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    transition:
+      background-color 0.1s ease,
+      opacity 0.1s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      background-color: oklch(1 0 0 / 15%);
+    }
+  }
+}

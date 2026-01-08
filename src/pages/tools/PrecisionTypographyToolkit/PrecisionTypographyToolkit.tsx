@@ -3,7 +3,6 @@ import { FontMetricsProvider, useFontMetrics } from './context';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 import { Flex } from '@/components/layout/Flex';
-// import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 import { MetricTableBlock } from './MetricTableBlock';
 import { HeroBlock } from './HeroBlock/HeroBlock';
 import { PageSection } from '@/components/layout/PageSection';
@@ -13,8 +12,9 @@ import { MetricVisualizerBlock } from './MetricVisualizerBlock';
  * Inner component that uses the FontMetrics context
  */
 const PrecisionTypographyToolkitContent = () => {
-  const { state } = useFontMetrics();
+  const { setSelectedMetric } = useFontMetrics();
   const isUnderBreakpoint = useMediaQuery(queries.isTabletLargeAndDown);
+  const isMobile = useMediaQuery(queries.isUpToTablet);
 
   return (
     <>
@@ -26,33 +26,39 @@ const PrecisionTypographyToolkitContent = () => {
       </PageSection>
 
       {/* Metrics Visualizer */}
-      {state.fontFamily && (
-        <>
-          <PageSection id="metrics-visualizer" padding="large">
-            <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
-              <Flex width="full" direction="column" gap="2xl">
-                <MetricVisualizerBlock />
-                <p className="text-align-center">
-                  !! Metrics Visualizer will be placed here !!
-                </p>
-                <MetricTableBlock />
-              </Flex>
-            </Container>
-          </PageSection>
+      <>
+        <PageSection
+          id="metrics-visualizer"
+          padding="large"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setSelectedMetric('');
+            }
+          }}
+          style={{ scrollMarginTop: 'var(--header-height-scrolled)' }}
+        >
+          <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
+            <Flex width="full" direction="column" gap={isMobile ? 'lg' : '4xl'}>
+              <MetricVisualizerBlock />
+              <MetricTableBlock />
+            </Flex>
+          </Container>
+        </PageSection>
 
-          {/* Export Metrics */}
-          <PageSection id="export-metrics" padding="large">
-            <p className="text-align-center">
-              !! Export metrics as different languages will be here !!
-            </p>
-          </PageSection>
-        </>
-      )}
+        {/* Export Metrics */}
+        <PageSection id="export-metrics" padding="large">
+          <p className="text-align-center">
+            !! Work In Progress: Export metrics for different languages will be
+            here !!
+          </p>
+        </PageSection>
+      </>
 
       {/* Metrics learn intro */}
       <PageSection id="metrics-intro" padding="large">
         <p className="text-align-center">
-          !! Intro to font metrics with a link to the "learn" article !!
+          !! Work In Progress: Intro to font metrics with a link to the "learn"
+          article !!
         </p>
       </PageSection>
     </>

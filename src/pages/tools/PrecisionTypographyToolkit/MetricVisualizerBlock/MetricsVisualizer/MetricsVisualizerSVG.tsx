@@ -1,11 +1,12 @@
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { MetricLine } from './MetricLine';
 import { MeasureLine } from './MeasureLine';
 import { MetricToggleButton } from './MetricToggleButton';
 import { AreaRectangle } from './AreaRectangle';
 import { VisualizerDefs } from './VisualizerDefs';
+import { useFontMetrics } from '../../context';
 
 interface LineConfig {
   x1: number;
@@ -83,8 +84,8 @@ export const MetricsVisualizerSVG = ({
   kerning = true,
   onTextBBoxUpdate,
 }: MetricsVisualizerSVGProps) => {
-  const [selectedMetric, setSelectedMetric] = useState('');
-  // TODO : Set context with `selectedMetric`
+  const { state, setSelectedMetric } = useFontMetrics();
+
   const textRef = useRef<SVGTextElement>(null);
   const isTabletUp = useMediaQuery(queries.isTabletAndUp);
 
@@ -100,6 +101,7 @@ export const MetricsVisualizerSVG = ({
   const selectedMeasureColor = 'var(--color-primary-border-hover)';
 
   const hitBoxSize = 2.75 * unitsPerRem;
+  const hitBoxRadius = 0.5 * unitsPerRem;
   const outerRadius = 0.75 * unitsPerRem;
   const outerRadiusSelected = unitsPerRem;
   const innerRadius = 0.625 * unitsPerRem;
@@ -130,12 +132,6 @@ export const MetricsVisualizerSVG = ({
       line: lines.lineBoxBottom,
       measure: null,
       rectangle: null,
-    },
-    {
-      id: 'ascender',
-      line: lines.ascender,
-      measure: measureLines.ascender,
-      rectangle: rectangles.ascender,
     },
     {
       id: 'emBox',
@@ -174,6 +170,12 @@ export const MetricsVisualizerSVG = ({
       rectangle: null,
     },
     {
+      id: 'ascender',
+      line: lines.ascender,
+      measure: measureLines.ascender,
+      rectangle: rectangles.ascender,
+    },
+    {
       id: 'descender',
       line: lines.descender,
       measure: measureLines.descender,
@@ -194,7 +196,28 @@ export const MetricsVisualizerSVG = ({
   ];
 
   return (
-    <svg viewBox={`0 ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}>
+    <svg
+      viewBox={`0 ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}
+      onClick={(e) => {
+        if (e.target === e.currentTarget) {
+          setSelectedMetric('');
+        }
+      }}
+    >
+      {/* Area rectangles */}
+
+      {metricsList.map(
+        ({ id, rectangle }) =>
+          rectangle && (
+            <AreaRectangle
+              key={`rectangle-${id}`}
+              {...rectangle}
+              isSelected={state.selectedMetric === id}
+              color={rectangleColor}
+            />
+          )
+      )}
+
       {/* Measure line arrows */}
 
       <VisualizerDefs
@@ -205,20 +228,6 @@ export const MetricsVisualizerSVG = ({
         selectedMeasureColor={selectedMeasureColor}
         unitsPerRem={unitsPerRem}
       />
-
-      {/* Area rectangles */}
-
-      {metricsList.map(
-        ({ id, rectangle }) =>
-          rectangle && (
-            <AreaRectangle
-              key={`rectangle-${id}`}
-              {...rectangle}
-              isSelected={selectedMetric === id}
-              color={rectangleColor}
-            />
-          )
-      )}
 
       {/* Metric lines */}
 
@@ -242,7 +251,7 @@ export const MetricsVisualizerSVG = ({
             <MeasureLine
               key={`measure-${id}`}
               {...measure}
-              isSelected={selectedMetric === id}
+              isSelected={state.selectedMetric === id}
               color={measureColor}
               colorSelected={selectedMeasureColor}
             />
@@ -261,8 +270,8 @@ export const MetricsVisualizerSVG = ({
         textAnchor="middle"
         fill="var(--color-text-primary)"
         style={{
-          // textRendering: 'geometricPrecision',
-          fontFeatureSettings: kerning ? '"kern" 1' : '"kern" 0',
+          // fontFeatureSettings: kerning ? '"kern" 1' : '"kern" 0',
+          fontFeatureSettings: kerning ? 'normal' : '"kern" 0',
         }}
       >
         {vizText}
@@ -278,9 +287,10 @@ export const MetricsVisualizerSVG = ({
                 key={id}
                 x={measure.x}
                 y={(measure.y1 + measure.y2) / 2}
-                isSelected={selectedMetric === id}
+                isSelected={state.selectedMetric === id}
                 metricId={id}
                 hitBoxSize={hitBoxSize}
+                hitBoxRadius={hitBoxRadius}
                 outerRadius={outerRadius}
                 outerRadiusSelected={outerRadiusSelected}
                 innerRadius={innerRadius}

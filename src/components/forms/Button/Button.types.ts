@@ -13,6 +13,12 @@ export interface BaseButtonProps {
   variant?: ButtonVariants;
 
   /**
+   * Border radius of the button
+   * @default 'md'
+   */
+  radius?: 'sm' | 'md' | 'lg';
+
+  /**
    * Size variant affecting padding and font size
    * @default 'base'
    */
@@ -148,7 +154,8 @@ export type ButtonVariants =
   | 'success'
   | 'warning'
   | 'danger'
-  | 'info';
+  | 'info'
+  | 'label';
 
 /**
  * Available button size variants

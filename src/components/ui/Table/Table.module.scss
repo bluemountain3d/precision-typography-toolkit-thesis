@@ -149,11 +149,20 @@
   /// Used when cells need internal layout (e.g., icons, badges).
   &__cell {
     display: flex;
-    justify-content: space-between;
+    // justify-content: space-between;
     align-items: center;
     width: 100%;
+    
     line-height: inherit;
     color: var(--color-text-secondary);
+
+    span {
+      width: 100%;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
   }
 
   // ---------------------------------------------------------------------------

@@ -23,11 +23,24 @@ import type { FontMetrics } from '@models';
 export const prepareFontMetricsState = (
   file: File,
   metrics: FontMetrics,
-  loadedFontFamily: string
+  loadedFontFamily: string,
+  initialLineHeight: number = 1.5
 ): FontMetricsState => {
   const { unitsPerEm } = metrics;
 
+  const initialHalfLeading = (initialLineHeight * unitsPerEm - unitsPerEm) / 2;
+
+  const round3 = (val: number | null | undefined): number | null => {
+    if (val === null || val === undefined) return null;
+    return Math.round(val * 1000) / 1000;
+  };
+
   return {
+    // UI state
+    selectedMetric: null,
+    lineHeightMultiplier: initialLineHeight,
+    halfLeading: initialHalfLeading,
+
     // Font file info
     fontFile: file,
     fontFamily: metrics.familyName, // Original font name for display
@@ -35,7 +48,7 @@ export const prepareFontMetricsState = (
     subFamily: metrics.subFamilyName,
     category: metrics.category,
 
-    // Raw metrics (i UPM units, descender negative)
+    // Raw metrics (in UPM units, descender negative)
     unitsPerEm: metrics.unitsPerEm,
     hheaAscender: metrics.hheaAscender,
     hheaDescender: metrics.hheaDescender, // already negative from parser
@@ -45,29 +58,66 @@ export const prepareFontMetricsState = (
     xHeight: metrics.xHeight,
     avgCharWidth: metrics.avgCharWidth,
     lineGap: metrics.lineGap,
-    topTrim: metrics.topTrim ?? null,
-    bottomTrim: metrics.bottomTrim ?? null,
+    topTrimRaw: metrics.topTrimRaw ?? null,
+    bottomTrimRaw: metrics.bottomTrimRaw ?? null,
+
+    // Dynamic trim values (initialized with default line-height 1.5)
+    topTrim:
+      metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
+        ? Math.round(initialHalfLeading + metrics.topTrimRaw)
+        : null,
+    bottomTrim:
+      metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
+        ? Math.round(initialHalfLeading + metrics.bottomTrimRaw)
+        : null,
 
     // Normalized metrics (0-1, all positive)
-    capHeightRatio: metrics.capHeight / unitsPerEm,
-    xHeightRatio: metrics.xHeight / unitsPerEm,
-    avgCharWidthRatio: metrics.avgCharWidth / unitsPerEm,
+    capHeightRatio: round3(metrics.capHeight / unitsPerEm),
+    xHeightRatio: round3(metrics.xHeight / unitsPerEm),
+    avgCharWidthRatio: round3(metrics.avgCharWidth / unitsPerEm),
+
     hheaAscenderRatio: metrics.hheaAscender
-      ? metrics.hheaAscender / unitsPerEm
+      ? round3(metrics.hheaAscender / unitsPerEm)
       : null,
+
     hheaDescenderRatio: metrics.hheaDescender
-      ? metrics.hheaDescender / unitsPerEm
+      ? round3(metrics.hheaDescender / unitsPerEm)
       : null,
-    ascenderRatio: metrics.upmAscender
-      ? metrics.upmAscender / unitsPerEm
+
+    ascenderRatio: metrics.hheaAscender
+      ? round3(metrics.hheaAscender / unitsPerEm)
       : null,
-    descenderRatio: metrics.upmDescender
-      ? Math.abs(metrics.upmDescender) / unitsPerEm
+
+    descenderRatio: metrics.hheaDescender
+      ? round3(Math.abs(metrics.hheaDescender) / unitsPerEm)
       : null,
-    topTrimRatio: metrics.topTrim ? metrics.topTrim / unitsPerEm : null,
-    bottomTrimRatio: metrics.bottomTrim
-      ? metrics.bottomTrim / unitsPerEm
+
+    topTrimRawRatio: metrics.topTrimRaw
+      ? round3(metrics.topTrimRaw / unitsPerEm)
       : null,
+
+    bottomTrimRawRatio: metrics.bottomTrimRaw
+      ? round3(metrics.bottomTrimRaw / unitsPerEm)
+      : null,
+
+    // Dynamic trim ratios (initialized with line-height 1.5)
+    topTrimRatio:
+      metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
+        ? round3(
+            ((initialLineHeight * unitsPerEm - unitsPerEm) / 2 +
+              metrics.topTrimRaw) /
+              unitsPerEm
+          )
+        : null,
+
+    bottomTrimRatio:
+      metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
+        ? round3(
+            ((initialLineHeight * unitsPerEm - unitsPerEm) / 2 +
+              metrics.bottomTrimRaw) /
+              unitsPerEm
+          )
+        : null,
 
     // UI state
     isLoading: false,
@@ -78,13 +128,29 @@ export const prepareFontMetricsState = (
 /**
  * Font metrics reducer
  *
- * Handles state transitions for font upload, parsing, and normalization.
+ * Manages font metrics state transitions through actions:
+ * - SET_SELECTED_METRIC: Updates the currently selected metric for visualization
+ * - FONT_UPLOAD_START: Sets loading state during font processing
+ * - FONT_UPLOAD_SUCCESS: Stores parsed font metrics and persists to localStorage
+ * - FONT_UPLOAD_ERROR: Resets to initial state with error message
+ * - RESTORE_FROM_STORAGE: Restores saved metrics (without File object)
+ * - RESET_FONT: Clears all font data and returns to initial state
+ *
+ * @param state - Current FontMetricsState
+ * @param action - FontMetricsAction to perform
+ * @returns Updated FontMetricsState
  */
 export const fontMetricsReducer = (
   state: FontMetricsState,
   action: FontMetricsAction
 ): FontMetricsState => {
   switch (action.type) {
+    case 'SET_SELECTED_METRIC':
+      return {
+        ...state,
+        selectedMetric: action.payload,
+      };
+
     case 'FONT_UPLOAD_START':
       return {
         ...state,
@@ -93,6 +159,7 @@ export const fontMetricsReducer = (
       };
 
     case 'FONT_UPLOAD_SUCCESS': {
+      // Exclude File object from localStorage (can't be serialized)
       const { fontFile: _, ...stateToSave } = action.payload;
       setItem('fontMetrics', stateToSave);
 
@@ -118,6 +185,32 @@ export const fontMetricsReducer = (
 
     case 'RESET_FONT':
       return initialFontMetricsState;
+
+    case 'UPDATE_LINE_HEIGHT': {
+      const lineHeight = action.payload;
+      const { unitsPerEm, topTrimRaw, bottomTrimRaw } = state;
+
+      if (!unitsPerEm || topTrimRaw === null || bottomTrimRaw === null) {
+        return state;
+      }
+
+      // Formula: ((lineHeight * unitsPerEm - unitsPerEm) / 2) + topTrimRaw
+      const halfLeading = (lineHeight * unitsPerEm - unitsPerEm) / 2;
+      const topTrim = Math.round(halfLeading + topTrimRaw);
+      const bottomTrim = Math.round(halfLeading + bottomTrimRaw);
+
+      const round3 = (val: number): number => Math.round(val * 1000) / 1000;
+
+      return {
+        ...state,
+        lineHeightMultiplier: lineHeight,
+        halfLeading: halfLeading,
+        topTrim,
+        bottomTrim,
+        topTrimRatio: round3(topTrim / unitsPerEm),
+        bottomTrimRatio: round3(bottomTrim / unitsPerEm),
+      };
+    }
 
     default:
       return state;

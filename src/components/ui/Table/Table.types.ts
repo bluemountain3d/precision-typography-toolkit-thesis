@@ -4,7 +4,7 @@ import type { BreakpointQuery } from '@/types';
  * Generic table component props
  * @template T - The type of data objects in the table
  */
-export interface TableProps<T> {
+export interface TableProps<T extends Record<string, any>> {
   /** Array of data objects to display in table rows */
   data: T[];
   /** Column configuration defining what data to show and how */
@@ -31,6 +31,9 @@ export interface TableProps<T> {
    * Uses predefined breakpoint queries from design system
    */
   hideColumnsAt?: BreakpointQuery;
+
+  activeRowId?: string | number | null;
+  rowIdKey?: keyof T;
 }
 
 /**

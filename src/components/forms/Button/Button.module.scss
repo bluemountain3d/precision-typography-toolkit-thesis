@@ -91,10 +91,10 @@
   // ---------------------------------------------------------------------------
   // Core layout and appearance shared by all variants
 
-  cursor: pointer;
+  width: fit-content;
   height: var(--_button-height);
   min-height: 2.75rem;
-
+  white-space: pre;
   // Grid layout for icon + text alignment
   // auto-flow: column ensures horizontal icon-text layout
   // max-content prevents unnecessary stretching
@@ -107,11 +107,9 @@
 
   // Spacing and shape
   padding-inline: 1.75em;
-  border-radius: 0.75em;
+  // border-radius: 0.75em;
   border: 1px solid transparent; // Required for border-box gradient
 
-  // Subtle inner shadow for depth
-  box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
   color: var(--color-text-primary);
 
   // ---------------------------------------------------------------------------
@@ -146,18 +144,18 @@
   /// Hover state
   /// Enhances border color and adds outer glow for visual feedback
   /// The glow uses the hover border color at 50% opacity
-  &:hover {
-    --_border-dark: var(--_border-hover);
-    box-shadow:
-      inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
-      0 0 0.5em 1px oklch(from var(--_border-hover) l c h / 50%);
-  }
+  // &:hover:not(.button--label) {
+  //   --_border-dark: var(--_border-hover);
+  //   box-shadow:
+  //     inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
+  //     0 0 0.5em 1px oklch(from var(--_border-hover) l c h / 50%);
+  // }
 
   /// Active (pressed) state
   /// Darkens surface to simulate button depression
-  &:active {
-    --_surface-dark: var(--_surface-active);
-  }
+  // &:active:not(.button--label) {
+  //   --_surface-dark: var(--_surface-active);
+  // }
 
   /// Disabled state base
   /// Mutes text color - variant-specific disabled styles applied later
@@ -169,6 +167,16 @@
   // ---------------------------------------------------------------------------
   // Modifiers
   // ---------------------------------------------------------------------------
+
+  &--radius-sm {
+    border-radius: 0.4em;
+  }
+  &--radius-md {
+    border-radius: 0.75em;
+  }
+  &--radius-lg {
+    border-radius: 99em;
+  }
 
   /// Full-width modifier
   /// Makes button span entire container width
@@ -192,6 +200,29 @@
   // ---------------------------------------------------------------------------
   // Each variant overrides custom properties to create distinct visual styles
   // while maintaining consistent structure and behavior.
+
+  &--primary,
+  &--secondary,
+  &--accent,
+  &--success,
+  &--warning,
+  &--danger,
+  &--info,
+  &--disables {
+    // Subtle inner shadow for depth
+    box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+
+    &:hover {
+      --_border-dark: var(--_border-hover);
+      box-shadow:
+        inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
+        0 0 0.5em 1px oklch(from var(--_border-hover) l c h / 45%);
+    }
+
+    &:active {
+      --_surface-dark: var(--_surface-active);
+    }
+  }
 
   /// Primary button variant (default)
   /// Main call-to-action with high-contrast blue gradient
@@ -241,11 +272,9 @@
     --_surface-dark: transparent;
     --_surface-active: transparent;
     color: var(--color-text-secondary);
-    box-shadow: none;
 
     &:hover,
     &:active {
-      box-shadow: none;
       color: var(--color-text-primary);
     }
 
@@ -363,6 +392,25 @@
     --_surface-light: var(--color-info-surface);
     --_surface-dark: var(--color-info-surface-dark);
     --_surface-active: var(--color-info-surface-active);
+  }
+
+  /// Label button variant
+  /// Display-only button for showing metric information
+  /// Non-interactive, uses monospace font for technical data display
+  /// Increased height for better readability of metric values
+  /// Use for displaying selected font metrics and technical values
+  /// @variant
+  &--label {
+    --_icon-color: var(--color-secondary-title);
+    --_border-bright: var(--color-inline-link);
+    --_border-dark: var(--color-tertiary);
+    --_border-hover: var(--color-tertiary);
+    --_surface-light: var(--color-secondary);
+    --_surface-dark: var(--color-primary-dark);
+    --_surface-active: var(--color-primary-dark);
+    cursor: default;
+    font-family: var(--font-family-mono);
+    height: calc(var(--_button-height) * 1.25) !important;
   }
 
   // &--disabled {

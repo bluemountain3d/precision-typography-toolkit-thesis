@@ -8,7 +8,6 @@ import { queries } from '@/types';
 
 export const FontUpload = () => {
   const { state, dispatch } = useFontMetrics();
-
   const isTablet = useMediaQuery(queries.isTabletOnly);
 
   /**
@@ -34,6 +33,11 @@ export const FontUpload = () => {
         fontFaceId
       );
       dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
+
+      setTimeout(() => {
+        const element = document.getElementById('metrics-visualizer');
+        element?.scrollIntoView({ behavior: 'smooth' });
+      }, 100);
     } catch (error) {
       const errorMessage =
         error instanceof Error ? error.message : 'Failed to parse font file';

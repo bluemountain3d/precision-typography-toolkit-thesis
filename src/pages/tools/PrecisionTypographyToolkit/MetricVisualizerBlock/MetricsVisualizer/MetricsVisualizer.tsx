@@ -63,8 +63,8 @@ export const MetricsVisualizer = ({
 
   const unitsPerEm = state.unitsPerEm || 1000;
   const halfLeading = (unitsPerEm * (lineHeight - 1)) / 2;
-  const topTrim = (state.topTrim || 0) + halfLeading;
-  const bottomTrim = (state.bottomTrim || 0) + halfLeading;
+  const topTrim = state.topTrim || 0;
+  const bottomTrim = state.bottomTrim || 0;
 
   const viewBox = {
     minY: -(state.upmAscender || 0) - halfLeading,
@@ -140,11 +140,6 @@ export const MetricsVisualizer = ({
       measureLineGap(2),
       viewBox.width
     ),
-    // baseline: getLineConfig(
-    //   yPositions.baseline,
-    //   measureLineGap(-0.5),
-    //   viewBox.width + measureLineGap(0.5)
-    // ),
     emBoxBottom: getLineConfig(
       yPositions.emBoxBottom,
       measureLineGap(1),
@@ -208,12 +203,6 @@ export const MetricsVisualizer = ({
       width: viewBox.width,
       height: viewBox.height,
     },
-    ascender: {
-      x: measureLineGap(4),
-      y: yPositions.ascender,
-      width: viewBox.width - measureLineGap(6),
-      height: -yPositions.ascender,
-    },
     emBox: {
       x: measureLineGap(1),
       y: yPositions.emBoxTop,
@@ -231,6 +220,12 @@ export const MetricsVisualizer = ({
       y: yPositions.xHeight,
       width: viewBox.width - measureLineGap(6),
       height: -yPositions.xHeight,
+    },
+    ascender: {
+      x: measureLineGap(4),
+      y: yPositions.ascender,
+      width: viewBox.width - measureLineGap(6),
+      height: -yPositions.ascender,
     },
     descender: {
       x: measureLineGap(4),
@@ -251,9 +246,6 @@ export const MetricsVisualizer = ({
       height: bottomTrim,
     },
   };
-
-  // if (!textBBox)
-  //   return <div ref={elemRef} className={styles['metrics-visualizer']} />;
 
   return (
     <div ref={elemRef} className={classNames(styles['metrics-visualizer'])}>

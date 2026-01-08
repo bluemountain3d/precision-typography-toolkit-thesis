@@ -9,7 +9,7 @@ import { useLayoutEffect, useRef } from 'react';
  * Can render as either a `<button>` or `<a>` tag based on whether an `href` prop is provided.
  *
  * ## Features
- * - Multiple visual variants (primary, secondary, accent, ghost, link, etc.)
+ * - Multiple visual variants (primary, secondary, accent, ghost, link, success, warning, danger, info, label)
  * - Size variants from xs to lg
  * - Icon support with customizable fill colors
  * - Loading and disabled states
@@ -18,6 +18,18 @@ import { useLayoutEffect, useRef } from 'react';
  * - Full-width option
  * - Spacing utilities via margin props
  * - Dynamic gradient angle optimization based on button dimensions
+ *
+ * ## Variants
+ * - **primary**: Main call-to-action (default)
+ * - **secondary**: Alternative action
+ * - **accent**: Highlighted/featured action
+ * - **ghost**: Minimal styling, transparent background
+ * - **link**: Styled as inline link
+ * - **success**: Positive actions (green)
+ * - **warning**: Caution-required actions (yellow/orange)
+ * - **danger**: Destructive actions (red)
+ * - **info**: Informational actions (blue)
+ * - **label**: Non-interactive display for metric information (monospace font)
  *
  * ## Gradient Angle Optimization
  * The button automatically calculates and applies an optimized gradient angle based on its
@@ -74,11 +86,18 @@ import { useLayoutEffect, useRef } from 'react';
  * <Button variant="accent" fullWidth marginTop="md">
  *   Continue
  * </Button>
+ *
+ * @example
+ * // Label variant for displaying metric information
+ * <Button variant="label" radius="sm">
+ *   Cap Height: 700 / 1000upm (0.700em)
+ * </Button>
  */
 export const Button = ({
   children,
   variant = 'primary',
   size = 'base',
+  radius = 'md',
   icon,
   iconFill = 'inherit',
   disabled = false,
@@ -96,8 +115,9 @@ export const Button = ({
 }: ButtonProps) => {
   // Combine all disabled states
   const isDisabled = disabled || loading;
+  const isLabel = variant === 'label';
 
-  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
+  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const el = btnRef.current;
@@ -105,7 +125,7 @@ export const Button = ({
 
     const { offsetWidth: width, offsetHeight: height } = el;
 
-    // THE MAGIC: We compress the width by a factor of 0.6 to maintain the steepness
+    // Compressing the width by a factor of 0.6 to maintain the steepness
     const adjustedWidth = width * 0.6;
 
     // Calculate angle
@@ -117,17 +137,18 @@ export const Button = ({
   }, []);
 
   const handleClick = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>
   ) => {
-    if (!isDisabled && onClick) {
+    if (!isDisabled && !isLabel && onClick) {
       onClick(e as React.MouseEvent<HTMLButtonElement>);
     }
   };
 
   const commonClassNames = classNames(
     styles.button,
-    styles[`button--${variant}`],
     styles[`button--${size}`],
+    styles[`button--${variant}`],
+    styles[`button--radius-${radius}`],
     iconOnly && styles['button--icon-only'],
     {
       [styles['button--disabled']]: isDisabled,
@@ -139,7 +160,7 @@ export const Button = ({
     className
   );
 
-  const Tag = href ? 'a' : 'button';
+  const Tag = href ? 'a' : isLabel ? 'div' : 'button';
 
   const commonProps = {
     className: commonClassNames,
@@ -157,7 +178,9 @@ export const Button = ({
         rel: external ? 'noopener noreferrer' : undefined,
         tabIndex: isDisabled ? -1 : undefined,
       }
-    : {
+    : isLabel
+      ? {}
+      : {
         type,
         disabled: isDisabled,
       };
@@ -172,8 +195,10 @@ export const Button = ({
       {!iconOnly && children && (
         <span
           className={classNames(
-            `text-${size}`,
-            'text-medium',
+            variant !== 'label' && `text-${size}`,
+            variant !== 'label' && 'text-medium',
+            variant === 'label' && `text-sm`,
+            variant === 'label' && 'font-family-mono',
             styles.button__text
           )}
         >

@@ -4,8 +4,16 @@ import { Flex } from '@/components/layout/Flex';
 import { Heading } from '@/components/typography/Heading';
 import { useState } from 'react';
 import { MetricsVisualizer } from './MetricsVisualizer';
+// import { ButtonGroup } from '@/components/layout/ButtonGroup';
+import { useFontMetrics } from '../context';
+// import { Button } from '@/components/forms/Button';
+// import { MetricsNiceName, getMetricValue, isMetricVisualized } from '@/utils';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
+import { MetricsVisualizerLabel } from './VisualizerLabel';
 
 export const MetricVisualizerBlock = () => {
+  const { updateLineHeight } = useFontMetrics();
   const [toggles, setToggles] = useState({
     kerning: true,
   });
@@ -13,12 +21,15 @@ export const MetricVisualizerBlock = () => {
     lineHeight: 1.5,
   });
 
+  const isTabletUp = useMediaQuery(queries.isTabletAndUp);
+
   const handleToggleChange = (key: string) => (checked: boolean) => {
     setToggles((prev) => ({ ...prev, [key]: checked }));
   };
 
-  const handleThumbSliderChange = (key: string) => (value: number) => {
+  const handleLineHeightChange = (key: string) => (value: number) => {
     setThumbSliders((prev) => ({ ...prev, [key]: value }));
+    updateLineHeight(value);
   };
 
   const labelWidth = 26;
@@ -43,7 +54,7 @@ export const MetricVisualizerBlock = () => {
           max={2}
           step={0.05}
           value={thumbSliders.lineHeight}
-          onChange={handleThumbSliderChange('lineHeight')}
+          onChange={handleLineHeightChange('lineHeight')}
           label={`line-height: ${thumbSliders.lineHeight.toFixed(2)};`}
           labelWidth={labelWidth}
         />
@@ -52,7 +63,7 @@ export const MetricVisualizerBlock = () => {
         lineHeight={thumbSliders.lineHeight}
         kerning={toggles.kerning}
       />
-      {/* Add label here */}
+      {isTabletUp && <MetricsVisualizerLabel />}
     </Flex>
   );
 };
