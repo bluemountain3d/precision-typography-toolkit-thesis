@@ -82,30 +82,39 @@
 /// Font Weights
 .font-weight-thin {
   --_font-weight: var(--font-weight-thin) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-extralight {
   --_font-weight: var(--font-weight-extralight) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-light {
   --_font-weight: var(--font-weight-light) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-normal {
   --_font-weight: var(--font-weight-normal) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-medium {
   --_font-weight: var(--font-weight-medium) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-semibold {
   --_font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-bold {
   --_font-weight: var(--font-weight-bold) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-extrabold {
   --_font-weight: var(--font-weight-extrabold) !important;
+  font-weight: var(--_font-weight);
 }
 .font-weight-black {
   --_font-weight: var(--font-weight-black) !important;
+  font-weight: var(--_font-weight);
 }
 
 /// Text Align
