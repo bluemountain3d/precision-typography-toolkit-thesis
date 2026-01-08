@@ -5,12 +5,6 @@ import { getCorrectedAscenderDescender } from '@utils/getCorrectedMetrics';
 import type { FontMetrics } from '@models';
 import { getCategory } from '@utils/getFontCategory';
 
-// interface FontWithPost extends Font {
-//   post?: {
-//     isFixedPitch: number;
-//   };
-// }
-
 export const parseFontFile = async (file: File): Promise<FontMetrics> => {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
@@ -24,6 +18,40 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
         .filter((h) => h > 0);
 
       return heights.length > 0 ? Math.min(...heights) : 0;
+    };
+
+    const getSideBearingsUPM = (
+      font: Font,
+      charList: string[] = ['a', 'e', 'h', 'i', 'l', 'm', 'n', 'o', 'r', 's']
+    ) => {
+      const lsbValues: number[] = [];
+      const rsbValues: number[] = [];
+
+      for (const char of charList) {
+        try {
+          const glyph = font.glyphForCodePoint(char.charCodeAt(0));
+          if (!glyph || glyph.id === 0) continue;
+
+          // LSB (left side)
+          lsbValues.push(glyph.bbox.minX);
+
+          // RSB (right side): advanceWidth minus where the letter path ends
+          const rsb = glyph.advanceWidth - glyph.bbox.maxX;
+          rsbValues.push(rsb);
+        } catch (e) {
+          continue;
+        }
+      }
+
+      const avg = (values: number[]) =>
+        values.length > 0
+          ? values.reduce((a, b) => a + b, 0) / values.length
+          : 0;
+
+      return {
+        lsb: Math.round(avg(lsbValues)),
+        rsb: Math.round(avg(rsbValues)),
+      };
     };
 
     reader.onload = (e) => {
@@ -40,6 +68,19 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           font = fontOrCollection;
         }
 
+        console.log('==============================================');
+
+        console.log('Family:', font.familyName);
+        console.log('Units per Em', font.unitsPerEm);
+        console.log('font Ascent:', font.ascent);
+        console.log('font Descent:', font.descent);
+        console.log('sTypoAscender:', font['OS/2'].typoAscender);
+        console.log('sTypoDescender:', font['OS/2'].typoDescender);
+        console.log('winAscent:', font['OS/2'].winAscent);
+        console.log('winDescent:', font['OS/2'].winDescent);
+        console.log('hhea ascent:', font.hhea.ascent);
+        console.log('hhea descent:', font.hhea.descent);
+
         /**
          * Check font.capHeight and font.xHeight
          * If not capHeight ? use letter H BBox y-max
@@ -50,7 +91,7 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           : getBBoxHeight(font, ['H', 'I', 'E', 'T']);
         const xHeight = font.xHeight
           ? font.xHeight
-          : getBBoxHeight(font, ['x', 'a', 'o', 'm', 'n']);
+          : getBBoxHeight(font, ['x', 'a', 'o', 'm', 'n', 'e']);
 
         const { upmAscender, upmDescender } = getCorrectedAscenderDescender(
           font.hhea.ascent,
@@ -65,11 +106,28 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           Math.abs((capHeight - upmAscender) / font.unitsPerEm) *
             font.unitsPerEm
         );
+        console.log('Top Trim:', topTrim);
 
         const bottomTrim = Math.round(
           Math.abs(upmDescender / font.unitsPerEm) * font.unitsPerEm
         );
+        console.log('Bottom Trim:', bottomTrim);
 
+        /**
+         * Side bearings
+         */
+        const sideBearings = getSideBearingsUPM(font);
+        const { lsb, rsb } = sideBearings;
+        console.log('LSB:', lsb);
+        console.log('RSB:', rsb);
+
+        /**
+         * Array with available font features
+         */
+        // TODO !! use for kerning check ??
+        // const features = font.availableFeatures;
+
+        console.log('==============================================');
         /**
          * Metics object with RAW metrics in font units
          */
