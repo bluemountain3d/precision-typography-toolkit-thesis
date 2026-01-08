@@ -115,18 +115,16 @@ export const Table = <T extends Record<string, any>>({
 
                 return (
                   <td key={String(col.key)}>
-                    <div className={classNames(styles['table__cell'])}>
-                      {col.render ? (
-                        col.render(value, row, rowIndex)
-                      ) : (
-                        <>
-                          <span>{String(value)}</span>
-                          {!isUnderBreakpoint && isCopyable && hasValue && (
-                            <CopyButton value={String(value)} />
-                          )}
-                        </>
-                      )}
-                    </div>
+                    {col.render ? (
+                      col.render(value, row, rowIndex)
+                    ) : (
+                      <div className={classNames(styles['table__cell'])}>
+                        <span>{String(value)}</span>
+                        {!isUnderBreakpoint && isCopyable && hasValue && (
+                          <CopyButton value={String(value)} />
+                        )}
+                      </div>
+                    )}
                   </td>
                 );
               })}

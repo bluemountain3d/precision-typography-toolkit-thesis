@@ -3,9 +3,15 @@ import styles from './MetricsTable.module.scss';
 import { Table, type ColumnConfig } from '@/components/ui/Table';
 import type { MetricRow } from './MetricTable.types';
 import { useFontMetrics } from '@/pages/tools/PrecisionTypographyToolkit/context';
+import { Icon } from '@/components/ui/Icon';
+import { InfoIcon } from '@/assets/icons';
+import { Flex } from '@/components/layout/Flex';
+import { useMediaQuery } from '@/hooks';
+import { queries } from '@/types';
 
 export const MetricTable = () => {
   const { state, setSelectedMetric } = useFontMetrics();
+  const isBreakpoint = useMediaQuery(queries.isUpToTabletLarge);
 
   const tableToVisualizerMap: Record<string, string | null> = {
     fontFamily: null,
@@ -22,11 +28,18 @@ export const MetricTable = () => {
     bottomTrim: 'bottomTrim',
   };
 
+  const handleOpenDialog = (row: MetricRow) => {
+    alert(`Row or info button "${row.metric}" clicked. Dialog with more info will appear (Work in progress)`);
+  };
+
   const handleRowClick = (row: MetricRow, _index: number) => {
     const visualizerKey = tableToVisualizerMap[row.id];
 
     if (!visualizerKey) {
       setSelectedMetric(null);
+      if (isBreakpoint) {
+        handleOpenDialog(row);
+      }
       return;
     }
 
@@ -34,6 +47,11 @@ export const MetricTable = () => {
     const nextMetric = isCurrentlySelected ? null : visualizerKey;
 
     setSelectedMetric(nextMetric);
+
+    // På mobil, öppna dialog om raden inte redan var selected
+    if (isBreakpoint && !isCurrentlySelected) {
+      handleOpenDialog(row);
+    }
   };
 
   const metricsData: MetricRow[] = [
@@ -149,7 +167,31 @@ export const MetricTable = () => {
       key: 'comment',
       label: 'Comment',
       copyable: false,
-      hideAt: 'isUpToTablet',
+      hideAt: 'isUpToTabletLarge',
+      render: (value, row) => (
+        <Flex
+          as="div"
+          justifyContent="space-between"
+          alignItems="center"
+          gap="xs"
+          width="full"
+          className={styles['metrics-table__comment-cell']}
+        >
+          <span className={styles['metrics-table__comment-text']}>
+            {String(value)}
+          </span>
+          <button
+            className={styles['metrics-table__info-button']}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleOpenDialog(row);
+            }}
+            aria-label={`More info about ${row.metric}`}
+          >
+            <Icon icon={InfoIcon} fill="primary" />
+          </button>
+        </Flex>
+      ),
     },
   ];
 
@@ -158,7 +200,7 @@ export const MetricTable = () => {
       data={metricsData}
       columns={columns}
       copyableByDefault={true}
-      hideColumnsAt="isUpToTablet"
+      hideColumnsAt="isUpToTabletLarge"
       className={styles['metrics-table']}
       onRowClick={handleRowClick}
       activeRowId={state.selectedMetric}
