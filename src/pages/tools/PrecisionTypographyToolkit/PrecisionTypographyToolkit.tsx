@@ -3,7 +3,6 @@ import { FontMetricsProvider, useFontMetrics } from './context';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 import { Flex } from '@/components/layout/Flex';
-// import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 import { MetricTableBlock } from './MetricTableBlock';
 import { HeroBlock } from './HeroBlock/HeroBlock';
 import { PageSection } from '@/components/layout/PageSection';
@@ -13,7 +12,7 @@ import { MetricVisualizerBlock } from './MetricVisualizerBlock';
  * Inner component that uses the FontMetrics context
  */
 const PrecisionTypographyToolkitContent = () => {
-  const { state, setSelectedMetric } = useFontMetrics();
+  const { setSelectedMetric } = useFontMetrics();
   const isUnderBreakpoint = useMediaQuery(queries.isTabletLargeAndDown);
   const isMobile = useMediaQuery(queries.isUpToTablet);
 
@@ -36,9 +35,10 @@ const PrecisionTypographyToolkitContent = () => {
               setSelectedMetric('');
             }
           }}
+          style={{ scrollMarginTop: 'var(--header-height-scrolled)' }}
         >
           <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
-            <Flex width="full" direction="column" gap={isMobile ? "lg" : "4xl"}>
+            <Flex width="full" direction="column" gap={isMobile ? 'lg' : '4xl'}>
               <MetricVisualizerBlock />
               <MetricTableBlock />
             </Flex>
@@ -48,7 +48,8 @@ const PrecisionTypographyToolkitContent = () => {
         {/* Export Metrics */}
         <PageSection id="export-metrics" padding="large">
           <p className="text-align-center">
-            !! Export metrics as different languages will be here !!
+            !! Work In Progress: Export metrics for different languages will be
+            here !!
           </p>
         </PageSection>
       </>
@@ -56,7 +57,8 @@ const PrecisionTypographyToolkitContent = () => {
       {/* Metrics learn intro */}
       <PageSection id="metrics-intro" padding="large">
         <p className="text-align-center">
-          !! Intro to font metrics with a link to the "learn" article !!
+          !! Work In Progress: Intro to font metrics with a link to the "learn"
+          article !!
         </p>
       </PageSection>
     </>
