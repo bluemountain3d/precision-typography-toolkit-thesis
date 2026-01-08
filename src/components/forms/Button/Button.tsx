@@ -115,8 +115,9 @@ export const Button = ({
 }: ButtonProps) => {
   // Combine all disabled states
   const isDisabled = disabled || loading;
+  const isLabel = variant === 'label';
 
-  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement>(null);
+  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>(null);
 
   useLayoutEffect(() => {
     const el = btnRef.current;
@@ -124,7 +125,7 @@ export const Button = ({
 
     const { offsetWidth: width, offsetHeight: height } = el;
 
-    // THE MAGIC: We compress the width by a factor of 0.6 to maintain the steepness
+    // Compressing the width by a factor of 0.6 to maintain the steepness
     const adjustedWidth = width * 0.6;
 
     // Calculate angle
@@ -136,9 +137,9 @@ export const Button = ({
   }, []);
 
   const handleClick = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>
+    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>
   ) => {
-    if (!isDisabled && onClick) {
+    if (!isDisabled && !isLabel && onClick) {
       onClick(e as React.MouseEvent<HTMLButtonElement>);
     }
   };
@@ -159,7 +160,7 @@ export const Button = ({
     className
   );
 
-  const Tag = href ? 'a' : 'button';
+  const Tag = href ? 'a' : isLabel ? 'div' : 'button';
 
   const commonProps = {
     className: commonClassNames,
@@ -177,7 +178,9 @@ export const Button = ({
         rel: external ? 'noopener noreferrer' : undefined,
         tabIndex: isDisabled ? -1 : undefined,
       }
-    : {
+    : isLabel
+      ? {}
+      : {
         type,
         disabled: isDisabled,
       };
