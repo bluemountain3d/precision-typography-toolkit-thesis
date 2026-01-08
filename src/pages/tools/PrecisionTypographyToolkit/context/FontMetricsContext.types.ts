@@ -23,7 +23,10 @@
 export type FontMetricsState = {
   /** Currently selected metric for visualization (null if none) */
   selectedMetric: string | null;
-  
+
+  lineHeightMultiplier: number;
+  halfLeading: number;
+
   // Font file info
   /** Uploaded font File object (not persisted to localStorage) */
   fontFile: File | null;
@@ -100,6 +103,8 @@ export type FontMetricsState = {
  */
 export const initialFontMetricsState: FontMetricsState = {
   selectedMetric: null,
+  lineHeightMultiplier: 1.5,
+  halfLeading: 0.25,
   fontFile: null,
   fontFamily: null,
   loadedFontFamily: null,
@@ -151,7 +156,7 @@ export type FontMetricsAction =
   | { type: 'FONT_UPLOAD_ERROR'; payload: string }
   | { type: 'RESET_FONT' }
   | { type: 'SET_SELECTED_METRIC'; payload: string | null }
-  | { type: 'UPDATE_LINE_HEIGHT_TRIMS'; payload: number }
+  | { type: 'UPDATE_LINE_HEIGHT'; payload: number }
   | {
       type: 'RESTORE_FROM_STORAGE';
       payload: Omit<FontMetricsState, 'fontFile'>;

@@ -25,7 +25,7 @@ type FontMetricsContextValue = {
   dispatch: React.Dispatch<FontMetricsAction>;
   resetFont: () => void;
   setSelectedMetric: (metricId: string | null) => void;
-  updateLineHeightTrims: (lineHeight: number) => void;
+  updateLineHeight: (lineHeight: number) => void;
 };
 
 /**
@@ -78,8 +78,12 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
     dispatch({ type: 'SET_SELECTED_METRIC', payload: metricId });
   };
 
-  const updateLineHeightTrims = (lineHeight: number) => {
-    dispatch({ type: 'UPDATE_LINE_HEIGHT_TRIMS', payload: lineHeight });
+  // const updateLineHeightMultiplier = (lineHeight: number) => {
+  //   dispatch({ type: 'UPDATE_LINE_HEIGHT_MULTIPLIER', payload: lineHeight });
+  // }
+
+  const updateLineHeight = (lineHeight: number) => {
+    dispatch({ type: 'UPDATE_LINE_HEIGHT', payload: lineHeight });
   };
 
   const resetFont = () => {
@@ -138,7 +142,7 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
         dispatch,
         resetFont,
         setSelectedMetric,
-        updateLineHeightTrims,
+        updateLineHeight,
       }}
     >
       {children}

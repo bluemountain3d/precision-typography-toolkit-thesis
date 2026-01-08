@@ -23,9 +23,12 @@ import type { FontMetrics } from '@models';
 export const prepareFontMetricsState = (
   file: File,
   metrics: FontMetrics,
-  loadedFontFamily: string
+  loadedFontFamily: string,
+  initialLineHeight: number = 1.5
 ): FontMetricsState => {
   const { unitsPerEm } = metrics;
+
+  const initialHalfLeading = (initialLineHeight * unitsPerEm - unitsPerEm) / 2;
 
   const round3 = (val: number | null | undefined): number | null => {
     if (val === null || val === undefined) return null;
@@ -35,6 +38,8 @@ export const prepareFontMetricsState = (
   return {
     // UI state
     selectedMetric: null,
+    lineHeightMultiplier: initialLineHeight,
+    halfLeading: initialHalfLeading,
 
     // Font file info
     fontFile: file,
@@ -55,14 +60,16 @@ export const prepareFontMetricsState = (
     lineGap: metrics.lineGap,
     topTrimRaw: metrics.topTrimRaw ?? null,
     bottomTrimRaw: metrics.bottomTrimRaw ?? null,
-    
+
     // Dynamic trim values (initialized with default line-height 1.5)
-    topTrim: metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
-      ? Math.round(((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.topTrimRaw)
-      : null,
-    bottomTrim: metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
-      ? Math.round(((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.bottomTrimRaw)
-      : null,
+    topTrim:
+      metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
+        ? Math.round(initialHalfLeading + metrics.topTrimRaw)
+        : null,
+    bottomTrim:
+      metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
+        ? Math.round(initialHalfLeading + metrics.bottomTrimRaw)
+        : null,
 
     // Normalized metrics (0-1, all positive)
     capHeightRatio: round3(metrics.capHeight / unitsPerEm),
@@ -77,28 +84,40 @@ export const prepareFontMetricsState = (
       ? round3(metrics.hheaDescender / unitsPerEm)
       : null,
 
-    ascenderRatio: metrics.upmAscender
-      ? round3(metrics.upmAscender / unitsPerEm)
+    ascenderRatio: metrics.hheaAscender
+      ? round3(metrics.hheaAscender / unitsPerEm)
       : null,
 
-    descenderRatio: metrics.upmDescender
-      ? round3(Math.abs(metrics.upmDescender) / unitsPerEm)
+    descenderRatio: metrics.hheaDescender
+      ? round3(Math.abs(metrics.hheaDescender) / unitsPerEm)
       : null,
 
-    topTrimRawRatio: metrics.topTrimRaw ? round3(metrics.topTrimRaw / unitsPerEm) : null,
+    topTrimRawRatio: metrics.topTrimRaw
+      ? round3(metrics.topTrimRaw / unitsPerEm)
+      : null,
 
     bottomTrimRawRatio: metrics.bottomTrimRaw
       ? round3(metrics.bottomTrimRaw / unitsPerEm)
       : null,
 
     // Dynamic trim ratios (initialized with line-height 1.5)
-    topTrimRatio: metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
-      ? round3((((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.topTrimRaw) / unitsPerEm)
-      : null,
-    
-    bottomTrimRatio: metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
-      ? round3((((1.5 * unitsPerEm - unitsPerEm) / 2) + metrics.bottomTrimRaw) / unitsPerEm)
-      : null,
+    topTrimRatio:
+      metrics.topTrimRaw !== null && metrics.topTrimRaw !== undefined
+        ? round3(
+            ((initialLineHeight * unitsPerEm - unitsPerEm) / 2 +
+              metrics.topTrimRaw) /
+              unitsPerEm
+          )
+        : null,
+
+    bottomTrimRatio:
+      metrics.bottomTrimRaw !== null && metrics.bottomTrimRaw !== undefined
+        ? round3(
+            ((initialLineHeight * unitsPerEm - unitsPerEm) / 2 +
+              metrics.bottomTrimRaw) /
+              unitsPerEm
+          )
+        : null,
 
     // UI state
     isLoading: false,
@@ -167,7 +186,7 @@ export const fontMetricsReducer = (
     case 'RESET_FONT':
       return initialFontMetricsState;
 
-    case 'UPDATE_LINE_HEIGHT_TRIMS': {
+    case 'UPDATE_LINE_HEIGHT': {
       const lineHeight = action.payload;
       const { unitsPerEm, topTrimRaw, bottomTrimRaw } = state;
 
@@ -184,6 +203,8 @@ export const fontMetricsReducer = (
 
       return {
         ...state,
+        lineHeightMultiplier: lineHeight,
+        halfLeading: halfLeading,
         topTrim,
         bottomTrim,
         topTrimRatio: round3(topTrim / unitsPerEm),
