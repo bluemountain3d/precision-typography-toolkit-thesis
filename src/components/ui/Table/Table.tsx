@@ -62,11 +62,13 @@ import { queries } from '@/types';
  *   caption="Font Metrics"
  * />
  */
-export const Table = <T,>({
+export const Table = <T extends Record<string, any>>({
   data,
   columns,
   onRowClick,
   hideColumnsAt,
+  activeRowId,
+  rowIdKey,
   copyableByDefault = false,
   className,
   caption,
@@ -94,32 +96,43 @@ export const Table = <T,>({
       </thead>
 
       <tbody>
-        {data.map((row, rowIndex) => (
-          <tr key={rowIndex} onClick={() => onRowClick?.(row, rowIndex)}>
-            {visibleColumns.map((col) => {
-              const value = row[col.key];
-              const isCopyable = col.copyable ?? copyableByDefault;
-              const hasValue = value !== null && value !== '-' && value !== '';
+        {data.map((row, rowIndex) => {
+          const rowId = row[(rowIdKey || 'id') as keyof T];
+          const isActiveRow =
+            activeRowId !== undefined && rowId === activeRowId;
 
-              return (
-                <td key={String(col.key)}>
-                  <div className={classNames(styles['table__cell'])}>
-                    {col.render ? (
-                      col.render(value, row, rowIndex)
-                    ) : (
-                      <>
-                        <span>{String(value)}</span>
-                        {!isUnderBreakpoint && isCopyable && hasValue && (
-                          <CopyButton value={String(value)} />
-                        )}
-                      </>
-                    )}
-                  </div>
-                </td>
-              );
-            })}
-          </tr>
-        ))}
+          return (
+            <tr
+              key={rowIndex}
+              className={classNames({ [styles.active]: isActiveRow })}
+              onClick={() => onRowClick?.(row, rowIndex)}
+            >
+              {visibleColumns.map((col) => {
+                const value = row[col.key];
+                const isCopyable = col.copyable ?? copyableByDefault;
+                const hasValue =
+                  value !== null && value !== '-' && value !== '';
+
+                return (
+                  <td key={String(col.key)}>
+                    <div className={classNames(styles['table__cell'])}>
+                      {col.render ? (
+                        col.render(value, row, rowIndex)
+                      ) : (
+                        <>
+                          <span>{String(value)}</span>
+                          {!isUnderBreakpoint && isCopyable && hasValue && (
+                            <CopyButton value={String(value)} />
+                          )}
+                        </>
+                      )}
+                    </div>
+                  </td>
+                );
+              })}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
