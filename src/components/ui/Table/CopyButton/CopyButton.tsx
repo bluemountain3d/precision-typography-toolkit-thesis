@@ -12,6 +12,7 @@ import { useState } from 'react';
 interface CopyButtonProps {
   /** Text value to copy to clipboard */
   value: string;
+  onCopy?: () => void;
 }
 
 /**
@@ -22,21 +23,34 @@ interface CopyButtonProps {
  * @example
  * <CopyButton value="Text to copy" />
  */
-export const CopyButton = ({ value }: CopyButtonProps) => {
+export const CopyButton = ({ value, onCopy }: CopyButtonProps) => {
   const [copied, setCopied] = useState(false);
 
-  const handleCopy = (e: React.MouseEvent) => {
+  // const handleCopy = (e: React.MouseEvent) => {
+  //   e.stopPropagation();
+  //   navigator.clipboard.writeText(String(value));
+
+  //   setCopied(true);
+  //   setTimeout(() => setCopied(false), 500);
+  // };
+
+  const handleAction = (e: React.MouseEvent) => {
     e.stopPropagation();
-    navigator.clipboard.writeText(String(value));
+
+    if (onCopy) {
+      onCopy();
+    } else if (value) {
+      navigator.clipboard.writeText(String(value));
+    }
 
     setCopied(true);
-    setTimeout(() => setCopied(false), 500);
+    setTimeout(() => setCopied(false), 1500);
   };
 
   return (
     <button
       className={classNames(styles['copy-button'])}
-      onClick={handleCopy}
+      onClick={handleAction}
       aria-label="Copy to clipboard"
     >
       <Icon
