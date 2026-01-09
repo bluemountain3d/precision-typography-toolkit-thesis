@@ -120,6 +120,11 @@
         var(--_slider-track-color) var(--_progress),
         var(--_slider-track-color) 100%
       );
+
+      @supports (corner-shape: squircle) {
+        border-radius: calc(0.25em * (3 / 2));
+        corner-shape: squircle;
+      }
     }
 
     /// Firefox Track (base/unfilled portion)
@@ -181,6 +186,11 @@
 
       // Inner shadow for depth
       box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+
+      @supports (corner-shape: squircle) {
+        border-radius: calc(0.3em * (3 / 2));
+        corner-shape: squircle;
+      }
 
       /// Hover state with updated border color and glow effect
       &:hover {

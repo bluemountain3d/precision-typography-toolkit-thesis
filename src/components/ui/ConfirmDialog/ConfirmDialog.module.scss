@@ -1,22 +1,13 @@
 .confirm-dialog {
   width: 90%;
-  max-width: 25rem;
+  max-width: 40rem;
   padding: var(--space-xl);
   border-radius: var(--space-lg);
   background-color: var(--color-primary-dark);
-}
+  border: 2px solid var(--color-primary);
 
-.overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 100dvh;
-  background-color: oklch(0 0 0 / 0.65);
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
-  backdrop-filter: blur(2px);
+  @supports (corner-shape: squircle) {
+    border-radius: calc(var(--space-lg) * (3 / 2));
+    corner-shape: squircle;
+  }
 }

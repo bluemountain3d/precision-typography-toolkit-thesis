@@ -29,6 +29,11 @@
     --_border-bright: var(--_border-bright-hover);
   }
 
+  @supports (corner-shape: squircle) {
+    border-radius: calc(var(--space-md) * (3 / 2));
+    corner-shape: squircle;
+  }
+
   // --------------------------------------------------------------------------
   // A11y & Interaction
   // --------------------------------------------------------------------------
@@ -77,6 +82,11 @@
     transition:
       background-color 0.2s,
       border-color 0.2s;
+
+    @supports (corner-shape: squircle) {
+      border-radius: calc((var(--space-md) - var(--space-2xs)) * (3 / 2));
+      corner-shape: squircle;
+    }
   }
 
   &__title {
