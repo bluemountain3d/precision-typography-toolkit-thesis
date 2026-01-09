@@ -68,6 +68,8 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           font = fontOrCollection;
         }
 
+        const fontSlug = font.familyName?.toLowerCase().split(' ').join('-');
+
         console.log('==============================================');
 
         console.log('Family:', font.familyName);
@@ -133,7 +135,9 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
          */
         const metrics = {
           familyName: font.familyName,
+          fontSlug: fontSlug,
           subFamilyName: font.subfamilyName,
+          weightClass: font['OS/2'].usWeightClass,
           category: getCategory(font),
           unitsPerEm: font.unitsPerEm,
           hheaAscender: font.hhea.ascent,
@@ -146,6 +150,8 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           lineGap: font.lineGap,
           topTrimRaw: topTrim,
           bottomTrimRaw: bottomTrim,
+          lsbAdjustRaw: lsb,
+          rsbAdjustRaw: rsb,
         };
 
         resolve(metrics);

@@ -32,10 +32,14 @@ export type FontMetricsState = {
   fontFile: File | null;
   /** Original font family name from parsed metrics (e.g. "Source Sans Pro") */
   fontFamily: string | null;
+  /** Slug from font family name (e.g. "source-Sans-pro") */
+  fontSlug: string | null;
   /** Dynamically loaded CSS font-family name (e.g. "uploaded-font-1234567890") */
   loadedFontFamily: string | null;
   /** Font subfamily name (e.g. "Regular", "Bold Italic") */
   subFamily: string | null;
+  /** Font weight class (e.g. 300, 700) */
+  weightClass: number | null;
   /** Font category (e.g. "sans-serif", "serif", "monospace") */
   category: string | null;
 
@@ -67,6 +71,9 @@ export type FontMetricsState = {
   /** Bottom trim - dynamic value adjusted for current line-height (in UPM units) */
   bottomTrim: number | null;
 
+  lsbAdjustRaw: number | null;
+  rsbAdjustRaw: number | null;
+
   // Normalized metrics (metric / unitsPerEm, all positive 0-1)
   /** Cap height as ratio of em (capHeight / unitsPerEm) */
   capHeightRatio: number | null;
@@ -91,6 +98,9 @@ export type FontMetricsState = {
   /** Bottom trim as ratio of em (bottomTrim / unitsPerEm) - adjusted for line-height */
   bottomTrimRatio: number | null;
 
+  lsbAdjustRatio: number | null;
+  rsbAdjustRatio: number | null;
+
   // UI state
   /** Whether font is currently being loaded/parsed */
   isLoading: boolean;
@@ -107,8 +117,10 @@ export const initialFontMetricsState: FontMetricsState = {
   halfLeading: 0.25,
   fontFile: null,
   fontFamily: null,
+  fontSlug: null,
   loadedFontFamily: null,
   subFamily: null,
+  weightClass: null,
   category: null,
   unitsPerEm: null,
   hheaAscender: null,
@@ -121,6 +133,8 @@ export const initialFontMetricsState: FontMetricsState = {
   lineGap: null,
   topTrimRaw: null,
   bottomTrimRaw: null,
+  lsbAdjustRaw: null,
+  rsbAdjustRaw: null,
   topTrim: null,
   bottomTrim: null,
   capHeightRatio: null,
@@ -134,6 +148,8 @@ export const initialFontMetricsState: FontMetricsState = {
   bottomTrimRawRatio: null,
   topTrimRatio: null,
   bottomTrimRatio: null,
+  lsbAdjustRatio: null,
+  rsbAdjustRatio: null,
   isLoading: false,
   error: null,
 };

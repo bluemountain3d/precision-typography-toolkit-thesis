@@ -31,12 +31,19 @@ export interface FontMetrics {
    * @example "Inter", "Source Sans 3", "Roboto"
    */
   familyName: string;
+  fontSlug: string;
 
   /**
    * The specific weight or style variant
    * @example "Regular", "Bold", "Medium Italic"
    */
   subFamilyName: string;
+
+  /**
+   * The specific weight class
+   * @example 300, 500, 700
+   */
+  weightClass: number;
 
   /**
    * The grid resolution of the font file
@@ -129,7 +136,11 @@ export interface FontMetrics {
    * @example 188 (for a font with 1000 UPM)
    */
   bottomTrimRaw?: number;
+
+  lsbAdjustRaw: number;
+  rsbAdjustRaw: number
 }
+
 
 /**
  * Normalized font metrics for CSS export
@@ -150,6 +161,9 @@ export interface NormalizedFontMetrics {
 
   topTrim: number;
   bottomTrim: number;
+
+  lsbAdjust: number;
+  rsbAdjust: number;
 
   // TODO: Add in future versions
   // /**
