@@ -18,7 +18,8 @@ export interface ButtonGroupProps {
     | 'right'
     | 'space-between'
     | 'space-around'
-    | 'space-evenly';
+    | 'space-evenly'
+    | 'stretch';
   /**
    * Layout direction for button arrangement
    * @default 'row'

@@ -9,6 +9,7 @@ import { Icon } from '../Icon';
 import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from '@/assets/icons';
 import { Text } from '@/components/typography/Text';
 import { useEffect } from 'react';
+import { Backdrop } from '../Backdrop';
 
 interface ConfirmDialogProps {
   title: string;
@@ -38,12 +39,6 @@ export const ConfirmDialog = ({
     info: InfoIcon,
   };
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (e.target === e.currentTarget) {
-      onCancel();
-    }
-  };
-
   useEffect(() => {
     const handleEsc = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onCancel();
@@ -53,7 +48,7 @@ export const ConfirmDialog = ({
   }, [onCancel]);
 
   return (
-    <div className={styles.overlay} onClick={handleBackdropClick}>
+    <Backdrop onClick={onCancel}>
       <Flex
         direction="column"
         justifyContent="center"
@@ -82,6 +77,6 @@ export const ConfirmDialog = ({
           </Button>
         </ButtonGroup>
       </Flex>
-    </div>
+    </Backdrop>
   );
 };

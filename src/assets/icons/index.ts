@@ -16,3 +16,4 @@ export { default as WarningIcon } from './warning.svg?react';
 export { default as WarningTriangleIcon } from './warning-triangle.svg?react';
 export { default as DangerIcon } from './danger.svg?react';
 export { default as InfoIcon } from './info.svg?react';
+export { default as InfoSimpleIcon } from './info-simple.svg?react';

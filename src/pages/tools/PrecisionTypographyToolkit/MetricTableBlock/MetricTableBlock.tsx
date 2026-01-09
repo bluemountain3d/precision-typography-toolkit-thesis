@@ -26,13 +26,17 @@ export const MetricTableBlock = () => {
     <>
       <Flex width="full" direction="column" gap="sm">
         {!isMobile && (
-          <Flex justifyContent="start" alignItems="center">
+          <Flex justifyContent="space-between" alignItems="center">
             <Heading level={2} size="heading-2">
               Metrics Table
             </Heading>
-            {/* <Button variant="ghost" size="base" onClick={handleClearData}>
+            <Button
+              variant="ghost"
+              size="base"
+              onClick={() => setShowConfirmDialog(true)}
+            >
               Reload default
-            </Button> */}
+            </Button>
           </Flex>
         )}
         <MetricTable />
@@ -51,14 +55,11 @@ export const MetricTableBlock = () => {
               Adjusted for current line-height (
               {state.lineHeightMultiplier.toFixed(2)}). Includes a half-leading
               offset of {Math.round(state.halfLeading)} units.
-              <br />
-              Half Leading (units) ={' '}
-              <span>
-                {'((LineHeight \u00D7 UnitsPerEm) \u2212 UnitsPerEm) \u00F7 2'}
-              </span>
+              <br /> Half-leading ={' '}
+              <span>{'(Line Height \u2212 Em) \u00F7 2'}</span>
             </Footnote>
           </Flex>
-          <Flex justifyContent={isMobile ? 'center' : 'end'}>
+          {/* <Flex justifyContent={isMobile ? 'center' : 'end'}>
             <Button
               variant="ghost"
               size="base"
@@ -66,15 +67,15 @@ export const MetricTableBlock = () => {
             >
               Reload default
             </Button>
-          </Flex>
+          </Flex> */}
         </Flex>
       </Flex>
 
       {showConfirmDialog && (
         <ConfirmDialog
-          title="Clear font data?"
-          message="This will remove all loaded font metrics. This action cannot be undone."
-          confirmText="Clear data"
+          title="Reload default font?"
+          message="This will remove all loaded font metrics and reload default font. This action cannot be undone."
+          confirmText="Reload"
           confirmVariant="danger"
           cancelText="Cancel"
           onConfirm={handleClearData}
