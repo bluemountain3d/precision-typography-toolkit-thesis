@@ -2,7 +2,7 @@ import { Backdrop } from '@/components/ui/Backdrop';
 import styles from './MetricDialog.module.scss';
 import classNames from 'clsx';
 import { Flex } from '@/components/layout/Flex';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useFontMetrics } from '../../context';
 
 import { CloseIcon, InfoSimpleIcon } from '@/assets/icons';
@@ -14,6 +14,7 @@ import { FocusTrap } from 'focus-trap-react';
 import { Text } from '@/components/typography/Text';
 import { Heading } from '@/components/typography/Heading';
 import { metricDialogData } from '@/utils';
+import { useCopyMetric } from '@/hooks';
 
 interface MetricDialogProps {
   metric: string;
@@ -22,7 +23,7 @@ interface MetricDialogProps {
 
 export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
   const { state } = useFontMetrics();
-  const [copied, setCopied] = useState<'raw' | 'css' | null>(null);
+  const { copyMetric, isCopied } = useCopyMetric({ state, timeout: 1500 });
 
   const metricData = metricDialogData[metric];
 
@@ -33,21 +34,6 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
     window.addEventListener('keydown', handleEsc);
     return () => window.removeEventListener('keydown', handleEsc);
   }, [onCancel]);
-
-  const handleCopy = (type: 'raw' | 'css') => {
-    const value =
-      type === 'raw'
-        ? metricData.getRawCopy
-          ? metricData.getRawCopy(state)
-          : metricData.getRaw(state)
-        : metricData.getCssCopy
-          ? metricData.getCssCopy(state)
-          : metricData.getCss(state);
-
-    navigator.clipboard.writeText(value);
-    setCopied(type);
-    setTimeout(() => setCopied(null), 1500);
-  };
 
   return (
     <Backdrop onClick={onCancel}>
@@ -131,20 +117,18 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
                 <Button
                   variant="primary"
                   fullWidth
-                  className={styles['metric-dialog__copy-button']}
                   aria-label="Copy metric RAW value"
-                  onClick={() => handleCopy('raw')}
+                  onClick={() => copyMetric(metric, 'raw')}
                 >
-                  {copied === 'raw' ? 'Copied!' : 'Copy RAW'}
+                  {isCopied(metric, 'raw') ? 'Copied!' : 'Copy RAW value'}
                 </Button>
                 <Button
                   variant="primary"
                   fullWidth
-                  className={styles['metric-dialog__copy-button']}
                   aria-label="Copy metric CSS value"
-                  onClick={() => handleCopy('css')}
+                  onClick={() => copyMetric(metric, 'css')}
                 >
-                  {copied === 'css' ? 'Copied!' : 'Copy CSS'}
+                  {isCopied(metric, 'css') ? 'Copied!' : 'Copy CSS value'}
                 </Button>
               </div>
             </Flex>
