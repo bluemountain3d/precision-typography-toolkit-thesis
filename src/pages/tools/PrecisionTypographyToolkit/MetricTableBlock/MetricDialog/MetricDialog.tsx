@@ -3,7 +3,7 @@ import styles from './MetricDialog.module.scss';
 import classNames from 'clsx';
 import { Flex } from '@/components/layout/Flex';
 import { useEffect, useState } from 'react';
-import { useFontMetrics, type FontMetricsState } from '../../context';
+import { useFontMetrics } from '../../context';
 
 import { CloseIcon, InfoSimpleIcon } from '@/assets/icons';
 import { Icon } from '@/components/ui/Icon';
