@@ -61,7 +61,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getCss: (state) => (state.fontFamily ? `"${state.fontFamily}"` : '-'),
     getCssCopy: (state) => {
       if (!state.fontFamily || !state.category) return '-';
-      return `--font-family--${state.fontSlug}: "${state.fontFamily}", ${state.category}`;
+      return `--family-${state.fontSlug}: "${state.fontFamily}", ${state.category}`;
     },
     // state.fontFamily
     //   ? `font-family: "${state.fontFamily}", ${state.category};`
@@ -79,8 +79,21 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
         : (state.subFamily ?? '-'),
     getCssCopy: (state) => {
       if (!state.weightClass) return state.subFamily ?? '-';
+
       const isItalic = state.subFamily?.toLowerCase().match(/italic|oblique/);
-      return `--font-weight--${state.fontSlug}: ${state.weightClass};${isItalic ? `\n--font-style--${state.fontSlug}: italic;` : ''}`;
+      const weightName =
+        state.subFamily
+          ?.toLowerCase()
+          .replace(/italic|oblique/g, '')
+          .trim()
+          .replace(/\s+/g, '-') || 'regular';
+
+      const font = state.fontSlug;
+
+      const weightVar = `--weight-${font}-${weightName}: ${state.weightClass};`;
+      const styleVar = isItalic ? `\n--style-${font}-italic: italic;` : '';
+
+      return `${weightVar}${styleVar}`;
     },
     info: 'A specific variant within a font family, such as Regular, Italic, or Bold. It defines the visual weight and slant. In CSS, this typically maps to "font-weight" and "font-style" properties.',
   },
@@ -100,7 +113,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getCss: (state) => (state.unitsPerEm ? '1em' : '-'),
     getCssCopy: (state) => {
       if (!state.unitsPerEm) return '-';
-      return `--upm--${state.fontSlug}: ${state.unitsPerEm};`;
+      return `--upm-${state.fontSlug}: ${state.unitsPerEm};`;
     },
     info: 'The logical square (em square) used to map glyph coordinates. It defines the internal coordinate system of the font file; common values are 1000 or 2048 units.',
   },
@@ -112,7 +125,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getCss: (state) => (state.unitsPerEm ? '1em' : '-'),
     getCssCopy: (state) => {
       if (!state.unitsPerEm) return '-';
-      return `--upm--${state.fontSlug}: ${state.unitsPerEm};`;
+      return `--upm-${state.fontSlug}: ${state.unitsPerEm};`;
     },
     info: 'The logical square (em square) used to map glyph coordinates. It defines the internal coordinate system of the font file; common values are 1000 or 2048 units.',
   },
@@ -137,7 +150,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
       state.avgCharWidth ? `${state.avgCharWidthRatio}em` : '-',
     getCssCopy: (state) => {
       if (!state.avgCharWidth) return '-';
-      return `--avg-char-width--${state.fontSlug}: ${state.avgCharWidthRatio}em;`;
+      return `--avg-char-width-${state.fontSlug}: ${state.avgCharWidthRatio}em;`;
     },
     info: 'The average width of all glyphs in the font. In CSS, you can use this to create "ch-like" containers for fonts that don’t have a reliable ch-unit, or to estimate the width of a text string: width: calc(var(--avg-char-width) * [number of characters]).',
   },
@@ -150,7 +163,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
       state.hheaAscenderRatio ? `${state.hheaAscenderRatio}em` : '-',
     getCssCopy: (state) => {
       if (!state.hheaAscenderRatio) return '-';
-      return `--ascender--${state.fontSlug}: ${state.hheaAscenderRatio}em;`;
+      return `--ascender-${state.fontSlug}: ${state.hheaAscenderRatio}em;`;
     },
     info: 'The distance from the baseline to the highest part of the font’s glyphs. This usually covers the tops of tall letters like "h" or "k", as well as accents on capital letters.',
   },
@@ -163,7 +176,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
       state.capHeightRatio ? `${state.capHeightRatio}em` : '-',
     getCssCopy: (state) => {
       if (!state.capHeightRatio) return '-';
-      return `--cap-height--${state.fontSlug}: ${state.capHeightRatio}em;`;
+      return `--cap-height-${state.fontSlug}: ${state.capHeightRatio}em;`;
     },
     info: 'The distance from the baseline to the top of flat capital letters, such as "H" or "I". It measures the height of uppercase characters excluding any decorative elements or curves.',
   },
@@ -175,7 +188,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getCss: (state) => (state.xHeightRatio ? `${state.xHeightRatio}em` : '-'),
     getCssCopy: (state) => {
       if (!state.xHeightRatio) return '-';
-      return `--x-height--${state.fontSlug}: ${state.xHeightRatio}em;`;
+      return `--x-height-${state.fontSlug}: ${state.xHeightRatio}em;`;
     },
     info: 'The height of the lowercase "x" and similar characters. It is a key factor in a font’s legibility; a larger x-height generally makes a typeface easier to read at small sizes.',
   },
@@ -188,7 +201,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
       state.hheaDescenderRatio ? `${state.hheaDescenderRatio}em` : '-',
     getCssCopy: (state) => {
       if (!state.hheaDescenderRatio) return '-';
-      return `--descender--${state.fontSlug}: ${state.hheaDescenderRatio}em;`;
+      return `--descender-${state.fontSlug}: ${state.hheaDescenderRatio}em;`;
     },
     info: 'The distance from the baseline to the lowest point of the font’s layout box. It accommodates the parts of letters that drop below the baseline, such as the tails on "g", "j", and "p".',
   },
@@ -204,7 +217,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getCss: (state) => (state.topTrimRatio ? `-${state.topTrimRatio}em` : '-'),
     getCssCopy: (state) =>
       state.topTrimRatio
-        ? `--top-trim--${state.fontSlug}: calc((${state.topTrimRaw} / ${state.unitsPerEm} * -1em) - ((1lh - 1em) * 0.5))`
+        ? `--top-trim-${state.fontSlug}: calc((${state.topTrimRaw} / ${state.unitsPerEm} * -1em) - ((1lh - 1em) * 0.5))`
         : '-',
     info: 'The space between cap-height and the top of the line-box. It combines the font’s internal space (from cap-height to em-box edge) with the half-leading (extra space added by line-height). Trimming this aligns capital letters flush with the top of their container.',
   },
@@ -219,7 +232,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
       state.bottomTrimRatio ? `-${state.bottomTrimRatio}em` : '-',
     getCssCopy: (state) =>
       state.bottomTrimRatio
-        ? `--bottom-trim--${state.fontSlug}: calc((${state.bottomTrimRaw} / ${state.unitsPerEm} * -1em) - ((1lh - 1em) * 0.5))`
+        ? `--bottom-trim-${state.fontSlug}: calc((${state.bottomTrimRaw} / ${state.unitsPerEm} * -1em) - ((1lh - 1em) * 0.5))`
         : '-',
     info: 'The space between the baseline and the bottom of the line-box. It combines the font’s internal space (from baseline to em-box edge) with the half-leading. Trimming this allows the text to sit flush at the bottom, removing the gap below the baseline.',
   },

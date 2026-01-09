@@ -68,7 +68,12 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           font = fontOrCollection;
         }
 
-        const fontSlug = font.familyName?.toLowerCase().split(' ').join('-');
+        const fontSlug = font.familyName
+          ?.toLowerCase()
+          .replace(/[-._]?(vf|variable)$/i, '')
+          .trim()
+          .replace(/[^a-z0-9]+/g, '-')
+          .replace(/\s+/g, '-');
 
         console.log('==============================================');
 
