@@ -4,13 +4,17 @@ import { Table, type ColumnConfig } from '@/components/ui/Table';
 import type { MetricRow } from './MetricTable.types';
 import { useFontMetrics } from '@/pages/tools/PrecisionTypographyToolkit/context';
 import { Icon } from '@/components/ui/Icon';
-import { InfoIcon } from '@/assets/icons';
+import { InfoSimpleIcon } from '@/assets/icons';
 import { Flex } from '@/components/layout/Flex';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
+import { useState } from 'react';
+import { MetricDialog } from '../MetricDialog';
 
 export const MetricTable = () => {
   const { state, setSelectedMetric } = useFontMetrics();
+  const [showMetricDialog, setShowMetricDialog] = useState(false);
+  const [infoMetric, setInfoMetric] = useState('');
   const isBreakpoint = useMediaQuery(queries.isUpToTabletLarge);
 
   const tableToVisualizerMap: Record<string, string | null> = {
@@ -29,7 +33,11 @@ export const MetricTable = () => {
   };
 
   const handleOpenDialog = (row: MetricRow) => {
-    alert(`Row or info button "${row.metric}" clicked. Dialog with more info will appear (Work in progress)`);
+    // alert(
+    //   `Row or info button "${row.metric}" clicked. Dialog with more info will appear (Work in progress)`
+    // );
+    setInfoMetric(row.id);
+    setShowMetricDialog(true);
   };
 
   const handleRowClick = (row: MetricRow, _index: number) => {
@@ -83,7 +91,7 @@ export const MetricTable = () => {
         ? state.lineHeightMultiplier * (state.unitsPerEm || 1)
         : '-',
       normalizedValue: state.lineHeightMultiplier ?? '-',
-      comment: 'The grid resolution of the font file',
+      comment: 'The vertical space occupied by a line of text',
     },
     {
       id: 'emBox',
@@ -186,9 +194,9 @@ export const MetricTable = () => {
               e.stopPropagation();
               handleOpenDialog(row);
             }}
-            aria-label={`More info about ${row.metric}`}
+            aria-label={`More info about ${row.id}`}
           >
-            <Icon icon={InfoIcon} fill="primary" />
+            <Icon icon={InfoSimpleIcon} fill="primary" />
           </button>
         </Flex>
       ),
@@ -196,15 +204,23 @@ export const MetricTable = () => {
   ];
 
   return (
-    <Table
-      data={metricsData}
-      columns={columns}
-      copyableByDefault={true}
-      hideColumnsAt="isUpToTabletLarge"
-      className={styles['metrics-table']}
-      onRowClick={handleRowClick}
-      activeRowId={state.selectedMetric}
-      rowIdKey="id"
-    />
+    <>
+      <Table
+        data={metricsData}
+        columns={columns}
+        copyableByDefault={true}
+        hideColumnsAt="isUpToTabletLarge"
+        className={styles['metrics-table']}
+        onRowClick={handleRowClick}
+        activeRowId={state.selectedMetric}
+        rowIdKey="id"
+      />
+      {showMetricDialog && (
+        <MetricDialog
+          metric={infoMetric}
+          onCancel={() => setShowMetricDialog(false)}
+        />
+      )}
+    </>
   );
 };

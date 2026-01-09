@@ -170,12 +170,27 @@
 
   &--radius-sm {
     border-radius: 0.4em;
+
+    @supports (corner-shape: squircle) {
+      border-radius: calc(0.4em * (3 / 2));
+      corner-shape: squircle;
+    }
   }
   &--radius-md {
     border-radius: 0.75em;
+
+    @supports (corner-shape: squircle) {
+      border-radius: calc(0.75em * (3 / 2));
+      corner-shape: squircle;
+    }
   }
   &--radius-lg {
-    border-radius: 99em;
+    border-radius: 1em;
+
+    @supports (corner-shape: squircle) {
+      border-radius: calc(1em * (3 / 2));
+      corner-shape: squircle;
+    }
   }
 
   /// Full-width modifier

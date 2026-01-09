@@ -35,6 +35,11 @@ export const prepareFontMetricsState = (
     return Math.round(val * 1000) / 1000;
   };
 
+  const round4 = (val: number | null | undefined): number | null => {
+    if (val === null || val === undefined) return null;
+    return Math.round(val * 10000) / 10000;
+  };
+
   return {
     // UI state
     selectedMetric: null,
@@ -44,8 +49,10 @@ export const prepareFontMetricsState = (
     // Font file info
     fontFile: file,
     fontFamily: metrics.familyName, // Original font name for display
+    fontSlug: metrics.fontSlug,
     loadedFontFamily: loadedFontFamily, // CSS font-family name for rendering
     subFamily: metrics.subFamilyName,
+    weightClass: metrics.weightClass,
     category: metrics.category,
 
     // Raw metrics (in UPM units, descender negative)
@@ -60,6 +67,8 @@ export const prepareFontMetricsState = (
     lineGap: metrics.lineGap,
     topTrimRaw: metrics.topTrimRaw ?? null,
     bottomTrimRaw: metrics.bottomTrimRaw ?? null,
+    lsbAdjustRaw: metrics.lsbAdjustRaw ?? null,
+    rsbAdjustRaw: metrics.rsbAdjustRaw ?? null,
 
     // Dynamic trim values (initialized with default line-height 1.5)
     topTrim:
@@ -118,6 +127,14 @@ export const prepareFontMetricsState = (
               unitsPerEm
           )
         : null,
+
+    lsbAdjustRatio: metrics.lsbAdjustRaw
+      ? round4(metrics.lsbAdjustRaw / unitsPerEm)
+      : null,
+
+    rsbAdjustRatio: metrics.rsbAdjustRaw
+      ? round4(metrics.rsbAdjustRaw / unitsPerEm)
+      : null,
 
     // UI state
     isLoading: false,
