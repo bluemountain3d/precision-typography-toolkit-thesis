@@ -79,8 +79,10 @@
     "Fontfile",
     "fontkit",
     "hhea",
+    "keywordvalue",
     "panose",
     "Plaiceholder",
-    "rotateccw"
+    "rotateccw",
+    "wght"
   ]
 }
