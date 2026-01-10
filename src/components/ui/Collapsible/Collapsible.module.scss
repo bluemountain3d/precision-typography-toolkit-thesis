@@ -21,7 +21,7 @@
   height: auto;
   max-height: 100%;
   padding: var(--space-sm);
-  border-radius: var(--space-md);
+  border-radius: var(--space-sm);
   border: 2px solid transparent;
 
   display: grid;
@@ -46,6 +46,11 @@
       border-box;
   box-shadow: calc(var(--space-3xs) / 2) var(--space-3xs) var(--text-sm)
     oklch(0 0 0 / 25%);
+
+  @supports (corner-shape: squircle) {
+    border-radius: calc(var(var(--space-sm)) * (3 / 2));
+    corner-shape: squircle;
+  }
 
   /// Hover state - brightens border gradient
   &:hover {
@@ -119,7 +124,7 @@
   }
 
   &[open] > &__content {
-    padding: var(--space-xl) var(--space-sm) var(--space-sm);
+    padding: var(--space-xl) var(--space-2xs) var(--space-2xs);
 
     @media screen and #{var.$bp-up-to-tablet} {
       padding: var(--space-xl) 0 0;
