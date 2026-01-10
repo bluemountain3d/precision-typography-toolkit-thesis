@@ -4,6 +4,7 @@ import { Buffer } from 'buffer';
 import { getCorrectedAscenderDescender } from '@utils/getCorrectedMetrics';
 import type { FontMetrics } from '@models';
 import { getCategory } from '@utils/getFontCategory';
+import { print } from '@utils/dev';
 
 export const parseFontFile = async (file: File): Promise<FontMetrics> => {
   return new Promise((resolve, reject) => {
@@ -19,6 +20,11 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
 
       return heights.length > 0 ? Math.min(...heights) : 0;
     };
+
+    // const getBBoxWidth = (font: fontkit.Font, text: string) => {
+    //   const run = font.layout(text);
+    //   return run.advanceWidth;
+    // };
 
     const getSideBearingsUPM = (
       font: Font,
@@ -75,18 +81,18 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/\s+/g, '-');
 
-        console.log('==============================================');
+        print('==============================================');
 
-        console.log('Family:', font.familyName);
-        console.log('Units per Em', font.unitsPerEm);
-        console.log('font Ascent:', font.ascent);
-        console.log('font Descent:', font.descent);
-        console.log('sTypoAscender:', font['OS/2'].typoAscender);
-        console.log('sTypoDescender:', font['OS/2'].typoDescender);
-        console.log('winAscent:', font['OS/2'].winAscent);
-        console.log('winDescent:', font['OS/2'].winDescent);
-        console.log('hhea ascent:', font.hhea.ascent);
-        console.log('hhea descent:', font.hhea.descent);
+        print('Family:', font.familyName);
+        print('Units per Em', font.unitsPerEm);
+        print('font Ascent:', font.ascent);
+        print('font Descent:', font.descent);
+        print('sTypoAscender:', font['OS/2'].typoAscender);
+        print('sTypoDescender:', font['OS/2'].typoDescender);
+        print('winAscent:', font['OS/2'].winAscent);
+        print('winDescent:', font['OS/2'].winDescent);
+        print('hhea ascent:', font.hhea.ascent);
+        print('hhea descent:', font.hhea.descent);
 
         /**
          * Check font.capHeight and font.xHeight
@@ -113,37 +119,51 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           Math.abs((capHeight - upmAscender) / font.unitsPerEm) *
             font.unitsPerEm
         );
-        console.log('Top Trim:', topTrim);
+        print('Top Trim:', topTrim);
 
         const bottomTrim = Math.round(
           Math.abs(upmDescender / font.unitsPerEm) * font.unitsPerEm
         );
-        console.log('Bottom Trim:', bottomTrim);
+        print('Bottom Trim:', bottomTrim);
 
         /**
          * Side bearings
          */
         const sideBearings = getSideBearingsUPM(font);
         const { lsb, rsb } = sideBearings;
-        console.log('LSB:', lsb);
-        console.log('RSB:', rsb);
+        print('LSB:', lsb);
+        print('RSB:', rsb);
 
         /**
          * Array with available font features
          */
         const features = font.availableFeatures;
-        console.log('features:', features);
+        print('features:', features);
 
         const isVariable = font.variationAxes.wght ? true : false;
-        console.log('isVariable:', isVariable);
+        print('isVariable:', isVariable);
         const variableAxis = font.variationAxes || null;
-        console.log('variableAxis:', variableAxis);
+        print('variableAxis:', variableAxis);
 
-        console.log('==============================================');
+        /**
+         * Text variant widths
+         */
+        const textVariants = ['Hxdg0', 'Hxdg', 'Hxlj', 'Hxd', 'Hxl', 'Hx'];
+        const textVariantWidths = textVariants.reduce(
+          (acc, text) => {
+            acc[text] = font.layout(text).advanceWidth;
+            return acc;
+          },
+          {} as Record<string, number>
+        );
+
+        print('==============================================');
         /**
          * Metics object with RAW metrics in font units
          */
         const metrics = {
+          //
+          textVariantWidths: textVariantWidths,
           // Identifier
           familyName: font.familyName,
           fontSlug: fontSlug,
