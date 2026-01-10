@@ -26,6 +26,8 @@ export const MetricsNiceName: Record<string, string> = {
   topTrim: 'Top Trim',
   bottomTrim: 'Bottom Trim',
   avgCharWidth: 'Avg. Char. Width',
+  lsbAdjust: 'Left Side Bearing Adjust',
+  rsbAdjust: 'Right Side Bearing Adjust',
 };
 
 export const isMetricVisualized = (metricId: string): boolean => {
@@ -38,6 +40,8 @@ export const isMetricVisualized = (metricId: string): boolean => {
     'descender',
     'topTrim',
     'bottomTrim',
+    'lsbAdjust',
+    'rsbAdjust',
   ];
   return visualizedMetrics.includes(metricId);
 };
@@ -113,7 +117,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getCss: (state) => (state.unitsPerEm ? '1em' : '-'),
     getCssCopy: (state) => {
       if (!state.unitsPerEm) return '-';
-      return `--upm-${state.fontSlug}: ${state.unitsPerEm};`;
+      return `--units-per-em-${state.fontSlug}: ${state.unitsPerEm};`;
     },
     info: 'The logical square (em square) used to map glyph coordinates. It defines the internal coordinate system of the font file; common values are 1000 or 2048 units.',
   },
@@ -212,7 +216,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     getRaw: (state) => `${state.topTrimRaw} + ${state.halfLeading}`,
     getRawCopy: (state) =>
       state.topTrimRaw
-        ? `metric-trim: ${state.topTrimRaw}, half-leading: ${state.halfLeading}`
+        ? `metric-top-trim: ${state.topTrimRaw}, half-leading: ${state.halfLeading}`
         : '-',
     getCss: (state) => (state.topTrimRatio ? `-${state.topTrimRatio}em` : '-'),
     getCssCopy: (state) =>
@@ -227,7 +231,7 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     leadIn: 'The trim space between baseline and bottom of line-box',
     getRaw: (state) => `${state.bottomTrimRaw} + ${state.halfLeading}`,
     getRawCopy: (state) =>
-      `metric-trim: ${state.bottomTrimRaw}, half-leading: ${state.halfLeading}`,
+      `metric-bottom-trim: ${state.bottomTrimRaw}, half-leading: ${state.halfLeading}`,
     getCss: (state) =>
       state.bottomTrimRatio ? `-${state.bottomTrimRatio}em` : '-',
     getCssCopy: (state) =>
@@ -235,6 +239,32 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
         ? `--bottom-trim-${state.fontSlug}: calc((${state.bottomTrimRaw} / ${state.unitsPerEm} * -1em) - ((1lh - 1em) * 0.5))`
         : '-',
     info: 'The space between the baseline and the bottom of the line-box. It combines the font’s internal space (from baseline to em-box edge) with the half-leading. Trimming this allows the text to sit flush at the bottom, removing the gap below the baseline.',
+  },
+
+  lsbAdjust: {
+    title: MetricsNiceName['lsbAdjust'],
+    leadIn: 'The average trim space for the left optical edge',
+    getRaw: (state) => `${state.lsbAdjustRaw}`,
+    getCss: (state) =>
+      state.lsbAdjustRatio ? `-${state.lsbAdjustRatio}em` : '-',
+    getCssCopy: (state) =>
+      state.lsbAdjustRatio
+        ? `--lsb-adjust-${state.fontSlug}: -${state.lsbAdjustRatio}em;`
+        : '-',
+    info: 'The average Left Side Bearing (LSB) calculated from flat characters (e.g., h, n, l). Fonts have built-in spacing to prevent letters from touching. Trimming this gap allows the visible ink to align perfectly flush with the left edge of the container.',
+  },
+
+  rsbAdjust: {
+    title: MetricsNiceName['rsbAdjust'],
+    leadIn: 'The average trim space for the right optical edge',
+    getRaw: (state) => `${state.rsbAdjustRaw}`,
+    getCss: (state) =>
+      state.rsbAdjustRatio ? `-${state.rsbAdjustRatio}em` : '-',
+    getCssCopy: (state) =>
+      state.rsbAdjustRatio
+        ? `--rsb-adjust-${state.fontSlug}: -${state.rsbAdjustRatio}em;`
+        : '-',
+    info: 'The average Right Side Bearing (RSB). Similar to the left adjustment, this removes the built-in spacing on the right side. Trimming this is useful for right-aligned text or for calculating the precise optical width of a text block.',
   },
 
   // TODO : ADD LSB AND RSB ADJUST
@@ -284,7 +314,7 @@ export const getMetricValue = (
             {state.lineHeightMultiplier.toFixed(2)}
           </span>
           {renderMath(
-            `${Math.round(upm * state.lineHeightMultiplier)} / ${upm}upm`
+            `${Math.round(upm * state.lineHeightMultiplier)} \u00F7 ${upm}upm`
           )}
         </>
       );
@@ -302,7 +332,7 @@ export const getMetricValue = (
           <span className={valueWeight}>
             {(state.capHeightRatio || 0).toFixed(3)}em
           </span>
-          {renderMath(`${state.capHeight} / ${upm}upm`)}
+          {renderMath(`${state.capHeight} \u00F7 ${upm}upm`)}
         </>
       );
 
@@ -312,7 +342,7 @@ export const getMetricValue = (
           <span className={valueWeight}>
             {(state.xHeightRatio || 0).toFixed(3)}em
           </span>
-          {renderMath(`${state.xHeight} / ${upm}upm`)}
+          {renderMath(`${state.xHeight} \u00F7 ${upm}upm`)}
         </>
       );
 
@@ -322,7 +352,7 @@ export const getMetricValue = (
           <span className={valueWeight}>
             {(state.ascenderRatio || 0).toFixed(3)}em
           </span>
-          {renderMath(`${state.hheaAscender} / ${upm}upm`)}
+          {renderMath(`${state.hheaAscender} \u00F7 ${upm}upm`)}
         </>
       );
 
@@ -332,7 +362,7 @@ export const getMetricValue = (
           <span className={valueWeight}>
             {-(state.descenderRatio || 0).toFixed(3)}em
           </span>
-          {renderMath(`${state.hheaDescender} / ${upm}upm`)}
+          {renderMath(`${state.hheaDescender} \u00F7 ${upm}upm`)}
         </>
       );
 
@@ -343,7 +373,7 @@ export const getMetricValue = (
             {(state.topTrimRatio || 0).toFixed(3)}em
           </span>
           {renderMath(
-            `(${state.topTrimRaw} + ${state.halfLeading}) / ${upm}upm`
+            `(${state.topTrimRaw} + ${state.halfLeading}) \u00F7 ${upm}upm`
           )}
         </>
       );
@@ -355,7 +385,29 @@ export const getMetricValue = (
             {(state.bottomTrimRatio || 0).toFixed(3)}em
           </span>
           {renderMath(
-            `(${state.bottomTrimRaw} + ${state.halfLeading}) / ${upm}upm`
+            `(${state.bottomTrimRaw} + ${state.halfLeading}) \u00F7 ${upm}upm`
+          )}
+        </>
+      );
+    case 'lsbAdjust':
+      return (
+        <>
+          <span className={valueWeight}>
+            {-(state.lsbAdjustRatio || 0).toFixed(4)}em
+          </span>
+          {renderMath(
+            `${state.lsbAdjustRaw} = f(h, m, ...) \u00F7 -${state.unitsPerEm}upm`
+          )}
+        </>
+      );
+    case 'rsbAdjust':
+      return (
+        <>
+          <span className={valueWeight}>
+            {-(state.rsbAdjustRatio || 0).toFixed(4)}em
+          </span>
+          {renderMath(
+            `${state.rsbAdjustRaw} = f(h, m, ...) \u00F7 -${state.unitsPerEm}upm`
           )}
         </>
       );

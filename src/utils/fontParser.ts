@@ -4,7 +4,7 @@ import { Buffer } from 'buffer';
 import { getCorrectedAscenderDescender } from '@utils/getCorrectedMetrics';
 import type { FontMetrics } from '@models';
 import { getCategory } from '@utils/getFontCategory';
-import { print } from '@utils/dev';
+// import { print } from '@utils/dev';
 
 export const parseFontFile = async (file: File): Promise<FontMetrics> => {
   return new Promise((resolve, reject) => {
@@ -81,18 +81,18 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           .replace(/[^a-z0-9]+/g, '-')
           .replace(/\s+/g, '-');
 
-        print('==============================================');
+        // print('==============================================');
 
-        print('Family:', font.familyName);
-        print('Units per Em', font.unitsPerEm);
-        print('font Ascent:', font.ascent);
-        print('font Descent:', font.descent);
-        print('sTypoAscender:', font['OS/2'].typoAscender);
-        print('sTypoDescender:', font['OS/2'].typoDescender);
-        print('winAscent:', font['OS/2'].winAscent);
-        print('winDescent:', font['OS/2'].winDescent);
-        print('hhea ascent:', font.hhea.ascent);
-        print('hhea descent:', font.hhea.descent);
+        // print('Family:', font.familyName);
+        // print('Units per Em', font.unitsPerEm);
+        // print('font Ascent:', font.ascent);
+        // print('font Descent:', font.descent);
+        // print('sTypoAscender:', font['OS/2'].typoAscender);
+        // print('sTypoDescender:', font['OS/2'].typoDescender);
+        // print('winAscent:', font['OS/2'].winAscent);
+        // print('winDescent:', font['OS/2'].winDescent);
+        // print('hhea ascent:', font.hhea.ascent);
+        // print('hhea descent:', font.hhea.descent);
 
         /**
          * Check font.capHeight and font.xHeight
@@ -119,31 +119,31 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           Math.abs((capHeight - upmAscender) / font.unitsPerEm) *
             font.unitsPerEm
         );
-        print('Top Trim:', topTrim);
+        // print('Top Trim:', topTrim);
 
         const bottomTrim = Math.round(
           Math.abs(upmDescender / font.unitsPerEm) * font.unitsPerEm
         );
-        print('Bottom Trim:', bottomTrim);
+        // print('Bottom Trim:', bottomTrim);
 
         /**
          * Side bearings
          */
         const sideBearings = getSideBearingsUPM(font);
         const { lsb, rsb } = sideBearings;
-        print('LSB:', lsb);
-        print('RSB:', rsb);
+        // print('LSB:', lsb);
+        // print('RSB:', rsb);
 
         /**
          * Array with available font features
          */
         const features = font.availableFeatures;
-        print('features:', features);
+        // print('features:', features);
 
         const isVariable = font.variationAxes.wght ? true : false;
-        print('isVariable:', isVariable);
+        // print('isVariable:', isVariable);
         const variableAxis = font.variationAxes || null;
-        print('variableAxis:', variableAxis);
+        // print('variableAxis:', variableAxis);
 
         /**
          * Text variant widths
@@ -157,7 +157,7 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           {} as Record<string, number>
         );
 
-        print('==============================================');
+        // print('==============================================');
         /**
          * Metics object with RAW metrics in font units
          */
