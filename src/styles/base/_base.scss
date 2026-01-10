@@ -8,6 +8,10 @@
 @use "../abstracts/variables" as var;
 @use "../abstracts/mixins" as mx;
 
+:root {
+  interpolate-size: allow-keywords;
+}
+
 html {
   position: relative;
   overflow-x: hidden;
@@ -30,7 +34,7 @@ html {
     // color: var(--color-tertiary);
     // font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-    content: ""; 
+    content: "";
     pointer-events: none;
     position: fixed;
     inset: 0;
