@@ -1,10 +1,11 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useFontMetrics } from '../../context';
 import styles from './MetricsVisualizer.module.scss';
 import classNames from 'clsx';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 import { MetricsVisualizerSVG } from './MetricsVisualizerSVG';
+// import { print } from '@/utils';
 
 interface MetricsVisualizerProps {
   lineHeight: number;
@@ -20,51 +21,74 @@ export const MetricsVisualizer = ({
   const [visualizerData, setVisualizerData] = useState({
     fontSize: '',
     unitsPerRem: 0,
-    width: 0,
     viewBoxWidth: 0,
-    vizText: '',
+    maxTextWidth: 0,
+    currentTextWidth: 0,
   });
   const [textBBox, setTextBBox] = useState<DOMRect | null>(null);
 
   const { state } = useFontMetrics();
 
   const isMobile = useMediaQuery(queries.isUpToTablet);
-  const isDesktop = useMediaQuery(queries.isLaptopAndUp);
 
-  useEffect(() => {
-    const updateVisualizerData = () => {
-      if (elemRef.current) {
-        const rootFontSize = parseFloat(
-          getComputedStyle(document.documentElement).fontSize
-        );
-        const computedStyle = getComputedStyle(elemRef.current);
-        const fontSizeInPx = parseFloat(computedStyle.fontSize);
-        const width = elemRef.current.offsetWidth;
-        const unitsPerEm = state.unitsPerEm || 1000;
-        const unitsPerRem = (unitsPerEm / fontSizeInPx) * rootFontSize;
-        const viewBoxWidth = (width / fontSizeInPx) * unitsPerEm;
-        const vizText = isMobile ? 'Hxlj' : isDesktop ? 'Hxdg0' : 'Hxdg';
-
-        setVisualizerData({
-          fontSize: computedStyle.fontSize,
-          unitsPerRem,
-          width,
-          viewBoxWidth,
-          vizText,
-        });
-      }
-    };
-
-    updateVisualizerData();
-
-    window.addEventListener('resize', updateVisualizerData);
-    return () => window.removeEventListener('resize', updateVisualizerData);
-  }, [state.unitsPerEm, isMobile, isDesktop]);
-
-  const unitsPerEm = state.unitsPerEm || 1000;
-  const halfLeading = (unitsPerEm * (lineHeight - 1)) / 2;
+  const unitsPerEm = state.unitsPerEm || 0; // 1000 ?
+  const halfLeading = state.halfLeading || 0;
   const topTrim = state.topTrim || 0;
   const bottomTrim = state.bottomTrim || 0;
+
+  // test
+  const textVariantWidths = state.textVariantWidths;
+  const gapMinSpace = isMobile ? 1.25 * 8 : 2.75 * 8;
+
+  useEffect(() => {
+    const element = elemRef.current;
+
+    if (!element) return;
+
+    const updateMetrics = () => {
+      const rootFontSize =
+        parseFloat(getComputedStyle(document.documentElement).fontSize) || 16;
+
+      const computedStyle = getComputedStyle(element);
+      const fontSizeInPx = parseFloat(computedStyle.fontSize);
+      const containerWidthPx = element.offsetWidth;
+      const unitsPerRem = (unitsPerEm / fontSizeInPx) * rootFontSize;
+      const viewBoxWidth = (containerWidthPx / fontSizeInPx) * unitsPerEm;
+
+      setVisualizerData((prev) => ({
+        ...prev,
+        unitsPerRem,
+        viewBoxWidth,
+        maxTextWidth: viewBoxWidth - gapMinSpace * unitsPerRem,
+      }));
+    };
+
+    const observer = new ResizeObserver(updateMetrics);
+    observer.observe(element);
+
+    updateMetrics();
+
+    return () => observer.disconnect();
+  }, [unitsPerEm, gapMinSpace]);
+
+  const selectedVariant = useMemo(() => {
+    if (!textVariantWidths || Object.keys(textVariantWidths).length === 0) {
+      return { text: 'Hx', width: 0 };
+    }
+
+    const variants = ['Hxdg0', 'Hxdg', 'Hxlj', 'Hxd', 'Hxl', 'Hx'];
+
+    const found =
+      variants.find((key) => {
+        const width = textVariantWidths[key] || 0;
+        return width <= visualizerData.maxTextWidth;
+      }) || 'Hx';
+
+    return {
+      text: found,
+      width: textVariantWidths[found] || 0,
+    };
+  }, [visualizerData.maxTextWidth, textVariantWidths]);
 
   const viewBox = {
     minY: -(state.upmAscender || 0) - halfLeading,
@@ -74,7 +98,7 @@ export const MetricsVisualizer = ({
 
   // Calculate gap in SVG units based on textBBox
   const measureLineGap = (num: number) => {
-    return textBBox ? ((viewBox.width - textBBox.width) / 8) * num : 0;
+    return textBBox ? ((viewBox.width - selectedVariant.width) / 8) * num : 0;
   };
 
   // Y-positions for each linje
@@ -194,6 +218,20 @@ export const MetricsVisualizer = ({
       y1: yPositions.baseline + 25,
       y2: yPositions.lineBoxBottom - 25,
     },
+    lsbAdjust: {
+      x: measureLineGap(4) + (state.lsbAdjustRaw || 0) / 2,
+      y1: yPositions.capHeight + 25,
+      y2: yPositions.baseline - 25,
+      isTransparent: true,
+      noMarkers: true,
+    },
+    rsbAdjust: {
+      x: viewBox.width - measureLineGap(4) - (state.rsbAdjustRaw || 0) / 2,
+      y1: yPositions.capHeight + 25,
+      y2: yPositions.baseline - 25,
+      isTransparent: true,
+      noMarkers: true,
+    },
   };
 
   const rectangles = {
@@ -245,6 +283,18 @@ export const MetricsVisualizer = ({
       width: viewBox.width - measureLineGap(2),
       height: bottomTrim,
     },
+    lsbAdjust: {
+      x: measureLineGap(4),
+      y: yPositions.capHeight,
+      width: state.rsbAdjustRaw || 0,
+      height: Math.abs(yPositions.capHeight),
+    },
+    rsbAdjust: {
+      x: viewBox.width - measureLineGap(4) - (state.rsbAdjustRaw || 0),
+      y: yPositions.capHeight,
+      width: state.rsbAdjustRaw || 0,
+      height: Math.abs(yPositions.capHeight),
+    },
   };
 
   return (
@@ -257,7 +307,7 @@ export const MetricsVisualizer = ({
         unitsPerEm={state.unitsPerEm || 0}
         unitsPerRem={visualizerData.unitsPerRem || 0}
         fontFamily={state.loadedFontFamily || 'sans-serif'}
-        vizText={visualizerData.vizText}
+        vizText={selectedVariant.text}
         kerning={kerning}
         onTextBBoxUpdate={setTextBBox}
       />

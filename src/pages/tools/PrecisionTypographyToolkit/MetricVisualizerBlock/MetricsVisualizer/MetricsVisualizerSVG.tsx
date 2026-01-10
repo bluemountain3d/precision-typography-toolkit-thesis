@@ -18,6 +18,8 @@ interface MeasureLineConfig {
   x: number;
   y1: number;
   y2: number;
+  isTransparent?: boolean;
+  noMarkers?: boolean;
 }
 
 interface RectangleConfig {
@@ -53,6 +55,8 @@ interface MetricsVisualizerSVGProps {
     descender: MeasureLineConfig;
     topTrim: MeasureLineConfig;
     bottomTrim: MeasureLineConfig;
+    lsbAdjust: MeasureLineConfig;
+    rsbAdjust: MeasureLineConfig;
   };
   rectangles: {
     lineBox: RectangleConfig;
@@ -63,6 +67,8 @@ interface MetricsVisualizerSVGProps {
     descender: RectangleConfig;
     topTrim: RectangleConfig;
     bottomTrim: RectangleConfig;
+    lsbAdjust: RectangleConfig;
+    rsbAdjust: RectangleConfig;
   };
   vizText: string;
   fontFamily: string;
@@ -164,10 +170,22 @@ export const MetricsVisualizerSVG = ({
       rectangle: rectangles.xHeight,
     },
     {
+      id: 'lsbAdjust',
+      line: null,
+      measure: measureLines.lsbAdjust,
+      rectangle: rectangles.lsbAdjust,
+    },
+    {
       id: 'baseline',
       line: lines.baseline,
       measure: null,
       rectangle: null,
+    },
+    {
+      id: 'rsbAdjust',
+      line: null,
+      measure: measureLines.rsbAdjust,
+      rectangle: rectangles.rsbAdjust,
     },
     {
       id: 'ascender',
@@ -254,6 +272,8 @@ export const MetricsVisualizerSVG = ({
               isSelected={state.selectedMetric === id}
               color={measureColor}
               colorSelected={selectedMeasureColor}
+              isTransparent={measure.isTransparent}
+              noMarkers={measure.noMarkers}
             />
           )
       )}

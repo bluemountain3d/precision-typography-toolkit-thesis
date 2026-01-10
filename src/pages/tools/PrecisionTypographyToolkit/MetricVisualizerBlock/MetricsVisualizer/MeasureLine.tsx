@@ -14,6 +14,10 @@ interface MeasureLineProps {
   color: string;
   /** Selected state stroke color (CSS variable or color value) */
   colorSelected: string;
+
+  noMarkers?: boolean;
+
+  isTransparent?: boolean;
 }
 
 /**
@@ -46,18 +50,31 @@ export const MeasureLine = ({
   isSelected,
   color,
   colorSelected,
+  noMarkers = false,
+  isTransparent = false,
 }: MeasureLineProps) => (
+  
   <line
     x1={x}
     x2={x}
     y1={y1}
     y2={y2}
-    stroke={isSelected ? colorSelected : color}
+    stroke={isTransparent ? 'transparent' : isSelected ? colorSelected : color}
     strokeWidth="1"
     markerStart={
-      isSelected ? 'url(#arrow-start--selected)' : 'url(#arrow-start)'
+      noMarkers
+        ? 'none'
+        : isSelected
+          ? 'url(#arrow-start--selected)'
+          : 'url(#arrow-start)'
     }
-    markerEnd={isSelected ? 'url(#arrow-end--selected)' : 'url(#arrow-end)'}
+    markerEnd={
+      noMarkers
+        ? 'none'
+        : isSelected
+          ? 'url(#arrow-end--selected)'
+          : 'url(#arrow-end)'
+    }
     vectorEffect="non-scaling-stroke"
   />
 );
