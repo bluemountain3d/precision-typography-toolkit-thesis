@@ -97,6 +97,7 @@ export const Button = ({
   children,
   variant = 'primary',
   size = 'base',
+  narrow = false,
   radius = 'md',
   icon,
   iconFill = 'inherit',
@@ -112,12 +113,15 @@ export const Button = ({
   className,
   iconOnly = false,
   'aria-label': ariaLabel,
+  ...rest
 }: ButtonProps) => {
   // Combine all disabled states
   const isDisabled = disabled || loading;
   const isLabel = variant === 'label';
 
-  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>(null);
+  const btnRef = useRef<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>(
+    null
+  );
 
   useLayoutEffect(() => {
     const el = btnRef.current;
@@ -137,16 +141,17 @@ export const Button = ({
   }, []);
 
   const handleClick = (
-    e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement | HTMLDivElement>
+    e: React.MouseEvent<HTMLElement>
   ) => {
     if (!isDisabled && !isLabel && onClick) {
-      onClick(e as React.MouseEvent<HTMLButtonElement>);
+      onClick(e as React.MouseEvent<HTMLElement>);
     }
   };
 
   const commonClassNames = classNames(
     styles.button,
     styles[`button--${size}`],
+    narrow && styles[`button--narrow`],
     styles[`button--${variant}`],
     styles[`button--radius-${radius}`],
     iconOnly && styles['button--icon-only'],
@@ -169,6 +174,7 @@ export const Button = ({
     'aria-disabled': isDisabled || undefined,
     'aria-label': ariaLabel,
     title: iconOnly ? ariaLabel : undefined,
+    ...rest,
   };
 
   const specificProps = href
@@ -181,9 +187,9 @@ export const Button = ({
     : isLabel
       ? {}
       : {
-        type,
-        disabled: isDisabled,
-      };
+          type,
+          disabled: isDisabled,
+        };
 
   const content = (
     <>
