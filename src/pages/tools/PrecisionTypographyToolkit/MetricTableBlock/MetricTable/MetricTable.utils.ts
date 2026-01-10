@@ -29,6 +29,8 @@ export const tableToVisualizerMap: Record<string, string | null> = {
   descender: 'descender',
   topTrim: 'topTrim',
   bottomTrim: 'bottomTrim',
+  lsbAdjust: 'lsbAdjust',
+  rsbAdjust: 'rsbAdjust',
 };
 
 /**
@@ -149,5 +151,23 @@ export const buildMetricsData = (state: FontMetricsState): MetricRow[] => [
       ? String(state.bottomTrimRatio + 'em')
       : '-',
     comment: 'The trim space between baseline and bottom of line-box',
+  },
+  {
+    id: 'lsbAdjust',
+    metric: 'Left Side Bearing',
+    rawValue: state.lsbAdjustRaw ? state.lsbAdjustRaw : '-',
+    normalizedValue: state.lsbAdjustRatio
+      ? String(state.lsbAdjustRatio + 'em')
+      : '-',
+    comment: 'The average trim space for the left optical edge',
+  },
+  {
+    id: 'rsbAdjust',
+    metric: 'Right Side Bearing',
+    rawValue: state.rsbAdjustRaw ? state.rsbAdjustRaw : '-',
+    normalizedValue: state.rsbAdjustRatio
+      ? String(state.rsbAdjustRatio + 'em')
+      : '-',
+    comment: 'The average trim space for the right optical edge',
   },
 ];
