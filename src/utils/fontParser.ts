@@ -131,19 +131,26 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
         /**
          * Array with available font features
          */
-        // TODO !! use for kerning check ??
-        // const features = font.availableFeatures;
+        const features = font.availableFeatures;
+        console.log('features:', features);
+
+        const isVariable = font.variationAxes.wght ? true : false;
+        console.log('isVariable:', isVariable);
+        const variableAxis = font.variationAxes || null;
+        console.log('variableAxis:', variableAxis);
 
         console.log('==============================================');
         /**
          * Metics object with RAW metrics in font units
          */
         const metrics = {
+          // Identifier
           familyName: font.familyName,
           fontSlug: fontSlug,
           subFamilyName: font.subfamilyName,
           weightClass: font['OS/2'].usWeightClass,
           category: getCategory(font),
+          // Metrics
           unitsPerEm: font.unitsPerEm,
           hheaAscender: font.hhea.ascent,
           upmAscender: upmAscender,
@@ -153,10 +160,15 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
           xHeight: xHeight,
           avgCharWidth: font['OS/2'].xAvgCharWidth,
           lineGap: font.lineGap,
+          // Custom metrics
           topTrimRaw: topTrim,
           bottomTrimRaw: bottomTrim,
           lsbAdjustRaw: lsb,
           rsbAdjustRaw: rsb,
+          // Features
+          features: features,
+          isVariable: isVariable,
+          variableAxis: variableAxis,
         };
 
         resolve(metrics);
