@@ -25,7 +25,7 @@ export interface TableProps<T extends Record<string, any>> {
    * Makes all cells copyable by default unless overridden per column
    * @default false
    */
-  // copyableByDefault?: boolean;
+  copyableByDefault?: boolean;
   /**
    * Breakpoint at which columns with hideAt are hidden and dialog mode activates
    * Uses predefined breakpoint queries from design system
@@ -46,7 +46,7 @@ export type ColumnConfig<T> = {
   /** Column header label */
   label: string;
   /** Whether this column's cells should show copy-to-clipboard buttons */
-  // copyable: boolean;
+  copyable?: boolean;
   /**
    * Breakpoint at which this column should be hidden from table view
    * Hidden columns can be shown in a dialog when row is clicked
