@@ -66,7 +66,11 @@ export const buildMetricsData = (state: FontMetricsState): MetricRow[] => [
   },
   {
     id: 'category',
-    metric: 'Category',
+    metric: (
+      <>
+        Category<sup>1</sup>
+      </>
+    ),
     rawValue: state.category ?? '-',
     normalizedValue: '-',
     comment: 'The specific stylistic group the font belongs to',
@@ -133,9 +137,14 @@ export const buildMetricsData = (state: FontMetricsState): MetricRow[] => [
   {
     id: 'topTrim',
     metric: 'Top Trim',
-    rawValue: state.topTrimRaw
-      ? `${state.topTrimRaw} + ${state.halfLeading}*`
-      : '-',
+    rawValue: state.topTrimRaw ? (
+      <span>
+        {state.topTrimRaw} + {state.halfLeading}
+        <sup>2</sup>
+      </span>
+    ) : (
+      '-'
+    ),
     normalizedValue: state.topTrimRatio
       ? String(state.topTrimRatio + 'em')
       : '-',
@@ -144,9 +153,14 @@ export const buildMetricsData = (state: FontMetricsState): MetricRow[] => [
   {
     id: 'bottomTrim',
     metric: 'Bottom Trim',
-    rawValue: state.bottomTrimRaw
-      ? `${state.bottomTrimRaw} + ${state.halfLeading}*`
-      : '-',
+    rawValue: state.bottomTrimRaw ? (
+      <span>
+        {state.bottomTrimRaw} + {state.halfLeading}
+        <sup>2</sup>
+      </span>
+    ) : (
+      '-'
+    ),
     normalizedValue: state.bottomTrimRatio
       ? String(state.bottomTrimRatio + 'em')
       : '-',
