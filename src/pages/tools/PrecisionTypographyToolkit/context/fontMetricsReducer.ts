@@ -232,6 +232,19 @@ export const fontMetricsReducer = (
       };
     }
 
+    case 'UPDATE_CATEGORY': {
+      const newState = {
+        ...state,
+        category: action.payload,
+      };
+
+      // Persist to localStorage (exclude File object)
+      const { fontFile: _, ...stateToSave } = newState;
+      setItem('fontMetrics', stateToSave);
+
+      return newState;
+    }
+
     default:
       return state;
   }

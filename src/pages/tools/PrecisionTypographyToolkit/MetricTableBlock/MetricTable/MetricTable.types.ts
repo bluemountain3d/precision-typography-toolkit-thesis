@@ -1,3 +1,5 @@
+import type React from 'react';
+
 /**
  * Represents a single row in the metrics table
  *
@@ -21,8 +23,8 @@
  */
 export type MetricRow = {
   id: string;
-  metric: string;
-  rawValue: number | string | null;
+  metric: React.ReactNode;
+  rawValue: React.ReactNode | number | null;
   normalizedValue: number | string | null;
   comment: string | null;
 };

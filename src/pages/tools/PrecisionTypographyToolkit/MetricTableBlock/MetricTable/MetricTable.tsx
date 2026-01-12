@@ -9,15 +9,15 @@ import { MetricDialog } from '../MetricDialog';
 
 /**
  * MetricTable Component
- * 
+ *
  * Displays font metrics in a table format with copyable values and interactive visualization.
- * 
+ *
  * Features:
  * - Copy raw and CSS values to clipboard
  * - Click rows to highlight metrics in visualizer
  * - Open detailed metric dialog for more information
  * - Responsive design with mobile-optimized layout
- * 
+ *
  * @component
  * @example
  * ```tsx
@@ -36,15 +36,18 @@ export const MetricTable = () => {
     handleOpenDialog,
     handleCloseDialog,
     handleRowClick,
+    handleCategorySelect,
   } = useMetricTable();
 
   const metricsData = buildMetricsData(state);
 
   const columns = getMetricTableColumns({
     isBreakpoint: isBreakpoint,
+    currentCategory: state.category,
     isCopied,
     onCopy: handleCopy,
     onInfo: handleOpenDialog,
+    onCategoryChange: handleCategorySelect,
   });
 
   return (

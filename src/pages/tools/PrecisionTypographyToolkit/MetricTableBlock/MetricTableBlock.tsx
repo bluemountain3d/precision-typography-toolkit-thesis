@@ -24,7 +24,7 @@ export const MetricTableBlock = () => {
 
   return (
     <>
-      <Flex width="full" direction="column" gap="sm">
+      <Flex width="full" direction="column" gap="md">
         {!isMobile && (
           <Flex justifyContent="space-between" alignItems="center">
             <Heading level={2} size="heading-2">
@@ -32,7 +32,7 @@ export const MetricTableBlock = () => {
             </Heading>
             <Button
               variant="ghost"
-              size="base"
+              size="sm"
               onClick={() => setShowConfirmDialog(true)}
             >
               Reload default
@@ -50,11 +50,17 @@ export const MetricTableBlock = () => {
             justifyContent={'start'}
             alignContent="start"
             width="full"
+            gap="md"
           >
             <Footnote>
+              <sup>1</sup>
+              Category is auto-detected and may need manual adjustment due to
+              inconsistency
+            </Footnote>
+            <Footnote>
+              <sup>2</sup>
               Adjusted for current line-height (
-              {state.lineHeightMultiplier.toFixed(2)}). Includes a half-leading
-              offset of {Math.round(state.halfLeading)} units.
+              {state.lineHeightMultiplier.toFixed(2)}). Raw trim value + half-leading of {Math.round(state.halfLeading)} units.
               <br /> Half-leading ={' '}
               <span>{'(Line Height \u2212 Em) \u00F7 2'}</span>
             </Footnote>

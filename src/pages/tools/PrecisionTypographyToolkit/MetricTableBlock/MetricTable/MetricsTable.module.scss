@@ -43,6 +43,128 @@
     }
   }
 
+  // Basic Select
+  @supports not selector(::picker-icon) {
+    select {
+      appearance: none;
+      cursor: pointer;
+      width: 100%;
+      margin-left: -0.25em;
+      margin-block: -0.25em;
+      padding-inline: 0.25em;
+      font-size: var(--text-sm);
+      line-height: 1.5;
+      border-radius: 0.25em;
+      border: 2px solid var(--color-tertiary);
+      background-color: var(--color-primary);
+      color: var(--color-text-secondary);
+
+      &:open {
+        background-color: var(--color-primary);
+      }
+
+      & > option {
+        background-color: var(--color-primary-dark);
+        padding: 0.25em 0.5em;
+        font-family: var(--font-family-mono);
+        font-size: var(--text-sm);
+      }
+    }
+  }
+
+  @supports selector(::picker-icon) {
+    select {
+      --_radius: 0.5em;
+      justify-content: space-between;
+      width: 100%;
+      margin-block: -0.2em;
+      margin-inline: -0.5em 0;
+      padding-inline: 0.5em;
+      line-height: 1.6;
+      background-color: var(--color-primary-dark);
+
+      &:open {
+        background-color: var(--color-primary);
+        // border-radius: var(--_radius) var(--_radius) 0 0;
+
+        // &::picker(select) {
+        //   border-radius: 0 0 var(--_radius) var(--_radius);
+        // }
+      }
+
+      &,
+      &::picker(select) {
+        appearance: base-select;
+        cursor: pointer;
+        font-size: var(--text-sm);
+        border-radius: var(--_radius);
+        border: 2px solid var(--color-tertiary);
+        color: var(--color-text-secondary);
+
+        transition:
+          color 0.2s ease,
+          background-color 0.2s ease;
+      }
+
+      &::picker(select) {
+        margin-block: 0.25rem;
+        background-color: var(--color-primary-dark);
+      }
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: var(--color-text-primary);
+
+        &::picker-icon {
+          color: var(--color-text-primary);
+        }
+      }
+
+      &::picker-icon {
+        color: var(--color-text-secondary);
+
+        transition: color 0.2s ease;
+      }
+
+      option {
+        padding: 0.25em 0.5em;
+        &:first-child {
+          padding-top: 0.5em;
+        }
+        &:last-child {
+          padding-bottom: 0.5em;
+        }
+
+        background-color: transparent;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--color-primary);
+        }
+
+        &:checked {
+          background-color: var(--color-primary);
+        }
+
+        &:hover {
+          background-color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  @supports selector(corner-shape) {
+    select,
+    select:open,
+    select::picker(select) {
+      --_radius: calc(0.5em * 1.5);
+      corner-shape: squircle;
+    }
+  }
+
+  &__cell {
+    overflow: visible;
+  }
+
   &__text {
     flex: 1;
     min-width: 0;
@@ -50,6 +172,17 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--color-text-secondary);
+    line-height: 1;
+    overflow: visible;
+
+    sup {
+      font-feature-settings: "sups";
+      vertical-align: baseline;
+      position: relative;
+      top: -0.25em;
+      left: 0.1em;
+      font-size: 0.8em;
+    }
   }
 
   &__button {

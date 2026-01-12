@@ -6,14 +6,22 @@
   // max-width: calc(var(--text-base) * #{var.$avgCharWidth-body} * 70);
   max-width: 80ch;
 
-  &::before {
-    content: "*";
-    position: absolute;
+  & sup {
+position: absolute;
     top: -0.26em;
     left: 0;
-    color: inherit;
+  color: inherit;
     font-size: var(--text-sm);
     line-height: 1;
-
   }
+
+  // &::before {
+  //   content: "*";
+  //   position: absolute;
+  //   top: -0.26em;
+  //   left: 0;
+  //   color: inherit;
+  //   font-size: var(--text-sm);
+  //   line-height: 1;
+  // }
 }

@@ -7,6 +7,9 @@
 }
 
 .token {
+  &.comment {
+    color: #6A7677 !important;
+  }
   &.punctuation {
     color: #ffffff !important;
   }
