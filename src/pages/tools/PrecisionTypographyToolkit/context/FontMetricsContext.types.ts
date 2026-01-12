@@ -176,6 +176,7 @@ export type FontMetricsAction =
   | { type: 'RESET_FONT' }
   | { type: 'SET_SELECTED_METRIC'; payload: string | null }
   | { type: 'UPDATE_LINE_HEIGHT'; payload: number }
+  | { type: 'UPDATE_CATEGORY'; payload: string }
   | {
       type: 'RESTORE_FROM_STORAGE';
       payload: Omit<FontMetricsState, 'fontFile'>;

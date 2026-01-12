@@ -35,7 +35,7 @@ import { useCopyMetric } from '@/hooks';
  * ```
  */
 export const useMetricTable = () => {
-  const { state, setSelectedMetric } = useFontMetrics();
+  const { state, setSelectedMetric, dispatch } = useFontMetrics();
   const { copied, copyMetric, isCopied } = useCopyMetric({ state });
 
   const [showMetricDialog, setShowMetricDialog] = useState(false);
@@ -111,6 +111,26 @@ export const useMetricTable = () => {
     }
   };
 
+  /**
+   * Handles category selection change.
+   *
+   * Updates the font category in state and persists to localStorage.
+   *
+   * @param {React.ChangeEvent<HTMLSelectElement>} event - Select change event
+   *
+   * @example
+   * ```tsx
+   * <select onChange={handleCategorySelect}>
+   *   <option value="sans-serif">Sans Serif</option>
+   * </select>
+   * ```
+   */
+  const handleCategorySelect = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ) => {
+    dispatch({ type: 'UPDATE_CATEGORY', payload: event.target.value });
+  };
+
   return {
     state,
     copied,
@@ -121,5 +141,6 @@ export const useMetricTable = () => {
     handleOpenDialog,
     handleCloseDialog,
     handleRowClick,
+    handleCategorySelect,
   };
 };
