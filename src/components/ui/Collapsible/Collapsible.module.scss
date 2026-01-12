@@ -4,6 +4,8 @@
 /// Native HTML details/summary based collapsible disclosure component
 /// Features dual-gradient borders with hover state transitions
 
+@use "@/styles/abstracts/variables" as var;
+
 .collapsible {
   /// Border gradient - bright end (default)
   /// @type Color
@@ -16,9 +18,15 @@
   overflow: hidden;
   position: relative;
   width: 100%;
+  height: auto;
+  max-height: 100%;
   padding: var(--space-sm);
-  border-radius: var(--space-md);
+  border-radius: var(--space-sm);
   border: 2px solid transparent;
+
+  display: grid;
+  grid-template-rows: auto 0fr;
+  // transition: grid-template-rows 0.2s;
 
   /// Dual-gradient background (surface + border)
   /// Surface gradient: primary-dark to primary
@@ -39,15 +47,27 @@
   box-shadow: calc(var(--space-3xs) / 2) var(--space-3xs) var(--text-sm)
     oklch(0 0 0 / 25%);
 
+  @supports (corner-shape: squircle) {
+    border-radius: calc(var(var(--space-sm)) * (3 / 2));
+    corner-shape: squircle;
+  }
+
   /// Hover state - brightens border gradient
   &:hover {
     --_border-bright: var(--_border-bright-hover);
   }
 
+  &[open] {
+    grid-template-rows: auto 1fr;
+    height: 100%;
+  }
+
   /// Summary element (always visible header)
   /// Contains marker icon and title
   summary {
+    grid-row: 1;
     cursor: pointer;
+    border-radius: 0.25em;
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -82,7 +102,32 @@
   /// Content wrapper (shown/hidden by details element)
   /// Native browser handles visibility toggle
   /// @output Top padding when content is visible
+  &::details-content {
+    block-size: 0;
+    transition:
+      block-size 0.5s ease-out,
+      content-visibility 0.5s ease-out;
+    transition-behavior: allow-discrete;
+  }
+
+  &::details-content,
   &__content {
-    padding: var(--space-xl) var(--space-sm) var(--space-sm);
+    grid-row: 2;
+    // min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  &[open]::details-content {
+    block-size: auto;
+  }
+
+  &[open] > &__content {
+    padding: var(--space-xl) var(--space-2xs) var(--space-2xs);
+
+    @media screen and #{var.$bp-up-to-tablet} {
+      padding: var(--space-xl) 0 0;
+    }
   }
 }

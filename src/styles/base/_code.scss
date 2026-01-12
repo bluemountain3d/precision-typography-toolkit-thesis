@@ -1,0 +1,52 @@
+.line-numbers .line-numbers-rows {
+  border-color: #2a375b !important;
+}
+
+.line-numbers-rows > span:before {
+  color: #556377 !important;
+}
+
+.token {
+  &.punctuation {
+    color: #ffffff !important;
+  }
+  &.string {
+    color: #dfc693 !important;
+  }
+  &.number {
+    color: #dc9371 !important;
+  }
+  &.unit {
+    color: #f8ec9e !important;
+  }
+  &.keyword-value {
+    color: #dd7067 !important;
+  }
+  &.variable {
+    color: #cee384 !important;
+  }
+  &.property {
+    color: #cee384 !important;
+  }
+  &.apostrophe {
+    color: #e2f4df !important;
+  }
+
+  // Rainbow Braces
+  &.brace {
+    // Default brace color
+    color: red !important;
+    
+    &.brace-level-1 {
+      color: #f1d942 !important; // Yellow/Gold
+    }
+    
+    &.brace-level-2 {
+      color: #c277d1 !important; // Purple
+    }
+    
+    &.brace-level-3 {
+      color: #659cf9 !important; // Blue
+    }
+  }
+}

@@ -27,6 +27,8 @@ export type FontMetricsState = {
   lineHeightMultiplier: number;
   halfLeading: number;
 
+  textVariantWidths: Record<string, number>;
+
   // Font file info
   /** Uploaded font File object (not persisted to localStorage) */
   fontFile: File | null;
@@ -115,6 +117,7 @@ export const initialFontMetricsState: FontMetricsState = {
   selectedMetric: null,
   lineHeightMultiplier: 1.5,
   halfLeading: 0.25,
+  textVariantWidths: {},
   fontFile: null,
   fontFamily: null,
   fontSlug: null,

@@ -5,7 +5,7 @@ import type React from 'react';
 /**
  * Base properties shared by all button variants
  */
-export interface BaseButtonProps {
+interface CustomButtonProps {
   /**
    * Visual variant of the button
    * @default 'primary'
@@ -23,6 +23,8 @@ export interface BaseButtonProps {
    * @default 'base'
    */
   size?: ButtonSize;
+
+  narrow?: boolean;
 
   /**
    * Optional icon component to display alongside or instead of text
@@ -50,7 +52,7 @@ export interface BaseButtonProps {
   /**
    * Click handler for button interactions
    */
-  onClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
 
   /**
    * When provided, renders as an anchor tag instead of button
@@ -89,17 +91,28 @@ export interface BaseButtonProps {
    * Additional CSS classes to apply
    */
   className?: string;
+
+  // /**
+  //  * When false, button displays both icon and text
+  //  * @default false
+  //  */
+  // iconOnly?: boolean;
+
+  // /**
+  //  * Button text content
+  //  */
+  // children?: React.ReactNode;
 }
 
 /**
  * Props for regular button with text content
  */
-interface RegularButtonProps extends BaseButtonProps {
+interface RegularButtonProps extends CustomButtonProps {
   /**
    * When false, button displays both icon and text
    * @default false
    */
-  iconOnly?: false;
+  iconOnly?: boolean;
 
   /**
    * Button text content
@@ -115,11 +128,11 @@ interface RegularButtonProps extends BaseButtonProps {
 /**
  * Props for icon-only button variant
  */
-interface IconButtonProps extends BaseButtonProps {
+interface IconButtonProps extends CustomButtonProps {
   /**
    * When true, button only displays icon without text
    */
-  iconOnly: true;
+  iconOnly: boolean;
 
   /**
    * Icon-only buttons cannot have text children
@@ -139,8 +152,10 @@ interface IconButtonProps extends BaseButtonProps {
 
 /**
  * Union type combining regular and icon-only button props
+ * Omits 'size' from HTML attributes to avoid conflict with our custom size prop
  */
-export type ButtonProps = RegularButtonProps | IconButtonProps;
+export type ButtonProps = (RegularButtonProps | IconButtonProps) &
+  Omit<React.AllHTMLAttributes<HTMLElement>, 'size'>;
 
 /**
  * Available button visual variants

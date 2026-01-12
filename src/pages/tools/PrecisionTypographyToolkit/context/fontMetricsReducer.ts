@@ -46,6 +46,9 @@ export const prepareFontMetricsState = (
     lineHeightMultiplier: initialLineHeight,
     halfLeading: initialHalfLeading,
 
+    // Text variant widths (precomputed in fontParser)
+    textVariantWidths: metrics.textVariantWidths || {},
+
     // Font file info
     fontFile: file,
     fontFamily: metrics.familyName, // Original font name for display

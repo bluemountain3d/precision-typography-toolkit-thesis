@@ -59,15 +59,17 @@ export const MetricTableBlock = () => {
               <span>{'(Line Height \u2212 Em) \u00F7 2'}</span>
             </Footnote>
           </Flex>
-          {/* <Flex justifyContent={isMobile ? 'center' : 'end'}>
-            <Button
-              variant="ghost"
-              size="base"
-              onClick={() => setShowConfirmDialog(true)}
-            >
-              Reload default
-            </Button>
-          </Flex> */}
+          {isMobile && (
+            <Flex justifyContent={isMobile ? 'center' : 'end'}>
+              <Button
+                variant="ghost"
+                size="base"
+                onClick={() => setShowConfirmDialog(true)}
+              >
+                Reload default
+              </Button>
+            </Flex>
+          )}
         </Flex>
       </Flex>
 

@@ -563,6 +563,10 @@
   &--xs {
     font-size: var(--text-xs);
     height: 2.75rem;
+
+    &.button--narrow {
+      padding-inline: calc((2.75rem - 1.2em) / 2);
+    }
   }
 
   /// Small button size
@@ -572,6 +576,10 @@
   &--sm {
     font-size: var(--text-sm);
     height: calc(var(--_button-height) * 0.875);
+
+    &.button--narrow {
+      padding-inline: calc(((var(--_button-height) * 0.875) - 1.2em) / 2);
+    }
   }
 
   /// Base button size (default)
@@ -579,6 +587,10 @@
   /// @size base
   &--base {
     font-size: var(--text-base);
+
+    &.button--narrow {
+      padding-inline: calc((var(--_button-height) - 1.2em) / 2);
+    }
   }
 
   /// Medium button size
@@ -588,6 +600,10 @@
   &--md {
     font-size: var(--text-md);
     height: calc(var(--_button-height) * 1.125);
+
+    &.button--narrow {
+      padding-inline: calc(((var(--_button-height) * 1.125) - 1.2em) / 2);
+    }
   }
 
   /// Large button size
@@ -597,6 +613,10 @@
   &--lg {
     font-size: var(--text-lg);
     height: calc(var(--_button-height) * 1.25);
+
+    &.button--narrow {
+      padding-inline: calc(((var(--_button-height) * 1.25) - 1.2em) / 2);
+    }
   }
 
   // ---------------------------------------------------------------------------

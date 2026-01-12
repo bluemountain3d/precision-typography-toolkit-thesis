@@ -7,6 +7,7 @@ import { MetricTableBlock } from './MetricTableBlock';
 import { HeroBlock } from './HeroBlock/HeroBlock';
 import { PageSection } from '@/components/layout/PageSection';
 import { MetricVisualizerBlock } from './MetricVisualizerBlock';
+import { ExportMetricsBlock } from './ExportMetricsBlock/ExportMetricsBlock';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -37,7 +38,10 @@ const PrecisionTypographyToolkitContent = () => {
           }}
           style={{ scrollMarginTop: 'var(--header-height-scrolled)' }}
         >
-          <Container variant={isUnderBreakpoint ? 'boxed' : 'narrow'}>
+          <Container
+            variant={isUnderBreakpoint ? 'boxed' : 'narrow'}
+            noGap={!isUnderBreakpoint}
+          >
             <Flex width="full" direction="column" gap={isMobile ? 'lg' : '4xl'}>
               <MetricVisualizerBlock />
               <MetricTableBlock />
@@ -47,10 +51,16 @@ const PrecisionTypographyToolkitContent = () => {
 
         {/* Export Metrics */}
         <PageSection id="export-metrics" padding="large">
-          <p className="text-align-center">
-            !! Work In Progress: Export metrics for different languages will be
-            here !!
-          </p>
+          <Container
+            variant={isUnderBreakpoint ? 'boxed' : 'narrow'}
+            noGap={!isUnderBreakpoint}
+          >
+            <ExportMetricsBlock />
+            {/* <p className="text-align-center">
+              !! Work In Progress: Export metrics for different languages will
+              be here !!
+            </p> */}
+          </Container>
         </PageSection>
       </>
 

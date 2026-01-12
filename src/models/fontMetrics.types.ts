@@ -27,6 +27,13 @@
  */
 export interface FontMetrics {
   /**
+   * Precomputed text variant widths for responsive text selection
+   * Used by MetricsVisualizer to choose optimal text based on available space
+   * @example { "Hxdg0": 2450, "Hxdg": 2100, "Hxlj": 1850, "Hxd": 1600, "Hxl": 1350, "Hx": 1100 }
+   */
+  textVariantWidths: Record<string, number>;
+
+  /**
    * The name of the typeface family
    * @example "Inter", "Source Sans 3", "Roboto"
    */

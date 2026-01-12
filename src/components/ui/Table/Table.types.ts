@@ -46,7 +46,7 @@ export type ColumnConfig<T> = {
   /** Column header label */
   label: string;
   /** Whether this column's cells should show copy-to-clipboard buttons */
-  copyable: boolean;
+  copyable?: boolean;
   /**
    * Breakpoint at which this column should be hidden from table view
    * Hidden columns can be shown in a dialog when row is clicked

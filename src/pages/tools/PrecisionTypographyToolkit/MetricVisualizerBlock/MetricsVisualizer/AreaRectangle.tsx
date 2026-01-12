@@ -41,13 +41,18 @@ export const AreaRectangle = ({
   height,
   color,
   isSelected,
-}: AreaRectangleProps) => (
-  <rect
-    x={x}
-    y={y}
-    width={width}
-    height={height}
-    fill={isSelected ? color : 'none'}
-    opacity="0.85"
-  />
-);
+}: AreaRectangleProps) => {
+  const validWidth = Math.max(0, width);
+  const validHeight = Math.max(0, height);
+
+  return (
+    <rect
+      x={x}
+      y={y}
+      width={validWidth}
+      height={validHeight}
+      fill={isSelected ? color : 'none'}
+      opacity="0.85"
+    />
+  );
+};
