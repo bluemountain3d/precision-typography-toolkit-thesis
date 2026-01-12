@@ -10,15 +10,19 @@ import styles from './MetricsTable.module.scss';
  *
  * @interface GetColumnsParams
  * @property {boolean} [isBreakpoint] - Whether mobile/tablet breakpoint is active. When true, copy buttons are hidden.
+ * @property {string | null} currentCategory - The currently selected font category
  * @property {function} isCopied - Check if a metric value has been copied
  * @property {function} onCopy - Callback when copy button is clicked
  * @property {function} onInfo - Callback when info button is clicked
+ * @property {function} onCategoryChange - Callback when category selection changes
  */
 interface GetColumnsParams {
   isBreakpoint?: boolean;
+  currentCategory: string | null;
   isCopied: (metricId: string, type: 'raw' | 'css') => boolean;
   onCopy: (metric: string, type: 'raw' | 'css') => void;
   onInfo: (row: MetricRow) => void;
+  onCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
 
 /**
@@ -46,11 +50,19 @@ interface GetColumnsParams {
  */
 export const getMetricTableColumns = ({
   isBreakpoint,
+  currentCategory,
   isCopied,
   onCopy,
   onInfo,
+  onCategoryChange,
 }: GetColumnsParams): ColumnConfig<MetricRow>[] => [
-  { key: 'metric', label: 'Metric' },
+  {
+    key: 'metric',
+    label: 'Metric',
+    render: (value) => (
+      <span className={styles['metrics-table__text']}>{value}</span>
+    ),
+  },
 
   {
     key: 'rawValue',
@@ -67,7 +79,30 @@ export const getMetricTableColumns = ({
           width="full"
           className={styles['metrics-table__cell']}
         >
-          <span className={styles['metrics-table__text']}>{String(value)}</span>
+          {row.id === 'category' && (
+            <>
+              <select
+                name="category-select"
+                id="category-select"
+                title="Select the fonts category"
+                aria-label="Select the fonts category"
+                value={currentCategory || 'sans-serif'}
+                onChange={onCategoryChange}
+              >
+                <option value="sans-serif">Sans Serif</option>
+                <option value="serif">Serif</option>
+                <option value="monospace">Monospace</option>
+                <option value="system-ui">System UI</option>
+                <option value="cursive">Cursive</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="ui-monospace">UI Monospace</option>
+                <option value="math">Math</option>
+              </select>
+            </>
+          )}
+          {row.id !== 'category' && (
+            <span className={styles['metrics-table__text']}>{value}</span>
+          )}
           {showButton && (
             <button
               className={styles['metrics-table__button']}
