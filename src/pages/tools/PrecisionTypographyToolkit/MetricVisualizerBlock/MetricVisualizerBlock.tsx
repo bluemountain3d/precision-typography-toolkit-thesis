@@ -34,20 +34,24 @@ export const MetricVisualizerBlock = () => {
 
   const labelWidth = 26;
 
+  const showToggle = false; // !DEV
+
   return (
     <Flex direction="column" width="full" gap="xl">
       <Heading level={2} size="heading-2" className="sr-only">
         Metrics Visualizer
       </Heading>
       <Flex direction="column" width="full" gap="lg">
-        <Toggle
-          toggleId="kerning-on-off"
-          onChange={handleToggleChange('kerning')}
-          checked={toggles.kerning}
-          label={`font-feature-settings: ${toggles.kerning ? '"kern" 1' : '"kern" 0'};`}
-          labelWidth={labelWidth}
-          labelPosition="before"
-        />
+        {showToggle && (
+          <Toggle
+            toggleId="kerning-on-off"
+            onChange={handleToggleChange('kerning')}
+            checked={toggles.kerning}
+            label={`font-feature-settings: ${toggles.kerning ? '"kern" 1' : '"kern" 0'};`}
+            labelWidth={labelWidth}
+            labelPosition="before"
+          />
+        )}
         <ThumbSlider
           inputId="line-height"
           min={1}
