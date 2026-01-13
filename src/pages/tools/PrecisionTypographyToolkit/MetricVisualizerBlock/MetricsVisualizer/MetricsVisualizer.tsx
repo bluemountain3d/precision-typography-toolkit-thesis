@@ -52,8 +52,8 @@ export const MetricsVisualizer = ({
       const computedStyle = getComputedStyle(element);
       const fontSizeInPx = parseFloat(computedStyle.fontSize);
       const containerWidthPx = element.offsetWidth;
-      const unitsPerRem = (unitsPerEm / fontSizeInPx) * rootFontSize;
-      const viewBoxWidth = (containerWidthPx / fontSizeInPx) * unitsPerEm;
+      const unitsPerRem = Math.round((unitsPerEm / fontSizeInPx) * rootFontSize);
+      const viewBoxWidth = Math.round((containerWidthPx / fontSizeInPx) * unitsPerEm);
 
       setVisualizerData((prev) => ({
         ...prev,
@@ -91,27 +91,27 @@ export const MetricsVisualizer = ({
   }, [visualizerData.maxTextWidth, textVariantWidths]);
 
   const viewBox = {
-    minY: -(state.upmAscender || 0) - halfLeading,
-    width: visualizerData.viewBoxWidth,
+    minY: Math.round(-(state.upmAscender || 0) - halfLeading),
+    width: Math.round(visualizerData.viewBoxWidth),
     height: unitsPerEm * lineHeight,
   };
 
   // Calculate gap in SVG units based on textBBox
   const measureLineGap = (num: number) => {
-    return textBBox ? ((viewBox.width - selectedVariant.width) / 8) * num : 0;
+    return textBBox ? Math.round(((viewBox.width - selectedVariant.width) / 8) * num) : 0;
   };
 
   // Y-positions for each linje
   const yPositions = {
-    lineBoxTop: -(state.upmAscender || 0) - halfLeading,
-    ascender: -(state.hheaAscender || 0),
-    emBoxTop: -(state.upmAscender || 0),
-    capHeight: -(state.capHeight || 0),
-    xHeight: -(state.xHeight || 0),
+    lineBoxTop: Math.round(-(state.upmAscender || 0) - halfLeading),
+    ascender: Math.round(-(state.hheaAscender || 0)),
+    emBoxTop: Math.round(-(state.upmAscender || 0)),
+    capHeight: Math.round(-(state.capHeight || 0)),
+    xHeight: Math.round(-(state.xHeight || 0)),
     baseline: 0,
-    emBoxBottom: -(state.upmDescender || 0),
-    descender: -(state.hheaDescender || 0),
-    lineBoxBottom: -(state.upmDescender || 0) + halfLeading,
+    emBoxBottom: Math.round(-(state.upmDescender || 0)),
+    descender: Math.round(-(state.hheaDescender || 0)),
+    lineBoxBottom: Math.round(-(state.upmDescender || 0) + halfLeading),
   };
 
   // Calculate x-positions based on textBBox
@@ -244,53 +244,53 @@ export const MetricsVisualizer = ({
     emBox: {
       x: measureLineGap(1),
       y: yPositions.emBoxTop,
-      width: viewBox.width - measureLineGap(4),
+      width: Math.round(viewBox.width - measureLineGap(4)),
       height: viewBox.height - halfLeading * 2,
     },
     capHeight: {
       x: measureLineGap(2),
       y: yPositions.capHeight,
-      width: viewBox.width - measureLineGap(5),
+      width: Math.round(viewBox.width - measureLineGap(5)),
       height: -yPositions.capHeight,
     },
     xHeight: {
       x: measureLineGap(3),
       y: yPositions.xHeight,
-      width: viewBox.width - measureLineGap(6),
+      width: Math.round(viewBox.width - measureLineGap(6)),
       height: -yPositions.xHeight,
     },
     ascender: {
       x: measureLineGap(4),
       y: yPositions.ascender,
-      width: viewBox.width - measureLineGap(6),
+      width: Math.round(viewBox.width - measureLineGap(6)),
       height: -yPositions.ascender,
     },
     descender: {
       x: measureLineGap(4),
       y: yPositions.baseline,
-      width: viewBox.width - measureLineGap(6),
+      width: Math.round(Math.round(viewBox.width - measureLineGap(6))),
       height: yPositions.descender,
     },
     topTrim: {
       x: measureLineGap(2),
       y: yPositions.lineBoxTop,
-      width: viewBox.width - measureLineGap(2),
+      width: Math.round(Math.round(viewBox.width - measureLineGap(2))),
       height: topTrim,
     },
     bottomTrim: {
       x: measureLineGap(2),
       y: yPositions.baseline,
-      width: viewBox.width - measureLineGap(2),
+      width: Math.round(viewBox.width - measureLineGap(2)),
       height: bottomTrim,
     },
     lsbAdjust: {
       x: measureLineGap(4),
       y: yPositions.capHeight,
-      width: state.rsbAdjustRaw || 0,
+      width: state.lsbAdjustRaw || 0,
       height: Math.abs(yPositions.capHeight),
     },
     rsbAdjust: {
-      x: viewBox.width - measureLineGap(4) - (state.rsbAdjustRaw || 0),
+      x: Math.round(viewBox.width - measureLineGap(4) - (state.rsbAdjustRaw || 0)),
       y: yPositions.capHeight,
       width: state.rsbAdjustRaw || 0,
       height: Math.abs(yPositions.capHeight),
