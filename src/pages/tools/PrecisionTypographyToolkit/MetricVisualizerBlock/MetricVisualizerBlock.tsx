@@ -32,12 +32,12 @@ export const MetricVisualizerBlock = () => {
     updateLineHeight(value);
   };
 
-  const labelWidth = 26;
+  const labelWidth = 0;
 
   const showToggle = false; // !DEV
 
   return (
-    <Flex direction="column" width="full" gap="xl">
+    <Flex direction="column" width="full" gap="md">
       <Heading level={2} size="heading-2" className="sr-only">
         Metrics Visualizer
       </Heading>
