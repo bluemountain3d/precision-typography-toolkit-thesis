@@ -88,6 +88,7 @@ export const getMetricTableColumns = ({
                 aria-label="Select the fonts category"
                 value={currentCategory || 'sans-serif'}
                 onChange={onCategoryChange}
+                onClick={(e) => e.stopPropagation()}
               >
                 <option value="sans-serif">Sans Serif</option>
                 <option value="serif">Serif</option>

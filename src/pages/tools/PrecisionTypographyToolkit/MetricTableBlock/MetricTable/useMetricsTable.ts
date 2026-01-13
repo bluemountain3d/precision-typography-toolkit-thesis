@@ -116,7 +116,7 @@ export const useMetricTable = () => {
    *
    * Updates the font category in state and persists to localStorage.
    *
-   * @param {React.ChangeEvent<HTMLSelectElement>} event - Select change event
+   * @param {React.ChangeEvent<HTMLSelectElement>} e - Select change event
    *
    * @example
    * ```tsx
@@ -125,10 +125,8 @@ export const useMetricTable = () => {
    * </select>
    * ```
    */
-  const handleCategorySelect = (
-    event: React.ChangeEvent<HTMLSelectElement>
-  ) => {
-    dispatch({ type: 'UPDATE_CATEGORY', payload: event.target.value });
+  const handleCategorySelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    dispatch({ type: 'UPDATE_CATEGORY', payload: e.target.value });
   };
 
   return {
