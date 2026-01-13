@@ -48,8 +48,8 @@
     select {
       appearance: none;
       cursor: pointer;
-      width: 100%;
-      margin-left: -0.25em;
+      width: calc(100% + 0.5em);
+      margin-inline: -0.25em;
       margin-block: -0.25em;
       padding-inline: 0.25em;
       font-size: var(--text-sm);
@@ -58,6 +58,11 @@
       border: 2px solid var(--color-tertiary);
       background-color: var(--color-primary);
       color: var(--color-text-secondary);
+
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ABBACE' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5em center;
+      background-size: 0.75em;
 
       &:open {
         background-color: var(--color-primary);
@@ -76,9 +81,9 @@
     select {
       --_radius: 0.5em;
       justify-content: space-between;
-      width: 100%;
+      width: calc(100% + 1em);
       margin-block: -0.2em;
-      margin-inline: -0.5em 0;
+      margin-inline: -0.5em;
       padding-inline: 0.5em;
       line-height: 1.6;
       background-color: var(--color-primary-dark);
@@ -172,8 +177,7 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     color: var(--color-text-secondary);
-    line-height: 1;
-    overflow: visible;
+    line-height: 1.5;
 
     sup {
       font-feature-settings: "sups";
