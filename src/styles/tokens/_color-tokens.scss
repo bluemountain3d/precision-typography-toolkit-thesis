@@ -32,6 +32,9 @@ $color-inline-link-hover-oklch: fn.adjustOklch(
   1.2
 );
 
+// --- Lines ---
+$color-primary-lines-oklch: fn.adjustOklch(var.$color-primary-lines, 0, 1.1);
+
 // --- State Colors: Primary ---
 $color-primary-title-oklch: fn.adjustOklch(var.$color-primary-title, 0, 1.1);
 $color-primary-surface-oklch: fn.adjustOklch(
@@ -288,6 +291,9 @@ $color-disabled-border-bright-oklch: fn.adjustOklch(
   // --- Link Colors ---
   --color-inline-link: #{$color-inline-link-oklch};
   --color-inline-link-hover: #{$color-inline-link-hover-oklch};
+
+  // --- Line Colors ---
+  --color-primary-lines: #{$color-primary-lines-oklch};
 
   // --- Global Background ---
   --bg-main: radial-gradient(
