@@ -1,0 +1,1 @@
+export { MediaTextMediaBlock } from './MediaTextMediaBlock';
