@@ -4,7 +4,7 @@ import { Buffer } from 'buffer';
 import { getCorrectedAscenderDescender } from '@utils/getCorrectedMetrics';
 import type { FontMetrics } from '@models';
 import { getCategory } from '@utils/getFontCategory';
-// import { print } from '@utils/dev';
+import { print } from '@utils/dev';
 
 export const parseFontFile = async (file: File): Promise<FontMetrics> => {
   return new Promise((resolve, reject) => {
@@ -25,6 +25,95 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
     //   const run = font.layout(text);
     //   return run.advanceWidth;
     // };
+
+    const capitalLetters = [
+      'A',
+      'B',
+      'C',
+      'D',
+      'E',
+      'F',
+      'G',
+      'H',
+      'I',
+      'J',
+      'K',
+      'L',
+      'M',
+      'N',
+      'O',
+      'P',
+      'Q',
+      'R',
+      'S',
+      'T',
+      'U',
+      'V',
+      'W',
+      'X',
+      'Y',
+      'Z',
+    ];
+
+    const smallLetters = [
+      'a',
+      'b',
+      'c',
+      'd',
+      'e',
+      'f',
+      'g',
+      'h',
+      'i',
+      'j',
+      'k',
+      'l',
+      'm',
+      'n',
+      'o',
+      'p',
+      'q',
+      'r',
+      's',
+      't',
+      'u',
+      'v',
+      'w',
+      'x',
+      'y',
+      'z',
+    ];
+
+    const allLetters = [...capitalLetters, ...smallLetters];
+
+    const extractAllSideBearings = (font: any, charList: string[]) => {
+      const sideBearings: Record<
+        string,
+        { aw: number; lsb: number; rsb: number }
+      > = {};
+
+      for (const char of charList) {
+        const codePoint = char.codePointAt(0);
+        if (codePoint === undefined) continue;
+
+        const glyph = font.glyphForCodePoint(codePoint);
+
+        if (glyph) {
+          // In fontkit, LSB is the distance from 0 to the left edge of the bbox
+          const aw = Math.round(glyph.advanceWidth * 100) / 100;
+          const lsb = Math.round(glyph.bbox.minX * 100) / 100;
+          const rsb = Math.round((aw - glyph.bbox.maxX) * 100) / 100;
+
+          sideBearings[char] = {
+            aw: aw,
+            lsb: lsb,
+            rsb: rsb,
+          };
+        }
+      }
+
+      return sideBearings;
+    };
 
     const getSideBearingsUPM = (
       font: Font,
@@ -73,6 +162,8 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
         } else {
           font = fontOrCollection;
         }
+
+        print(extractAllSideBearings(font, allLetters));
 
         const fontSlug = font.familyName
           ?.toLowerCase()
@@ -129,8 +220,9 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
         /**
          * Side bearings
          */
-        const sideBearings = getSideBearingsUPM(font);
-        const { lsb, rsb } = sideBearings;
+        // const sideBearings = getSideBearingsUPM(font);
+        // const { lsb, rsb } = sideBearings;
+        const { lsb, rsb } = getSideBearingsUPM(font);
         // print('LSB:', lsb);
         // print('RSB:', rsb);
 
