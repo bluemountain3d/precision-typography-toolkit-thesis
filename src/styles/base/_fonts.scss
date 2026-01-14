@@ -75,13 +75,37 @@
 // ============================================================================
 
 // Cormorant Garamond - Italic (300-700)
+// @font-face {
+//   font-family: "Cormorant Garamond VF";
+//   src:
+//     local(""),
+//     url("/fonts/CormorantGaramond-Variable-VariableFont_wght-300-700-Italic_subset-balanced-web.woff2")
+//       format("woff2-variations");
+//   font-weight: 300 700;
+//   font-style: italic;
+//   font-display: swap;
+// }
+
+// Cormorant Garamond - Italic (300-700)
 @font-face {
-  font-family: "Cormorant Garamond VF";
+  font-family: "Cormorant Garamond";
   src:
     local(""),
-    url("/fonts/CormorantGaramond-Variable-VariableFont_wght-300-700-Italic_subset-balanced-web.woff2")
+    url("/fonts/CormorantGaramond-400_subset-minimal-western-plus.woff2")
       format("woff2-variations");
-  font-weight: 300 700;
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+// Cormorant Garamond - Italic (300-700)
+@font-face {
+  font-family: "Cormorant Garamond";
+  src:
+    local(""),
+    url("/fonts/CormorantGaramond-400-Italic_subset-minimal-western-plus.woff2")
+      format("woff2-variations");
+  font-weight: 400;
   font-style: italic;
   font-display: swap;
 }

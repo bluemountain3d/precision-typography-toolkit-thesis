@@ -256,7 +256,7 @@ body {
     > :is(h1, h2, h3, h4, h5, h6):has(
       + :is(p, ul, ol, blockquote, figure, span)
     ) {
-    margin-block-end: max(0.6em, var(--heading-3));
+    margin-block-end: max(0.8em, calc(var(--text-base) * 2));
   }
 }
 
@@ -288,7 +288,7 @@ body {
 
   // Heading to content
   & > :is(h1, h2, h3, h4, h5, h6):has(+ :is(p, ul, ol)) {
-    margin-block-end: max(0.6em, var(--heading-3));
+    margin-block-end: max(0.8em, var(--heading-3));
   }
 }
 
@@ -311,7 +311,7 @@ small {
 }
 
 sup {
-  font-feature-settings:"sups";
+  font-feature-settings: "sups";
 }
 
 // ============================================================================
