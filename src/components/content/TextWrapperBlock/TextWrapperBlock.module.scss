@@ -1,1 +1,73 @@
+@use "@/styles/abstracts/variables" as var;
 
+.text-wrapper-block {
+  --_breakout: -10%;
+
+  @media screen and #{var.$bp-tablet-lg-and-up} {
+    --_breakout: -20%;
+  }
+
+  // Override Text component's width: 100% to allow wrapping around floats
+  p {
+    width: auto !important;
+    max-width: none !important;
+    display: block !important;
+  }
+
+  &__media {
+    height: var(--media-height, 200px);
+    width: auto;
+    margin-block-end: 1em;
+
+    // Override InlineSVG wrapper styles to respect height constraint
+    > div,
+    > figure {
+      width: auto !important;
+      height: 100%;
+      max-height: 100%;
+    }
+
+    // Make SVG respect the height
+    svg {
+      width: auto !important;
+      height: 100% !important;
+      max-height: 100%;
+    }
+
+    // Default: stacked layout (mobile - no float)
+    float: none;
+    margin-inline: 0;
+    display: block;
+
+    &--left {
+      // Will only float on breakpoint
+    }
+
+    &--right {
+      // Will only float on breakpoint
+    }
+  }
+
+  // When breakpoint is active: add float and breakout
+  &--breakpoint {
+    .text-wrapper-block__media--left {
+      float: left;
+      shape-outside: margin-box;
+      margin-inline-end: var(--space-md);
+      margin-inline-start: var(--_breakout);
+      // margin-inline-start: calc(
+      //   -1 * var(--space-3xl, 2rem)
+      // ); // breakout to the left
+    }
+
+    .text-wrapper-block__media--right {
+      float: right;
+      shape-outside: margin-box;
+      margin-inline-start: var(--space-md);
+      margin-inline-end: var(--_breakout);
+      // margin-inline-end: calc(
+      //   -1 * var(--space-3xl, 2rem)
+      // ); // breakout to the right
+    }
+  }
+}
