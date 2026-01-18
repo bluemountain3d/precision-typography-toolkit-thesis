@@ -1,0 +1,26 @@
+@use "@/styles/abstracts/variables" as var;
+
+// .diagram-wrapper {
+//   // height: clamp(175px, 25vw, 19rem);
+//   // width: auto;
+//   // flex: 0 0 auto;
+//   // flex-grow: 1;
+//   height: min(45vw, clamp(13.25rem, 7.75rem + 8.5938 * var(--vwx), 16rem));
+
+//   & > * {
+
+//     width: 100%;
+//     height: auto;
+
+
+//     @media screen and #{var.$bp-tablet-and-up} {
+//       width: auto;
+//       height: clamp(13.25rem, 7.75rem + 8.5938 * var(--vwx), 15rem);
+//     }
+//   }
+
+//   // svg {
+//   //   width: auto !important;
+//   //   height: 100% !important;
+//   // }
+// }
