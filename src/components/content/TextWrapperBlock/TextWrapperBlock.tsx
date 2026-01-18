@@ -17,6 +17,7 @@ interface TextWrapperBlockProps {
     | 'isDesktopAndUp';
   textBoxWidthSize?: TextSize;
   textBoxFlow?: 'em' | 'space';
+  breakout?: boolean
 }
 
 export const TextWrapperBlock = ({
@@ -27,6 +28,7 @@ export const TextWrapperBlock = ({
   breakpoint,
   textBoxWidthSize = 'base',
   textBoxFlow = 'em',
+  breakout,
 }: TextWrapperBlockProps) => {
   const isBreakpoint = useMediaQuery(queries[breakpoint]);
   const mediaStyle = {
@@ -47,7 +49,11 @@ export const TextWrapperBlock = ({
         <div
           className={classNames(
             styles['text-wrapper-block__media'],
-            styles['text-wrapper-block__media--left']
+            styles['text-wrapper-block__media--left'],
+            isBreakpoint &&
+              breakout &&
+              styles['text-wrapper-block__breakout--left'],
+            'no-flow'
           )}
         >
           {leftMedia}
@@ -57,7 +63,11 @@ export const TextWrapperBlock = ({
         <div
           className={classNames(
             styles['text-wrapper-block__media'],
-            styles['text-wrapper-block__media--right']
+            styles['text-wrapper-block__media--right'],
+            isBreakpoint &&
+              breakout &&
+              styles['text-wrapper-block__breakout--right'],
+            'no-flow'
           )}
         >
           {rightMedia}

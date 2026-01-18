@@ -3,6 +3,13 @@
 .text-wrapper-block {
   --_breakout: -10%;
 
+  // Clearfix to contain floats
+  &::after {
+    content: '';
+    display: table;
+    clear: both;
+  }
+
   @media screen and #{var.$bp-tablet-lg-and-up} {
     --_breakout: -20%;
   }
@@ -54,7 +61,7 @@
       float: left;
       shape-outside: margin-box;
       margin-inline-end: var(--space-md);
-      margin-inline-start: var(--_breakout);
+      // margin-inline-start: var(--_breakout);
       // margin-inline-start: calc(
       //   -1 * var(--space-3xl, 2rem)
       // ); // breakout to the left
@@ -64,10 +71,18 @@
       float: right;
       shape-outside: margin-box;
       margin-inline-start: var(--space-md);
-      margin-inline-end: var(--_breakout);
+      // margin-inline-end: var(--_breakout);
       // margin-inline-end: calc(
       //   -1 * var(--space-3xl, 2rem)
       // ); // breakout to the right
     }
+  }
+
+  &__breakout--left {
+    margin-inline-start: var(--_breakout);
+  }
+
+  &__breakout--right {
+    margin-inline-end: var(--_breakout);
   }
 }
