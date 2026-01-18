@@ -15,7 +15,7 @@ export const ArticleIntroBlock = () => {
   const isBreakpoint = useMediaQuery(queries.isTabletLargeAndUp);
 
   const textContent = (
-    <Flex direction="column" alignItems="center" width="full" gap="2xl">
+    <Flex direction="column" alignItems="stretch" width="full" gap="2xl">
       <TextBox flow="em">
         <Heading level={2} size="heading-3">
           Why line-height is lying to you
@@ -54,6 +54,7 @@ export const ArticleIntroBlock = () => {
         styles['article-intro-block__diagram'],
         isBreakpoint ? 'py-lg' : 'px-xl'
       )}
+      // constrainHeight
     >
       <rect
         y="253.333"
@@ -84,7 +85,7 @@ export const ArticleIntroBlock = () => {
       textContent={textContent}
       mediaContent={mediaContent}
       reverseOrder={isBreakpoint ? false : true}
-      // contentRatio={isBreakpoint ? '3:2' : undefined}
+      contentRatio={isBreakpoint ? '3:2' : undefined}
     />
   );
 };
