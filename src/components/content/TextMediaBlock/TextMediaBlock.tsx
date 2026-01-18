@@ -51,12 +51,20 @@ export const TextMediaBlock = ({
   return (
     <Flex
       direction={isBreakpoint ? rowDirection : columnDirection}
-      alignItems="stretch"
+      alignItems={isBreakpoint ? 'stretch' : 'center'}
       gap={gap}
       width="full"
     >
-      <Flex style={{ flex: ratio.content }}>{textContent}</Flex>
-      <Flex style={{ flex: ratio.media }}>{mediaContent}</Flex>
+      <Flex direction="column" style={{ flex: ratio.content }}>
+        {textContent}
+      </Flex>
+      <Flex
+        justifyContent="center"
+        alignItems="center"
+        style={{ flex: ratio.media }}
+      >
+        {mediaContent}
+      </Flex>
     </Flex>
   );
 };
