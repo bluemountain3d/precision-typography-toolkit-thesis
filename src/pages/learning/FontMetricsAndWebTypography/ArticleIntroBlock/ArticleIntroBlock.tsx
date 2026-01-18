@@ -20,17 +20,16 @@ export const ArticleIntroBlock = () => {
           Why line-height is lying to you
         </Heading>
         <Text size="md" weight="semibold" hyphens="auto">
-          Ever set a margin to <span className="accent">20 pixels</span>,
-          only to see <span className="accent">30</span>? That gap you
-          can't explain isn't a bug, it is invisible spacing built into every
-          font.
+          Ever set a margin to <span className="accent">20 pixels</span>, only
+          to see <span className="accent">30</span>? That gap you can't explain
+          isn't a bug, it is invisible spacing built into every font.
         </Text>
       </TextBox>
 
       <TextWrapperBlock
         breakpoint="isTabletAndUp"
         mediaHeight="7.5lh"
-        leftMedia={HalfLeadingDiagramSimple}
+        rightMedia={HalfLeadingDiagramSimple}
       >
         <Text size="base" hyphens="auto">
           This discrepancy isn't just a minor annoyance; it's a systemic issue
@@ -41,14 +40,16 @@ export const ArticleIntroBlock = () => {
           space in ways that often defy our intent for pixel-perfect alignment.
         </Text>
         <Text size="base" hyphens="auto">
+          But there's a way out.
+        </Text>
+        <Text size="base" hyphens="auto">
           To bridge this gap, we have to look past the surface. We need to
-          dissect the <span className="accent">Units Per Em (UPM)</span>{' '}
-          and the specific coordinate system defined within the font file. By
-          understanding metrics like{' '}
-          <span className="accent">Cap Height</span>,{' '}
+          dissect the <span className="accent">Units Per Em (UPM)</span> and the
+          specific coordinate system defined within the font file. By
+          understanding metrics like <span className="accent">Cap Height</span>,{' '}
           <span className="accent">Ascent</span>, and{' '}
-          <span className="accent">Descent</span>, we can finally stop
-          treating text as a black box and start controlling it with the same
+          <span className="accent">Descent</span>, we can finally stop treating
+          text as a black box and start controlling it with the same
           mathematical certainty we use for layout grids and spacing scales.
         </Text>
       </TextWrapperBlock>
