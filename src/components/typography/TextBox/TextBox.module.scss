@@ -16,7 +16,8 @@ $font-metrics-map: (
 );
 
 .text-box {
-  width: fit-content;
+  // width: fit-content;
+  width: 100%;
 
   &--centered {
     margin-inline: auto;

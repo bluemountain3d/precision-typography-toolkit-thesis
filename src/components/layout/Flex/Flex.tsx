@@ -18,6 +18,7 @@ export const Flex = ({
   marginTop,
   marginBottom,
   className,
+  order,
   ...rest
 }: FlexProps) => {
   const Component = as as React.ElementType;
@@ -38,6 +39,7 @@ export const Flex = ({
         marginBottom && `mb-${marginBottom}`,
         className
       )}
+      style={{ order: order }}
       {...rest}
     >
       {children}

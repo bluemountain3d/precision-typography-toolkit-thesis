@@ -30,6 +30,9 @@ export interface FlexProps extends React.HTMLAttributes<HTMLElement> {
   // Margin
   marginTop?: SpacingSize | SpacingStep;
   marginBottom?: SpacingSize | SpacingStep;
+
+  // Positioning
+  order?: number | GlobalValues;
 }
 
 export type Width = 'auto' | 'full' | 'fit-content' | 'max-content';

@@ -1,0 +1,37 @@
+.svg-wrapper {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  &--constrain-height {
+    width: 100%;
+    height: fit-content;
+  }
+
+  &--fit {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__element {
+    width: 100%;
+    height: auto;
+    display: block;
+
+    &--constrain-height {
+      width: auto;
+      height: 100%;
+    }
+  }
+}
+
+// Text beneath svg
+.svg-caption {
+  margin-top: 1.5em;
+  color: var(--color-text-secondary);
+}

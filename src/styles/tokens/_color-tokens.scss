@@ -105,7 +105,7 @@ $color-secondary-border-bright-oklch: fn.adjustOklch(
 );
 
 // --- State Colors: Accent ---
-$color-accent-title-oklch: fn.adjustOklch(var.$color-accent-title, 0, 1.2);
+$color-accent-title-oklch: fn.adjustOklch(var.$color-accent-title, 0, 1.1);
 $color-accent-surface-oklch: fn.adjustOklch(var.$color-accent-surface, 0, 1.2);
 $color-accent-surface-dark-oklch: fn.adjustOklch(
   var.$color-accent-surface-dark,

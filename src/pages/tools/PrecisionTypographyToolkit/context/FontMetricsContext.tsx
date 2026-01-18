@@ -100,10 +100,10 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
 
           // Fetch Cormorant Garamond from public/fonts
           const fontUrl =
-            '/fonts/CormorantGaramond-Variable-VariableFont_wght-300-700-Italic_subset-balanced-web.woff2';
+            '/fonts/CormorantGaramond-400-Italic_subset-minimal-western-plus.woff2';
           const response = await fetch(fontUrl);
           const blob = await response.blob();
-          const file = new File([blob], 'CormorantGaramond-VF.woff2', {
+          const file = new File([blob], 'CormorantGaramond-italic.woff2', {
             type: 'font/woff2',
           });
 

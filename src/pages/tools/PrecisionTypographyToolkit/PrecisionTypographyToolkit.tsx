@@ -8,6 +8,7 @@ import { HeroBlock } from './HeroBlock/HeroBlock';
 import { PageSection } from '@/components/layout/PageSection';
 import { MetricVisualizerBlock } from './MetricVisualizerBlock';
 import { ExportMetricsBlock } from './ExportMetricsBlock/ExportMetricsBlock';
+import { ArticleIntroBlock } from './ArticleIntroBlock';
 
 /**
  * Inner component that uses the FontMetrics context
@@ -66,10 +67,12 @@ const PrecisionTypographyToolkitContent = () => {
 
       {/* Metrics learn intro */}
       <PageSection id="metrics-intro" padding="large">
-        <p className="text-align-center">
-          !! Work In Progress: Intro to font metrics with a link to the "learn"
-          article !!
-        </p>
+        <Container
+          variant={isUnderBreakpoint ? 'boxed' : 'narrow'}
+          noGap={!isUnderBreakpoint}
+        >
+          <ArticleIntroBlock />
+        </Container>
       </PageSection>
     </>
   );
