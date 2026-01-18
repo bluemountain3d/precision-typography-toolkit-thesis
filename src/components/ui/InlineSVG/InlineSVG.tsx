@@ -25,6 +25,10 @@ interface InlineSVGProps {
   isDecorative?: boolean;
   /** Controls how SVG scales within viewBox */
   preserveAspectRatio?: string;
+  /** Text that shows beneath the SVG */
+  caption?: string;
+  /** If true, size is constrained by height instead of width (default: false) */
+  constrainHeight?: boolean;
 }
 
 /**
@@ -60,8 +64,21 @@ interface InlineSVGProps {
  *     title="Chart visualization"
  *     fitToContainer
  *   >
+ *     <rect width="800" height="600" fill="lightgray" />
  *   </InlineSVG>
  * </div>
+ *
+ * @example
+ * // SVG diagram with caption
+ * <InlineSVG
+ *   viewBox="0 0 1000 800"
+ *   title="Font metrics diagram"
+ *   description="Visualization showing baseline, ascender, and descender lines"
+ *   caption="Figure 1: Key vertical metrics in typography"
+ * >
+ *   <line className="metric-line" x1="0" y1="200" x2="1000" y2="200" />
+ *   <text className="label" x="10" y="205">Baseline</text>
+ * </InlineSVG>
  */
 export const InlineSVG = ({
   children,
@@ -73,15 +90,21 @@ export const InlineSVG = ({
   fitToContainer = false,
   isDecorative = false,
   preserveAspectRatio,
+  caption,
+  constrainHeight,
 }: InlineSVGProps) => {
   const titleId = useId();
   const descId = useId();
 
+  const WrapperElement = caption ? 'figure' : 'div';
+  const CaptionElement = caption ? 'figcaption' : 'p';
+
   return (
-    <div
+    <WrapperElement
       className={classNames(
         styles['svg-wrapper'],
         fitToContainer && styles['svg-wrapper--fit'],
+        constrainHeight && styles['svg-wrapper--constrain-height'],
         className
       )}
     >
@@ -96,12 +119,22 @@ export const InlineSVG = ({
         {...(!isDecorative && {
           'aria-labelledby': description ? `${titleId} ${descId}` : titleId,
         })}
-        className={styles['svg-wrapper__element']}
+        className={classNames(
+          styles['svg-wrapper__element'],
+          constrainHeight && styles['svg-wrapper__element--constrain-height']
+        )}
       >
         {!isDecorative && <title id={titleId}>{title}</title>}
         {!isDecorative && description && <desc id={descId}>{description}</desc>}
         {children}
       </svg>
-    </div>
+      {caption && (
+        <CaptionElement
+          className={classNames(styles['svg-caption'], 'text-sm')}
+        >
+          {caption}
+        </CaptionElement>
+      )}
+    </WrapperElement>
   );
 };
