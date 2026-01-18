@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const TypoDescenderDiagram = (
   <InlineSVG
     viewBox="0 0 1421 1500"
-    title=""
-    description=""
+    title="OS Table Descender diagram"
+    description="Diagram showing the Descender (G) from OS/2 tables - the browser's interpretation of the font's maximum depth below baseline"
     className="metric-diagram"
   >
     {/* half-leading bottom */}

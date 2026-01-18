@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const UserSelectDiagram = (
   <InlineSVG
     viewBox="0 0 1418 1500"
-    title=""
-    description=""
+    title="User-select area diagram"
+    description="Diagram showing the User-select area (H) - the blue highlight that appears when selecting text, determined by the Ascender and Descender values rather than font-size"
     className="metric-diagram"
   >
     {/* helf-leading bottom */}

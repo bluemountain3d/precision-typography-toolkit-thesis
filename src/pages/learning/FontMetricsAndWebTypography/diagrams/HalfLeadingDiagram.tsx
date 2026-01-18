@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const HalfLeadingDiagram = (
   <InlineSVG
     viewBox="0 0 1859 1500"
-    title=""
-    description=""
+    title="Half-leading diagram"
+    description="Diagram illustrating half-leadings (C) - the space distributed equally above and below the Em-box, created by the difference between line-height and font-size"
     className="metric-diagram"
   >
     {/* half-leading bottom */}
@@ -88,8 +88,8 @@ export const HalfLeadingDiagram = (
 export const HalfLeadingDiagramSimple = (
   <InlineSVG
     viewBox="0 0 1200 1500"
-    title=""
-    description=""
+    title="The invisible spacing problem"
+    description="Diagram showing the half-leadings above and below text - part of the invisible gaps that make your margins unpredictable"
     className="metric-diagram"
   >
     {/* half-leading bottom */}

@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const TypoAscenderDiagram = (
   <InlineSVG
     viewBox="0 0 1409 1500"
-    title=""
-    description=""
+    title="OS Table Ascender diagram"
+    description="Diagram showing the Ascender (F) from OS/2 tables (hhea or sTypo) - the browser's interpretation of the font's maximum height, often extending beyond the Em-box"
     className="metric-diagram"
   >
     {/* half-leading bottom */}

@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const LineBoxDiagram = (
   <InlineSVG
     viewBox="0 0 1415 1500"
-    title=""
-    description=""
+    title="Line-box diagram"
+    description="Diagram showing the Line-box (B) which represents the total vertical area a line of text occupies, controlled by line-height"
     className="metric-diagram"
   >
     {/* line-box */}

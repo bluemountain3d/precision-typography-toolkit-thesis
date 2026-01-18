@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const MetricTrimsDiagram = (
   <InlineSVG
     viewBox="0 0 1419 1500"
-    title=""
-    description=""
+    title="Metric Trim diagram"
+    description="Diagram showing Metric Trim Top (J) and Bottom (K) - the calculated 'dead air' between the Em-box boundaries and the actual Cap Height, representing the internal spacing to be trimmed"
     className="metric-diagram"
   >
     {/* half-leading bottom */}

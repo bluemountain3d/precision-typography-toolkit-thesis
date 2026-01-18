@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const MetricAscentDiagram = (
   <InlineSVG
     viewBox="0 0 1418 1500"
-    title=""
-    description=""
+    title="Metric Ascent diagram"
+    description="Diagram showing the Metric Ascent (D) - the distance from baseline to the top of the font's design space within the Em-box"
     className="metric-diagram"
   >
     {/* metric ascent */}

@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const WithLeadingTrimDiagram = (
   <InlineSVG
     viewBox="0 0 9376 8500"
-    title=""
-    description=""
+    title="Before and after Leading Trim comparison"
+    description="Side-by-side comparison showing standard CSS layout with uncontrolled spacing (left) versus precision-trimmed layout with calculated negative margins L and M (right), demonstrating how Leading Trim eliminates invisible gaps while preserving vertical rhythm (N)"
     className="metric-diagram"
   >
     <defs>

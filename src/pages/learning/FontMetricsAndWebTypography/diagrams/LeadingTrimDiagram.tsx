@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const LeadingTrimDiagram = (
   <InlineSVG
     viewBox="0 0 1426 1500"
-    title=""
-    description=""
+    title="Leading Trim diagram"
+    description="Diagram showing Total Leading Trim values (L and M) - the final asymmetrical negative margins that eliminate invisible gaps by combining Metric Trims with half-leadings"
     className="metric-diagram"
   >
     {/* leading-trim bottom */}

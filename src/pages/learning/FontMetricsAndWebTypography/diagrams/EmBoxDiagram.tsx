@@ -4,7 +4,7 @@ export const EmBoxDiagram = (
   <InlineSVG
     viewBox="0 0 1424 1500"
     title="Em-box diagram"
-    description="Diagram highlighting the Em-box area inside the Line-box"
+    description="Diagram highlighting the Em-box (A) - the invisible square that serves as the baseline coordinate system for all font calculations, sized when you set font-size"
     className="metric-diagram"
   >
     {/* half-leading bottom */}

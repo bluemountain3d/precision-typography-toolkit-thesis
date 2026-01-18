@@ -3,8 +3,8 @@ import { InlineSVG } from '@/components/ui/InlineSVG';
 export const CapHeightDiagram = (
   <InlineSVG
     viewBox="0 0 1379 1500"
-    title=""
-    description=""
+    title="Cap Height diagram"
+    description="Diagram showing the Cap Height (I) - the true visual anchor measuring from baseline to the top of capital letters, used to calculate precise vertical trims"
     className="metric-diagram"
   >
     {/* half-leading bottom */}
