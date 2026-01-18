@@ -11,7 +11,7 @@ export const FontMetricsArticle = () => {
   return (
     <PageSection as="section">
       <Container variant={isBreakpoint ? 'narrow' : 'boxed'}>
-        <Flex direction="column" gap="2xl">
+        <Flex direction="column" alignItems="center" gap="4xl">
           <ArticleIntroBlock />
         </Flex>
       </Container>
