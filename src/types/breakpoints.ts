@@ -4,7 +4,7 @@
  */
 export const breakpoints = {
   mobile: 320,
-  phablet: 676,
+  phablet: 576,
   tablet: 768,
   tabletLarge: 1024,
   laptop: 1152,
