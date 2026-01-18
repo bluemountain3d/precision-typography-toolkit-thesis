@@ -5,6 +5,7 @@ import { Flex } from '@/components/layout/Flex';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 import { AnatomyOfTheEmBoxBlock } from './AnatomyOfTheEmBoxBlock';
+import { MathOfPrecisionBlock } from './MathOfPrecisionBlock';
 
 export const FontMetricsArticle = () => {
   const isBreakpoint = useMediaQuery(queries.isTabletLargeAndUp);
@@ -15,6 +16,7 @@ export const FontMetricsArticle = () => {
         <Flex direction="column" alignItems="center" gap="4xl">
           <ArticleIntroBlock />
           <AnatomyOfTheEmBoxBlock />
+          <MathOfPrecisionBlock />
         </Flex>
       </Container>
     </PageSection>
