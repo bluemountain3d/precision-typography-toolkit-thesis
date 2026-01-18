@@ -3,7 +3,6 @@ import classNames from 'clsx';
 
 import { Flex } from '@/components/layout/Flex';
 import type React from 'react';
-import { TextBox } from '@/components/typography/TextBox';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
 

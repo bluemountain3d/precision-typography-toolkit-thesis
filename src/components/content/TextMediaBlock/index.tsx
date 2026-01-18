@@ -1,1 +1,1 @@
-export { TextMediaBlock } from './TextMediaBLock';
+export { TextMediaBlock } from './TextMediaBlock';
