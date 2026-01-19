@@ -1,9 +1,10 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
-import { StyleGuide } from './pages/StyleGuide';
-import { MainLayout } from './layouts/MainLayout';
-import { PrecisionTypographyToolkit } from '@pages/tools/PrecisionTypographyToolkit';
-import { FontMetricsArticle } from './pages/learning/FontMetricsAndWebTypography';
-import { AboutPage } from './pages/AboutPage';
+import { StyleGuide } from '@/pages/StyleGuide';
+import { MainLayout } from '@/layouts/MainLayout';
+import { PrecisionTypographyToolkit } from '@/pages/tools/PrecisionTypographyToolkit';
+import { FontMetricsArticle } from '@/pages/learning/FontMetricsAndWebTypography';
+import { AboutPage } from '@/pages/AboutPage';
+import { PrecisionAlignmentArticle } from '@/pages/learning/PrecisionAlignment';
 
 export const appRouter = createBrowserRouter([
   // Main application routes with shared layout
@@ -16,14 +17,24 @@ export const appRouter = createBrowserRouter([
         element: <PrecisionTypographyToolkit />,
         // element: <HomePage />, // TODO: Switch to when HomePage is done
       },
+
+      // Tools
       {
         path: 'tools/precision-typography-toolkit',
         element: <PrecisionTypographyToolkit />,
       },
+
+      // Articles
       {
         path: 'learn/font-metrics-article',
         element: <FontMetricsArticle />,
       },
+      {
+        path: 'learn/precision-alignment-article',
+        element: <PrecisionAlignmentArticle />,
+      },
+
+      // Other pages
       {
         path: 'about',
         element: <AboutPage />,

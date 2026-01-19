@@ -21,8 +21,12 @@ export const navLinks: NavLink[] = [
     path: '/learn',
     children: [
       {
-        label: 'Font Metrics and Web Typography',
+        label: 'Why line-height is lying to you',
         path: '/learn/font-metrics-article',
+      },
+      {
+        label: 'Precision Alignment: Solving for Optical Balance',
+        path: '/learn/precision-alignment-article',
       },
     ],
   },
