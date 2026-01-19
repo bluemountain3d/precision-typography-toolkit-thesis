@@ -6,14 +6,22 @@ export const SideBearingsUppercaseO = (
     title="Side Bearings Uppercase O"
     description=""
     className={'metric-diagram'}
+    caption={
+      <>
+        <span className="label">AW:</span> <span className="value">766</span>
+        <br />
+        <span className="label">LSB:</span> <span className="value">49</span> /{' '}
+        <span className="label">RSB:</span> <span className="value">49</span>
+      </>
+    }
   >
     <rect width="1166" height="1536" fill="var(--color-primary)" />
     {/* Frame and baseline */}
-    <path className="metric-line" d="M200 200V1400" />
-    <path className="metric-line" d="M966 200V1400" />
-    <path className="metric-line" d="M150 1111H1016" />
-    <path className="metric-line" d="M100 1292H1066" />
-    <path className="metric-line" d="M100 292H1066" />
+    <path className="metric-line dashed" d="M200 200V1400" />
+    <path className="metric-line dashed" d="M966 200V1400" />
+    <path className="metric-line dashed" d="M150 1111H1016" />
+    <path className="metric-line dashed" d="M100 1292H1066" />
+    <path className="metric-line dashed" d="M100 292H1066" />
     {/* Side bearings */}
     <rect
       className="metric-box--bright"
@@ -36,11 +44,11 @@ export const SideBearingsUppercaseO = (
     />
     {/* Measure arrows */}
     <path
-      className="measure-line"
+      className="measure-letter"
       d="M926.735 144.227L966 167L926.735 189.774V170.927L658.594 170.927L658.594 163.074L926.735 163.074V144.227Z"
     />
     <path
-      className="measure-line"
+      className="measure-letter"
       d="M239.265 144.227L200 167L239.265 189.774L239.265 170.927L507.406 170.927L507.406 163.074L239.265 163.074L239.265 144.227Z"
     />
     {/* Measure letters */}
