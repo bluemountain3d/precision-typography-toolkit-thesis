@@ -1,0 +1,1 @@
+export { LeadingTrimComparisonDiagram } from './LeadingTrimComparison';

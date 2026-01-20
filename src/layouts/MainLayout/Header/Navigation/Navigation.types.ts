@@ -2,6 +2,7 @@ export interface NavLink {
   label: string;
   path?: string;
   children?: NavLink[] | undefined;
+  reloadDocument?: boolean;
 }
 
 export const navLinks: NavLink[] = [
@@ -21,8 +22,13 @@ export const navLinks: NavLink[] = [
     path: '/learn',
     children: [
       {
-        label: 'Font Metrics and Web Typography',
+        label: 'Why line-height is lying to you',
         path: '/learn/font-metrics-article',
+      },
+      {
+        label: 'Solving for Optical Balance',
+        path: '/learn/precision-alignment-article',
+        reloadDocument: true,
       },
     ],
   },

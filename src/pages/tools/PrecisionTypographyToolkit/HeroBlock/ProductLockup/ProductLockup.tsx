@@ -30,7 +30,9 @@ export const ProductLockup = () => {
             srcSet: `${pttLogo_1x_webp} 1x, ${pttLogo_15x_webp} 1.5x, ${pttLogo_2x_webp} 2x, ${pttLogo_3x_webp} 3x`,
           },
         }}
+        sizes="(max-width: 1024px) 192px, 223px"
         loading="eager"
+        fetchPriority="high"
         blurDataURL={
           blurPlaceholders[
             'precision-typography/logo/precision-typography-logo-@1x.webp'

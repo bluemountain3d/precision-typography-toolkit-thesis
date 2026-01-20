@@ -78,6 +78,9 @@
   .metric-box--highlighted {
     fill: var(--color-primary-lines);
   }
+  .metric-box--bright {
+    fill: var(--color-inline-link);
+  }
 
   .label--tertiary {
     fill: var(--color-tertiary);

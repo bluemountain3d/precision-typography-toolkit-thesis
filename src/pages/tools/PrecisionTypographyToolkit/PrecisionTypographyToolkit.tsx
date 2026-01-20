@@ -57,10 +57,6 @@ const PrecisionTypographyToolkitContent = () => {
             noGap={!isUnderBreakpoint}
           >
             <ExportMetricsBlock />
-            {/* <p className="text-align-center">
-              !! Work In Progress: Export metrics for different languages will
-              be here !!
-            </p> */}
           </Container>
         </PageSection>
       </>

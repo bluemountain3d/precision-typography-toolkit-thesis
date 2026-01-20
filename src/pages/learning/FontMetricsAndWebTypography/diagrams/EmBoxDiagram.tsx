@@ -20,7 +20,7 @@ export const EmBoxDiagram = (
     <rect className="metric-box--muted" width="1200" height="250" />
     {/* baseline */}
     <line
-      className="metric-line--dark dashed"
+      className="metric-line--dark dotted"
       x1="0"
       y1="1063.5"
       x2="1200"

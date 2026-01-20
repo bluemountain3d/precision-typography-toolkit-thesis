@@ -26,7 +26,7 @@ interface InlineSVGProps {
   /** Controls how SVG scales within viewBox */
   preserveAspectRatio?: string;
   /** Text that shows beneath the SVG */
-  caption?: string;
+  caption?: React.ReactNode;
   /** If true, size is constrained by height instead of width (default: false) */
   constrainHeight?: boolean;
 }

@@ -8,9 +8,9 @@ import {
   CapHeightDiagram,
   LeadingTrimDiagram,
   MetricTrimsDiagram,
-  WithLeadingTrimDiagram,
 } from '../diagrams';
 import { Math } from '@/utils/katexMathFormula';
+import { LeadingTrimComparisonDiagram } from '../LeadingTrimComparison';
 
 export const MathOfPrecisionBlock = () => {
   return (
@@ -177,7 +177,8 @@ export const MathOfPrecisionBlock = () => {
           justifyContent="center"
           className={styles['with-leading-trim-diagram']}
         >
-          {WithLeadingTrimDiagram}
+          {/* {WithLeadingTrimDiagram} */}
+          <LeadingTrimComparisonDiagram />
         </Flex>
         <Text size="md" weight="semibold" align="center">
           We are no longer approximating; we are engineering with mathematical
