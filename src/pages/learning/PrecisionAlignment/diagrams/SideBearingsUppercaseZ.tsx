@@ -10,7 +10,7 @@ export const SideBearingsUppercaseZ = (
       <>
         <span className="label">AW:</span> <span className="value">634</span>
         <br />
-        <span className="label">LSB:</span> <span className="value">38</span> /
+        <span className="label">LSB:</span> <span className="value">38</span> /{' '}
         <span className="label">RSB:</span> <span className="value">36</span>
       </>
     }
@@ -62,8 +62,8 @@ export const SideBearingsUppercaseZ = (
     />
     <path
       className="measure-letter"
-      fill-rule="evenodd"
-      clip-rule="evenodd"
+      fillRule="evenodd"
+      clipRule="evenodd"
       d="M607.948 198.028H599.623L593.694 179.108H570.979L564.999 198.028H557.053L578.054 135.971H586.946L607.948 198.028ZM582.122 142.403C581.176 145.998 580.199 149.53 579.189 152.999C578.18 156.405 577.108 159.842 575.973 163.311L572.953 172.864H591.738L588.744 163.311C587.609 159.842 586.536 156.405 585.527 152.999C584.518 149.53 583.509 145.998 582.5 142.403H582.122Z"
     />
   </InlineSVG>
