@@ -8,7 +8,6 @@ import {
   CapHeightDiagram,
   LeadingTrimDiagram,
   MetricTrimsDiagram,
-  WithLeadingTrimDiagram,
 } from '../diagrams';
 import { Math } from '@/utils/katexMathFormula';
 import { LeadingTrimComparisonDiagram } from '../LeadingTrimComparison';
