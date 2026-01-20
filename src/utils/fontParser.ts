@@ -115,12 +115,32 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
       return sideBearings;
     };
 
+    function isAllCapsFont(font: any): boolean {
+      // Check for missing lowercase glyphs
+      const testChars = ['a', 'e', 'i', 'o', 'n'];
+      const hasLowercase = testChars.some((char) =>
+        font.hasGlyphForCodePoint(char.charCodeAt(0))
+      );
+
+      if (!hasLowercase) return true;
+
+      // Check if lowercase = uppercase (same glyph)
+      const lowerA = font.glyphForCodePoint('a'.charCodeAt(0));
+      const upperA = font.glyphForCodePoint('A'.charCodeAt(0));
+
+      return lowerA?.id === upperA?.id;
+    }
+
     const getSideBearingsUPM = (
       font: Font,
-      charList: string[] = ['a', 'e', 'h', 'i', 'l', 'm', 'n', 'o', 'r', 's']
+      // charList: string[] = ['a', 'e', 'h', 'i', 'l', 'm', 'n', 'o', 'r', 's']
     ) => {
       const lsbValues: number[] = [];
       const rsbValues: number[] = [];
+
+      const charList: string[] = isAllCapsFont(font)
+        ? ['B', 'D', 'E', 'H', 'I', 'L', 'N', 'O', 'R', 'S']
+        : ['a', 'e', 'h', 'i', 'l', 'm', 'n', 'o', 'r', 's'];
 
       for (const char of charList) {
         try {
@@ -220,22 +240,15 @@ export const parseFontFile = async (file: File): Promise<FontMetrics> => {
         /**
          * Side bearings
          */
-        // const sideBearings = getSideBearingsUPM(font);
-        // const { lsb, rsb } = sideBearings;
         const { lsb, rsb } = getSideBearingsUPM(font);
-        // print('LSB:', lsb);
-        // print('RSB:', rsb);
 
         /**
          * Array with available font features
          */
         const features = font.availableFeatures;
-        // print('features:', features);
 
         const isVariable = font.variationAxes.wght ? true : false;
-        // print('isVariable:', isVariable);
         const variableAxis = font.variationAxes || null;
-        // print('variableAxis:', variableAxis);
 
         /**
          * Text variant widths
