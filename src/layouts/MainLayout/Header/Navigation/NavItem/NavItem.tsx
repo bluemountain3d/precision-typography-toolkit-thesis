@@ -250,7 +250,6 @@ export const NavItem = ({
                     role="menuitem"
                     to={child.path!}
                     onClick={onClose}
-                    reloadDocument={child.reloadDocument}
                     className={classNames(
                       styles.dropdown__link,
                       child.path &&
