@@ -10,16 +10,144 @@
       content="Precision typography specifications for web design. Extract font metrics, generate CSS custom properties, and create detailed typographic specs for professional interfaces."
     />
     <style>
-      html, body {
+      html,
+      body {
         margin: 0;
         padding: 0;
         background-color: #050911;
+      }
+
+      /* Initial PageLoader - displays immediately before React loads */
+      .initial-page-loader {
+        position: fixed;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        justify-content: center;
+        background-color: oklch(8.91% 0.03 259.66);
+        color: oklch(100% 0 0);
+        font-size: 0.875rem;
+        font-family:
+          system-ui,
+          -apple-system,
+          sans-serif;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.3s ease-out;
+      }
+
+      .initial-page-loader.fade-out {
+        opacity: 0;
+      }
+
+      /* Spinner animation */
+      .initial-loader-spinner {
+        --_size: clamp(
+          2.986rem,
+          1.6437rem + 5.5928 * min(1vw, max(96px, 2vh)),
+          7.0128rem
+        );
+        transform: rotateZ(45deg);
+        perspective: 1000px;
+        border-radius: 50%;
+        width: var(--_size);
+        height: var(--_size);
+        color: oklch(61.73% 0.16 260.8);
+      }
+
+      .initial-loader-spinner::before,
+      .initial-loader-spinner::after {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: inherit;
+        height: inherit;
+        border-radius: 50%;
+        transform: rotateX(70deg);
+        animation: 1s spin linear infinite;
+      }
+      .initial-loader-spinner::after {
+        color: oklch(81.21% 0.11 257.01);
+        transform: rotateY(70deg);
+        animation-delay: 0.4s;
+      }
+
+      @keyframes rotate {
+        0% {
+          transform: translate(-50%, -50%) rotateZ(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotateZ(360deg);
+        }
+      }
+
+      @keyframes rotateccw {
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(-360deg);
+        }
+      }
+
+      @keyframes spin {
+        0%,
+        100% {
+          box-shadow: 0.2em 0px 0 0px currentcolor;
+        }
+        12% {
+          box-shadow: 0.2em 0.2em 0 0 currentcolor;
+        }
+        25% {
+          box-shadow: 0 0.2em 0 0px currentcolor;
+        }
+        37% {
+          box-shadow: -0.2em 0.2em 0 0 currentcolor;
+        }
+        50% {
+          box-shadow: -0.2em 0 0 0 currentcolor;
+        }
+        62% {
+          box-shadow: -0.2em -0.2em 0 0 currentcolor;
+        }
+        75% {
+          box-shadow: 0px -0.2em 0 0 currentcolor;
+        }
+        87% {
+          box-shadow: 0.2em -0.2em 0 0 currentcolor;
+        }
       }
     </style>
     <link rel="modulepreload" href="/src/main.tsx" />
   </head>
   <body>
     <div id="root"></div>
+
+    <!-- Initial PageLoader - shown immediately while JS/CSS loads -->
+    <div class="initial-page-loader" id="initial-loader">
+      <span class="initial-loader-spinner"></span>
+      <span>Loading...</span>
+    </div>
+
     <script type="module" src="/src/main.tsx"></script>
+    <script>
+      // Remove initial loader once React has mounted
+      window.addEventListener("DOMContentLoaded", function () {
+        const loader = document.getElementById("initial-loader");
+        if (loader) {
+          // Fade out and remove after React mount
+          setTimeout(function () {
+            loader.classList.add("fade-out");
+            setTimeout(function () {
+              loader.remove();
+            }, 300);
+          }, 100);
+        }
+      });
+    </script>
   </body>
 </html>
