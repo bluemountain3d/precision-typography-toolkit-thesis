@@ -1,5 +1,6 @@
 import styles from './Button.module.scss';
 import classNames from 'clsx';
+import { Link } from 'react-router-dom';
 import type { ButtonProps } from './Button.types';
 import { Icon } from '@/components/ui/Icon';
 import { useLayoutEffect, useRef } from 'react';
@@ -140,9 +141,7 @@ export const Button = ({
     el.style.setProperty('--_gradient-angle', `${angleInDeg * -1}deg`);
   }, []);
 
-  const handleClick = (
-    e: React.MouseEvent<HTMLElement>
-  ) => {
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
     if (!isDisabled && !isLabel && onClick) {
       onClick(e as React.MouseEvent<HTMLElement>);
     }
@@ -165,7 +164,7 @@ export const Button = ({
     className
   );
 
-  const Tag = href ? 'a' : isLabel ? 'div' : 'button';
+  const isInternalLink = href && !external && !href.startsWith('http');
 
   const commonProps = {
     className: commonClassNames,
@@ -176,20 +175,6 @@ export const Button = ({
     title: iconOnly ? ariaLabel : undefined,
     ...rest,
   };
-
-  const specificProps = href
-    ? {
-        href,
-        target: external ? '_blank' : undefined,
-        rel: external ? 'noopener noreferrer' : undefined,
-        tabIndex: isDisabled ? -1 : undefined,
-      }
-    : isLabel
-      ? {}
-      : {
-          type,
-          disabled: isDisabled,
-        };
 
   const content = (
     <>
@@ -214,9 +199,51 @@ export const Button = ({
     </>
   );
 
+  // Render based on tag type to satisfy TypeScript
+  if (isInternalLink) {
+    return (
+      <Link
+        ref={btnRef as React.RefObject<HTMLAnchorElement>}
+        to={href!}
+        tabIndex={isDisabled ? -1 : undefined}
+        {...commonProps}
+      >
+        {content}
+      </Link>
+    );
+  }
+
+  if (href) {
+    return (
+      <a
+        ref={btnRef as React.RefObject<HTMLAnchorElement>}
+        href={href}
+        target={external ? '_blank' : undefined}
+        rel={external ? 'noopener noreferrer' : undefined}
+        tabIndex={isDisabled ? -1 : undefined}
+        {...commonProps}
+      >
+        {content}
+      </a>
+    );
+  }
+
+  if (isLabel) {
+    return (
+      <div ref={btnRef as React.RefObject<HTMLDivElement>} {...commonProps}>
+        {content}
+      </div>
+    );
+  }
+
   return (
-    <Tag ref={btnRef as any} {...commonProps} {...specificProps}>
+    <button
+      ref={btnRef as React.RefObject<HTMLButtonElement>}
+      type={type}
+      disabled={isDisabled}
+      {...commonProps}
+    >
       {content}
-    </Tag>
+    </button>
   );
 };
