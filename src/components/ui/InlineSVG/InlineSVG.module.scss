@@ -4,6 +4,11 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: visible;
+
+  & > svg {
+    overflow: visible;
+  }
 
   &--constrain-height {
     width: 100%;
