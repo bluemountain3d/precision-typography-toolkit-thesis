@@ -1,10 +1,10 @@
 import { Button } from '@/components/forms/Button';
 import { DropZone } from '@/components/forms/DropZone';
 import { Flex } from '@/components/layout/Flex';
-import { parseFontFile } from '@/utils';
 import { useFontMetrics, prepareFontMetricsState } from '../../context';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
+import { parseFontFile } from '@/utils';
 
 export const FontUpload = () => {
   const { state, dispatch } = useFontMetrics();
