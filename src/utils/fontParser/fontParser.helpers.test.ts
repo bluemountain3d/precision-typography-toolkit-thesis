@@ -112,7 +112,8 @@ describe('fontParser.helpers', () => {
     });
 
     it('should handle decimals', () => {
-      expect(average([1.5, 2.5, 3])).toBe(2.333333333333333);
+      const result = average([1.5, 2.5, 3]);
+      expect(result).toBeCloseTo(2.333333, 5); // Use toBeCloseTo for floating point
     });
   });
 
