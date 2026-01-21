@@ -11,6 +11,7 @@ import { Img } from '@/components/ui/Image';
 import { Flex } from '@/components/layout/Flex';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
+import { PttLogo } from '@/components/common/PttLogo';
 
 export const ProductLockup = () => {
   const isMobile = useMediaQuery(queries.isUpToTabletLarge);
@@ -22,30 +23,14 @@ export const ProductLockup = () => {
       gap="md"
       width={isMobile ? 'auto' : 'full'}
     >
-      <Img
-        src={pttLogo}
-        alt="Precision Typography Toolkit Logo"
-        sources={{
-          webp: {
-            srcSet: `${pttLogo_1x_webp} 1x, ${pttLogo_15x_webp} 1.5x, ${pttLogo_2x_webp} 2x, ${pttLogo_3x_webp} 3x`,
-          },
-        }}
-        sizes="(max-width: 768px) 28vw, (max-width: 1024px) 192px, 26vw"
-
-        // sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 223px"
-        loading="eager"
-        fetchPriority="high"
-        blurDataURL={
-          blurPlaceholders[
-            'precision-typography/logo/precision-typography-logo-@1x.webp'
-          ]
-        }
-        aspectRatio="1/1"
-        wrapperClassName={classNames(
+      <div
+        className={classNames(
           styles['product-lockup__logo'],
           isMobile ? 'mx-auto' : ''
         )}
-      />
+      >
+        <PttLogo />
+      </div>
       <Flex
         as="div"
         direction="column"
