@@ -18,8 +18,8 @@ export const PttLogo = () => {
           y2="206.476"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0.125" stop-color="var(--color-secondary)" />
-          <stop offset="1" stop-color="var(--color-primary)" />
+          <stop offset="0.125" stopColor="var(--color-secondary)" />
+          <stop offset="1" stopColor="var(--color-primary)" />
         </linearGradient>
       </defs>
 
