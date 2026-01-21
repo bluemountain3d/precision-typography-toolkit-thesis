@@ -1,9 +1,8 @@
 import { describe, it, expect, vi } from 'vitest';
 import { getCategory } from '@utils/getFontCategory';
-import type { Font } from 'fontkit';
 
-// Helper to create mock font object with proper typing
-const createMockFont = (overrides: Partial<any> = {}): Font => {
+// Mock the entire Font type to avoid TypeScript errors
+const createMockFont = (overrides: any = {}): any => {
   const defaultFont = {
     familyName: 'Test Font',
     postscriptName: 'TestFont-Regular',
@@ -16,7 +15,6 @@ const createMockFont = (overrides: Partial<any> = {}): Font => {
       winDescent: 250,
       typoAscender: 800,
       typoDescender: -200,
-      // Add required OS/2 table properties with default values
       version: 4,
       xHeight: 500,
       capHeight: 700,
@@ -59,15 +57,19 @@ const createMockFont = (overrides: Partial<any> = {}): Font => {
       maxMemType1: 0,
       version: 2,
     },
-    // Default: proportional font - different widths for i and m
-    glyphForCodePoint: vi.fn((codePoint: number) => ({
-      advanceWidth: codePoint === 'i'.charCodeAt(0) ? 300 : 900, // Different widths!
+    glyphForCodePoint: (codePoint: number) => ({
+      advanceWidth: codePoint === 'i'.charCodeAt(0) ? 300 : 900,
       bbox: { minX: 0, maxX: 500, minY: 0, maxY: 700 },
       id: codePoint,
-    })),
+      codePoints: [codePoint],
+      path: { commands: [] },
+      cbox: { minX: 0, maxX: 500, minY: 0, maxY: 700 },
+      isMark: false,
+      isLigature: false,
+      name: '',
+    }),
   };
 
-  // Deep merge overrides
   const merged = { ...defaultFont, ...overrides };
   if (overrides['OS/2']) {
     merged['OS/2'] = { ...defaultFont['OS/2'], ...overrides['OS/2'] };
@@ -75,8 +77,11 @@ const createMockFont = (overrides: Partial<any> = {}): Font => {
   if (overrides.post) {
     merged.post = { ...defaultFont.post, ...overrides.post };
   }
+  if (overrides.glyphForCodePoint) {
+    merged.glyphForCodePoint = overrides.glyphForCodePoint;
+  }
 
-  return merged as unknown as Font;
+  return merged;
 };
 
 describe('getCategory', () => {
@@ -84,7 +89,7 @@ describe('getCategory', () => {
     it('should detect monospace via OS/2 PANOSE', () => {
       const font = createMockFont({
         'OS/2': {
-          panose: [2, 11, 5, 9, 0, 0, 0, 0, 0, 0], // panose[3] = 9 means monospace
+          panose: [2, 11, 5, 9, 0, 0, 0, 0, 0, 0],
         },
       });
 
@@ -93,11 +98,17 @@ describe('getCategory', () => {
 
     it('should detect monospace via equal glyph widths', () => {
       const font = createMockFont({
-        glyphForCodePoint: vi.fn((codePoint: number) => ({
-          advanceWidth: 600, // Same width for all glyphs
+        glyphForCodePoint: (codePoint: number) => ({
+          advanceWidth: 600,
           bbox: { minX: 0, maxX: 500, minY: 0, maxY: 700 },
           id: codePoint,
-        })),
+          codePoints: [codePoint],
+          path: { commands: [] },
+          cbox: { minX: 0, maxX: 500, minY: 0, maxY: 700 },
+          isMark: false,
+          isLigature: false,
+          name: '',
+        }),
       });
 
       expect(getCategory(font)).toBe('monospace');
@@ -108,7 +119,7 @@ describe('getCategory', () => {
     it('should detect cursive via PANOSE family kind', () => {
       const font = createMockFont({
         'OS/2': {
-          panose: [3, 0, 0, 0, 0, 0, 0, 0, 0, 0], // panose[0] = 3 means script
+          panose: [3, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
       });
 
@@ -118,7 +129,7 @@ describe('getCategory', () => {
     it('should detect cursive via sFamilyClass', () => {
       const font = createMockFont({
         'OS/2': {
-          sFamilyClass: 10 << 8, // Class 10 = Scripts
+          sFamilyClass: 10 << 8,
         },
       });
 
@@ -146,7 +157,7 @@ describe('getCategory', () => {
     it('should detect serif via PANOSE serif style', () => {
       const font = createMockFont({
         'OS/2': {
-          panose: [2, 2, 5, 0, 0, 0, 0, 0, 0, 0], // panose[1] = 2-10 means serif
+          panose: [2, 2, 5, 0, 0, 0, 0, 0, 0, 0],
         },
       });
 
@@ -156,7 +167,7 @@ describe('getCategory', () => {
     it('should detect serif via sFamilyClass', () => {
       const font = createMockFont({
         'OS/2': {
-          sFamilyClass: 1 << 8, // Class 1-7 = Serif
+          sFamilyClass: 1 << 8,
         },
       });
 
@@ -182,7 +193,7 @@ describe('getCategory', () => {
     it('should detect sans-serif via PANOSE', () => {
       const font = createMockFont({
         'OS/2': {
-          panose: [2, 11, 5, 0, 0, 0, 0, 0, 0, 0], // panose[1] = 11-13 means sans
+          panose: [2, 11, 5, 0, 0, 0, 0, 0, 0, 0],
         },
       });
 
@@ -192,7 +203,7 @@ describe('getCategory', () => {
     it('should detect sans-serif via sFamilyClass', () => {
       const font = createMockFont({
         'OS/2': {
-          sFamilyClass: 8 << 8, // Class 8 = Sans-serif
+          sFamilyClass: 8 << 8,
         },
       });
 
@@ -212,7 +223,7 @@ describe('getCategory', () => {
     it('should detect fantasy via PANOSE family kind', () => {
       const font = createMockFont({
         'OS/2': {
-          panose: [4, 0, 0, 0, 0, 0, 0, 0, 0, 0], // panose[0] = 4 or 5 means fantasy
+          panose: [4, 0, 0, 0, 0, 0, 0, 0, 0, 0],
         },
       });
 
@@ -222,7 +233,7 @@ describe('getCategory', () => {
     it('should detect fantasy via sFamilyClass', () => {
       const font = createMockFont({
         'OS/2': {
-          sFamilyClass: 12 << 8, // Class 12 = Fantasy
+          sFamilyClass: 12 << 8,
         },
       });
 
@@ -233,10 +244,10 @@ describe('getCategory', () => {
   describe('priority order', () => {
     it('should prioritize monospace over other categories', () => {
       const font = createMockFont({
-        familyName: 'Courier Serif', // Has "serif" in name
+        familyName: 'Courier Serif',
         'OS/2': {
-          panose: [2, 2, 5, 9, 0, 0, 0, 0, 0, 0], // Serif style BUT monospace
-          sFamilyClass: 1 << 8, // Serif class
+          panose: [2, 2, 5, 9, 0, 0, 0, 0, 0, 0],
+          sFamilyClass: 1 << 8,
         },
       });
 
@@ -245,10 +256,10 @@ describe('getCategory', () => {
 
     it('should prioritize cursive over serif/sans', () => {
       const font = createMockFont({
-        familyName: 'Script Sans', // Has "sans" in name
+        familyName: 'Script Sans',
         'OS/2': {
-          panose: [3, 11, 5, 0, 0, 0, 0, 0, 0, 0], // Script family
-          sFamilyClass: 8 << 8, // Sans class
+          panose: [3, 11, 5, 0, 0, 0, 0, 0, 0, 0],
+          sFamilyClass: 8 << 8,
         },
       });
 
