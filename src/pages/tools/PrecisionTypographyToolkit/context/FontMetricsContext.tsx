@@ -100,10 +100,10 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
 
           // Fetch Cormorant Garamond from public/fonts
           const fontUrl =
-            '/fonts/CormorantGaramond-400-Italic_subset-minimal-western-plus.woff2';
+            '/fonts/CormorantGaramond-400_subset-minimal-western-plus.woff2';
           const response = await fetch(fontUrl);
           const blob = await response.blob();
-          const file = new File([blob], 'CormorantGaramond-italic.woff2', {
+          const file = new File([blob], 'CormorantGaramond.woff2', {
             type: 'font/woff2',
           });
 
@@ -112,7 +112,10 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
 
           // Load the font (use CSS font-family name)
           const fontFaceId = 'Cormorant Garamond';
-          const fontFace = new FontFace(fontFaceId, `url(${fontUrl})`);
+          const fontFace = new FontFace(fontFaceId, `url(${fontUrl})`, {
+            style: 'normal',
+            weight: '400',
+          });
           await fontFace.load();
           document.fonts.add(fontFace);
 
