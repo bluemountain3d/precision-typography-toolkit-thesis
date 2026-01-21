@@ -31,6 +31,7 @@ export const ProductLockup = () => {
           },
         }}
         sizes="(max-width: 768px) 28vw, (max-width: 1024px) 192px, 26vw"
+
         // sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 223px"
         loading="eager"
         fetchPriority="high"
