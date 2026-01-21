@@ -1,4 +1,4 @@
-import { describe, it, expect, vi } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { getCategory } from '@utils/getFontCategory';
 
 // Mock the entire Font type to avoid TypeScript errors

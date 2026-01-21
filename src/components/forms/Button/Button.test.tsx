@@ -5,7 +5,7 @@ import { Button } from './Button';
 
 // Mock Icon component
 vi.mock('@/components/ui/Icon', () => ({
-  Icon: ({ icon, size, fill }: any) => (
+  Icon: ({ size, fill }: any) => (
     <span data-testid="mock-icon" data-size={size} data-fill={fill}>
       Icon
     </span>
