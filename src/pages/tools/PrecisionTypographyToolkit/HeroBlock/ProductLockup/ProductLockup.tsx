@@ -30,8 +30,8 @@ export const ProductLockup = () => {
             srcSet: `${pttLogo_1x_webp} 1x, ${pttLogo_15x_webp} 1.5x, ${pttLogo_2x_webp} 2x, ${pttLogo_3x_webp} 3x`,
           },
         }}
-        // sizes="(max-width: 768px) 30vw, (max-width: 1024px) 192px, 25vw"
-        sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 223px"
+        sizes="(max-width: 768px) 28vw, (max-width: 1024px) 192px, 26vw"
+        // sizes="(max-width: 768px) 128px, (max-width: 1024px) 192px, 223px"
         loading="eager"
         fetchPriority="high"
         blurDataURL={
