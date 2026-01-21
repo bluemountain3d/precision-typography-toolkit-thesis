@@ -1,13 +1,6 @@
 import styles from './ProductLockup.module.scss';
 import classNames from 'clsx';
-import blurPlaceholders from '@/data/blur-placeholders.json';
-import pttLogo from '@/assets/images/precision-typography/logo/precision-typography-logo-@1x.png';
-import pttLogo_1x_webp from '@/assets/images/precision-typography/logo/precision-typography-logo-@1x.webp';
-import pttLogo_15x_webp from '@/assets/images/precision-typography/logo/precision-typography-logo-@1.5x.webp';
-import pttLogo_2x_webp from '@/assets/images/precision-typography/logo/precision-typography-logo-@2x.webp';
-import pttLogo_3x_webp from '@/assets/images/precision-typography/logo/precision-typography-logo-@3x.webp';
 
-import { Img } from '@/components/ui/Image';
 import { Flex } from '@/components/layout/Flex';
 import { useMediaQuery } from '@/hooks';
 import { queries } from '@/types';
