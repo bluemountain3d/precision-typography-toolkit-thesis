@@ -52,11 +52,6 @@
   }
 
   /// Open state - visible and interactive
-  &--open {
-    background-color: oklch(0 0 0 / 0.65); // Semi-transparent black
-    opacity: 1;
-    pointer-events: auto; // Clickable (closes menu)
-  }
 }
 
 /// Main navigation container
@@ -78,9 +73,13 @@
     /// Top padding accounts for header height + spacing
     padding-block-start: calc(var(--header-height-default) + var(--space-lg));
 
-    /// Initial state - hidden off-screen to the right
     transform: translateX(100%);
-    transition: transform 0.5s ease-out;
+
+    /// Initial state - hidden off-screen to the right
+    &--open {
+      transform: translateX(0);
+      transition: transform 0.5s ease-out;
+    }
   }
 
   /// TABLET: Wider panel
@@ -125,6 +124,11 @@
     /// Desktop: Reposition to align with smaller header
     @media #{var.$bp-tablet-lg-and-up} {
       top: var(--header-height-scrolled);
+
+      transition:
+        top 0.3s 0s ease,
+        opacity 0.5s 0s ease,
+        transform 0.5s 0s ease;
     }
   }
 
@@ -148,12 +152,14 @@
       /// Delayed transitions create sequence:
       /// 1. Wait 0.4s (for Header to finish)
       /// 2. Then animate Navigation
-      transition:
-        top 0.3s 0.4s ease,
-        // 0.3s delay
-        opacity 0.5s 0.4s ease,
-        // 0.3s delay
-        transform 0.5s 0.4s ease; // 0.3s delay
+      &:not(.navigation--scrolled) {
+        transition:
+          top 0.3s 0.4s ease,
+          // 0.3s delay
+          opacity 0.5s 0.4s ease,
+          // 0.3s delay
+          transform 0.5s 0.4s ease; // 0.3s delay
+      }
     }
   }
 

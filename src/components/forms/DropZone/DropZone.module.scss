@@ -7,6 +7,18 @@
   /// @type Color
   --_border-bright-hover: var(--color-text-muted);
 
+  /// Border dark
+  /// @type Color
+  --_border-dark: var(--color-primary);
+
+  /// Background light
+  /// @type Color
+  --_background-light: var(--color-primary-dark);
+
+  /// Background Dark
+  /// @type Color
+  --_background-dark: var(--color-primary-dark);
+
   position: relative;
   display: block;
   margin-inline: auto;
@@ -15,10 +27,11 @@
   border: 2px solid transparent;
   border-radius: var(--space-md);
   background:
-    linear-gradient(var(--color-primary-dark) 100%) padding-box,
+    linear-gradient(var(--_background-dark) 0%, var(--_background-light) 100%)
+      padding-box,
     linear-gradient(
         in oklch -19.8deg,
-        var(--color-primary) 50%,
+        var(--_border-dark) 50%,
         var(--_border-bright) 87.5%
       )
       border-box;
@@ -107,9 +120,26 @@
     z-index: 1;
     position: absolute;
     inset: 0;
-    background-color: oklch(0 0 0 / 0.75);
+    background-color: var(--color-primary-dark); //oklch(0 0 0 / 0.75);
     display: flex;
     justify-content: center;
     align-items: center;
+    gap: var(--space-md);
+    color: var(--color-text-primary);
+  }
+
+  &:has(.drop-zone__error) {
+    --_border-bright: var(--color-border-bright);
+    --_border-bright-hover: var(--color-border-bright);
+    --_border-dark: var(--color-danger-border);
+    --_background-light: var(--color-danger-surface);
+    --_background-dark: var(--color-danger-surface-dark);
+  }
+
+  &__error {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--color-danger-title);
   }
 }

@@ -19,7 +19,11 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,css,scss}\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,css,scss}\"",
-    "clean:svg": "node scripts/processSvgIcons.js"
+    "clean:svg": "node scripts/processSvgIcons.js",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:run": "vitest run",
+    "test:coverage": "vitest run --coverage"
   },
   "dependencies": {
     "buffer": "^6.0.3",
@@ -37,12 +41,14 @@
     "@eslint/js": "^9.39.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^14.6.1",
     "@types/fontkit": "^2.0.8",
     "@types/node": "^24.10.1",
     "@types/prismjs": "^1.26.5",
     "@types/react": "^19.2.5",
     "@types/react-dom": "^19.2.3",
     "@vitejs/plugin-react": "^5.1.1",
+    "@vitest/coverage-v8": "^4.0.16",
     "@vitest/ui": "^4.0.16",
     "autoprefixer": "^10.4.23",
     "eslint": "^9.39.2",

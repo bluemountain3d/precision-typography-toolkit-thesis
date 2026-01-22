@@ -34,6 +34,8 @@ export const PrecisionAlignmentArticle = () => {
     setToggles((prev) => ({ ...prev, [key]: checked }));
   };
 
+  
+
   const isBreakpoint = useMediaQuery(queries.isTabletLargeAndUp);
   return (
     <PageSection as="section" padding="large">

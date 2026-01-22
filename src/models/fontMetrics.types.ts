@@ -144,10 +144,49 @@ export interface FontMetrics {
    */
   bottomTrimRaw?: number;
 
+  /**
+   * Left side bearing adjustment for optical alignment
+   * Calculated from average of multiple glyphs
+   * @example 45
+   */
   lsbAdjustRaw: number;
-  rsbAdjustRaw: number
-}
 
+  /**
+   * Right side bearing adjustment for optical alignment
+   * Calculated from average of multiple glyphs
+   * @example 50
+   */
+  rsbAdjustRaw: number;
+
+  /**
+   * Array of available OpenType features
+   * @example ["kern", "liga", "calt", "ss01"]
+   */
+  features?: string[];
+
+  /**
+   * Whether the font is a variable font
+   * @example true
+   */
+  isVariable?: boolean;
+
+  /**
+   * Variable font axes information (if variable font)
+   * Contains axis definitions like weight, width, slant, etc.
+   * @example { wght: { name: 'Weight', min: 100, default: 400, max: 900 } }
+   */
+  variableAxis?: Partial<
+    Record<
+      string,
+      {
+        name: string;
+        min: number;
+        default: number;
+        max: number;
+      }
+    >
+  > | null;
+}
 
 /**
  * Normalized font metrics for CSS export
