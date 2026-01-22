@@ -3,6 +3,15 @@ import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { Button } from './Button';
 
+// Mock React Router Link
+vi.mock('react-router-dom', () => ({
+  Link: ({ to, children, ...props }: any) => (
+    <a href={to} {...props}>
+      {children}
+    </a>
+  ),
+}));
+
 // Mock Icon component
 vi.mock('@/components/ui/Icon', () => ({
   Icon: ({ size, fill }: any) => (
