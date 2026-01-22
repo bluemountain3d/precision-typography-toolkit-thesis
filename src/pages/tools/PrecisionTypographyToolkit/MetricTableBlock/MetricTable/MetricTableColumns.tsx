@@ -90,14 +90,42 @@ export const getMetricTableColumns = ({
                 onChange={onCategoryChange}
                 onClick={(e) => e.stopPropagation()}
               >
-                <option value="sans-serif">Sans Serif</option>
-                <option value="serif">Serif</option>
-                <option value="monospace">Monospace</option>
-                <option value="system-ui">System UI</option>
-                <option value="cursive">Cursive</option>
-                <option value="fantasy">Fantasy</option>
-                <option value="ui-monospace">UI Monospace</option>
-                <option value="math">Math</option>
+                <option
+                  value="sans-serif"
+                  aria-label='Set category to "Sans Serif"'
+                >
+                  Sans Serif
+                </option>
+                <option value="serif" aria-label='Set category to "Serif"'>
+                  Serif
+                </option>
+                <option
+                  value="monospace"
+                  aria-label='Set category to "Monospace"'
+                >
+                  Monospace
+                </option>
+                <option
+                  value="system-ui"
+                  aria-label='Set category to "System UI'
+                >
+                  System UI
+                </option>
+                <option value="cursive" aria-label='Set category to "Cursive"'>
+                  Cursive
+                </option>
+                <option value="fantasy" aria-label='Set category to "Fantasy"'>
+                  Fantasy
+                </option>
+                <option
+                  value="ui-monospace"
+                  aria-label='Set category to "UI Monospace"'
+                >
+                  UI Monospace
+                </option>
+                <option value="math" aria-label='Set category to "Math"'>
+                  Math
+                </option>
               </select>
             </>
           )}
