@@ -9,7 +9,6 @@ import { queries } from '@/types';
 import { Button } from '@/components/forms/Button';
 import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { TextMediaBlock } from '@/components/content/TextMediaBlock';
-import { InlineSVG } from '@/components/ui/InlineSVG';
 import { HalfLeadingDiagramSimple } from '@/pages/learning/FontMetricsAndWebTypography/diagrams';
 
 export const ArticleIntroBlock = () => {
