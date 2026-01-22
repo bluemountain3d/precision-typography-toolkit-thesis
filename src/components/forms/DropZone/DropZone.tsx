@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styles from './DropZone.module.scss';
 import type { DropZoneProps } from './DropZone.types';
 import { useDropZone } from '@hooks/useDropZone';
@@ -42,13 +43,22 @@ export const DropZone = ({
   maxSize = 10 * 1024 * 1024,
   isProcessing = false,
 }: DropZoneProps) => {
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+
+  const handleError = (error: string) => {
+    setErrorMessage(error);
+    onError?.(error);
+    // Clean after 5 seconds
+    setTimeout(() => setErrorMessage(null), 5000);
+  };
+
   const {
     isDragging,
     handleDragOver,
     handleDragLeave,
     handleDrop,
     handleFileChange,
-  } = useDropZone({ onFileSelect, onError, accept, maxSize });
+  } = useDropZone({ onFileSelect, onError: handleError, accept, maxSize });
 
   return (
     <div
@@ -58,40 +68,63 @@ export const DropZone = ({
         isProcessing && styles['drop-zone--processing']
       )}
     >
-      <label
-        htmlFor={inputId}
-        className={styles['drop-zone__label']}
-        onDragOver={handleDragOver}
-        onDragLeave={handleDragLeave}
-        onDrop={handleDrop}
-      >
-        <p className={classNames(styles['drop-zone__title'], 'text-md')}>
-          Drag your font file here
-        </p>
-        <span className={classNames(styles['drop-zone__subtitle'], 'text-md')}>
-          Or click to browse
-        </span>
-        <span
-          className={classNames(
-            styles['drop-zone__accepted'],
-            'code-inline-sm'
-          )}
+      {!errorMessage && (
+        <>
+          <label
+            htmlFor={inputId}
+            className={styles['drop-zone__label']}
+            onDragOver={isProcessing ? undefined : handleDragOver}
+            onDragLeave={isProcessing ? undefined : handleDragLeave}
+            onDrop={isProcessing ? undefined : handleDrop}
+            aria-disabled={isProcessing}
+          >
+            <p className={classNames(styles['drop-zone__title'], 'text-md')}>
+              Drag your font file here
+            </p>
+            <span
+              className={classNames(styles['drop-zone__subtitle'], 'text-md')}
+            >
+              Or click to browse
+            </span>
+            <span
+              className={classNames(
+                styles['drop-zone__accepted'],
+                'code-inline-sm'
+              )}
+            >
+              Supported formats: {accept}
+            </span>
+            {isProcessing && (
+              <div
+                className={classNames(styles['drop-zone__loader'])}
+                role="status"
+                aria-label="Processing file"
+              >
+                <span className={classNames('loader-lg')}></span>
+                <span>Processing...</span>
+              </div>
+            )}
+          </label>
+          <input
+            id={inputId}
+            type="file"
+            accept={accept}
+            className={classNames('sr-only')}
+            onChange={handleFileChange}
+            disabled={isProcessing}
+          />
+        </>
+      )}
+
+      {errorMessage && (
+        <div
+          role="alert"
+          aria-live="assertive"
+          className={styles['drop-zone__error']}
         >
-          Supported formats: {accept}
-        </span>
-        {isProcessing && (
-          <div className={classNames(styles['drop-zone__loader'])}>
-            <span className={classNames('loader-lg')}></span>
-          </div>
-        )}
-      </label>
-      <input
-        id={inputId}
-        type="file"
-        accept={accept}
-        className={classNames('sr-only')}
-        onChange={handleFileChange}
-      />
+          {errorMessage}
+        </div>
+      )}
     </div>
   );
 };
