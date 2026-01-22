@@ -57,9 +57,9 @@ export const FontUpload = () => {
         onFileSelect={handleFileSelect}
         isProcessing={state.isLoading}
       />
-      <Button variant="primary" href="learn/font-metrics-article">
+      {/* <Button variant="primary" href="learn/font-metrics-article">
         Learn about font metrics
-      </Button>
+      </Button> */}
     </Flex>
   );
 };
