@@ -286,11 +286,20 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
     }, [lang, outputs]);
 
     return (
-      <div
-        className={classNames(styles['metrics-output'])}
-        aria-label={`Code view of ${lang}`}
-      >
-        <pre className="line-numbers">
+      <div className={classNames(styles['metrics-output'])}>
+        <h3 className="sr-only">
+          {lang === 'css'
+            ? 'CSS Variables'
+            : lang === 'scss'
+              ? 'SCSS Map'
+              : 'JSON Object'}
+        </h3>
+        <pre
+          id="metrics-output-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${lang}`}
+          className="line-numbers"
+        >
           <code ref={codeRef} className={`language-${lang}`}>
             {outputs[lang as keyof typeof outputs]}
           </code>
