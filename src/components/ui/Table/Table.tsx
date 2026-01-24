@@ -113,10 +113,8 @@ export const Table = <T extends Record<string, any>>({
               className={classNames({ [styles.active]: isActiveRow })}
               // onClick={() => onRowClick?.(row, rowIndex)}
               onClick={(e) => {
-                if (
-                  e.target.tagName !== 'BUTTON' &&
-                  !e.target.closest('button')
-                ) {
+                const target = e.target as HTMLElement;
+                if (target.tagName !== 'BUTTON' && !target.closest('button')) {
                   onRowClick?.(row, rowIndex);
                 }
               }}
