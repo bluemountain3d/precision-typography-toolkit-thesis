@@ -75,6 +75,7 @@ interface MetricsVisualizerSVGProps {
   unitsPerEm: number;
   unitsPerRem: number;
   kerning?: boolean;
+  lineHeight?: number;
   onTextBBoxUpdate?: (bbox: DOMRect) => void;
 }
 
@@ -88,6 +89,7 @@ export const MetricsVisualizerSVG = ({
   unitsPerEm,
   unitsPerRem,
   kerning = true,
+  lineHeight,
   onTextBBoxUpdate,
 }: MetricsVisualizerSVGProps) => {
   const { state, setSelectedMetric } = useFontMetrics();
@@ -216,14 +218,22 @@ export const MetricsVisualizerSVG = ({
   return (
     <svg
       viewBox={`0 ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}
+      role="img"
+      aria-label={`Font metrics visualization showing ${vizText} with line-height ${lineHeight?.toFixed(2)}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
           setSelectedMetric('');
         }
       }}
     >
-      {/* Area rectangles */}
+      <title>Font Metrics Diagram</title>
+      <desc>
+        Visual representation of font metrics showing line-height, cap height,
+        x-height, ascender, descender, and baseline. Click the circular buttons
+        to highlight different metrics.
+      </desc>
 
+      {/* Area rectangles */}
       {metricsList.map(
         ({ id, rectangle }) =>
           rectangle && (
@@ -237,7 +247,6 @@ export const MetricsVisualizerSVG = ({
       )}
 
       {/* Measure line arrows */}
-
       <VisualizerDefs
         arrowWidth={arrowWidth}
         arrowHeight={arrowHeight}
@@ -248,7 +257,6 @@ export const MetricsVisualizerSVG = ({
       />
 
       {/* Metric lines */}
-
       {metricsList.map(
         ({ id, line }) =>
           line && (
@@ -262,7 +270,6 @@ export const MetricsVisualizerSVG = ({
       )}
 
       {/* Measure lines */}
-
       {metricsList.map(
         ({ id, measure }) =>
           measure && (
@@ -279,7 +286,6 @@ export const MetricsVisualizerSVG = ({
       )}
 
       {/* Text */}
-
       <text
         ref={textRef}
         x={viewBox.width / 2}
@@ -298,7 +304,6 @@ export const MetricsVisualizerSVG = ({
       </text>
 
       {/* Toggle buttons */}
-
       {isTabletUp &&
         metricsList.map(
           ({ id, measure }) =>

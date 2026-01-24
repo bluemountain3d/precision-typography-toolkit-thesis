@@ -1,10 +1,12 @@
 import type { BreakpointQuery } from '@/types';
+import type React from 'react';
 
 /**
  * Generic table component props
  * @template T - The type of data objects in the table
  */
 export interface TableProps<T extends Record<string, any>> {
+  ariaLabelledBy?: string;
   /** Array of data objects to display in table rows */
   data: T[];
   /** Column configuration defining what data to show and how */

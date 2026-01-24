@@ -8,6 +8,7 @@ export const PttLogo = () => {
       title="Precision Typography Toolkit logo"
       description=""
       className={styles['ptt-logo']}
+      isDecorative
     >
       <defs>
         <linearGradient

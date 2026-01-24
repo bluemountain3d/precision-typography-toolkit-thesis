@@ -20,6 +20,7 @@ export interface ThumbSliderProps {
   onChange: (value: number) => void;
 
   label?: string;
+  ariaLabel?: string;
   labelWidth?: number;
   disabled?: boolean;
 }

@@ -27,7 +27,7 @@ export const MetricTableBlock = () => {
       <Flex width="full" direction="column" gap="md">
         {!isMobile && (
           <Flex justifyContent="space-between" alignItems="center">
-            <Heading level={2} size="heading-2">
+            <Heading level={2} size="heading-2" id="metrics-table-heading">
               Metrics Table
             </Heading>
             <Button
@@ -60,7 +60,8 @@ export const MetricTableBlock = () => {
             <Footnote>
               <sup>2</sup>
               Adjusted for current line-height (
-              {state.lineHeightMultiplier.toFixed(2)}). Raw trim value + half-leading of {Math.round(state.halfLeading)} units.
+              {state.lineHeightMultiplier.toFixed(2)}). Raw trim value +
+              half-leading of {Math.round(state.halfLeading)} units.
               <br /> Half-leading ={' '}
               <span>{'(Line Height \u2212 Em) \u00F7 2'}</span>
             </Footnote>
