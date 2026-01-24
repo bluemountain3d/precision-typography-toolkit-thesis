@@ -3,14 +3,14 @@
   padding: var(--space-4xl) var(--space-md) var(--space-md);
 
   width: 90%;
-  max-width: 35rem;
+  max-width: 40rem;
 
-  border-radius: var(--space-lg);
+  border-radius: var(--space-sm);
   background-color: var(--color-primary-dark);
   border: 2px solid var(--color-primary);
 
   @supports (corner-shape: squircle) {
-    border-radius: calc(var(--space-lg) * (3 / 2));
+    border-radius: calc(var(--space-sm) * (3 / 2));
     corner-shape: squircle;
   }
 
@@ -84,18 +84,9 @@
     gap: var(--space-lg);
     width: 100%;
     margin-top: var(--space-lg);
-    
+
     @media (max-width: 30rem) {
       grid-template-columns: 1fr;
     }
   }
-
-  // :global(.button-group) {
-  //   width: 100%;
-
-  //   button {
-  //     flex: 1 1 0; // Båda knapparna tar lika mycket plats
-  //     min-width: 0; // Tillåt flexbox att krympa dem
-  //   }
-  // }
 }
