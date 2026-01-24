@@ -187,8 +187,8 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
   --descender--${slug}: ${Math.abs(state.hheaDescenderRatio || 0)}em;
   
   /* Text-box-trim ratios (vertical trim) */
-  --top-trim--${slug}: ${state.topTrimRawRatio}em;
-  --bottom-trim--${slug}: ${state.bottomTrimRawRatio}em;
+  --top-trim--${slug}: calc(-${state.topTrimRawRatio}em - ((1lh - 1em) * 0.5));
+  --bottom-trim--${slug}: calc(-${state.bottomTrimRawRatio}em - ((1lh - 1em) * 0.5));
   
   /* Side bearing adjustments (horizontal trim) */
   --lsb-adjust--${slug}: -${state.lsbAdjustRatio}em;
