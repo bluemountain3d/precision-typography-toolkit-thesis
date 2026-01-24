@@ -20,7 +20,7 @@ interface GetColumnsParams {
   isBreakpoint?: boolean;
   currentCategory: string | null;
   isCopied: (metricId: string, type: 'raw' | 'css') => boolean;
-  onCopy: (metric: string, type: 'raw' | 'css') => void;
+  onCopy: (metricId: string, type: 'raw' | 'css', metricName: string) => void;
   onInfo: (row: MetricRow) => void;
   onCategoryChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
 }
@@ -84,62 +84,35 @@ export const getMetricTableColumns = ({
               <select
                 name="category-select"
                 id="category-select"
-                title="Select the fonts category"
                 aria-label="Select the fonts category"
                 value={currentCategory || 'sans-serif'}
                 onChange={onCategoryChange}
                 onClick={(e) => e.stopPropagation()}
               >
-                <option
-                  value="sans-serif"
-                  aria-label='Set category to "Sans Serif"'
-                >
-                  Sans Serif
-                </option>
-                <option value="serif" aria-label='Set category to "Serif"'>
-                  Serif
-                </option>
-                <option
-                  value="monospace"
-                  aria-label='Set category to "Monospace"'
-                >
-                  Monospace
-                </option>
-                <option
-                  value="system-ui"
-                  aria-label='Set category to "System UI'
-                >
-                  System UI
-                </option>
-                <option value="cursive" aria-label='Set category to "Cursive"'>
-                  Cursive
-                </option>
-                <option value="fantasy" aria-label='Set category to "Fantasy"'>
-                  Fantasy
-                </option>
-                <option
-                  value="ui-monospace"
-                  aria-label='Set category to "UI Monospace"'
-                >
-                  UI Monospace
-                </option>
-                <option value="math" aria-label='Set category to "Math"'>
-                  Math
-                </option>
+                <option value="sans-serif">Sans Serif</option>
+                <option value="serif">Serif</option>
+                <option value="monospace">Monospace</option>
+                <option value="system-ui">System UI</option>
+                <option value="cursive">Cursive</option>
+                <option value="fantasy">Fantasy</option>
+                <option value="ui-monospace">UI Monospace</option>
+                <option value="math">Math</option>
               </select>
             </>
           )}
           {row.id !== 'category' && (
             <span className={styles['metrics-table__text']}>{value}</span>
           )}
+
+          {/* Copy button */}
           {showButton && (
             <button
               className={styles['metrics-table__button']}
               onClick={(e) => {
                 e.stopPropagation();
-                onCopy(row.id, 'raw');
+                onCopy(row.id, 'raw', row.metricText || String(row.metric));
               }}
-              aria-label={`Copy ${row.metric} raw data`}
+              aria-label={`Copy ${row.metricText || row.metric} raw data`}
             >
               <Icon
                 icon={isCopied(row.id, 'raw') ? SuccessIcon : CopyIcon}
@@ -173,9 +146,9 @@ export const getMetricTableColumns = ({
               className={styles['metrics-table__button']}
               onClick={(e) => {
                 e.stopPropagation();
-                onCopy(row.id, 'css');
+                onCopy(row.id, 'css', row.metricText || String(row.metric));
               }}
-              aria-label={`Copy ${row.metric} css data`}
+              aria-label={`Copy ${row.metricText || row.metric} css data`}
             >
               <Icon
                 icon={isCopied(row.id, 'css') ? SuccessIcon : CopyIcon}
@@ -202,13 +175,15 @@ export const getMetricTableColumns = ({
         className={styles['metrics-table__cell']}
       >
         <span className={styles['metrics-table__text']}>{String(value)}</span>
+
+        {/* Info button */}
         <button
           className={styles['metrics-table__button']}
           onClick={(e) => {
             e.stopPropagation();
             onInfo(row);
           }}
-          aria-label={`More info about ${row.id}`}
+          aria-label={`More info about ${row.metric}`}
         >
           <Icon icon={InfoSimpleIcon} fill="primary" />
         </button>
