@@ -36,6 +36,7 @@ coverage
 *.njsproj
 *.sln
 *.sw?
+CLAUDE.md
 
 # Assets - working files only 
 # (committed assets go in public/ or src/assets/)
