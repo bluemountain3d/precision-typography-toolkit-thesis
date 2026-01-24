@@ -22,6 +22,19 @@ export const FontMetricsArticle = () => {
           <AnatomyOfTheEmBoxBlock />
           <MathOfPrecisionBlock />
 
+          {/* TODO! Articles about how to implement metrics */}
+          {/* <TextBox flow="em">
+            <Text>{'  '}</Text>
+            <ButtonGroup>
+              <Button href="/">
+                Implement using Vanilla CSS
+              </Button>
+              <Button href="/">
+                Implement using SCSS
+              </Button>
+            </ButtonGroup>
+          </TextBox> */}
+
           <TextBox flow="em">
             <Text>
               <strong>Next:</strong> Master horizontal precision by calculating
@@ -29,10 +42,7 @@ export const FontMetricsArticle = () => {
               pixel-perfect grid alignment.
             </Text>
             <ButtonGroup>
-              <Button
-                href="/learn/precision-alignment-article"
-                aria-label="Read about Optical Edge Alignment"
-              >
+              <Button href="/learn/precision-alignment-article">
                 Optical Edge Alignment
               </Button>
             </ButtonGroup>
