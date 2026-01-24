@@ -218,7 +218,7 @@ export const MetricsVisualizerSVG = ({
   return (
     <svg
       viewBox={`0 ${viewBox.minY} ${viewBox.width} ${viewBox.height}`}
-      role="img"
+      role="group"
       aria-label={`Font metrics visualization showing ${vizText} with line-height ${lineHeight?.toFixed(2)}`}
       onClick={(e) => {
         if (e.target === e.currentTarget) {
