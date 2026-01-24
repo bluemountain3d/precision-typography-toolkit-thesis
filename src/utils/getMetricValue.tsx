@@ -68,7 +68,7 @@ export const getMetricValue = (
           </span>
 
           <span className="sr-only">
-            {`${state.lineHeightMultiplier * upm} out of ${upm} units per em equals ${state.lineHeightMultiplier}`}
+            {`${state.lineHeightMultiplier * upm} out of ${upm} units per em equals line-height ${state.lineHeightMultiplier}`}
           </span>
         </>
       );

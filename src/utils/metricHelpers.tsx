@@ -17,7 +17,7 @@ export const MetricsNiceName: Record<string, string> = {
   subFamily: 'Subfamily',
   category: 'Category',
   unitsPerEm: 'Units per Em',
-  lineBox: 'Line Height',
+  lineBox: 'Line Box',
   ascender: 'Ascender (HHEA)',
   emBox: 'Em Box',
   capHeight: 'Cap Height',
