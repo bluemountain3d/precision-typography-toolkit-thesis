@@ -27,6 +27,8 @@ export const ButtonGroup = ({
   fullWidth,
   marginTop,
   marginBottom,
+  className,
+  ...rest
 }: ButtonGroupProps) => {
   return (
     <div
@@ -37,8 +39,10 @@ export const ButtonGroup = ({
         fullWidth && styles['button-group--full-width'],
         gap && `gap-${gap}`,
         marginTop && `mt-${marginTop}`,
-        marginBottom && `mb-${marginBottom}`
+        marginBottom && `mb-${marginBottom}`,
+        className
       )}
+      {...rest}
     >
       {children}
     </div>
