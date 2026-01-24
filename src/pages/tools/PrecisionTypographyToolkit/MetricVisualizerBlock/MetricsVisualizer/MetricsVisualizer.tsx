@@ -52,8 +52,12 @@ export const MetricsVisualizer = ({
       const computedStyle = getComputedStyle(element);
       const fontSizeInPx = parseFloat(computedStyle.fontSize);
       const containerWidthPx = element.offsetWidth;
-      const unitsPerRem = Math.round((unitsPerEm / fontSizeInPx) * rootFontSize);
-      const viewBoxWidth = Math.round((containerWidthPx / fontSizeInPx) * unitsPerEm);
+      const unitsPerRem = Math.round(
+        (unitsPerEm / fontSizeInPx) * rootFontSize
+      );
+      const viewBoxWidth = Math.round(
+        (containerWidthPx / fontSizeInPx) * unitsPerEm
+      );
 
       setVisualizerData((prev) => ({
         ...prev,
@@ -98,7 +102,9 @@ export const MetricsVisualizer = ({
 
   // Calculate gap in SVG units based on textBBox
   const measureLineGap = (num: number) => {
-    return textBBox ? Math.round(((viewBox.width - selectedVariant.width) / 8) * num) : 0;
+    return textBBox
+      ? Math.round(((viewBox.width - selectedVariant.width) / 8) * num)
+      : 0;
   };
 
   // Y-positions for each linje
@@ -290,7 +296,9 @@ export const MetricsVisualizer = ({
       height: Math.abs(yPositions.capHeight),
     },
     rsbAdjust: {
-      x: Math.round(viewBox.width - measureLineGap(4) - (state.rsbAdjustRaw || 0)),
+      x: Math.round(
+        viewBox.width - measureLineGap(4) - (state.rsbAdjustRaw || 0)
+      ),
       y: yPositions.capHeight,
       width: state.rsbAdjustRaw || 0,
       height: Math.abs(yPositions.capHeight),
@@ -309,6 +317,7 @@ export const MetricsVisualizer = ({
         fontFamily={state.loadedFontFamily || 'sans-serif'}
         vizText={selectedVariant.text}
         kerning={kerning}
+        lineHeight={lineHeight}
         onTextBBoxUpdate={setTextBBox}
       />
     </div>
