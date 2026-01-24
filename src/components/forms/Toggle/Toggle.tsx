@@ -76,10 +76,13 @@ export const Toggle = ({
   labelPosition = 'before',
   size = 'base',
 }: ToggleProps) => {
+  const labelId = `${toggleId}-label`;
+
   return (
     <div className={classNames(styles.toggle)}>
       {label && labelPosition === 'before' && (
         <span
+          id={labelId}
           className={styles.toggle__label}
           style={{ minWidth: `${labelWidth}ch` }}
         >
@@ -96,6 +99,7 @@ export const Toggle = ({
           onChange={(e) => onChange(e.target.checked)}
           checked={checked}
           disabled={disabled}
+          aria-labelledby={label ? labelId : undefined}
           className="sr-only"
         />
         <span
