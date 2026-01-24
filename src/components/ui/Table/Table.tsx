@@ -111,16 +111,25 @@ export const Table = <T extends Record<string, any>>({
             <tr
               key={rowIndex}
               className={classNames({ [styles.active]: isActiveRow })}
-              onClick={() => onRowClick?.(row, rowIndex)}
+              // onClick={() => onRowClick?.(row, rowIndex)}
+              onClick={(e) => {
+                if (
+                  e.target.tagName !== 'BUTTON' &&
+                  !e.target.closest('button')
+                ) {
+                  onRowClick?.(row, rowIndex);
+                }
+              }}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
                   onRowClick?.(row, rowIndex);
                 }
               }}
-              tabIndex={onRowClick ? 0 : undefined}
-              role={onRowClick ? 'button' : undefined}
-              aria-pressed={isActiveRow}
+              // tabIndex={onRowClick ? 0 : undefined}
+              // role={onRowClick ? 'button' : undefined}
+              // aria-pressed={isActiveRow}
+              aria-selected={isActiveRow}
             >
               {visibleColumns.map((col) => {
                 const value = row[col.key];
