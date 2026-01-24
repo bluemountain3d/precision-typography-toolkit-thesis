@@ -235,6 +235,7 @@ export const NavItem = ({
           {item.children && (
             <ul
               role="menu"
+              inert={!isHovered || undefined}
               className={classNames(
                 styles.dropdown,
                 isHovered && styles['dropdown--open']

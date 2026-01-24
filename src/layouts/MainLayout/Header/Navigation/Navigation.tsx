@@ -61,8 +61,7 @@ export const Navigation = ({
   const [openItemIndex, setOpenItemIndex] = useState<number | null>(null);
 
   /**
-   * ESC key handler to close menu on mobile
-   * Only active when menu is open on mobile
+   * ESC key handler to close menu
    * Cleanup function removes listener to prevent memory leaks
    */
   useEffect(() => {
@@ -72,11 +71,11 @@ export const Navigation = ({
       }
     };
 
-    if (isOpen && isMobile) {
+    if (isOpen) {
       document.addEventListener('keydown', handleEscape);
       return () => document.removeEventListener('keydown', handleEscape);
     }
-  }, [isOpen, isMobile, onClose]);
+  }, [isOpen, onClose]);
 
   return (
     <>
@@ -94,9 +93,9 @@ export const Navigation = ({
 
       {/* Prevent body scroll when menu is open on mobile */}
       <RemoveScroll enabled={isOpen && isMobile} removeScrollBar={false}>
-        {/* Trap keyboard focus inside menu when open on mobile, but allow clicks outside */}
-        <FocusTrap 
-          active={isOpen && isMobile}
+        {/* Trap keyboard focus inside menu when open, but allow clicks outside */}
+        <FocusTrap
+          active={isOpen} // && isMobile
           focusTrapOptions={{
             allowOutsideClick: true,
             returnFocusOnDeactivate: true,
@@ -105,6 +104,7 @@ export const Navigation = ({
           <nav
             id="main-navigation"
             aria-label="Main navigation"
+            inert={!isOpen ? true : undefined}
             className={classNames(
               styles.navigation,
               isOpen && styles['navigation--open'],
