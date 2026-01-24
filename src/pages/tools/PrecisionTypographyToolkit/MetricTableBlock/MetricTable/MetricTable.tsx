@@ -37,6 +37,7 @@ export const MetricTable = () => {
     handleCloseDialog,
     handleRowClick,
     handleCategorySelect,
+    announceMessage,
   } = useMetricTable();
 
   const metricsData = buildMetricsData(state);
@@ -53,6 +54,7 @@ export const MetricTable = () => {
   return (
     <>
       <Table
+        ariaLabelledBy="metrics-table-heading"
         data={metricsData}
         columns={columns}
         hideColumnsAt="isUpToTabletLarge"
@@ -61,6 +63,9 @@ export const MetricTable = () => {
         activeRowId={state.selectedMetric}
         rowIdKey="id"
       />
+      <div role="status" aria-live="polite" className="sr-only">
+        {announceMessage}
+      </div>
       {showMetricDialog && (
         <MetricDialog metric={infoMetric} onCancel={handleCloseDialog} />
       )}

@@ -55,6 +55,7 @@ export const useCopyMetric = ({
   timeout = 1500,
 }: UseCopyMetricOptions) => {
   const [copied, setCopied] = useState<CopiedState>(null);
+  const [announceMessage, setAnnounceMessage] = useState('');
 
   const copyMetric = (metricId: string, type: 'raw' | 'css') => {
     const metricData = metricDialogData[metricId];
@@ -71,7 +72,14 @@ export const useCopyMetric = ({
 
     navigator.clipboard.writeText(value);
     setCopied({ id: metricId, type });
-    setTimeout(() => setCopied(null), timeout);
+
+    // Announce to screen readers
+    setAnnounceMessage(`${metricData.title} ${type} value copied`);
+
+    setTimeout(() => {
+      setCopied(null);
+      setAnnounceMessage('');
+    }, timeout);
   };
 
   const isCopied = (metricId: string, type: 'raw' | 'css') => {
@@ -82,5 +90,6 @@ export const useCopyMetric = ({
     copied,
     copyMetric,
     isCopied,
+    announceMessage,
   };
 };
