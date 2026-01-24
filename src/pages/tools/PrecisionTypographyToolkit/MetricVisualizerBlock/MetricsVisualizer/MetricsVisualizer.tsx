@@ -262,7 +262,7 @@ export const MetricsVisualizer = ({
     xHeight: {
       x: measureLineGap(3),
       y: yPositions.xHeight,
-      width: Math.round(viewBox.width - measureLineGap(6)),
+      width: Math.round(viewBox.width - measureLineGap(6.5)),
       height: -yPositions.xHeight,
     },
     ascender: {
