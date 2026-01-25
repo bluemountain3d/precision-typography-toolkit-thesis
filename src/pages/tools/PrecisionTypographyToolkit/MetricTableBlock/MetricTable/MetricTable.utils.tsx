@@ -71,6 +71,7 @@ export const buildMetricsData = (state: FontMetricsState): MetricRow[] => [
         Category<sup>1</sup>
       </>
     ),
+    metricText: 'Category',
     rawValue: state.category ?? '-',
     normalizedValue: '-',
     comment: 'The specific stylistic group the font belongs to',

@@ -60,6 +60,7 @@ export const MetricVisualizerBlock = () => {
           value={thumbSliders.lineHeight}
           onChange={handleLineHeightChange('lineHeight')}
           label={`line-height: ${thumbSliders.lineHeight.toFixed(2)};`}
+          ariaLabel='Line-height range slider'
           labelWidth={labelWidth}
         />
       </Flex>

@@ -41,6 +41,8 @@ export const useMetricTable = () => {
   const [showMetricDialog, setShowMetricDialog] = useState(false);
   const [infoMetric, setInfoMetric] = useState('');
 
+  const [announceMessage, setAnnounceMessage] = useState('');
+
   /**
    * Copies a metric value to clipboard with visual feedback.
    *
@@ -53,8 +55,15 @@ export const useMetricTable = () => {
    * handleCopy('capHeight', 'raw'); // Copies "728"
    * ```
    */
-  const handleCopy = (metric: string, type: 'raw' | 'css') => {
-    copyMetric(metric, type);
+  const handleCopy = (
+    metricId: string,
+    type: 'raw' | 'css',
+    metricName: string
+  ) => {
+    copyMetric(metricId, type);
+
+    setAnnounceMessage(`${metricName} ${type} value copied`);
+    setTimeout(() => setAnnounceMessage(''), 1000);
   };
 
   /**
@@ -140,5 +149,6 @@ export const useMetricTable = () => {
     handleCloseDialog,
     handleRowClick,
     handleCategorySelect,
+    announceMessage,
   };
 };

@@ -13,7 +13,13 @@ export const MetricsVisualizerLabel = ({}: MetricsVisualizerLabelProps) => {
 
   return (
     <ButtonGroup>
-      <Button variant="label" radius="sm">
+      <Button
+        variant="label"
+        radius="sm"
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
+      >
         <Flex as="span" justifyContent="center" alignItems="center">
           {state.selectedMetric && (
             <Flex
@@ -22,7 +28,9 @@ export const MetricsVisualizerLabel = ({}: MetricsVisualizerLabelProps) => {
               alignItems="baseline"
               gap="xl"
             >
-              <span className="font-weight-semibold">.::</span>
+              <span className="font-weight-semibold" aria-hidden="true">
+                .::
+              </span>
               {isMetricVisualized(state.selectedMetric) && (
                 <Flex
                   as="span"
@@ -48,7 +56,9 @@ export const MetricsVisualizerLabel = ({}: MetricsVisualizerLabelProps) => {
                   <span>is not visualized in the diagram</span>
                 </Flex>
               )}
-              <span className="font-weight-semibold">::.</span>
+              <span className="font-weight-semibold" aria-hidden="true">
+                ::.
+              </span>
             </Flex>
           )}
 
@@ -59,13 +69,19 @@ export const MetricsVisualizerLabel = ({}: MetricsVisualizerLabelProps) => {
               alignItems="baseline"
               gap="xl"
             >
-              <span className="font-weight-semibold color-text-secondary">
+              <span
+                className="font-weight-semibold color-text-secondary"
+                aria-hidden="true"
+              >
                 .::
               </span>
               <span className="color-text-secondary">
                 Select a metric to see its values
               </span>
-              <span className="font-weight-semibold color-text-secondary">
+              <span
+                className="font-weight-semibold color-text-secondary"
+                aria-hidden="true"
+              >
                 ::.
               </span>
             </Flex>

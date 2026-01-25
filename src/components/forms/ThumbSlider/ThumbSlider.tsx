@@ -36,6 +36,7 @@ export const ThumbSlider = ({
   value,
   onChange,
   label,
+  ariaLabel,
   labelWidth,
   disabled,
 }: ThumbSliderProps) => {
@@ -62,7 +63,11 @@ export const ThumbSlider = ({
   return (
     <div className={classNames(styles['thumb-slider'])}>
       {/* Optional label for slider context */}
-      {label && <label style={{ minWidth: `${labelWidth}ch` }}>{label}</label>}
+      {label && (
+        <label htmlFor={inputId} style={{ minWidth: `${labelWidth}ch` }}>
+          {label}
+        </label>
+      )}
 
       <input
         type="range"
@@ -73,6 +78,8 @@ export const ThumbSlider = ({
         value={value}
         onChange={handleChange}
         disabled={disabled}
+        aria-label={ariaLabel}
+        aria-valuetext={`${value.toFixed(2)}`}
         style={
           {
             // Initial progress percentage for CSS linear gradient

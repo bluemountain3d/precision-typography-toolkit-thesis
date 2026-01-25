@@ -63,6 +63,7 @@ import { queries } from '@/types';
  * />
  */
 export const Table = <T extends Record<string, any>>({
+  ariaLabelledBy,
   data,
   columns,
   onRowClick,
@@ -84,13 +85,18 @@ export const Table = <T extends Record<string, any>>({
   });
 
   return (
-    <table className={classNames(styles.table, className)}>
+    <table
+      aria-labelledby={ariaLabelledBy || undefined}
+      className={classNames(styles.table, className)}
+    >
       {caption && <caption>{caption}</caption>}
 
       <thead>
         <tr>
           {visibleColumns.map((col) => (
-            <th key={String(col.key)}>{col.label}</th>
+            <th key={String(col.key)} scope="col">
+              {col.label}
+            </th>
           ))}
         </tr>
       </thead>
@@ -105,7 +111,23 @@ export const Table = <T extends Record<string, any>>({
             <tr
               key={rowIndex}
               className={classNames({ [styles.active]: isActiveRow })}
-              onClick={() => onRowClick?.(row, rowIndex)}
+              // onClick={() => onRowClick?.(row, rowIndex)}
+              onClick={(e) => {
+                const target = e.target as HTMLElement;
+                if (target.tagName !== 'BUTTON' && !target.closest('button')) {
+                  onRowClick?.(row, rowIndex);
+                }
+              }}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  onRowClick?.(row, rowIndex);
+                }
+              }}
+              // tabIndex={onRowClick ? 0 : undefined}
+              // role={onRowClick ? 'button' : undefined}
+              // aria-pressed={isActiveRow}
+              aria-selected={isActiveRow}
             >
               {visibleColumns.map((col) => {
                 const value = row[col.key];

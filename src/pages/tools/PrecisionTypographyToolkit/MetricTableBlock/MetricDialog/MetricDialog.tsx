@@ -23,7 +23,10 @@ interface MetricDialogProps {
 
 export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
   const { state } = useFontMetrics();
-  const { copyMetric, isCopied } = useCopyMetric({ state, timeout: 1500 });
+  const { copyMetric, isCopied, announceMessage } = useCopyMetric({
+    state,
+    timeout: 1500,
+  });
 
   const metricData = metricDialogData[metric];
 
@@ -43,7 +46,7 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
             initialFocus: false,
             allowOutsideClick: true,
             returnFocusOnDeactivate: true,
-            escapeDeactivates: false,
+            escapeDeactivates: true,
             clickOutsideDeactivates: false,
           }}
         >
@@ -58,6 +61,7 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
               className={classNames(styles['metric-dialog'])}
               aria-modal="true"
               aria-labelledby="metric-dialog-title"
+              aria-describedby="metric-dialog-description"
             >
               <Icon
                 icon={InfoSimpleIcon}
@@ -89,6 +93,7 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
                   {metricData.title}
                 </Heading>
                 <Text
+                  id="metric-dialog-description"
                   marginTop="sm"
                   marginBottom="lg"
                   variant="secondary"
@@ -113,6 +118,9 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
                   {metricData.info}
                 </Text>
               </TextBox>
+              <div role="status" aria-live="polite" className="sr-only">
+                {announceMessage}
+              </div>
               <div className={styles['metric-dialog__button-group']}>
                 <Button
                   variant="primary"

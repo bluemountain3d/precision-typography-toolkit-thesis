@@ -59,21 +59,24 @@ import { MetricsOutput, type MetricsOutputRef } from './MetricsOutput';
 export const ExportMetricsBlock = () => {
   /**
    * Currently selected export language/format
-   * @type {'css' | 'scss' | 'json'}
    * @default 'css'
    */
   const [activeLang, setActiveLang] = useState('css');
 
   /**
+   * Set a11y announce message
+   */
+  const [announceMessage, setAnnounceMessage] = useState('');
+
+  /**
    * Clipboard copy success state for user feedback
-   * @type {boolean}
    * @default false
    */
   const [isCopied, setIsCopied] = useState(false);
+  const [copyAnnouncement, setCopyAnnouncement] = useState('');
 
   /**
    * Reference to MetricsOutput component for accessing code content
-   * @type {React.RefObject<MetricsOutputRef>}
    */
   const outputRef = useRef<MetricsOutputRef>(null);
 
@@ -100,6 +103,16 @@ export const ExportMetricsBlock = () => {
   const handleLanguageSelect = (lang: string) => {
     setActiveLang(lang);
     setIsCopied(false);
+
+    // Announce language change
+    const langName =
+      lang === 'css'
+        ? 'CSS Variables'
+        : lang === 'scss'
+          ? 'SCSS Map'
+          : 'JSON Object';
+    setAnnounceMessage(`Now displaying ${langName}`);
+    setTimeout(() => setAnnounceMessage(''), 1000);
   };
 
   /**
@@ -123,10 +136,20 @@ export const ExportMetricsBlock = () => {
       if (content) {
         await navigator.clipboard.writeText(content);
         setIsCopied(true);
-        setTimeout(() => setIsCopied(false), 1500);
+
+        // Copied announcement
+        const langName = activeLang.toUpperCase();
+        setCopyAnnouncement(`${langName} snippet copied to clipboard`);
+
+        setTimeout(() => {
+          setIsCopied(false);
+          setCopyAnnouncement('');
+        }, 1500);
       }
     } catch (err) {
       console.error('Failed to copy to clipboard:', err);
+      setCopyAnnouncement('Failed to copy to clipboard');
+      setTimeout(() => setCopyAnnouncement(''), 2000);
     }
   };
 
@@ -145,14 +168,22 @@ export const ExportMetricsBlock = () => {
           style={{ flexShrink: 0 }}
           className={classNames(styles['export-metrics__navigation'])}
         >
-          <ButtonGroup align="left" gap={isMobile ? 'xs' : '3xs'}>
+          <ButtonGroup
+            align="left"
+            gap={isMobile ? 'xs' : '3xs'}
+            role="tablist"
+            aria-label="Export format selector"
+          >
             <Button
               variant={activeLang === 'css' ? 'primary' : 'ghost'}
               icon={CssIcon}
               iconOnly={isMobile}
               narrow
               onClick={() => handleLanguageSelect('css')}
-              aria-pressed={activeLang === 'css'}
+              role="tab"
+              aria-selected={activeLang === 'css'}
+              aria-controls="metrics-output-panel"
+              id="tab-css"
               aria-label="Display CSS variables"
             >
               CSS Variables
@@ -163,7 +194,10 @@ export const ExportMetricsBlock = () => {
               iconOnly={isMobile}
               narrow
               onClick={() => handleLanguageSelect('scss')}
-              aria-pressed={activeLang === 'scss'}
+              role="tab"
+              aria-selected={activeLang === 'scss'}
+              aria-controls="metrics-output-panel"
+              id="tab-scss"
               aria-label="Display SCSS map"
             >
               SCSS Map
@@ -174,7 +208,10 @@ export const ExportMetricsBlock = () => {
               iconOnly={isMobile}
               narrow
               onClick={() => handleLanguageSelect('json')}
-              aria-pressed={activeLang === 'json'}
+              role="tab"
+              aria-selected={activeLang === 'json'}
+              aria-controls="metrics-output-panel"
+              id="tab-json"
               aria-label="Display JSON object"
             >
               JSON Object
@@ -192,11 +229,15 @@ export const ExportMetricsBlock = () => {
                 : `Copy ${activeLang} snippet to clipboard`
             }
           >
-            <span aria-live="polite" aria-atomic="true">
-              {isCopied ? 'Copied!' : 'Copy to clipboard'}
-            </span>
+            {isCopied ? 'Copied!' : 'Copy to clipboard'}
           </Button>
         </Flex>
+        <div role="status" aria-live="polite" className="sr-only">
+          {announceMessage}
+        </div>
+        <div role="status" aria-live="polite" className="sr-only">
+          {copyAnnouncement}
+        </div>
         <MetricsOutput ref={outputRef} lang={activeLang} />
       </Collapsible>
     </>

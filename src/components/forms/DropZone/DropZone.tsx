@@ -3,6 +3,8 @@ import styles from './DropZone.module.scss';
 import type { DropZoneProps } from './DropZone.types';
 import { useDropZone } from '@hooks/useDropZone';
 import classNames from 'clsx';
+import { Button } from '../Button';
+import { DangerIcon } from '@/assets/icons';
 
 /**
  * DropZone component for drag-and-drop font file uploads
@@ -39,7 +41,7 @@ export const DropZone = ({
   inputId,
   onFileSelect,
   onError,
-  accept = '.ttf,.otf,.woff,.woff2',
+  accept = '.ttf, .otf, .woff, .woff2',
   maxSize = 10 * 1024 * 1024,
   isProcessing = false,
 }: DropZoneProps) => {
@@ -48,8 +50,8 @@ export const DropZone = ({
   const handleError = (error: string) => {
     setErrorMessage(error);
     onError?.(error);
-    // Clean after 5 seconds
-    setTimeout(() => setErrorMessage(null), 5000);
+    // Clear after 10 seconds
+    setTimeout(() => setErrorMessage(null), 10 * 1000);
   };
 
   const {
@@ -77,6 +79,7 @@ export const DropZone = ({
             onDragLeave={isProcessing ? undefined : handleDragLeave}
             onDrop={isProcessing ? undefined : handleDrop}
             aria-disabled={isProcessing}
+            aria-describedby={`${inputId}-formats`}
           >
             <p className={classNames(styles['drop-zone__title'], 'text-md')}>
               Drag your font file here
@@ -98,7 +101,7 @@ export const DropZone = ({
               <div
                 className={classNames(styles['drop-zone__loader'])}
                 role="status"
-                aria-label="Processing file"
+                aria-label="Processing font file, please wait"
               >
                 <span className={classNames('loader-lg')}></span>
                 <span>Processing...</span>
@@ -123,6 +126,15 @@ export const DropZone = ({
           className={styles['drop-zone__error']}
         >
           {errorMessage}
+          <Button
+            variant="danger"
+            size="md"
+            icon={DangerIcon}
+            onClick={() => setErrorMessage(null)}
+            aria-label="Dismiss error message"
+          >
+            Dismiss
+          </Button>
         </div>
       )}
     </div>

@@ -4,7 +4,7 @@ import React from 'react';
 /**
  * ButtonGroup component props
  */
-export interface ButtonGroupProps {
+export interface ButtonGroupProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
   /**
    * Horizontal alignment of buttons

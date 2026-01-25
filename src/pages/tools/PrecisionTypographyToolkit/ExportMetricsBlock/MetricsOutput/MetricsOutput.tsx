@@ -187,8 +187,8 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
   --descender--${slug}: ${Math.abs(state.hheaDescenderRatio || 0)}em;
   
   /* Text-box-trim ratios (vertical trim) */
-  --top-trim--${slug}: ${state.topTrimRawRatio}em;
-  --bottom-trim--${slug}: ${state.bottomTrimRawRatio}em;
+  --top-trim--${slug}: calc(-${state.topTrimRawRatio}em - ((1lh - 1em) * 0.5));
+  --bottom-trim--${slug}: calc(-${state.bottomTrimRawRatio}em - ((1lh - 1em) * 0.5));
   
   /* Side bearing adjustments (horizontal trim) */
   --lsb-adjust--${slug}: -${state.lsbAdjustRatio}em;
@@ -286,11 +286,20 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
     }, [lang, outputs]);
 
     return (
-      <div
-        className={classNames(styles['metrics-output'])}
-        aria-label={`Code view of ${lang}`}
-      >
-        <pre className="line-numbers">
+      <div className={classNames(styles['metrics-output'])}>
+        <h3 className="sr-only">
+          {lang === 'css'
+            ? 'CSS Variables'
+            : lang === 'scss'
+              ? 'SCSS Map'
+              : 'JSON Object'}
+        </h3>
+        <pre
+          id="metrics-output-panel"
+          role="tabpanel"
+          aria-labelledby={`tab-${lang}`}
+          className="line-numbers"
+        >
           <code ref={codeRef} className={`language-${lang}`}>
             {outputs[lang as keyof typeof outputs]}
           </code>

@@ -24,6 +24,7 @@ import type React from 'react';
 export type MetricRow = {
   id: string;
   metric: React.ReactNode;
+  metricText?: string;
   rawValue: React.ReactNode | number | null;
   normalizedValue: number | string | null;
   comment: string | null;

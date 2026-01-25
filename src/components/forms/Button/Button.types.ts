@@ -92,16 +92,10 @@ interface CustomButtonProps {
    */
   className?: string;
 
-  // /**
-  //  * When false, button displays both icon and text
-  //  * @default false
-  //  */
-  // iconOnly?: boolean;
-
-  // /**
-  //  * Button text content
-  //  */
-  // children?: React.ReactNode;
+  /**
+   * Allows passing any valid HTML attribute for the rendered element (e.g., id, title, data-*).
+   */
+  [key: string]: any;
 }
 
 /**
@@ -119,10 +113,10 @@ interface RegularButtonProps extends CustomButtonProps {
    */
   children: React.ReactNode;
 
-  /**
-   * Accessible label for screen readers (optional for regular buttons)
-   */
-  'aria-label'?: string;
+  // /**
+  //  * Accessible label for screen readers (optional for regular buttons)
+  //  */
+  // 'aria-label'?: string;
 }
 
 /**

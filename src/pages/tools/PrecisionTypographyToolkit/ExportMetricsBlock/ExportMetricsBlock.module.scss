@@ -6,4 +6,8 @@
   @supports selector(::details-content) {
     max-height: 90dvh;
   }
+
+  &__navigation {
+    padding-inline: 6px;
+  }
 }
