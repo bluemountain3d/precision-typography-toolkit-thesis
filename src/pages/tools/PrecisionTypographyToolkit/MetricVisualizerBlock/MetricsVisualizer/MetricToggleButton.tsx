@@ -1,3 +1,4 @@
+import { MetricsNiceName } from '@/utils';
 import styles from './MetricToggleButton.module.scss';
 
 /**
@@ -73,40 +74,17 @@ export const MetricToggleButton = ({
   innerRadius,
   innerRadiusSelected,
   onSelect,
-}: MetricToggleButtonProps) => (
-  <g
-    className={styles['metric-toggle-group']}
-    transform={`translate(${x}, ${y})`}
-  >
-    <circle
-      r={isSelected ? outerRadiusSelected : outerRadius}
-      fill="url(#circle-border)"
-    />
-    <circle
-      className={styles['hover-glow-circle']}
-      r={isSelected ? outerRadiusSelected : outerRadius}
-      fill="url(#circle-border-active)"
-      opacity={isSelected ? 1 : 0}
-      filter={isSelected ? 'url(#glow-effect)' : undefined}
-    />
-    <circle
-      r={isSelected ? innerRadiusSelected : innerRadius}
-      fill="url(#circle-fill)"
-      filter="url(#inner-shadow)"
-    />
-    <rect
-      className={styles['hit-area']}
-      x={-(hitBoxSize / 2)}
-      y={-(hitBoxSize / 2)}
-      width={hitBoxSize}
-      height={hitBoxSize}
-      rx={hitBoxRadius}
-      fill="transparent"
-      style={{ cursor: 'pointer' }}
+}: MetricToggleButtonProps) => {
+  const titleId = `metric-toggle-${metricId}`;
+
+  return (
+    <g
+      className={styles['metric-toggle-group']}
+      transform={`translate(${x}, ${y})`}
       role="button"
       tabIndex={0}
       aria-pressed={isSelected}
-      aria-label={`Toggle ${metricId}`}
+      aria-labelledby={titleId}
       onClick={() => onSelect(isSelected ? '' : metricId)}
       onKeyDown={(e) => {
         if (e.key === 'Enter' || e.key === ' ') {
@@ -114,6 +92,34 @@ export const MetricToggleButton = ({
           onSelect(isSelected ? '' : metricId);
         }
       }}
-    />
-  </g>
-);
+    >
+      <title id={titleId}>Toggle {MetricsNiceName[metricId]}</title>
+      <circle
+        r={isSelected ? outerRadiusSelected : outerRadius}
+        fill="url(#circle-border)"
+      />
+      <circle
+        className={styles['hover-glow-circle']}
+        r={isSelected ? outerRadiusSelected : outerRadius}
+        fill="url(#circle-border-active)"
+        opacity={isSelected ? 1 : 0}
+        filter={isSelected ? 'url(#glow-effect)' : undefined}
+      />
+      <circle
+        r={isSelected ? innerRadiusSelected : innerRadius}
+        fill="url(#circle-fill)"
+        filter="url(#inner-shadow)"
+      />
+      <rect
+        className={styles['hit-area']}
+        x={-(hitBoxSize / 2)}
+        y={-(hitBoxSize / 2)}
+        width={hitBoxSize}
+        height={hitBoxSize}
+        rx={hitBoxRadius}
+        fill="transparent"
+        style={{ cursor: 'pointer' }}
+      />
+    </g>
+  );
+};
