@@ -42,6 +42,7 @@ export const Icon = ({
 
   return (
     <IconComponent
+      aria-hidden="true"
       className={classNames(
         styles.icon,
         styles[`icon-fill--${fill}`],
