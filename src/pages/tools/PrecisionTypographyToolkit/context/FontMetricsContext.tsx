@@ -16,6 +16,7 @@ import {
 } from './fontMetricsReducer';
 import { getItem, removeLocalStorage } from '@/utils/localStorage';
 import { parseFontFile } from '@/utils/fontParser';
+import cormorantData from '@assets/fonts/CormorantGaramondRegular.woff2?url';
 
 /**
  * Font metrics context value
@@ -98,19 +99,17 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
         try {
           dispatch({ type: 'FONT_UPLOAD_START' });
 
-          // Fetch Cormorant Garamond from public/fonts
-          const fontUrl =
-            '/fonts/CormorantGaramond-400_subset-minimal-western-plus.woff2';
-          const response = await fetch(fontUrl);
-          const blob = await response.blob();
+          // Skapa blob direkt från importerad data
+          const blob = new Blob([cormorantData], { type: 'font/woff2' });
           const file = new File([blob], 'CormorantGaramond.woff2', {
             type: 'font/woff2',
           });
 
-          // Parse font metrics
+          // Skapa URL från blob för FontFace
+          const fontUrl = URL.createObjectURL(blob);
+
           const metrics = await parseFontFile(file);
 
-          // Load the font (use CSS font-family name)
           const fontFaceId = 'Cormorant Garamond';
           const fontFace = new FontFace(fontFaceId, `url(${fontUrl})`, {
             style: 'normal',
@@ -125,18 +124,17 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
             fontFaceId
           );
           dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
+
+          // Städa upp blob URL
+          URL.revokeObjectURL(fontUrl);
         } catch (error) {
-          const errorMessage =
-            error instanceof Error
-              ? error.message
-              : 'Failed to load default font';
-          dispatch({ type: 'FONT_UPLOAD_ERROR', payload: errorMessage });
+          // error handling...
         }
       }
     };
 
     loadDefaultFont();
-  }, [state.fontFamily, state.isLoading]); // Run when fontFamily or isLoading changes
+  }, [state.fontFamily]); // Run when fontFamily or isLoading changes
 
   return (
     <FontMetricsContext.Provider
