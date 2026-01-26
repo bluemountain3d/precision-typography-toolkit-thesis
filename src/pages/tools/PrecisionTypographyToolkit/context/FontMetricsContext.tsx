@@ -95,27 +95,31 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
   // Load default font when component mounts or when font is cleared
   useEffect(() => {
     const loadDefaultFont = async () => {
+
       if (!state.fontFamily && !state.isLoading) {
         try {
           dispatch({ type: 'FONT_UPLOAD_START' });
 
-          // Skapa blob direkt från importerad data
-          const blob = new Blob([cormorantData], { type: 'font/woff2' });
+          const response = await fetch(cormorantData);
+
+          const blob = await response.blob();
+
           const file = new File([blob], 'CormorantGaramond.woff2', {
             type: 'font/woff2',
           });
 
-          // Skapa URL från blob för FontFace
-          const fontUrl = URL.createObjectURL(blob);
-
           const metrics = await parseFontFile(file);
+
+          const fontUrl = URL.createObjectURL(blob);
 
           const fontFaceId = 'Cormorant Garamond';
           const fontFace = new FontFace(fontFaceId, `url(${fontUrl})`, {
             style: 'normal',
             weight: '400',
           });
+
           await fontFace.load();
+
           document.fonts.add(fontFace);
 
           const fontMetricsState = prepareFontMetricsState(
@@ -123,12 +127,16 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
             metrics,
             fontFaceId
           );
+
           dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
 
-          // Städa upp blob URL
           URL.revokeObjectURL(fontUrl);
         } catch (error) {
-          // error handling...
+          const errorMessage =
+            error instanceof Error
+              ? error.message
+              : 'Failed to load default font';
+          dispatch({ type: 'FONT_UPLOAD_ERROR', payload: errorMessage });
         }
       }
     };

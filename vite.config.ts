@@ -24,4 +24,18 @@ export default defineConfig({
       '@context': path.resolve(__dirname, './src/context'),
     },
   },
+  build: {
+    rollupOptions: {
+      output: {
+        assetFileNames: (assetInfo) => {
+          const name = assetInfo.names?.[0] ?? 'asset';
+
+          if (name.endsWith('.woff2')) {
+            return 'fonts/[name]-[hash][extname]';
+          }
+          return 'assets/[name]-[hash][extname]';
+        },
+      },
+    },
+  },
 });
