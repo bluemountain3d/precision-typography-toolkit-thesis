@@ -171,11 +171,13 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
     const outputs = {
       css: `:root {
   /* Font identification */
-  --family--${slug}: ${fontFamily};
+  --font-family--${slug}: ${fontFamily};
   
   /* Base raw metrics (for reference/calculations) */
   --metric-units-per-em--${slug}: ${state.unitsPerEm};
   --metric-cap-height--${slug}: ${state.capHeight};
+  --metric-ascender--${slug}: ${state.hheaAscender};
+  --metric-descender--${slug}: ${state.hheaDescender};
   --metric-trim-top--${slug}: ${state.topTrimRaw};
   --metric-trim-bottom--${slug}: ${state.bottomTrimRaw};
   
@@ -197,11 +199,15 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
       scss: `$font-metrics: (
   "${family}": (
     // Font identification 
-    "family": '${fontFamily}',
+    "font-family": '${fontFamily}',
+    "slug": '${slug}',
+    "category": '${state.category}',
 
     // Raw metrics
     "metric-units-per-em": ${state.unitsPerEm},
     "metric-cap-height": ${state.capHeight},
+    "metric-ascender": ${state.hheaAscender},
+    "metric-descender": ${state.hheaDescender},
     "metric-trim-top": ${state.topTrimRaw},
     "metric-trim-bottom": ${state.bottomTrimRaw},
     
@@ -211,11 +217,9 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
     "ascender": ${state.hheaAscenderRatio},
     "descender": ${Math.abs(state.hheaDescenderRatio || 0)},
 
-    // Vertical trim
+    // Trim adjustments
     "top-trim": ${state.topTrimRawRatio},
     "bottom-trim": ${state.bottomTrimRawRatio},
-
-    // Horizontal adjust
     "lsb-adjust": -${state.lsbAdjustRatio},
     "rsb-adjust": -${state.rsbAdjustRatio},
   ),
@@ -224,13 +228,17 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
   "font-metrics": {
     "${family}": {
       "identification": {
-        "family": "${fontFamily.replace(/"/g, '\\"')}"
+        "font-family": "${fontFamily.replace(/"/g, '\\"')}",
+        "slug": "${slug}"
+        "category": "${state.category}"
       },
       "raw-metrics": {
         "units-per-em": ${state.unitsPerEm},
-        "metric-cap-height": ${state.capHeight},
-        "metric-trim-top": ${state.topTrimRaw},
-        "metric-trim-bottom": ${state.bottomTrimRaw}
+        "cap-height": ${state.capHeight},
+        "ascender": ${state.hheaAscender},
+        "descender": ${state.hheaDescender},
+        "trim-top": ${state.topTrimRaw},
+        "trim-bottom": ${state.bottomTrimRaw}
       },
       "normalized-metrics": {
         "cap-height": ${state.capHeightRatio},
