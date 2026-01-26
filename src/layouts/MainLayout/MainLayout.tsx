@@ -50,6 +50,7 @@ export const MainLayout = () => {
           height: '1px',
           pointerEvents: 'none',
           visibility: 'hidden',
+          marginTop: '-1px',
         }}
         aria-hidden="true"
       />
