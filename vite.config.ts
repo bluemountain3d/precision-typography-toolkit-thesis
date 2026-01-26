@@ -2,10 +2,11 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 import svgr from 'vite-plugin-svgr';
+import { visualizer } from 'rollup-plugin-visualizer';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(), svgr()],
+  plugins: [react(), svgr(), visualizer({ open: true })],
   base: '/',
   resolve: {
     alias: {
@@ -27,9 +28,16 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
+        manualChunks: {
+          // Separate React from main bundle
+          'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+
+          // Separate Fontkit from main bundle
+          'vendor-fontkit': ['fontkit'],
+        },
+
         assetFileNames: (assetInfo) => {
           const name = assetInfo.names?.[0] ?? 'asset';
-
           if (name.endsWith('.woff2')) {
             return 'fonts/[name]-[hash][extname]';
           }

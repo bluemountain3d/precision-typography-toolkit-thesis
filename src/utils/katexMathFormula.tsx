@@ -1,5 +1,8 @@
-import katex from 'katex';
-import 'katex/dist/katex.min.css';
+import { lazy, Suspense } from 'react';
+
+const KatexRenderer = lazy(() =>
+  import('./katexRenderer').then((mod) => ({ default: mod.KatexRenderer }))
+);
 
 export const Math = ({
   formula,
@@ -8,10 +11,9 @@ export const Math = ({
   formula: string;
   display?: boolean;
 }) => {
-  const html = katex.renderToString(formula, {
-    throwOnError: false,
-    displayMode: display,
-  });
-
-  return <div dangerouslySetInnerHTML={{ __html: html }} />;
+  return (
+    <Suspense fallback={<span className="loading">...</span>}>
+      <KatexRenderer formula={formula} display={display} />
+    </Suspense>
+  );
 };
