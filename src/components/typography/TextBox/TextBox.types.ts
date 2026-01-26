@@ -1,7 +1,9 @@
 import type { TextSize, SpacingSize, SpacingStep } from '@/types';
 
-export interface TextBoxProps {
+export interface TextBoxProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
+
+  as?: React.ElementType;
 
   /**
    * Sets the base font-size context for the container.
@@ -41,5 +43,4 @@ export interface TextBoxProps {
   marginBottom?: SpacingSize | SpacingStep;
 
   className?: string;
-  [key: string]: any;
 }

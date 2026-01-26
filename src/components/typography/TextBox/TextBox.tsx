@@ -38,6 +38,7 @@ import type { TextBoxProps } from './TextBox.types';
  */
 export const TextBox = ({
   children,
+  as: Component = 'div',
   widthSize = 'base',
   maxWidth = '70ch',
   flow,
@@ -48,7 +49,7 @@ export const TextBox = ({
   ...rest
 }: TextBoxProps) => {
   return (
-    <div
+    <Component
       className={classNames(
         styles['text-box'],
         widthSize && styles[`text-box--${widthSize}`],
@@ -62,6 +63,6 @@ export const TextBox = ({
       {...rest}
     >
       {children}
-    </div>
+    </Component>
   );
 };
