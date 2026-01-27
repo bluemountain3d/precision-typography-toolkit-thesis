@@ -62,7 +62,7 @@ import { queries } from '@/types';
  *   caption="Font Metrics"
  * />
  */
-export const Table = <T extends Record<string, any>>({
+export const Table = <T extends Record<string, unknown>>({
   ariaLabelledBy,
   data,
   columns,

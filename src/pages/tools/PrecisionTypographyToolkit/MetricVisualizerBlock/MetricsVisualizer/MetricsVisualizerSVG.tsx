@@ -76,7 +76,7 @@ interface MetricsVisualizerSVGProps {
   unitsPerRem: number;
   kerning?: boolean;
   lineHeight?: number;
-  onTextBBoxUpdate?: (bbox: DOMRect) => void;
+  onTextBBoxUpdate?: (_bbox: DOMRect) => void;
 }
 
 export const MetricsVisualizerSVG = ({

@@ -53,6 +53,8 @@ export const MetricDialog = ({ metric, onCancel }: MetricDialogProps) => {
           <div
             className={classNames(styles['metric-dialog__wrapper'])}
             onClick={(e) => e.stopPropagation()}
+            onKeyDown={(e) => e.stopPropagation()}
+            role="presentation"
           >
             <Flex
               as="dialog"

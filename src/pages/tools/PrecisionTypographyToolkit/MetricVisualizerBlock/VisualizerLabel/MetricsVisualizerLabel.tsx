@@ -6,9 +6,7 @@ import { ButtonGroup } from '@/components/layout/ButtonGroup';
 import { Button } from '@/components/forms/Button';
 import { isMetricVisualized, MetricsNiceName, getMetricValue } from '@/utils';
 
-interface MetricsVisualizerLabelProps {}
-
-export const MetricsVisualizerLabel = ({}: MetricsVisualizerLabelProps) => {
+export const MetricsVisualizerLabel = () => {
   const { state } = useFontMetrics();
 
   return (

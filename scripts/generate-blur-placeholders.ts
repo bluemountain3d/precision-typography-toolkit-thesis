@@ -50,8 +50,8 @@ async function generateBlurPlaceholders() {
   try {
     // Verify that the directory exists before starting
     await fs.access(rootDir);
-  } catch (e) {
-    console.error(`\n❌ ERROR: Directory not found!`);
+  } catch {
+    console.error(`\nERROR: Directory not found!`);
     console.error(`   Script is looking here: ${rootDir}`);
     console.error(
       `   Verify that the path is correct from where you run the command.`
@@ -143,7 +143,7 @@ async function scanDirectory(
 
         placeholders[relativePath] = base64;
         console.log(`✓ [${relativePath}]`);
-      } catch (err) {
+      } catch {
         console.error(`✗ Could not process: ${entry.name}`);
       }
     }

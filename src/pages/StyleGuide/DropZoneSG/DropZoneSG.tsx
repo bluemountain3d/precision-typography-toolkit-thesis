@@ -18,11 +18,15 @@ export const DropZoneSG = () => {
 
     try {
       const metrics = await parseFontFile(file);
-      
+
       // Generate unique font-family ID for CSS
       const loadedFontFamily = `uploaded-font-${Date.now()}`;
-      
-      const fontMetricsState = prepareFontMetricsState(file, metrics, loadedFontFamily);
+
+      const fontMetricsState = prepareFontMetricsState(
+        file,
+        metrics,
+        loadedFontFamily
+      );
       dispatch({ type: 'FONT_UPLOAD_SUCCESS', payload: fontMetricsState });
     } catch (error) {
       const errorMessage =

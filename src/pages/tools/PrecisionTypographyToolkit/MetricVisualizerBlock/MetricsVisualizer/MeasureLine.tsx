@@ -53,7 +53,6 @@ export const MeasureLine = ({
   noMarkers = false,
   isTransparent = false,
 }: MeasureLineProps) => (
-  
   <line
     x1={x}
     x2={x}

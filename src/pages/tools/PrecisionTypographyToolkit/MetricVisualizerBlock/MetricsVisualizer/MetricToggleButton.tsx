@@ -26,7 +26,7 @@ interface MetricToggleButtonProps {
   /** Inner circle radius in selected state (SVG units) */
   innerRadiusSelected: number;
   /** Callback fired when button is clicked, receives metricId or empty string to deselect */
-  onSelect: (metricId: string) => void;
+  onSelect: (_metricId: string) => void;
 }
 
 /**

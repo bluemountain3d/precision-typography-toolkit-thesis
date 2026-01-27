@@ -16,7 +16,7 @@ export const HeroText = () => {
         <Text size="lg" weight="semibold" hyphens="auto">
           The web is imprecise, but your typography doesn't have to be. Upload
           your font, visualize its hidden metrics, and export precise CSS values
-          ​for perfect optical balance.
+          for perfect optical balance.
         </Text>
       </TextBox>
     </>

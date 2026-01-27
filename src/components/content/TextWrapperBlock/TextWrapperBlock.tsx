@@ -17,7 +17,7 @@ interface TextWrapperBlockProps {
     | 'isDesktopAndUp';
   textBoxWidthSize?: TextSize;
   textBoxFlow?: 'em' | 'space';
-  breakout?: boolean
+  breakout?: boolean;
 }
 
 export const TextWrapperBlock = ({

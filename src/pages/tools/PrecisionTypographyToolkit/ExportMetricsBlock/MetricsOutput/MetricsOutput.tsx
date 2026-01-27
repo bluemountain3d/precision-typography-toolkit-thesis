@@ -19,7 +19,13 @@
  * @see {@link useFontMetrics} for font data source
  */
 
-import { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import {
+  useEffect,
+  useRef,
+  forwardRef,
+  useImperativeHandle,
+  useMemo,
+} from 'react';
 import { useFontMetrics } from '../../context';
 import styles from './MetricsOutput.module.scss';
 import classNames from 'clsx';
@@ -168,8 +174,9 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
      * - Normalized metrics (em-based ratios for use in CSS)
      * - Trim adjustments (vertical and horizontal corrections)
      */
-    const outputs = {
-      css: `:root {
+    const outputs = useMemo(
+      () => ({
+        css: `:root {
   /* Font identification */
   --font-family--${slug}: ${fontFamily};
   
@@ -196,7 +203,7 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
   --lsb-adjust--${slug}: -${state.lsbAdjustRatio}em;
   --rsb-adjust--${slug}: -${state.rsbAdjustRatio}em;
 }`,
-      scss: `$font-metrics: (
+        scss: `$font-metrics: (
   "${family}": (
     // Font identification 
     "font-family": '${fontFamily}',
@@ -224,7 +231,7 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
     "rsb-adjust": -${state.rsbAdjustRatio},
   ),
 );`,
-      json: `{
+        json: `{
   "font-metrics": {
     "${family}": {
       "identification": {
@@ -255,7 +262,29 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
     }
   }
 }`,
-    };
+      }),
+      [
+        slug,
+        fontFamily,
+        family,
+        state.unitsPerEm,
+        state.capHeight,
+        state.hheaAscender,
+        state.hheaDescender,
+        state.topTrimRaw,
+        state.bottomTrimRaw,
+        state.avgCharWidthRatio,
+        state.capHeightRatio,
+        state.xHeightRatio,
+        state.hheaAscenderRatio,
+        state.hheaDescenderRatio,
+        state.topTrimRawRatio,
+        state.bottomTrimRawRatio,
+        state.lsbAdjustRatio,
+        state.rsbAdjustRatio,
+        state.category,
+      ]
+    );
 
     /**
      * Exposes getContent method to parent component via ref

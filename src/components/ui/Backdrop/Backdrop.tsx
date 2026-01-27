@@ -14,8 +14,21 @@ export const Backdrop = ({ onClick, children }: BackdropProps) => {
     }
   };
 
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    if (e.key === 'Escape' && onClick) {
+      onClick();
+    }
+  };
+
   return (
-    <div className={classNames(styles.backdrop)} onClick={handleBackdropClick}>
+    <div
+      className={classNames(styles.backdrop)}
+      onClick={handleBackdropClick}
+      onKeyDown={handleKeyDown}
+      role="button"
+      tabIndex={0}
+      aria-label="Close backdrop"
+    >
       {children}
     </div>
   );

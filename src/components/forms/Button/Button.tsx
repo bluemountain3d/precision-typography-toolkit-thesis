@@ -168,7 +168,9 @@ export const Button = ({
 
   const commonProps = {
     className: commonClassNames,
-    onClick: onClick ? (e: any) => handleClick(e) : undefined,
+    onClick: onClick
+      ? (e: React.MouseEvent<HTMLElement>) => handleClick(e)
+      : undefined,
     'aria-busy': loading || undefined,
     'aria-disabled': isDisabled || undefined,
     'aria-label': ariaLabel,

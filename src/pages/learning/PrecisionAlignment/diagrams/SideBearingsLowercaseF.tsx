@@ -23,8 +23,20 @@ export const SideBearingsLowercaseF = (
     <path className="metric-line dashed" d="M265 1292H770" />
     <path className="metric-line dashed" d="M265 292H770" />
     {/* Side bearings */}
-    <rect className="metric-box--bright" x="365" y="725" width="25" height="386" />
-    <rect className="metric-box--bright" x="670" y="725" width="130" height="386" />
+    <rect
+      className="metric-box--bright"
+      x="365"
+      y="725"
+      width="25"
+      height="386"
+    />
+    <rect
+      className="metric-box--bright"
+      x="670"
+      y="725"
+      width="130"
+      height="386"
+    />
     {/* Glyph */}
     <path
       className="glyph"

@@ -11,17 +11,17 @@ async function processSvgFiles() {
     const filePath = join(ICONS_DIR, file);
     let content = await readFile(filePath, 'utf-8');
 
-    // Ta bort width och height från <svg> taggen (men inte från andra element)
+    // Remove width and height from the <svg> tag (but not from other elements)
     content = content.replace(/(<svg[^>]*)\s*width="[^"]*"/, '$1');
     content = content.replace(/(<svg[^>]*)\s*height="[^"]*"/, '$1');
 
-    // Sätt fill="currentColor" på path/circle/rect/polygon etc (inte fill="none")
+    // Set fill="currentColor" on path/circle/rect/polygon etc (not fill="none")
     content = content.replace(
       /<(path|circle|rect|polygon|ellipse|line|polyline|text)([^>]*)fill="(?!none)[^"]*"/g,
       '<$1$2fill="currentColor"'
     );
 
-    // Samma för stroke
+    // Same for strokes
     content = content.replace(
       /<(path|circle|rect|polygon|ellipse|line|polyline|text)([^>]*)stroke="(?!none)[^"]*"/g,
       '<$1$2stroke="currentColor"'

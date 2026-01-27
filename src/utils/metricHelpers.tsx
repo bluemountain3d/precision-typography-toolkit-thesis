@@ -49,10 +49,10 @@ export const isMetricVisualized = (metricId: string): boolean => {
 interface MetricDialogInfo {
   title: string;
   leadIn: string;
-  getRaw: (state: FontMetricsState) => string;
-  getRawCopy?: (state: FontMetricsState) => string;
-  getCss: (state: FontMetricsState) => string;
-  getCssCopy?: (state: FontMetricsState) => string;
+  getRaw: (_state: FontMetricsState) => string;
+  getRawCopy?: (_state: FontMetricsState) => string;
+  getCss: (_state: FontMetricsState) => string;
+  getCssCopy?: (_state: FontMetricsState) => string;
   info: React.ReactNode;
   formula?: string;
 }
@@ -231,9 +231,9 @@ export const metricDialogData: Record<string, MetricDialogInfo> = {
     title: MetricsNiceName['bottomTrim'],
     leadIn: 'The trim space between baseline and bottom of line-box',
     getRaw: (state) => `${state.bottomTrimRaw} + ${state.halfLeading}`,
-    getRawCopy: (state) => 
+    getRawCopy: (state) =>
       state.bottomTrimRaw
-        ? `${state.bottomTrimRaw}` // `metric-bottom-trim: ${state.bottomTrimRaw}, half-leading: ${state.halfLeading}` 
+        ? `${state.bottomTrimRaw}` // `metric-bottom-trim: ${state.bottomTrimRaw}, half-leading: ${state.halfLeading}`
         : '-',
     getCss: (state) =>
       state.bottomTrimRatio ? `-${state.bottomTrimRatio}em` : '-',

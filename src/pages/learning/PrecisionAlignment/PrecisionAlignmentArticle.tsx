@@ -34,8 +34,6 @@ export const PrecisionAlignmentArticle = () => {
     setToggles((prev) => ({ ...prev, [key]: checked }));
   };
 
-  
-
   const isBreakpoint = useMediaQuery(queries.isTabletLargeAndUp);
   return (
     <PageSection as="section" padding="large">
@@ -257,7 +255,8 @@ export const PrecisionAlignmentArticle = () => {
                 </Flex>
               </div>
               <Text size="sm" variant="secondary">
-                The font family and weight in this example is Cormorant Garamond Regular.
+                The font family and weight in this example is Cormorant Garamond
+                Regular.
               </Text>
             </Flex>
           </TextBox>

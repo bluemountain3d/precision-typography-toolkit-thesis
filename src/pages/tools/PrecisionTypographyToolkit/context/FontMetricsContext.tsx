@@ -25,8 +25,8 @@ type FontMetricsContextValue = {
   state: FontMetricsState;
   dispatch: React.Dispatch<FontMetricsAction>;
   resetFont: () => void;
-  setSelectedMetric: (metricId: string | null) => void;
-  updateLineHeight: (lineHeight: number) => void;
+  setSelectedMetric: (_metricId: string | null) => void;
+  updateLineHeight: (_lineHeight: number) => void;
 };
 
 /**
@@ -95,7 +95,6 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
   // Load default font when component mounts or when font is cleared
   useEffect(() => {
     const loadDefaultFont = async () => {
-
       if (!state.fontFamily && !state.isLoading) {
         try {
           dispatch({ type: 'FONT_UPLOAD_START' });
@@ -142,7 +141,8 @@ export const FontMetricsProvider = ({ children }: FontMetricsProviderProps) => {
     };
 
     loadDefaultFont();
-  }, [state.fontFamily]); // Run when fontFamily or isLoading changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.fontFamily]); // Intentionally omitting state.isLoading to prevent infinite loop
 
   return (
     <FontMetricsContext.Provider
