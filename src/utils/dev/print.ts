@@ -1,13 +1,13 @@
 /**
  * Development logging utility
- * 
+ *
  * Only logs to console in development mode (import.meta.env.DEV)
  * In production builds, these calls become no-ops and get tree-shaken away.
- * 
+ *
  * @example
  * ```typescript
  * import { print } from '@/utils/dev';
- * 
+ *
  * print('Font loaded:', fontName);
  * print.warn('Large file size:', fileSize);
  * print.error('Parse failed:', error);

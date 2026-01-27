@@ -8,24 +8,24 @@ import type {
 /**
  * Helper type extracting the single value part from the ResponsiveAspectRatio union.
  * Excludes the responsive object variant to provide a clean return type.
- * 
+ *
  * @remarks
  * This type represents a resolved aspect ratio value after breakpoint logic has been applied.
  * It can be a string ('16/9'), number (1.777), or tuple ([16, 9]).
  */
 type SingleAspectRatio = Exclude<
   ResponsiveAspectRatio,
-  Partial<Record<AspectRatioBreakpoint, any>>
+  Partial<Record<AspectRatioBreakpoint, ResponsiveAspectRatio>>
 >;
 
 /**
  * Determines which aspect ratio value to use based on current viewport breakpoint.
- * 
+ *
  * @param aspectRatio - Aspect ratio configuration (fixed value or responsive object)
  * @param isMobile - Whether viewport is at mobile breakpoint (up to tablet)
  * @param isDesktop - Whether viewport is at desktop breakpoint (laptop and up)
  * @returns Resolved aspect ratio value or undefined if none specified
- * 
+ *
  * @remarks
  * Resolution logic:
  * 1. If aspectRatio is a simple value (string/number/tuple), return it directly
@@ -33,19 +33,19 @@ type SingleAspectRatio = Exclude<
  *    - Desktop: desktop → tablet → mobile → undefined
  *    - Tablet: tablet → mobile → desktop → undefined
  *    - Mobile: mobile → tablet → desktop → undefined
- * 
+ *
  * @example
  * // Fixed aspect ratio (string)
  * getAspectRatioForBreakpoint('16/9', false, true) // → '16/9'
- * 
+ *
  * @example
  * // Fixed aspect ratio (tuple)
  * getAspectRatioForBreakpoint([16, 9], false, true) // → [16, 9]
- * 
+ *
  * @example
  * // Fixed aspect ratio (decimal)
  * getAspectRatioForBreakpoint(1.777, false, true) // → 1.777
- * 
+ *
  * @example
  * // Responsive object on desktop
  * getAspectRatioForBreakpoint(
@@ -53,7 +53,7 @@ type SingleAspectRatio = Exclude<
  *   false, // not mobile
  *   true   // is desktop
  * ) // → '16/9'
- * 
+ *
  * @example
  * // Responsive object with fallback cascade
  * getAspectRatioForBreakpoint(
@@ -61,7 +61,7 @@ type SingleAspectRatio = Exclude<
  *   false, // not mobile
  *   true   // is desktop
  * ) // → '1/1' (falls back to mobile value)
- * 
+ *
  * @example
  * // No aspect ratio specified
  * getAspectRatioForBreakpoint(undefined, true, false) // → undefined
@@ -110,33 +110,33 @@ export const getAspectRatioForBreakpoint = (
 
 /**
  * Converts an aspect ratio value to a CSS-compatible aspect-ratio string.
- * 
+ *
  * @param aspectRatio - Aspect ratio in string, number, or tuple format
  * @returns CSS aspect-ratio value or undefined if invalid/not provided
- * 
+ *
  * @remarks
  * Supported formats:
  * - String: '16/9' → '16 / 9' (adds spaces for CSS)
  * - Tuple: [16, 9] → '16 / 9' (validates length)
  * - Number: 1.777 → '1.777' (direct conversion)
  * - undefined: undefined (allows natural image dimensions)
- * 
+ *
  * @example
  * // String format
  * formatAspectRatio('16/9') // → '16 / 9'
- * 
+ *
  * @example
  * // Tuple format
  * formatAspectRatio([16, 9]) // → '16 / 9'
- * 
+ *
  * @example
  * // Number format
  * formatAspectRatio(1.777) // → '1.777'
- * 
+ *
  * @example
  * // Invalid tuple (warns and returns undefined)
  * formatAspectRatio([16]) // → undefined (console warning)
- * 
+ *
  * @example
  * // No aspect ratio (natural dimensions)
  * formatAspectRatio(undefined) // → undefined
@@ -171,15 +171,15 @@ export const formatAspectRatio = (
 
 /**
  * Clamps a numeric value between minimum and maximum bounds.
- * 
+ *
  * @param value - The value to clamp
  * @param min - Minimum allowed value
  * @param max - Maximum allowed value
  * @returns The clamped value
- * 
+ *
  * @internal
  * Helper function used by formatFocusPoint to ensure percentage values stay within 0-100 range.
- * 
+ *
  * @example
  * clamp(150, 0, 100) // → 100
  * clamp(-20, 0, 100) // → 0
@@ -191,27 +191,27 @@ const clamp = (value: number, min: number, max: number): number => {
 
 /**
  * Formats focus point coordinates to a CSS object-position value.
- * 
+ *
  * @param focusPoint - Focus point as [x%, y%] tuple (0-100 range for each axis)
  * @returns CSS object-position value or undefined if not provided
- * 
+ *
  * @remarks
  * - Values are automatically clamped to 0-100% range
  * - Returns undefined if focusPoint is not provided (lets CSS handle default centering)
  * - Invalid tuples (not exactly 2 values) return undefined
- * 
+ *
  * @example
  * // Center-right, upper third
  * formatFocusPoint([70, 30]) // → '70% 30%'
- * 
+ *
  * @example
  * // Values automatically clamped
  * formatFocusPoint([150, -20]) // → '100% 0%'
- * 
+ *
  * @example
  * // No focus point (center is default)
  * formatFocusPoint(undefined) // → undefined
- * 
+ *
  * @example
  * // Invalid tuple
  * formatFocusPoint([50] as any) // → undefined

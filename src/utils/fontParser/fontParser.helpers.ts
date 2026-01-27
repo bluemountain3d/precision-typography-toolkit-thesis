@@ -79,7 +79,7 @@ export const getAverageSideBearings = (
       // RSB (right side bearing): advanceWidth minus where the letter path ends
       const rsb = glyph.advanceWidth - glyph.bbox.maxX;
       rsbValues.push(rsb);
-    } catch (e) {
+    } catch {
       continue;
     }
   }
@@ -100,10 +100,8 @@ export const extractAllSideBearings = (
   font: Font,
   charList: string[]
 ): Record<string, { aw: number; lsb: number; rsb: number }> => {
-  const sideBearings: Record<
-    string,
-    { aw: number; lsb: number; rsb: number }
-  > = {};
+  const sideBearings: Record<string, { aw: number; lsb: number; rsb: number }> =
+    {};
 
   for (const char of charList) {
     const codePoint = char.codePointAt(0);
