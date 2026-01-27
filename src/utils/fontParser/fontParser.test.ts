@@ -306,7 +306,8 @@ describe('parseFontFile', () => {
         readAsArrayBuffer: vi.fn(function (this: FileReader) {
           setTimeout(() => {
             if (this.onerror) {
-              this.onerror(new ProgressEvent('error'));
+              const event = new Event('error') as ProgressEvent<FileReader>;
+              this.onerror(event);
             }
           }, 0);
         }),

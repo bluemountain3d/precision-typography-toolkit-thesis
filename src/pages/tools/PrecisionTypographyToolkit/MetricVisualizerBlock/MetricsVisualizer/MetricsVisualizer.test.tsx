@@ -46,31 +46,6 @@ class ResizeObserverMock {
 
 global.ResizeObserver = ResizeObserverMock as unknown as typeof ResizeObserver;
 
-// Mock font metrics state
-const mockFontMetricsState = {
-  unitsPerEm: 1000,
-  halfLeading: 100,
-  topTrim: 50,
-  bottomTrim: 50,
-  upmAscender: 800,
-  upmDescender: -200,
-  hheaAscender: 750,
-  hheaDescender: -250,
-  capHeight: 700,
-  xHeight: 500,
-  lsbAdjustRaw: 10,
-  rsbAdjustRaw: 10,
-  loadedFontFamily: 'Arial',
-  textVariantWidths: {
-    Hx: 500,
-    Hxl: 700,
-    Hxd: 900,
-    Hxlj: 1100,
-    Hxdg: 1300,
-    Hxdg0: 1500,
-  },
-};
-
 describe('MetricsVisualizer', () => {
   const renderWithProvider = (ui: React.ReactElement) => {
     return render(<FontMetricsProvider>{ui}</FontMetricsProvider>);

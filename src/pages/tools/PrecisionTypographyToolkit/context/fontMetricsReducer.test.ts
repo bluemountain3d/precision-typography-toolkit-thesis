@@ -1,4 +1,4 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi } from 'vitest';
 import {
   fontMetricsReducer,
   prepareFontMetricsState,
@@ -8,11 +8,7 @@ import type { FontMetricsState } from './FontMetricsContext.types';
 import type { FontMetrics } from '@models';
 
 // Mock localStorage
-vi.mock('@/utils/localStorage', () => ({
-  setItem: vi.fn(),
-  getItem: vi.fn(),
-  removeItem: vi.fn(),
-}));
+vi.mock('@/utils/localStorage');
 
 describe('prepareFontMetricsState', () => {
   const mockFile = new File(['data'], 'test.ttf');

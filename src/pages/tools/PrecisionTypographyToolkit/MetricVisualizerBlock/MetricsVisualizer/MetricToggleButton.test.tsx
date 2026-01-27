@@ -168,7 +168,7 @@ describe('MetricToggleButton', () => {
         </svg>
       );
 
-      const button = container.querySelector('[role="button"]');
+      const button = container.querySelector('[role="button"]') as SVGElement;
       button?.focus();
       await user.keyboard('{Enter}');
 
@@ -184,7 +184,7 @@ describe('MetricToggleButton', () => {
         </svg>
       );
 
-      const button = container.querySelector('[role="button"]');
+      const button = container.querySelector('[role="button"]') as SVGElement;
       button?.focus();
       await user.keyboard(' ');
 

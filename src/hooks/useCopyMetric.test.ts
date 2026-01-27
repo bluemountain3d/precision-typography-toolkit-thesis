@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { renderHook, waitFor, act } from '@testing-library/react';
+import { renderHook, act } from '@testing-library/react';
 import { useCopyMetric } from './useCopyMetric';
+import { initialFontMetricsState } from '@/pages/tools/PrecisionTypographyToolkit/context/FontMetricsContext.types';
 import type { FontMetricsState } from '@/pages/tools/PrecisionTypographyToolkit/context';
 
 describe('useCopyMetric', () => {
@@ -8,22 +9,16 @@ describe('useCopyMetric', () => {
   let writeTextMock: ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
-    // Setup mock state with all required properties
+    // Setup mock state using initialFontMetricsState as base
     mockState = {
+      ...initialFontMetricsState,
       fontFamily: 'Arial',
-      fontSize: 100,
-      lineHeight: 1.2,
-      fontMetrics: {
-        familyName: 'Arial',
-        capHeight: 0.7,
-        ascent: 0.9,
-        descent: -0.2,
-        lineGap: 0.1,
-        unitsPerEm: 1000,
-        xHeight: 0.5,
-        xWidthAvg: 0.5,
-      },
-    } as FontMetricsState;
+      capHeight: 700,
+      xHeight: 500,
+      unitsPerEm: 1000,
+      capHeightRatio: 0.7,
+      xHeightRatio: 0.5,
+    };
 
     // Mock clipboard API
     writeTextMock = vi.fn().mockResolvedValue(undefined);

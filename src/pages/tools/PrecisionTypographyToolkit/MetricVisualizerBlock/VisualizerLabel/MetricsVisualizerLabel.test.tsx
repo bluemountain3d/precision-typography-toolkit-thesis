@@ -94,7 +94,7 @@ describe('MetricsVisualizerLabel', () => {
     });
 
     it('should apply secondary color to empty state text', () => {
-      const { container } = renderWithProvider(<MetricsVisualizerLabel />);
+      renderWithProvider(<MetricsVisualizerLabel />);
 
       const emptyText = screen.getByText('Select a metric to see its values');
       expect(emptyText).toHaveClass('color-text-secondary');
