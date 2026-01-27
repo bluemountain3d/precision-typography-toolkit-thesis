@@ -8,6 +8,15 @@ import type {
 } from '@/types';
 import type React from 'react';
 
+export type TextElement =
+  | 'p'
+  | 'span'
+  | 'div'
+  | 'label'
+  | 'figcaption' // image captions
+  | 'q' // Inline quote
+  | 'cite'; // Citation/reference
+
 /**
  * Configuration props for the Text component.
  *
@@ -17,7 +26,8 @@ import type React from 'react';
  * Common usage involves setting separate `size`, `weight`, and `variant` props
  * rather than a single style object.
  */
-export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TextProps
+  extends Omit<React.HTMLAttributes<HTMLElement>, 'as'> {
   /**
    * The content to be rendered within the text element.
    */
@@ -89,12 +99,3 @@ export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
    */
   className?: string;
 }
-
-export type TextElement =
-  | 'p'
-  | 'span'
-  | 'div'
-  | 'label'
-  | 'figcaption' // image captions
-  | 'q' // Inline quote
-  | 'cite'; // Citation/reference
