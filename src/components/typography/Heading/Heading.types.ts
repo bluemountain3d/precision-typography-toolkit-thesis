@@ -19,7 +19,7 @@ export interface HeadingProps {
   marginTop?: SpacingSize | SpacingStep;
   marginBottom?: SpacingSize | SpacingStep;
   className?: string;
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 6;

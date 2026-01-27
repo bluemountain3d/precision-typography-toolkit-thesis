@@ -1,4 +1,5 @@
 import Prism from 'prismjs';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 
 // Import languages
 import 'prismjs/components/prism-css';
@@ -51,17 +52,17 @@ const extendCSS = () => {
   if (!Prism.languages.css) return;
 
   (Prism.languages.css as any).punctuation = /[;:,]/;
-  
+
   Prism.languages.insertBefore('css', 'property', {
     'keyword-value': /(?<=:\s*)(?!['"])[a-z][a-z-]*(?=\s*;)/i,
   });
-  
+
   (Prism.languages.css as any).number = /-?\b\d+(?:[.,]\d+)?|(?<=[.,])\d+\b/;
   (Prism.languages.css as any).unit = /(?<=\d)[a-z]+/i;
-  
+
   // Add braces for rainbow coloring
   Object.assign(Prism.languages.css, simpleBraces);
-  
+
   (Prism.languages.css as any).string = stringPatterns;
 };
 
@@ -86,7 +87,7 @@ const extendSCSS = () => {
 
   // Add braces for rainbow coloring
   Object.assign(Prism.languages.scss, simpleBraces);
-  
+
   (Prism.languages.scss as any).string = stringPatterns;
 };
 
@@ -97,10 +98,10 @@ const extendJSON = () => {
   if (!Prism.languages.json) return;
 
   (Prism.languages.json as any).punctuation = /[,:]/;
-  
+
   // Add braces for rainbow coloring
   Object.assign(Prism.languages.json, simpleBraces);
-  
+
   (Prism.languages.json as any).string = stringPatterns;
 };
 
@@ -112,10 +113,10 @@ export const applyRainbowBraces = (codeElement: HTMLElement) => {
   const braceTokens = codeElement.querySelectorAll('.token.brace');
   const stack: number[] = [];
   const colors = ['brace-level-1', 'brace-level-2', 'brace-level-3'];
-  
+
   braceTokens.forEach((token) => {
     const char = token.textContent || '';
-    
+
     if (/[({[]/.test(char)) {
       // Opening brace - use modulo to cycle through colors
       const level = stack.length % colors.length;

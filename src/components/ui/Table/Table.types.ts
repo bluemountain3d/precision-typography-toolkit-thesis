@@ -5,7 +5,7 @@ import type React from 'react';
  * Generic table component props
  * @template T - The type of data objects in the table
  */
-export interface TableProps<T extends Record<string, any>> {
+export interface TableProps<T extends Record<string, unknown>> {
   ariaLabelledBy?: string;
   /** Array of data objects to display in table rows */
   data: T[];

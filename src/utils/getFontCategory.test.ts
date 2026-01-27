@@ -1,8 +1,9 @@
 import { describe, it, expect } from 'vitest';
+import type { Font } from 'fontkit';
 import { getCategory } from '@utils/getFontCategory';
 
 // Mock the entire Font type to avoid TypeScript errors
-const createMockFont = (overrides: any = {}): any => {
+const createMockFont = (overrides: Record<string, unknown> = {}): Font => {
   const defaultFont = {
     familyName: 'Test Font',
     postscriptName: 'TestFont-Regular',
@@ -78,10 +79,10 @@ const createMockFont = (overrides: any = {}): any => {
     merged.post = { ...defaultFont.post, ...overrides.post };
   }
   if (overrides.glyphForCodePoint) {
-    merged.glyphForCodePoint = overrides.glyphForCodePoint;
+    merged.glyphForCodePoint = overrides.glyphForCodePoint as never;
   }
 
-  return merged;
+  return merged as unknown as Font;
 };
 
 describe('getCategory', () => {

@@ -1,4 +1,5 @@
 import { describe, it, expect } from 'vitest';
+import type { Font } from 'fontkit';
 import {
   getBBoxHeight,
   isAllCapsFont,
@@ -9,7 +10,7 @@ import {
 } from './fontParser.helpers';
 
 // Simple mock font for testing
-const createMockFont = (overrides: any = {}): any => {
+const createMockFont = (overrides: Record<string, unknown> = {}): Font => {
   return {
     glyphForCodePoint: (codePoint: number) => ({
       bbox: { maxY: 700, minX: 50, maxX: 550 },
@@ -19,7 +20,7 @@ const createMockFont = (overrides: any = {}): any => {
     hasGlyphForCodePoint: () => true,
     layout: (text: string) => ({ advanceWidth: text.length * 600 }),
     ...overrides,
-  };
+  } as unknown as Font;
 };
 
 describe('fontParser.helpers', () => {

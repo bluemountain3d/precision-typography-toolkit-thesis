@@ -5,7 +5,15 @@ import { Button } from './Button';
 
 // Mock React Router Link
 vi.mock('react-router-dom', () => ({
-  Link: ({ to, children, ...props }: any) => (
+  Link: ({
+    to,
+    children,
+    ...props
+  }: {
+    to: string;
+    children: React.ReactNode;
+    [key: string]: unknown;
+  }) => (
     <a href={to} {...props}>
       {children}
     </a>
@@ -14,7 +22,7 @@ vi.mock('react-router-dom', () => ({
 
 // Mock Icon component
 vi.mock('@/components/ui/Icon', () => ({
-  Icon: ({ size, fill }: any) => (
+  Icon: ({ size, fill }: { size?: string; fill?: string }) => (
     <span data-testid="mock-icon" data-size={size} data-fill={fill}>
       Icon
     </span>

@@ -17,7 +17,7 @@ import { DropZone } from './DropZone';
  * * state management fpr isDragging (useDropZone does that)
  */
 
-let capturedOnError: ((error: string) => void) | undefined;
+let capturedOnError: ((_error: string) => void) | undefined;
 
 vi.mock('@/hooks/useDropZone', () => ({
   useDropZone: vi.fn((props) => {

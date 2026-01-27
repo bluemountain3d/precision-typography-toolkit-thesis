@@ -26,9 +26,7 @@ describe('useMediaQuery', () => {
     it('should return true when media query matches', () => {
       window.matchMedia = createMatchMedia(true);
 
-      const { result } = renderHook(() =>
-        useMediaQuery('(min-width: 768px)')
-      );
+      const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
 
       expect(result.current).toBe(true);
     });
@@ -36,9 +34,7 @@ describe('useMediaQuery', () => {
     it('should return false when media query does not match', () => {
       window.matchMedia = createMatchMedia(false);
 
-      const { result } = renderHook(() =>
-        useMediaQuery('(min-width: 768px)')
-      );
+      const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
 
       expect(result.current).toBe(false);
     });
@@ -93,9 +89,7 @@ describe('useMediaQuery', () => {
 
       window.matchMedia = mockMatchMedia;
 
-      const { result } = renderHook(() =>
-        useMediaQuery('(min-width: 768px)')
-      );
+      const { result } = renderHook(() => useMediaQuery('(min-width: 768px)'));
 
       expect(result.current).toBe(false);
 
@@ -123,13 +117,14 @@ describe('useMediaQuery', () => {
 
       window.matchMedia = mockMatchMedia;
 
-      const { unmount } = renderHook(() =>
-        useMediaQuery('(min-width: 768px)')
-      );
+      const { unmount } = renderHook(() => useMediaQuery('(min-width: 768px)'));
 
       unmount();
 
-      expect(removeEventListener).toHaveBeenCalledWith('change', expect.any(Function));
+      expect(removeEventListener).toHaveBeenCalledWith(
+        'change',
+        expect.any(Function)
+      );
     });
   });
 
@@ -145,9 +140,7 @@ describe('useMediaQuery', () => {
     it('should handle invalid query string gracefully', () => {
       window.matchMedia = createMatchMedia(false);
 
-      const { result } = renderHook(() =>
-        useMediaQuery('not a valid query')
-      );
+      const { result } = renderHook(() => useMediaQuery('not a valid query'));
 
       // Should not throw, just return false
       expect(result.current).toBe(false);
@@ -168,9 +161,7 @@ describe('useMediaQuery', () => {
     it('should handle mobile breakpoint', () => {
       window.matchMedia = createMatchMedia(true);
 
-      const { result } = renderHook(() =>
-        useMediaQuery('(max-width: 767px)')
-      );
+      const { result } = renderHook(() => useMediaQuery('(max-width: 767px)'));
 
       expect(result.current).toBe(true);
     });
@@ -188,9 +179,7 @@ describe('useMediaQuery', () => {
     it('should handle desktop breakpoint', () => {
       window.matchMedia = createMatchMedia(true);
 
-      const { result } = renderHook(() =>
-        useMediaQuery('(min-width: 1024px)')
-      );
+      const { result } = renderHook(() => useMediaQuery('(min-width: 1024px)'));
 
       expect(result.current).toBe(true);
     });

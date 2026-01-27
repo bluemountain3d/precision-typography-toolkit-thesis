@@ -52,7 +52,7 @@ interface CustomButtonProps {
   /**
    * Click handler for button interactions
    */
-  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+  onClick?: (event: React.MouseEvent<HTMLElement>) => void;
 
   /**
    * When provided, renders as an anchor tag instead of button
@@ -95,7 +95,7 @@ interface CustomButtonProps {
   /**
    * Allows passing any valid HTML attribute for the rendered element (e.g., id, title, data-*).
    */
-  [key: string]: any;
+  [key: string]: unknown;
 }
 
 /**

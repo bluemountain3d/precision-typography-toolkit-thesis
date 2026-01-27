@@ -17,7 +17,7 @@ import type React from 'react';
  * Common usage involves setting separate `size`, `weight`, and `variant` props
  * rather than a single style object.
  */
-export interface TextProps {
+export interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
   /**
    * The content to be rendered within the text element.
    */
@@ -88,11 +88,6 @@ export interface TextProps {
    * Custom CSS class for specific overrides.
    */
   className?: string;
-
-  /**
-   * Allows passing any valid HTML attribute for the rendered element (e.g., id, title, data-*).
-   */
-  [key: string]: any;
 }
 
 export type TextElement =
