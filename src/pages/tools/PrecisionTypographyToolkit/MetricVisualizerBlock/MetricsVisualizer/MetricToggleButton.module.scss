@@ -18,6 +18,7 @@
 
   &:focus-visible .hit-area {
     stroke: var(--color-inline-link);
+    stroke-width: 4px;
   }
 }
 

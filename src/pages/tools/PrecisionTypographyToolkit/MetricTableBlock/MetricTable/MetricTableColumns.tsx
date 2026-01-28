@@ -81,10 +81,13 @@ export const getMetricTableColumns = ({
         >
           {row.id === 'category' && (
             <>
+              <label htmlFor="category-select" className="sr-only">
+                Select the fonts category
+              </label>
               <select
                 name="category-select"
                 id="category-select"
-                aria-label="Select the fonts category"
+                // aria-label="Select the fonts category"
                 value={currentCategory || 'sans-serif'}
                 onChange={onCategoryChange}
                 onClick={(e) => e.stopPropagation()}
