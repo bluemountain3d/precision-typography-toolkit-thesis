@@ -1,0 +1,35 @@
+/// @group [FOLDER NAME]
+/// @name <MODULE NAME>
+/// Description of the module's purpose
+/// on multiple lines if necessary
+/// ===========================================================================
+
+// Abstracts - Project-specific utilities
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
+@use "../abstracts/mixins" as mx;
+
+// Sass built-in modules - Only import what you actually use
+// @use 'sass:color';
+// @use 'sass:list';
+// @use 'sass:map';
+// @use 'sass:math';
+// @use 'sass:meta';
+// @use 'sass:selector';
+// @use 'sass:string';
+
+// ============================================================================
+// Module Configuration
+// ============================================================================
+
+// Module-local variables (prefix with $ not $_)
+// $module-spacing: 1rem;
+// $module-color: var.$color-primary;
+
+// ============================================================================
+// Module Styles
+// ============================================================================
+
+// .selector {
+//   property: value;
+// }

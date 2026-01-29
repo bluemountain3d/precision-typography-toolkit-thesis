@@ -1,0 +1,13 @@
+.confirm-dialog {
+  width: 90%;
+  max-width: 40rem;
+  padding: var(--space-xl);
+  border-radius: var(--space-lg);
+  background-color: var(--color-primary-dark);
+  border: 2px solid var(--color-primary);
+
+  @supports (corner-shape: squircle) {
+    border-radius: calc(var(--space-lg) * (3 / 2));
+    corner-shape: squircle;
+  }
+}

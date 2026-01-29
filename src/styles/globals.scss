@@ -1,0 +1,16 @@
+/// @group Globals
+/// @name Global Styles
+/// @description Main entry point - imports all global styles
+/// ===========================================================================
+
+// Tokens - CSS custom properties
+@forward "./tokens/";
+
+// Utilities - Utility classes
+@forward "./utilities/";
+
+// Base - Global HTML element styling
+@forward "./base/";
+
+// Components - Global components styling
+@forward "./components/";

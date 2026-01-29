@@ -1,0 +1,335 @@
+/// @group Forms
+/// @name ThumbSlider Component Styles
+///
+/// Custom range slider with progress fill visualization and gradient thumb.
+/// Supports both Webkit (Chrome, Safari, Edge) and Firefox browsers.
+
+@use "@/styles/abstracts/variables" as var;
+
+.thumb-slider {
+  width: 100%;
+  // --------------------------------------------------------------------------
+  // CSS Custom Properties (Design Tokens)
+  // --------------------------------------------------------------------------
+
+  /// Track color for unfilled portion
+  /// @type Color
+  --_slider-track-color: var(--color-tertiary);
+
+  /// Track color for filled (progress) portion
+  /// @type Color
+  --_slider-track-progress-color: var(--color-inline-link);
+
+  /// Thumb surface gradient - light end
+  /// @type Color
+  --_thumb-surface-light: var(--color-primary-surface);
+
+  /// Thumb surface gradient - dark end
+  /// @type Color
+  --_thumb-surface-dark: var(--color-primary-surface-dark);
+
+  /// Thumb surface color when active
+  /// @type Color
+  --_thumb-surface-active: var(--color-primary-surface-active);
+
+  /// Thumb border gradient - bright end
+  /// @type Color
+  --_thumb-border-bright: var(--color-primary-border-bright);
+
+  /// Thumb border gradient - dark end
+  /// @type Color
+  --_thumb-border-dark: var(--color-primary-border);
+
+  /// Thumb border color on hover
+  /// @type Color
+  --_thumb-border-hover: var(--color-primary-border-hover);
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  column-gap: var(--space-sm);
+  row-gap: var(--space-lg);
+
+  // --------------------------------------------------------------------------
+  // Slider Input Element
+  // --------------------------------------------------------------------------
+
+  /// Range input styling with custom thumb and track
+  /// @requires {mixin} None - Pure CSS implementation
+  /// @output Custom styled range input with progress fill
+  input[type="range"] {
+    position: relative;
+    flex-grow: 1;
+    width: 100%;
+    max-width: 100%;
+    margin-block: calc(0.125em - 2px);
+    // Remove native browser styling
+    -webkit-appearance: none;
+    font-size: inherit; // Allow parent font-size to control thumb size (1em = parent font-size)
+    appearance: none;
+    background: transparent; // Track background is set separately per browser
+
+    @media screen and (min-width: 30rem) {
+      //#{var.$bp-phablet-and-up} {
+      width: auto;
+    }
+
+    /// Remove default focus outline (custom focus styling on thumb instead)
+    &:focus {
+      outline: none;
+    }
+
+    // --------------------------------------------------------------------------
+    // Keyboard Focus Indicators
+    // --------------------------------------------------------------------------
+
+    /// Webkit (Chrome, Safari, Edge) thumb focus
+    /// @see {Selector} ::-webkit-slider-thumb
+    &:focus-visible::-webkit-slider-thumb {
+      outline: 4px solid var(--color-inline-link);
+      outline-offset: 2px;
+    }
+
+    /// Firefox thumb focus
+    /// @see {Selector} ::-moz-range-thumb
+    &:focus-visible::-moz-range-thumb {
+      outline: 4px solid var(--color-inline-link);
+      outline-offset: 2px;
+    }
+
+    // --------------------------------------------------------------------------
+    // Track Styling
+    // --------------------------------------------------------------------------
+
+    /// Webkit Track (Chrome, Safari, Edge)
+    /// Uses linear gradient to show progress fill (left) and base track (right)
+    /// The --_progress custom property is dynamically updated via JavaScript
+    ///
+    /// @type Pseudo-element
+    /// @requires {Variable} --_progress - Progress percentage (0% to 100%)
+    /// @output Track with two-tone gradient showing filled/unfilled portions
+    &::-webkit-slider-runnable-track {
+      z-index: 1;
+      width: 100%;
+      height: 0.25em;
+      border-radius: 0.25em;
+      background: linear-gradient(
+        in oklch to right,
+        var(--_slider-track-progress-color) 0%,
+        var(--_slider-track-progress-color) var(--_progress),
+        var(--_slider-track-color) var(--_progress),
+        var(--_slider-track-color) 100%
+      );
+
+      @supports (corner-shape: squircle) {
+        border-radius: calc(0.25em * (3 / 2));
+        corner-shape: squircle;
+      }
+    }
+
+    /// Firefox Track (base/unfilled portion)
+    /// Firefox has native progress support via ::-moz-range-progress
+    ///
+    /// @type Pseudo-element
+    /// @output Base track color for unfilled portion
+    &::-moz-range-track {
+      background: var(--_slider-track-color);
+      border-radius: 0.25em;
+    }
+
+    /// Firefox Progress Track (filled portion)
+    /// Native Firefox feature for showing slider progress
+    ///
+    /// @type Pseudo-element
+    /// @output Progress fill color for filled portion
+    &::-moz-range-progress {
+      background: var(--_slider-track-progress-color);
+      border-radius: 0.25em;
+    }
+
+    // --------------------------------------------------------------------------
+    // Thumb Styling
+    // --------------------------------------------------------------------------
+
+    /// Webkit Thumb (Chrome, Safari, Edge)
+    /// Uses dual-gradient technique for layered surface + border effects:
+    /// 1. Surface gradient (dark to light diagonal) - padding-box
+    /// 2. Border gradient (dark to bright diagonal) - border-box
+    ///
+    /// @type Pseudo-element
+    /// @requires {Property} border - Must be transparent for dual-gradient to work
+    /// @output Custom styled thumb with gradient surface and border
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      cursor: pointer;
+      margin-top: -0.775em; // Center thumb vertically on track (thumb is taller than track)
+      width: 1em; // Size relative to parent font-size
+      height: 1.8em;
+      border-radius: 0.3em;
+      border: 1px solid transparent; // Required for dual-gradient technique
+
+      // Dual-gradient background (surface + border)
+      background:
+        linear-gradient(
+            in oklch -37.3deg,
+            var(--_thumb-surface-dark) 0%,
+            var(--_thumb-surface-light) 100%
+          )
+          padding-box,
+        // Surface gradient
+        linear-gradient(
+            in oklch -37.3deg,
+            var(--_thumb-border-dark) 60%,
+            var(--_thumb-border-bright) 90%
+          )
+          border-box; // Border gradient
+
+      // Inner shadow for depth
+      box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+
+      @supports (corner-shape: squircle) {
+        border-radius: calc(0.3em * (3 / 2));
+        corner-shape: squircle;
+      }
+
+      /// Hover state with updated border color and glow effect
+      &:hover {
+        // Update border color on hover
+        --_thumb-border-dark: var(--_thumb-border-hover);
+
+        // Add glow effect
+        box-shadow:
+          inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
+          // Inner shadow
+          0 0 0.5em 1px
+            oklch(
+              from var(--color-primary-border-hover) l c h / 50%
+            ); // Outer glow
+      }
+    }
+
+    /// Firefox Thumb
+    /// Identical styling to Webkit thumb
+    /// Must be separate due to browser selector incompatibility
+    ///
+    /// @type Pseudo-element
+    /// @see {Selector} ::-webkit-slider-thumb - Webkit equivalent
+    &::-moz-range-thumb {
+      cursor: pointer;
+      width: 1em;
+      height: 1.8em;
+      border-radius: 0.3em;
+      border: 1px solid transparent;
+      background:
+        linear-gradient(
+            in oklch -37.3deg,
+            var(--_thumb-surface-dark) 0%,
+            var(--_thumb-surface-light) 100%
+          )
+          padding-box,
+        linear-gradient(
+            in oklch -37.3deg,
+            var(--_thumb-border-dark) 60%,
+            var(--_thumb-border-bright) 90%
+          )
+          border-box;
+      box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+
+      &:hover {
+        --_thumb-border-dark: var(--_thumb-border-hover);
+        box-shadow:
+          inset 0 0 0.25em 1px oklch(0 0 0 / 50%),
+          0 0 0.5em 1px
+            oklch(from var(--color-primary-border-hover) l c h / 50%);
+      }
+    }
+
+    // --------------------------------------------------------------------------
+    // Disabled State
+    // --------------------------------------------------------------------------
+
+    /// Disabled styling for all slider elements
+    /// Updates color tokens to disabled variants for all pseudo-elements
+    /// Must be defined separately per browser due to selector incompatibility
+    ///
+    /// @output Muted colors and disabled cursor for all slider parts
+    &:disabled {
+      cursor: not-allowed;
+
+      /// Webkit track - disabled colors
+      /// @requires {Variable} --color-disabled-border
+      /// @requires {Variable} --color-text-disabled
+      &::-webkit-slider-runnable-track {
+        cursor: not-allowed;
+        --_slider-track-color: var(--color-disabled-border);
+        --_slider-track-progress-color: var(--color-text-disabled);
+      }
+
+      /// Webkit thumb - disabled colors
+      /// Removes hover glow effect when disabled
+      /// @requires {Variable} --color-disabled-surface
+      /// @requires {Variable} --color-disabled-border-*
+      &::-webkit-slider-thumb {
+        cursor: not-allowed;
+        --_thumb-surface-light: var(--color-disabled-surface);
+        --_thumb-surface-dark: var(--color-disabled-surface-dark);
+        --_thumb-border-bright: var(--color-disabled-border-bright);
+        --_thumb-border-dark: var(--color-disabled-border);
+
+        // Remove hover glow effect when disabled
+        &:hover {
+          box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+        }
+      }
+
+      /// Firefox track - disabled colors
+      /// @requires {Variable} --color-text-disabled
+      &::-moz-range-track {
+        --_slider-track-color: var(--color-disabled-border);
+      }
+
+      /// Firefox progress - disabled colors
+      /// @requires {Variable} --color-disabled-border
+      &::-moz-range-progress {
+        --_slider-track-progress-color: var(--color-text-disabled);
+      }
+
+      /// Firefox thumb - disabled colors
+      /// Removes hover glow effect when disabled
+      /// @requires {Variable} --color-disabled-surface
+      /// @requires {Variable} --color-disabled-border-*
+      &::-moz-range-thumb {
+        cursor: not-allowed;
+        --_thumb-surface-light: var(--color-disabled-surface);
+        --_thumb-surface-dark: var(--color-disabled-surface-dark);
+        --_thumb-border-bright: var(--color-disabled-border-bright);
+        --_thumb-border-dark: var(--color-disabled-border);
+
+        // Remove hover glow effect when disabled
+        &:hover {
+          box-shadow: inset 0 0 0.25em 1px oklch(0 0 0 / 50%);
+        }
+      }
+    }
+  }
+
+  &:has(input:disabled) {
+    label {
+      color: var(--color-text-disabled);
+      user-select: none;
+    }
+  }
+
+  // --------------------------------------------------------------------------
+  // Label Styling
+  // --------------------------------------------------------------------------
+
+  /// Optional label element
+  /// Prevents text wrapping for clean layout
+  ///
+  /// @output Label with nowrap whitespace handling
+  label {
+    white-space: nowrap;
+    font-family: inherit;
+  }
+}

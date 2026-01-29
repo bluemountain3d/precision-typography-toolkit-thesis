@@ -1,0 +1,63 @@
+@use "@/styles/abstracts/functions" as fn;
+@use "@/styles/abstracts/mixins/" as mx;
+@use "@/styles/tokens/leading-trim" as *;
+
+.diagram-presentation {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  justify-content: center;
+  justify-items: center;
+  align-items: start;
+  gap: var(--space-sm);
+
+  @media screen and (width < 40rem) {
+    grid-template-columns: repeat(2, 1fr);
+    margin-inline: auto;
+    width: fit-content;
+    row-gap: var(--space-lg);
+  }
+
+  & > * {
+    max-width: 10rem;
+  }
+}
+
+.side-bearings-viz {
+  padding: var(--space-lg) var(--space-sm);
+  background-color: var(--color-primary);
+
+  &__inner {
+    border-left: 1px dashed var(--color-primary-lines);
+  }
+
+  &__title {
+    @include mx.fontSetup(
+      $font: "tertiary",
+      $font-size: #{fn.fluidFontSize($level: 6, $unit-key: "vwx")},
+      $line-height: 1.2,
+      $font-weight: 400,
+      $font-style: normal,
+    );
+    margin-bottom: 0.75em;
+    margin-inline: 0;
+    user-select: none;
+    transition: margin-inline 0.5s ease;
+  }
+
+  &__body {
+    @include mx.fontSetup(
+      $font: "tertiary",
+      $font-size: #{fn.fluidFontSize($level: 3, $unit-key: "vwx")},
+      $line-height: 1.5,
+      $font-weight: 400,
+      $font-style: normal,
+    );
+    margin-inline: 0;
+    user-select: none;
+    transition: margin-inline 0.5s ease;
+  }
+
+  .side-bearings-on {
+    margin-inline: -0.037em -0.032em;
+  }
+}

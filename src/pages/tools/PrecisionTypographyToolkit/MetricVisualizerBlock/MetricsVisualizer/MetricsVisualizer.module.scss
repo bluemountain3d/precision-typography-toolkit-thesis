@@ -1,0 +1,10 @@
+.metrics-visualizer {
+  font-size: clamp(6.25rem, 4.1667rem + 8.6806 * var(--vwx), 12.5rem);
+  height: 100%;
+  width: 100%;
+  margin-block: var(--space-sm);
+  
+  & > svg {
+    overflow: visible;
+  }
+}

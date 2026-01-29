@@ -1,0 +1,1 @@
+export { TextWrapperBlock } from './TextWrapperBlock';

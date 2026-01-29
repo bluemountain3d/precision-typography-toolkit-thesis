@@ -1,0 +1,223 @@
+@use "@/styles/abstracts/variables" as var;
+
+.metrics-table {
+  width: 100%;
+
+  th:nth-child(1),
+  td:nth-child(1) {
+    width: 15ch;
+  }
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 23ch;
+  }
+  th:nth-child(3),
+  td:nth-child(3) {
+    width: 13ch;
+  }
+
+  th:nth-child(4) {
+    white-space: normal;
+  }
+
+  td:nth-child(4) {
+    max-width: 0;
+  }
+
+  @media screen and #{var.$bp-up-to-phablet} {
+    th:nth-child(1),
+    td:nth-child(1) {
+      width: 36vw;
+    }
+    td:nth-child(2),
+    th:nth-child(2) {
+      max-width: 28vw;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    td:nth-child(3),
+    th:nth-child(3) {
+      white-space: nowrap;
+    }
+  }
+
+  select option {
+    outline-offset: -4px;
+  }
+
+  // Basic Select
+  @supports not selector(::picker-icon) {
+    select {
+      appearance: none;
+      cursor: pointer;
+      width: calc(100% + 0.5em);
+      margin-inline: -0.25em;
+      margin-block: -0.25em;
+      padding-inline: 0.25em;
+      font-size: var(--text-sm);
+      line-height: 1.5;
+      border-radius: 0.25em;
+      border: 2px solid var(--color-tertiary);
+      background-color: var(--color-primary);
+      color: var(--color-text-secondary);
+
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ABBACE' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.5em center;
+      background-size: 0.75em;
+
+      &:open {
+        background-color: var(--color-primary);
+      }
+
+      & > option {
+        background-color: var(--color-primary-dark);
+        padding: 0.25em 0.5em;
+        font-family: var(--font-family-mono);
+        font-size: var(--text-sm);
+      }
+    }
+  }
+
+  @supports selector(::picker-icon) {
+    select {
+      --_radius: 0.5em;
+      justify-content: space-between;
+      width: calc(100% + 1em);
+      margin-block: -0.2em;
+      margin-inline: -0.5em;
+      padding-inline: 0.5em;
+      line-height: 1.6;
+      background-color: var(--color-primary-dark);
+
+      &:open {
+        background-color: var(--color-primary);
+        // border-radius: var(--_radius) var(--_radius) 0 0;
+
+        // &::picker(select) {
+        //   border-radius: 0 0 var(--_radius) var(--_radius);
+        // }
+      }
+
+      &,
+      &::picker(select) {
+        appearance: base-select;
+        cursor: pointer;
+        font-size: var(--text-sm);
+        border-radius: var(--_radius);
+        border: 2px solid var(--color-tertiary);
+        color: var(--color-text-secondary);
+
+        transition:
+          color 0.2s ease,
+          background-color 0.2s ease;
+      }
+
+      &::picker(select) {
+        margin-block: 0.25rem;
+        background-color: var(--color-primary-dark);
+      }
+
+      &:hover {
+        background-color: var(--color-primary);
+        color: var(--color-text-primary);
+
+        &::picker-icon {
+          color: var(--color-text-primary);
+        }
+      }
+
+      &::picker-icon {
+        color: var(--color-text-secondary);
+
+        transition: color 0.2s ease;
+      }
+
+      option {
+        padding: 0.25em 0.5em;
+        &:first-child {
+          padding-top: 0.5em;
+        }
+        &:last-child {
+          padding-bottom: 0.5em;
+        }
+
+        background-color: transparent;
+
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--color-primary);
+        }
+
+        &:checked {
+          background-color: var(--color-primary);
+        }
+
+        &:hover {
+          background-color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  @supports selector(corner-shape) {
+    select,
+    select:open,
+    select::picker(select) {
+      --_radius: calc(0.5em * 1.5);
+      corner-shape: squircle;
+    }
+  }
+
+  &__cell {
+    overflow: visible;
+  }
+
+  &__text {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--color-text-secondary);
+    line-height: 1.5;
+
+    sup {
+      font-feature-settings: "sups";
+      vertical-align: baseline;
+      position: relative;
+      top: -0.25em;
+      left: 0.1em;
+      font-size: 0.8em;
+    }
+  }
+
+  &__button {
+    flex-shrink: 0;
+    width: 1.5em;
+    height: 1.5em;
+    margin-inline-start: 0.5em;
+    padding: 0.4em;
+    font-size: inherit;
+    opacity: 0.5;
+    background-color: oklch(1 0 0 / 0%);
+    border-radius: 0.25em;
+    border: none;
+    cursor: pointer;
+
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    transition:
+      background-color 0.1s ease,
+      opacity 0.1s ease;
+
+    &:hover,
+    &:focus-visible {
+      opacity: 1;
+      background-color: oklch(1 0 0 / 15%);
+    }
+  }
+}

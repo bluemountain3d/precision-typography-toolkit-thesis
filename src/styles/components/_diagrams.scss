@@ -1,0 +1,101 @@
+.metric-diagram {
+}
+
+.metric-diagram > svg {
+  line,
+  path {
+    &[class^="metric-line"],
+    &[class^="measure-line"] {
+      vector-effect: non-scaling-stroke !important;
+      stroke-width: 1 !important;
+      fill: none !important;
+    }
+  }
+
+  g {
+    &[class^="metric-line"] > :is(path, line),
+    &[class^="measure-line"] > :is(path, line) {
+      vector-effect: non-scaling-stroke !important;
+      stroke-width: 1 !important;
+      fill: none !important;
+    }
+  }
+
+  .stroke-2 {
+    stroke-width: 2;
+  }
+
+  .dashed {
+    stroke-dasharray: 3 2;
+  }
+  .dotted {
+    stroke-linecap: round;
+    stroke-dasharray: 1 2;
+  }
+
+  .measure-letter {
+    fill: var(--color-text-primary);
+  }
+  .measure-letter--muted {
+    fill: var(--color-text-secondary);
+  }
+  .measure-letter--highlighted {
+    fill: var(--color-inline-link);
+  }
+
+  .measure-line {
+    stroke: var(--color-text-primary);
+  }
+  .measure-line--muted {
+    stroke: var(--color-text-secondary);
+  }
+  .measure-line--highlighted {
+    stroke: var(--color-inline-link);
+  }
+
+  .metric-line {
+    stroke: var(--color-primary-lines);
+  }
+  .metric-line--muted {
+    stroke: var(--color-tertiary);
+  }
+  .metric-line--dark {
+    stroke: var(--color-primary);
+  }
+  .metric-line--light {
+    stroke: var(--color-text-primary);
+  }
+  .metric-line--highlighted {
+    stroke: var(--color-inline-link);
+  }
+
+  .metric-box {
+    fill: var(--color-tertiary);
+  }
+  .metric-box--muted {
+    fill: var(--color-secondary);
+  }
+  .metric-box--highlighted {
+    fill: var(--color-primary-lines);
+  }
+  .metric-box--bright {
+    fill: var(--color-inline-link);
+  }
+
+  .label--tertiary {
+    fill: var(--color-tertiary);
+  }
+  .label--text-primary {
+    fill: var(--color-text-primary);
+  }
+
+  path.glyph,
+  .glyph > path {
+    fill: var(--color-text-primary);
+  }
+
+  path.glyph--muted,
+  .glyph--muted > path {
+    fill: var(--color-text-secondary);
+  }
+}

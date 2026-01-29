@@ -1,0 +1,180 @@
+/// @group Components
+/// @name Table Component
+///
+/// A comprehensive table component with alternating row colors, hover states,
+/// active row highlighting, and smart column width management.
+///
+/// @example markup - HTML structure
+///   <table class="table">
+///     <thead>
+///       <tr>
+///         <th>Header 1</th>
+///         <th>Header 2</th>
+///         <th>Last column (auto-width)</th>
+///       </tr>
+///     </thead>
+///     <tbody>
+///       <tr>
+///         <td>Cell 1</td>
+///         <td>Cell 2</td>
+///         <td>This column expands to fill space</td>
+///       </tr>
+///       <tr class="active">
+///         <td>Active row</td>
+///         <td>Highlighted</td>
+///         <td>With distinct styling</td>
+///       </tr>
+///     </tbody>
+///   </table>
+///
+
+@use "../../../styles/abstracts/variables/" as var;
+
+.table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+  border-spacing: 0;
+  border: 1px solid var(--color-tertiary);
+  font-size: var(--text-base);
+
+  // ---------------------------------------------------------------------------
+  // Header Cells
+  // ---------------------------------------------------------------------------
+  /// Table header styling with larger font and semibold weight
+  th {
+    font-size: var(--text-md);
+    font-weight: var(--font-weight-semibold);
+    background-color: var(--color-primary);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Data Cells
+  // ---------------------------------------------------------------------------
+  /// Table data cells with smaller font size
+  td {
+    font-size: var(--text-sm);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Shared Cell Styling
+  // ---------------------------------------------------------------------------
+  /// Shared styles for both header and data cells.
+  ///
+  /// Column Width Logic:
+  /// - All columns except last: `width: 1%` forces minimum width
+  /// - Last column: `width: auto` allows it to fill remaining space
+  /// - Text overflow handled with ellipsis for narrow columns
+  th,
+  td {
+    width: 1%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.5;
+    padding-block: calc((2.75rem - 1.5em) / 2);
+    padding-inline: var(--space-xs);
+    text-align: left;
+
+    @media #{var.$bp-tablet-lg-and-up} {
+      padding-inline: var(--space-sm);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Last Column Auto-Width
+  // ---------------------------------------------------------------------------
+  /// Last column in each row expands to fill remaining space
+  /// and allows text wrapping for longer content
+  th:last-child,
+  td:last-child {
+    width: auto;
+    white-space: normal;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Column Separators
+  // ---------------------------------------------------------------------------
+  /// Vertical borders between columns (except last column)
+  th:not(:last-child),
+  td:not(:last-child) {
+    border-right: 1px solid var(--color-tertiary);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Alternating Row Colors
+  // ---------------------------------------------------------------------------
+  /// Zebra striping for improved readability
+  tbody tr:nth-child(even) {
+    background-color: var(--color-primary);
+  }
+
+  tbody tr:nth-child(odd) {
+    background-color: var(--color-secondary);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Hover States
+  // ---------------------------------------------------------------------------
+  /// Interactive hover feedback with semi-transparent overlay
+  /// using oklch color manipulation for consistent opacity
+  tbody tr:hover:nth-child(even) td {
+    cursor: pointer;
+    background-color: oklch(from var(--color-tertiary) l c h / 75%);
+  }
+
+  tbody tr:hover:nth-child(odd) td {
+    cursor: pointer;
+    background-color: oklch(from var(--color-tertiary) l c h / 50%);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Active Row State
+  // ---------------------------------------------------------------------------
+  /// Highlighted state for currently selected/active row.
+  /// Uses `!important` to override hover states.
+  tbody tr.active {
+    background-color: var(--color-tertiary) !important;
+    font-weight: var(--font-weight-medium);
+
+    td {
+      background-color: inherit;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Cell Layout Utility
+  // ---------------------------------------------------------------------------
+  /// Flexbox container for cell content with space-between alignment.
+  /// Used when cells need internal layout (e.g., icons, badges).
+  &__cell {
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    
+    line-height: inherit;
+    color: var(--color-text-secondary);
+
+    span {
+      width: 100%;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Cell Content Wrapper
+  // ---------------------------------------------------------------------------
+  /// Content wrapper with text overflow handling.
+  /// Grows to fill available space while maintaining ellipsis behavior.
+  &__cell-content {
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-inline-end: 0.5em;
+  }
+}

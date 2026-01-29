@@ -1,0 +1,13 @@
+.export-metrics {
+  flex: 1;
+  min-height: 0;
+  height: 100%;
+
+  @supports selector(::details-content) {
+    max-height: 90dvh;
+  }
+
+  &__navigation {
+    padding-inline: 6px;
+  }
+}

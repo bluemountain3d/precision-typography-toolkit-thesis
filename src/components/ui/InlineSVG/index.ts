@@ -1,0 +1,1 @@
+export { InlineSVG } from './InlineSVG';

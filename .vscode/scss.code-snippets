@@ -1,0 +1,162 @@
+{
+  "SCSS Module Setup": {
+    "prefix": "scssabs",
+    "body": [
+      "@use '${1:../../}styles/abstracts/variables' as var;",
+      "@use '${1:../../}styles/abstracts/functions' as fn;",
+      "@use '${1:../../}styles/abstracts/mixins' as mx;",
+      "",
+      "$0"
+    ],
+    "description": "Import SCSS abstracts"
+  },
+
+  "BEM Element": {
+    "prefix": "beme",
+    "body": [
+      "&__${1:element} {",
+      "  $0",
+      "}"
+    ],
+    "description": "BEM element"
+  },
+
+  "BEM Modifier": {
+    "prefix": "bemm",
+    "body": [
+      "&--${1:modifier} {",
+      "  $0",
+      "}"
+    ],
+    "description": "BEM modifier"
+  },
+
+  "Flex Center": {
+    "prefix": "flexc",
+    "body": [
+      "display: flex;",
+      "justify-content: center;",
+      "align-items: center;$0"
+    ],
+    "description": "Flex center"
+  },
+
+  "Flex Column": {
+    "prefix": "flexcol",
+    "body": [
+      "display: flex;",
+      "flex-direction: column;$0"
+    ],
+    "description": "Flex column"
+  },
+
+  "Grid Center": {
+    "prefix": "gridc",
+    "body": [
+      "display: grid;",
+      "place-items: center;$0"
+    ],
+    "description": "Grid center"
+  },
+
+  "Position Absolute Center": {
+    "prefix": "abscenter",
+    "body": [
+      "position: absolute;",
+      "top: 50%;",
+      "left: 50%;",
+      "transform: translate(-50%, -50%);$0"
+    ],
+    "description": "Absolute center"
+  },
+
+  "Pseudo Element": {
+    "prefix": "pseudo",
+    "body": [
+      "&::${1|before,after|} {",
+      "  content: '${2:}';",
+      "  $0",
+      "}"
+    ],
+    "description": "Pseudo element"
+  },
+
+  "SCSS Each": {
+    "prefix": "seach",
+    "body": [
+      "@each \\$${1:item} in ${2:list} {",
+      "  $0",
+      "}"
+    ],
+    "description": "SCSS @each loop"
+  },
+
+  "SCSS For": {
+    "prefix": "sfor",
+    "body": [
+      "@for \\$${1:i} from ${2:1} through ${3:10} {",
+      "  $0",
+      "}"
+    ],
+    "description": "SCSS @for loop"
+  },
+
+  "SCSS Function": {
+    "prefix": "sfn",
+    "body": [
+      "@function ${1:function-name}(\\$${2:param}) {",
+      "  @return $0;",
+      "}"
+    ],
+    "description": "SCSS function"
+  },
+
+  "SCSS Mixin": {
+    "prefix": "smixin",
+    "body": [
+      "@mixin ${1:mixin-name}(\\$${2:param}) {",
+      "  $0",
+      "}"
+    ],
+    "description": "SCSS mixin"
+  },
+
+  "SCSS Include": {
+    "prefix": "sinc",
+    "body": [
+      "@include ${1:mixin-name}($0);"
+    ],
+    "description": "SCSS @include"
+  },
+
+  "Transition": {
+    "prefix": "trans",
+    "body": [
+      "transition: ${1:all} ${2:0.3s} ${3|ease,ease-in,ease-out,ease-in-out,linear|};$0"
+    ],
+    "description": "CSS transition"
+  },
+
+  "Animation": {
+    "prefix": "anim",
+    "body": [
+      "animation: ${1:name} ${2:1s} ${3|ease,ease-in,ease-out,ease-in-out,linear|} ${4|forwards,backwards,both,infinite|};$0"
+    ],
+    "description": "CSS animation"
+  },
+
+  "Keyframes": {
+    "prefix": "keyframes",
+    "body": [
+      "@keyframes ${1:animation-name} {",
+      "  0% {",
+      "    $2",
+      "  }",
+      "  100% {",
+      "    $0",
+      "  }",
+      "}"
+    ],
+    "description": "CSS keyframes"
+  }
+}

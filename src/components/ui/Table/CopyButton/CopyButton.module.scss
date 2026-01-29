@@ -1,0 +1,27 @@
+.copy-button {
+  flex-shrink: 0;
+  width: 1.5em;
+  height: 1.5em;
+  margin-inline-start: 1em;
+  font-size: inherit;
+  // margin-block: -0.25em;
+  opacity: 0.5;
+  padding: 0.4em;
+  background-color: oklch(1 0 0 / 0%);
+  border-radius: 0.25em;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  transition:
+    background-color 0.1s ease,
+    opacity 0.1s ease;
+
+  // td:hover &,
+  &:hover,
+  &:focus-visible {
+    opacity: 1;
+    background-color: oklch(1 0 0 / 15%);
+  }
+}

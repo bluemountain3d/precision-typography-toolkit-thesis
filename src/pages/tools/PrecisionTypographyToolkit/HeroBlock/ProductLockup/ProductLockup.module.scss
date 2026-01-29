@@ -1,0 +1,59 @@
+@use "@/styles/abstracts/variables" as var;
+
+.product-lockup {
+  &__logo {
+    // width: clamp(8rem, 9.3333rem + 2.7778 * var(--vwx), 10rem);
+    width: clamp(6rem, 4rem + 8.3333 * var(--vwx), 12rem);
+    height: auto;
+
+    @media screen and #{var.$bp-tablet-and-up} and (orientation: portrait) {
+      width: 12rem;
+    }
+
+    @media screen and #{var.$bp-tablet-and-up} and (orientation: landscape) {
+      // width: min(20.6vh, 12rem);
+      width: clamp(9.68rem, 20.65vh, 13.94rem);
+      // width: clamp(9.68rem, 20.65vh, 12rem);
+    }
+  }
+
+  &__brand {
+    font-size: var(--heading-2);
+    gap: 0.57em;
+
+    @media screen and #{var.$bp-tablet-and-up} and (orientation: landscape) {
+      // font-size: clamp( 2.39rem, 5.1vh, 3.44rem);
+      font-size: clamp(2.39rem, 5.1vh, var(--heading-2));
+    }
+  }
+
+  &__brand-pt1,
+  &__brand-pt2 {
+    line-height: 1;
+  }
+
+  &__brand-pt1 {
+    font-family: var(--font-family-primary);
+    font-size: 1em;
+    font-weight: var(--font-weight-extrabold);
+    color: var(--color-text-primary);
+
+    // Optical Adjustments
+    margin-top: -0.152em;
+    margin-bottom: -0.188em;
+    margin-left: -0.077em;
+    letter-spacing: -0.01em;
+  }
+  &__brand-pt2 {
+    font-family: var(--font-family-secondary);
+    font-size: 0.75em;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-inline-link);
+
+    // Optical Adjustments
+    margin-top: -0.196em;
+    margin-bottom: -0.144em;
+    margin-right: -0.046em;
+    letter-spacing: -0.02em;
+  }
+}

@@ -1,0 +1,1 @@
+export { PrecisionAlignmentArticle } from './PrecisionAlignmentArticle';

@@ -1,0 +1,170 @@
+@use "@/styles/abstracts/variables" as var;
+
+/// Font Families
+// Primary/Secondary/Tertiary
+.font-family-primary {
+  font-family: #{var.$ff-primary};
+}
+.font-family-secondary {
+  font-family: #{var.$ff-secondary};
+}
+.font-family-tertiary {
+  font-family: #{var.$ff-tertiary};
+}
+// Categories
+.font-family-sans {
+  font-family: #{var.$ff-sans};
+}
+.font-family-serif {
+  font-family: #{var.$ff-serif};
+}
+.font-family-mono {
+  font-family: #{var.$ff-mono};
+}
+// Contextual
+.font-family-display {
+  font-family: #{var.$ff-display};
+}
+.font-family-heading {
+  font-family: #{var.$ff-heading};
+}
+.font-family-subheading {
+  font-family: #{var.$ff-subheading};
+}
+.font-family-body {
+  font-family: #{var.$ff-body};
+}
+.font-family-quote {
+  font-family: #{var.$ff-quote};
+}
+.font-family-code {
+  font-family: #{var.$ff-code};
+}
+.font-family-ui {
+  font-family: #{var.$ff-ui};
+}
+
+/// Font Size
+.font-size-display-1 {
+  --_font-size: var(--display-1) !important;
+}
+.font-size-display-2 {
+  --_font-size: var(--display-2) !important;
+}
+.font-size-heading-1 {
+  --_font-size: var(--heading-1) !important;
+}
+.font-size-heading-2 {
+  --_font-size: var(--heading-2) !important;
+}
+.font-size-heading-3 {
+  --_font-size: var(--heading-3) !important;
+}
+.font-size-heading-4 {
+  --_font-size: var(--heading-4) !important;
+}
+.font-size-text-lg {
+  --_font-size: var(--text-lg) !important;
+}
+.font-size-text-md {
+  --_font-size: var(--text-md) !important;
+}
+.font-size-text-base {
+  --_font-size: var(--text-base) !important;
+}
+.font-size-text-sm {
+  --_font-size: var(--text-sm) !important;
+}
+.font-size-text-xs {
+  --_font-size: var(--text-xs) !important;
+}
+
+/// Font Weights
+.font-weight-thin {
+  --_font-weight: var(--font-weight-thin) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-extralight {
+  --_font-weight: var(--font-weight-extralight) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-light {
+  --_font-weight: var(--font-weight-light) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-normal {
+  --_font-weight: var(--font-weight-normal) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-medium {
+  --_font-weight: var(--font-weight-medium) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-semibold {
+  --_font-weight: var(--font-weight-semibold) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-bold {
+  --_font-weight: var(--font-weight-bold) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-extrabold {
+  --_font-weight: var(--font-weight-extrabold) !important;
+  font-weight: var(--_font-weight);
+}
+.font-weight-black {
+  --_font-weight: var(--font-weight-black) !important;
+  font-weight: var(--_font-weight);
+}
+
+/// Text Align
+.text-align-left {
+  text-align: left;
+}
+.text-align-center {
+  text-align: center;
+}
+.text-align-right {
+  text-align: right;
+}
+
+/// Color variants
+.color-text-primary {
+  color: var(--color-text-primary);
+}
+.color-text-secondary {
+  color: var(--color-text-secondary);
+}
+.color-text-muted {
+  color: var(--color-text-muted);
+}
+.color-text-disabled {
+  color: var(--color-text-disabled);
+}
+.color-text-link {
+  color: var(--color-inline-link);
+}
+.color-text-success {
+  color: var(--color-success-title);
+}
+.color-text-warning {
+  color: var(--color-warning-title);
+}
+.color-text-danger {
+  color: var(--color-danger-title);
+}
+.color-text-info {
+  color: var(--color-info-title);
+}
+.color-accent {
+  color: var(--color-accent-title);
+}
+
+
+/// Text Styles
+.font-style-normal {
+  font-style: normal;
+}
+.font-style-italic {
+  font-style: italic;
+}

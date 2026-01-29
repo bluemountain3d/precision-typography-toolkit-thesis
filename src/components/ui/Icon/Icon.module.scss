@@ -1,0 +1,129 @@
+.icon {
+  display: inline-flex;
+  aspect-ratio: 1;
+  width: auto;
+  height: 100%;
+
+  svg {
+    color: inherit;
+    width: 100%;
+    height: 100%;
+  }
+
+  &-fill {
+    &--inherit {
+      color: inherit;
+    }
+    &--primary {
+      color: var(--color-text-primary);
+    }
+    &--secondary {
+      color: var(--color-text-secondary);
+    }
+    &--tertiary {
+      color: var(--color-text-tertiary);
+    }
+    &--muted {
+      color: var(--color-text-muted);
+    }
+    &--disabled {
+      color: var(--color-text-disabled);
+    }
+    &--accent {
+      color: var(--color-accent-title);
+    }
+    &--success {
+      color: var(--color-success-title);
+    }
+    &--warning {
+      color: var(--color-warning-title);
+    }
+    &--danger {
+      color: var(--color-danger-title);
+    }
+    &--info {
+      color: var(--color-info-title);
+    }
+  }
+
+  &-size {
+    &--display-1 {
+      height: var(--display-1);
+    }
+    &--display-2 {
+      height: var(--display-2);
+    }
+    &--heading-1 {
+      height: var(--heading-1);
+    }
+    &--heading-2 {
+      height: var(--heading-2);
+    }
+    &--heading-3 {
+      height: var(--heading-3);
+    }
+    &--heading-4 {
+      height: var(--heading-4);
+    }
+    &--text-lg {
+      height: var(--text-lg);
+    }
+    &--text-md {
+      height: var(--text-md);
+    }
+    &--text-base {
+      height: var(--text-base);
+    }
+    &--text-sm {
+      height: var(--text-sm);
+    }
+    &--text-xs {
+      height: var(--text-xs);
+    }
+    &--space-3xs {
+      height: var(--space-3xs);
+    }
+    &--space-2xs {
+      height: var(--space-2xs);
+    }
+    &--space-xs {
+      height: var(--space-xs);
+    }
+    &--space-sm {
+      height: var(--space-sm);
+    }
+    &--space-md {
+      height: var(--space-md);
+    }
+    &--space-lg {
+      height: var(--space-lg);
+    }
+    &--space-xl {
+      height: var(--space-xl);
+    }
+    &--space-2xl {
+      height: var(--space-2xl);
+    }
+    &--space-3xl {
+      height: var(--space-3xl);
+    }
+    &--space-4xl {
+      height: var(--space-4xl);
+    }
+    &--space-5xl {
+      height: var(--space-5xl);
+    }
+    &--space-6xl {
+      height: var(--space-6xl);
+    }
+    &--space-7xl {
+      height: var(--space-7xl);
+    }
+    &--space-8xl {
+      height: var(--space-8xl);
+    }
+    &--space-9xl {
+      height: var(--space-9xl);
+    }
+  }
+}

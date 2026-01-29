@@ -1,0 +1,46 @@
+.ptt-logo {
+  container-name: ptt-logo;
+  contain: inline-size;
+  
+  svg {
+    overflow: visible;
+  }
+
+  &__bg-glyph {
+    filter: drop-shadow(0.47cqi 0.94cqi 0.47cqi oklch(0 0 0 / 0.25));
+  }
+
+  &__metric-line {
+    vector-effect: non-scaling-stroke !important;
+    stroke-width: 1 !important;
+    fill: none !important;
+    stroke: var(--color-primary-lines);
+  }
+  &__handle-line {
+    vector-effect: non-scaling-stroke !important;
+    stroke-width: 1 !important;
+    fill: none !important;
+    stroke: var(--color-text-muted);
+  }
+  &__handle-circle {
+    vector-effect: non-scaling-stroke !important;
+    stroke-width: 1 !important;
+    fill: var(--color-text-muted);
+  }
+
+  &__border-glyph {
+    vector-effect: non-scaling-stroke !important;
+    stroke-width: 1 !important;
+    fill: none !important;
+    stroke: var(--color-inline-link);
+    filter: drop-shadow(0 0 0.24cqi var(--color-inline-link));
+  }
+
+  &__node-point {
+    vector-effect: non-scaling-stroke !important;
+    stroke-width: 1 !important;
+    stroke: var(--color-inline-link);
+    fill: var(--color-primary);
+    filter: drop-shadow(0 0 0.24cqi var(--color-inline-link));
+  }
+}

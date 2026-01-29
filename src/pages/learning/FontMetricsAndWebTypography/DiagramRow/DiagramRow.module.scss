@@ -1,0 +1,38 @@
+@use "@/styles/abstracts/variables" as var;
+
+// .diagram-row {
+//   width: 100%;
+//   max-width: #{70 * var.$avgCharWidth-body}em;
+//   margin-inline: auto;
+
+//   > * {
+//     flex: 0 0 auto;
+//     width: fit-content;
+//     max-height: var(--_media-height, 200px);
+
+//     svg {
+//       height: auto !important;
+//       max-height: 100%;
+//     }
+//   }
+// }
+
+.diagram-row {
+  width: 100%;
+  max-width: #{70 * var.$avgCharWidth-body}em;
+  margin-inline: auto;
+
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  justify-content: center;
+
+  > * {
+    max-height: min(var(--_media-height, 200px), 40vw);
+
+    svg {
+      height: auto !important;
+      max-height: 100%;
+    }
+  }
+}

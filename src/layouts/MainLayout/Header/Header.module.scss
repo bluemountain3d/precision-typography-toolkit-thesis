@@ -1,0 +1,93 @@
+/// ============================================================================
+/// Header Component Styles
+/// ============================================================================
+/// Styles for the main header bar that adapts based on scroll state and
+/// menu visibility.
+///
+/// States:
+/// - default: Large header with transparent background (at top of page)
+/// - scrolled: Compact header with solid background (when scrolled down)
+/// - menu-open: Header with background when mobile menu is open
+///
+/// Features:
+/// - Sticky positioning (stays at top during scroll)
+/// - Smooth height and background transitions
+/// - Delayed transitions when menu opens (waits for Navigation animation)
+/// - Shadow on scroll for depth
+///
+/// @group Components
+/// ============================================================================
+
+@use "@/styles/abstracts/variables/" as var;
+
+/// Header container
+/// Sticky bar that contains brand logo and menu button
+.header {
+  /// Layout integration
+  grid-area: header; // Fits into MainLayout grid
+  width: 100%;
+  height: var(--header-height);
+
+  /// Positioning - sticky keeps header visible during scroll
+  position: sticky;
+  top: 0;
+  z-index: 999; // Above content, below Navigation (998)
+
+  /// Stacking context isolation
+  /// Prevents z-index issues with child elements
+  isolation: isolate;
+
+  /// Flexbox for vertical centering of content
+  display: flex;
+  align-items: center;
+
+  /// Smooth transitions for state changes
+  /// - height: Animates between default/scrolled heights
+  /// - background-color: Fades from transparent to solid
+  /// - box-shadow: Fades in shadow on scroll
+  transition:
+    height 0.3s ease-out,
+    background-color 0.3s ease,
+    box-shadow 0.3s ease;
+
+  /// --default modifier
+  /// Applied when user is at top of page (not scrolled)
+  &--default {
+    --header-height: var(--header-height-default);
+    // height: var(--header-height-default); // Larger height (e.g., 80px)
+    background: transparent; // Blends with page content
+  }
+
+  /// --scrolled modifier
+  /// Applied when user has scrolled down the page
+  &--scrolled {
+    --header-height: var(--header-height-scrolled);
+    // height: var(--header-height-scrolled); // Compact height (e.g., 60px)
+    background: var(--color-primary-dark); // Solid background
+    box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%); // Depth shadow
+  }
+
+  /// --menu-open modifier
+  /// Applied when mobile/tablet navigation menu is open
+  &--menu-open {
+    background: var(
+      --color-primary-dark
+    ); // Solid background (matches Navigation)
+    box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%);
+    // box-shadow: 0 var(--space-3xs) var(--space-2xs) oklch(0 0 0 / 50%);
+
+    /// Desktop only: Delayed transitions
+    /// Waits for Navigation to finish sliding in (0.5s) before animating header
+    /// This creates a sequenced animation:
+    /// 1. Navigation slides in (0.5s)
+    /// 2. Header animates (0.3s after 0.5s delay)
+    @media #{var.$bp-tablet-lg-and-up} {
+      transition:
+        height 0.3s 0.5s ease-out,
+        // delay: 0.5s
+        background-color 0.3s 0.5s ease,
+        // delay: 0.5s
+        box-shadow 0.3s 0.5s ease; // delay: 0.5s
+    }
+  }
+}

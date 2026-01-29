@@ -1,0 +1,376 @@
+/// @group Tokens
+/// @name Colors
+/// @description Maps abstract Sass variables to OKLCH CSS Custom Properties
+/// ===========================================================================
+
+// Abstracts
+@use "../abstracts/variables" as var;
+@use "../abstracts/functions" as fn;
+
+// ============================================================================
+// SCSS VARIABLE CONVERSION (Hex -> OKLCH)
+// ============================================================================
+
+// --- Base Colors ---
+$color-primary-dark-oklch: fn.adjustOklch(var.$color-primary-dark, -5, 1.3);
+$color-primary-oklch: fn.adjustOklch(var.$color-primary, 2, 1.5);
+$color-secondary-oklch: fn.adjustOklch(var.$color-secondary, 0, 1.2);
+$color-tertiary-oklch: fn.adjustOklch(var.$color-tertiary, 0, 1);
+$color-accent-oklch: fn.adjustOklch(var.$color-accent, 0, 1.2);
+
+// --- Text Colors ---
+$color-text-primary-oklch: fn.adjustOklch(var.$color-text-primary, 0, 1.2);
+$color-text-secondary-oklch: fn.adjustOklch(var.$color-text-secondary, 0, 1.2);
+$color-text-muted-oklch: fn.adjustOklch(var.$color-text-muted, 0, 1.2);
+$color-text-disabled-oklch: fn.adjustOklch(var.$color-text-disabled, 0, 1.2);
+
+// --- Links ---
+$color-inline-link-oklch: fn.adjustOklch(var.$color-inline-link, 0, 1.2);
+$color-inline-link-hover-oklch: fn.adjustOklch(
+  var.$color-inline-link-hover,
+  0,
+  1.2
+);
+
+// --- Lines ---
+$color-primary-lines-oklch: fn.adjustOklch(var.$color-primary-lines, 0, 1.1);
+
+// --- State Colors: Primary ---
+$color-primary-title-oklch: fn.adjustOklch(var.$color-primary-title, 0, 1.1);
+$color-primary-surface-oklch: fn.adjustOklch(
+  var.$color-primary-surface,
+  0,
+  1.2
+);
+$color-primary-surface-dark-oklch: fn.adjustOklch(
+  var.$color-primary-surface-dark,
+  0,
+  1.2
+);
+$color-primary-surface-active-oklch: fn.adjustOklch(
+  var.$color-primary-surface-active,
+  0,
+  1.2
+);
+$color-primary-border-oklch: fn.adjustOklch(var.$color-primary-border, 0, 1.2);
+$color-primary-border-hover-oklch: fn.adjustOklch(
+  var.$color-primary-border-hover,
+  0,
+  1.2
+);
+$color-primary-border-bright-oklch: fn.adjustOklch(
+  var.$color-primary-border-bright,
+  0,
+  1.2
+);
+
+// --- State Colors: Secondary (With Alpha override) ---
+$color-secondary-title-oklch: fn.adjustOklch(
+  var.$color-secondary-title,
+  0,
+  1.2
+);
+$color-secondary-surface-oklch: fn.adjustOklchAlpha(
+  var.$color-secondary-surface,
+  0,
+  1.2,
+  1
+);
+$color-secondary-surface-dark-oklch: fn.adjustOklchAlpha(
+  var.$color-secondary-surface-dark,
+  0,
+  1.2,
+  1
+);
+$color-secondary-surface-active-oklch: fn.adjustOklchAlpha(
+  var.$color-secondary-surface-active,
+  0,
+  1.2,
+  1
+);
+$color-secondary-border-oklch: fn.adjustOklch(
+  var.$color-secondary-border,
+  0,
+  1.2
+);
+$color-secondary-border-hover-oklch: fn.adjustOklch(
+  var.$color-secondary-border-hover,
+  0,
+  1.2
+);
+$color-secondary-border-bright-oklch: fn.adjustOklch(
+  var.$color-secondary-border-bright,
+  0,
+  1.2
+);
+
+// --- State Colors: Accent ---
+$color-accent-title-oklch: fn.adjustOklch(var.$color-accent-title, 0, 1.1);
+$color-accent-surface-oklch: fn.adjustOklch(var.$color-accent-surface, 0, 1.2);
+$color-accent-surface-dark-oklch: fn.adjustOklch(
+  var.$color-accent-surface-dark,
+  0,
+  1.2
+);
+$color-accent-surface-active-oklch: fn.adjustOklch(
+  var.$color-accent-surface-active,
+  0,
+  1.2
+);
+$color-accent-border-oklch: fn.adjustOklch(var.$color-accent-border, 0, 1.2);
+$color-accent-border-hover-oklch: fn.adjustOklch(
+  var.$color-accent-border-hover,
+  0,
+  1.2
+);
+$color-accent-border-bright-oklch: fn.adjustOklch(
+  var.$color-accent-border-bright,
+  0,
+  1.2
+);
+
+// --- State Colors: Success ---
+$color-success-title-oklch: fn.adjustOklch(var.$color-success-title, 0, 1.2);
+$color-success-surface-oklch: fn.adjustOklch(
+  var.$color-success-surface,
+  0,
+  1.2
+);
+$color-success-surface-dark-oklch: fn.adjustOklch(
+  var.$color-success-surface-dark,
+  0,
+  1.2
+);
+$color-success-surface-active-oklch: fn.adjustOklch(
+  var.$color-success-surface-active,
+  0,
+  1.2
+);
+$color-success-border-oklch: fn.adjustOklch(var.$color-success-border, 0, 1.2);
+$color-success-border-hover-oklch: fn.adjustOklch(
+  var.$color-success-border-hover,
+  0,
+  1.2
+);
+$color-success-border-bright-oklch: fn.adjustOklch(
+  var.$color-success-border-bright,
+  0,
+  1.2
+);
+
+// --- State Colors: Warning ---
+$color-warning-title-oklch: fn.adjustOklch(var.$color-warning-title, 0, 1.2);
+$color-warning-surface-oklch: fn.adjustOklch(
+  var.$color-warning-surface,
+  0,
+  1.2
+);
+$color-warning-surface-dark-oklch: fn.adjustOklch(
+  var.$color-warning-surface-dark,
+  0,
+  1.2
+);
+$color-warning-surface-active-oklch: fn.adjustOklch(
+  var.$color-warning-surface-active,
+  0,
+  1.2
+);
+$color-warning-border-oklch: fn.adjustOklch(var.$color-warning-border, 0, 1.2);
+$color-warning-border-hover-oklch: fn.adjustOklch(
+  var.$color-warning-border-hover,
+  0,
+  1.2
+);
+$color-warning-border-bright-oklch: fn.adjustOklch(
+  var.$color-warning-border-bright,
+  0,
+  1.2
+);
+
+// --- State Colors: Danger ---
+$color-danger-title-oklch: fn.adjustOklch(var.$color-danger-title, 0, 1.2);
+$color-danger-surface-oklch: fn.adjustOklch(var.$color-danger-surface, 0, 1.15);
+$color-danger-surface-dark-oklch: fn.adjustOklch(
+  var.$color-danger-surface-dark,
+  0,
+  1.2
+);
+$color-danger-surface-active-oklch: fn.adjustOklch(
+  var.$color-danger-surface-active,
+  0,
+  1.15
+);
+$color-danger-border-oklch: fn.adjustOklch(var.$color-danger-border, 0, 1.2);
+$color-danger-border-hover-oklch: fn.adjustOklch(
+  var.$color-danger-border-hover,
+  0,
+  1.15
+);
+$color-danger-border-bright-oklch: fn.adjustOklch(
+  var.$color-danger-border-bright,
+  0,
+  1.15
+);
+
+// --- State Colors: Info ---
+$color-info-title-oklch: fn.adjustOklch(var.$color-info-title, 0, 1.2);
+$color-info-surface-oklch: fn.adjustOklch(var.$color-info-surface, 0, 1.2);
+$color-info-surface-dark-oklch: fn.adjustOklch(
+  var.$color-info-surface-dark,
+  0,
+  1.2
+);
+$color-info-surface-active-oklch: fn.adjustOklch(
+  var.$color-info-surface-active,
+  0,
+  1.2
+);
+$color-info-border-oklch: fn.adjustOklch(var.$color-info-border, 0, 1.2);
+$color-info-border-hover-oklch: fn.adjustOklch(
+  var.$color-info-border-hover,
+  0,
+  1.2
+);
+$color-info-border-bright-oklch: fn.adjustOklch(
+  var.$color-info-border-bright,
+  0,
+  1.2
+);
+
+// --- Disabled Colors: Info ---
+$color-disabled-title-oklch: fn.adjustOklch(var.$color-disabled-title, 0, 1.2);
+$color-disabled-surface-oklch: fn.adjustOklch(
+  var.$color-disabled-surface,
+  0,
+  1.2
+);
+$color-disabled-surface-dark-oklch: fn.adjustOklch(
+  var.$color-disabled-surface-dark,
+  0,
+  1.2
+);
+$color-disabled-surface-active-oklch: fn.adjustOklch(
+  var.$color-disabled-surface-active,
+  0,
+  1.2
+);
+$color-disabled-border-oklch: fn.adjustOklch(
+  var.$color-disabled-border,
+  0,
+  1.2
+);
+$color-disabled-border-hover-oklch: fn.adjustOklch(
+  var.$color-disabled-border-hover,
+  0,
+  1.2
+);
+$color-disabled-border-bright-oklch: fn.adjustOklch(
+  var.$color-disabled-border-bright,
+  0,
+  1.2
+);
+
+// ============================================================================
+// CSS CUSTOM PROPERTIES (:root)
+// ============================================================================
+
+:root {
+  // --- Brand Colors ---
+  --color-primary-dark: #{$color-primary-dark-oklch};
+  --color-primary: #{$color-primary-oklch};
+  --color-secondary: #{$color-secondary-oklch};
+  --color-tertiary: #{$color-tertiary-oklch};
+  --color-accent: #{$color-accent-oklch};
+
+  // --- Text Colors ---
+  --color-text-primary: #{$color-text-primary-oklch};
+  --color-text-secondary: #{$color-text-secondary-oklch};
+  --color-text-muted: #{$color-text-muted-oklch};
+  --color-text-disabled: #{$color-text-disabled-oklch};
+
+  // --- Link Colors ---
+  --color-inline-link: #{$color-inline-link-oklch};
+  --color-inline-link-hover: #{$color-inline-link-hover-oklch};
+
+  // --- Line Colors ---
+  --color-primary-lines: #{$color-primary-lines-oklch};
+
+  // --- Global Background ---
+  --bg-main: radial-gradient(
+    in oklch circle farthest-corner at top center,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+
+  // --- Primary State ---
+  --color-primary-title: #{$color-primary-title-oklch};
+  --color-primary-surface: #{$color-primary-surface-oklch};
+  --color-primary-surface-dark: #{$color-primary-surface-dark-oklch};
+  --color-primary-surface-active: #{$color-primary-surface-active-oklch};
+  --color-primary-border: #{$color-primary-border-oklch};
+  --color-primary-border-hover: #{$color-primary-border-hover-oklch};
+  --color-primary-border-bright: #{$color-primary-border-bright-oklch};
+
+  // --- Secondary State ---
+  --color-secondary-title: #{$color-secondary-title-oklch};
+  --color-secondary-surface: #{$color-secondary-surface-oklch};
+  --color-secondary-surface-dark: #{$color-secondary-surface-dark-oklch};
+  --color-secondary-surface-active: #{$color-secondary-surface-active-oklch};
+  --color-secondary-border: #{$color-secondary-border-oklch};
+  --color-secondary-border-hover: #{$color-secondary-border-hover-oklch};
+  --color-secondary-border-bright: #{$color-secondary-border-bright-oklch};
+
+  // --- Accent State ---
+  --color-accent-title: #{$color-accent-title-oklch};
+  --color-accent-surface: #{$color-accent-surface-oklch};
+  --color-accent-surface-dark: #{$color-accent-surface-dark-oklch};
+  --color-accent-surface-active: #{$color-accent-surface-active-oklch};
+  --color-accent-border: #{$color-accent-border-oklch};
+  --color-accent-border-hover: #{$color-accent-border-hover-oklch};
+  --color-accent-border-bright: #{$color-accent-border-bright-oklch};
+
+  // --- Success State ---
+  --color-success-title: #{$color-success-title-oklch};
+  --color-success-surface: #{$color-success-surface-oklch};
+  --color-success-surface-dark: #{$color-success-surface-dark-oklch};
+  --color-success-surface-active: #{$color-success-surface-active-oklch};
+  --color-success-border: #{$color-success-border-oklch};
+  --color-success-border-hover: #{$color-success-border-hover-oklch};
+  --color-success-border-bright: #{$color-success-border-bright-oklch};
+
+  // --- Warning State ---
+  --color-warning-title: #{$color-warning-title-oklch};
+  --color-warning-surface: #{$color-warning-surface-oklch};
+  --color-warning-surface-dark: #{$color-warning-surface-dark-oklch};
+  --color-warning-surface-active: #{$color-warning-surface-active-oklch};
+  --color-warning-border: #{$color-warning-border-oklch};
+  --color-warning-border-hover: #{$color-warning-border-hover-oklch};
+  --color-warning-border-bright: #{$color-warning-border-bright-oklch};
+
+  // --- Danger State ---
+  --color-danger-title: #{$color-danger-title-oklch};
+  --color-danger-surface: #{$color-danger-surface-oklch};
+  --color-danger-surface-dark: #{$color-danger-surface-dark-oklch};
+  --color-danger-surface-active: #{$color-danger-surface-active-oklch};
+  --color-danger-border: #{$color-danger-border-oklch};
+  --color-danger-border-hover: #{$color-danger-border-hover-oklch};
+  --color-danger-border-bright: #{$color-danger-border-bright-oklch};
+
+  // --- Info State ---
+  --color-info-title: #{$color-info-title-oklch};
+  --color-info-surface: #{$color-info-surface-oklch};
+  --color-info-surface-dark: #{$color-info-surface-dark-oklch};
+  --color-info-surface-active: #{$color-info-surface-active-oklch};
+  --color-info-border: #{$color-info-border-oklch};
+  --color-info-border-hover: #{$color-info-border-hover-oklch};
+  --color-info-border-bright: #{$color-info-border-bright-oklch};
+
+  // --- Disabled State ---
+  --color-disabled-title: #{$color-disabled-title-oklch};
+  --color-disabled-surface: #{$color-disabled-surface-oklch};
+  --color-disabled-surface-dark: #{$color-disabled-surface-dark-oklch};
+  --color-disabled-surface-active: #{$color-disabled-surface-active-oklch};
+  --color-disabled-border: #{$color-disabled-border-oklch};
+  --color-disabled-border-hover: #{$color-disabled-border-hover-oklch};
+  --color-disabled-border-bright: #{$color-disabled-border-bright-oklch};
+}

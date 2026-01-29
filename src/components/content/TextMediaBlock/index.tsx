@@ -1,0 +1,1 @@
+export { TextMediaBlock } from './TextMediaBlock';

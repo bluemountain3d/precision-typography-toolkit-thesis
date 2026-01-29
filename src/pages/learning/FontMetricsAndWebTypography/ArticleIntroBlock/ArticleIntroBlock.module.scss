@@ -1,0 +1,10 @@
+@use "@/styles/abstracts/variables" as var;
+
+.article-intro-block {
+  @media screen and #{var.$bp-up-to-tablet-lg} {
+    &__diagram {
+      width: min(25rem, 70vw) !important;
+      margin-inline: auto !important;
+    }
+  }
+}

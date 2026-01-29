@@ -1,0 +1,142 @@
+/// @group Abstracts/Variables
+/// @name Colors
+/// @description Brief description of this variable group's purpose
+/// ===========================================================================
+
+// No @use statements needed in variable files to avoid circular dependencies
+// Variables should be pure data - no functions or mixins
+
+// ============================================================================
+// Configuration
+// ============================================================================
+
+/// Brand Base Colors
+
+/// Primary Dark
+/// @type Color
+$color-primary-dark: #050911;
+
+/// Primary
+/// @type Color
+$color-primary: #0a1526;
+
+/// Secondary
+/// @type Color
+$color-secondary: #0f2038;
+
+/// Tertiary
+/// @type Color
+$color-tertiary: #1f3c65;
+
+/// Accent
+/// @type Color
+$color-accent: #614b9f;
+
+/// Text Colors
+
+/// Text Primary
+/// @type Color
+$color-text-primary: #ffffff;
+
+/// Text Secondary
+/// @type Color
+$color-text-secondary: #abbace;
+
+/// Text Muted
+/// @type Color
+$color-text-muted: #a6a7ab;
+
+/// Text Disabled
+/// @type Color
+$color-text-disabled: #5f6b7c;
+
+/// Text Link
+/// @type Color
+$color-inline-link: #9dc4fb;
+$color-inline-link-hover: #cbe6ff;
+
+/// Lines
+/// @type color
+$color-primary-lines: #3363a7;
+
+/// Buttons/Cards/State Colors
+
+/// Primary
+/// @type Color
+$color-primary-title: #ffffff;
+$color-primary-surface: $color-tertiary;
+$color-primary-surface-dark: $color-primary-dark;
+$color-primary-surface-active: $color-primary;
+$color-primary-border: $color-tertiary;
+$color-primary-border-hover: #5684d4;
+$color-primary-border-bright: $color-inline-link-hover;
+
+/// Secondary
+/// @type Color
+$color-secondary-title: #ffffff;
+$color-secondary-surface: $color-primary-dark; // in token it will have opacity 0.01.
+$color-secondary-surface-dark: $color-primary-dark; // in token it will have opacity 0.01.
+$color-secondary-surface-active: $color-primary; // in token it will have opacity 0.01.
+$color-secondary-border: $color-tertiary;
+$color-secondary-border-hover: #5684d4;
+$color-secondary-border-bright: $color-inline-link-hover;
+
+/// Accent
+/// @type Color
+$color-accent-title: #b8a1f7;
+$color-accent-surface: #614b9f;
+$color-accent-surface-dark: #03000a;
+$color-accent-surface-active: #100a1f;
+$color-accent-border: #321f65;
+$color-accent-border-hover: #7856d4;
+$color-accent-border-bright: #ded5f6;
+
+/// Success State
+/// @type Color
+$color-success-title: #a6f7a1;
+$color-success-surface: #143c11;
+$color-success-surface-dark: #010a00;
+$color-success-surface-active: #032900;
+$color-success-border: #24651f;
+$color-success-border-hover: #6aac65;
+$color-success-border-bright: #d5f6e0;
+
+/// Warning State
+/// @type Color
+$color-warning-title: #f7d0a1;
+$color-warning-surface: #372106;
+$color-warning-surface-dark: #0c0906;
+$color-warning-surface-active: #1b140e;
+$color-warning-border: #65491f;
+$color-warning-border-hover: #d8993c;
+$color-warning-border-bright: #f6eed5;
+
+/// Danger State
+/// @type Color
+$color-danger-title: #f7afa1;
+$color-danger-surface: #320a02;
+$color-danger-surface-dark: #0a0200;
+$color-danger-surface-active: #290700;
+$color-danger-border: #652b1f;
+$color-danger-border-hover: #a74c2d;
+$color-danger-border-bright: #f6d3d6;
+
+/// Info State
+/// @type Color
+$color-info-title: #a1bff7;
+$color-info-surface: #11203c;
+$color-info-surface-dark: #00000a;
+$color-info-surface-active: #000029;
+$color-info-border: #1f3965;
+$color-info-border-hover: #5684d4;
+$color-info-border-bright: #d5e7f6;
+
+/// Disabled State
+/// @type Color
+$color-disabled-title: $color-text-disabled;
+$color-disabled-surface: #222c3a;
+$color-disabled-surface-dark: #0a0b0c;
+$color-disabled-surface-active: #0a0b0c;
+$color-disabled-border: #181b20;
+$color-disabled-border-hover: #181b20;
+$color-disabled-border-bright: #3d556b;

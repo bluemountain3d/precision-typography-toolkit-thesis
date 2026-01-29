@@ -1,0 +1,68 @@
+@use "@/styles/abstracts/variables" as var;
+@use "sass:map";
+
+$font-metrics-map: (
+  "primary": var.$avgCharWidth-primary,
+  "secondary": var.$avgCharWidth-secondary,
+  "tertiary": var.$avgCharWidth-tertiary,
+  "sans": var.$avgCharWidth-sans,
+  "serif": var.$avgCharWidth-serif,
+  "mono": var.$avgCharWidth-mono,
+  "heading": var.$avgCharWidth-heading,
+  "subheading": var.$avgCharWidth-subheading,
+  "quote": var.$avgCharWidth-quote,
+  "code": var.$avgCharWidth-code,
+  "ui": var.$avgCharWidth-ui,
+);
+
+.text-box {
+  // width: fit-content;
+  width: 100%;
+
+  &--centered {
+    margin-inline: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  // Font Size used to set widthSize
+  &--xs {
+    font-size: var(--text-xs);
+  }
+  &--sm {
+    font-size: var(--text-sm);
+  }
+  &--base {
+    font-size: var(--text-base);
+  }
+  &--md {
+    font-size: var(--text-md);
+  }
+  &--lg {
+    font-size: var(--text-lg);
+  }
+
+  // Default (body)
+  @each $ch in 60, 65, 70, 75 {
+    &--max-width-#{$ch}ch {
+      max-width: #{$ch * var.$avgCharWidth-body}em;
+    }
+  }
+
+  &--max-width-none {
+    max-width: none;
+  }
+
+  // Loop through all font-families and create classes
+  @each $name, $avg-width in $font-metrics-map {
+    &.font-family-#{$name} {
+      @each $ch in 60, 65, 70, 75 {
+        &.text-box--max-width-#{$ch}ch {
+          max-width: #{$ch * $avg-width}em;
+        }
+      }
+    }
+  }
+}
