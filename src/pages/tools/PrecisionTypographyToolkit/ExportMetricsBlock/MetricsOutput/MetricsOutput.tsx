@@ -178,30 +178,30 @@ export const MetricsOutput = forwardRef<MetricsOutputRef, MetricsOutputProps>(
       () => ({
         css: `:root {
   /* Font identification */
-  --font-family--${slug}: ${fontFamily};
+  --${slug}-font-family: ${fontFamily};
   
   /* Base raw metrics (for reference/calculations) */
-  --metric-units-per-em--${slug}: ${state.unitsPerEm};
-  --metric-cap-height--${slug}: ${state.capHeight};
-  --metric-ascender--${slug}: ${state.hheaAscender};
-  --metric-descender--${slug}: ${state.hheaDescender};
-  --metric-trim-top--${slug}: ${state.topTrimRaw};
-  --metric-trim-bottom--${slug}: ${state.bottomTrimRaw};
+  --${slug}-metric-units-per-em: ${state.unitsPerEm};
+  --${slug}-metric-cap-height: ${state.capHeight};
+  --${slug}-metric-ascender: ${state.hheaAscender};
+  --${slug}-metric-descender: ${state.hheaDescender};
+  --${slug}-metric-trim-top: ${state.topTrimRaw};
+  --${slug}-metric-trim-bottom: ${state.bottomTrimRaw};
   
   /* Normalized ratio metrics (em units) */
-  --avg-char-width--${slug}: ${state.avgCharWidthRatio}em;
-  --cap-height--${slug}: ${state.capHeightRatio}em;
-  --x-height--${slug}: ${state.xHeightRatio}em;
-  --ascender--${slug}: ${state.hheaAscenderRatio}em;
-  --descender--${slug}: ${Math.abs(state.hheaDescenderRatio || 0)}em;
+  --${slug}-avg-char-width: ${state.avgCharWidthRatio}em;
+  --${slug}-cap-height: ${state.capHeightRatio}em;
+  --${slug}-x-height: ${state.xHeightRatio}em;
+  --${slug}-ascender: ${state.hheaAscenderRatio}em;
+  --${slug}-descender: ${Math.abs(state.hheaDescenderRatio || 0)}em;
   
   /* Text-box-trim ratios (vertical trim) */
-  --top-trim--${slug}: calc(-${state.topTrimRawRatio}em - ((1lh - 1em) * 0.5));
-  --bottom-trim--${slug}: calc(-${state.bottomTrimRawRatio}em - ((1lh - 1em) * 0.5));
+  --${slug}-top-trim: calc(-${state.topTrimRawRatio}em - ((1lh - 1em) * 0.5));
+  --${slug}-bottom-trim: calc(-${state.bottomTrimRawRatio}em - ((1lh - 1em) * 0.5));
   
   /* Side bearing adjustments (horizontal trim) */
-  --lsb-adjust--${slug}: -${state.lsbAdjustRatio}em;
-  --rsb-adjust--${slug}: -${state.rsbAdjustRatio}em;
+  --${slug}-lsb-adjust: -${state.lsbAdjustRatio}em;
+  --${slug}-rsb-adjust: -${state.rsbAdjustRatio}em;
 }`,
         scss: `$font-metrics: (
   "${family}": (
