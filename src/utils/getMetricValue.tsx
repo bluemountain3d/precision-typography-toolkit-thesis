@@ -136,10 +136,10 @@ export const getMetricValue = (
       return (
         <>
           <span className={valueWeight} aria-hidden="true">
-            {`(${state.topTrimRaw} + ${state.halfLeading}) / ${upm}upm, ${(state.topTrimRatio || 0).toFixed(3)}em`}
+            {`(${state.topTrimRaw} + ${(state.halfLeading || 0).toFixed(2)}) / ${upm}upm, ${(state.topTrimRatio || 0).toFixed(3)}em`}
           </span>
           <span className="sr-only">
-            {`${(state.topTrimRaw || 0) + state.halfLeading} out of ${upm} units per em equals negative ${(state.topTrimRatio || 0).toFixed(3)} em. Calculated from metric trim top ${state.topTrimRaw} plus half leading ${state.halfLeading}.`}
+            {`${((state.topTrimRaw || 0) + (state.halfLeading || 0)).toFixed(2)} out of ${upm} units per em equals negative ${(state.topTrimRatio || 0).toFixed(3)} em. Calculated from metric trim top ${state.topTrimRaw} plus half leading ${state.halfLeading}.`}
           </span>
         </>
       );
@@ -148,10 +148,10 @@ export const getMetricValue = (
       return (
         <>
           <span className={valueWeight} aria-hidden="true">
-            {`(${state.bottomTrimRaw} + ${state.halfLeading}) / ${upm}upm, ${(state.bottomTrimRatio || 0).toFixed(3)}em`}
+            {`(${state.bottomTrimRaw} + ${(state.halfLeading || 0).toFixed(2)}) / ${upm}upm, ${(state.bottomTrimRatio || 0).toFixed(3)}em`}
           </span>
           <span className="sr-only">
-            {`${(state.bottomTrimRaw || 0) + state.halfLeading} out of ${upm} units per em equals negative ${(state.bottomTrimRatio || 0).toFixed(3)} em. Calculated from metric trim bottom ${state.bottomTrimRaw} plus half leading ${state.halfLeading}.`}
+            {`${((state.bottomTrimRaw || 0) + (state.halfLeading || 0)).toFixed(2)} out of ${upm} units per em equals negative ${(state.bottomTrimRatio || 0).toFixed(3)} em. Calculated from metric trim bottom ${state.bottomTrimRaw} plus half leading ${state.halfLeading}.`}
           </span>
         </>
       );
