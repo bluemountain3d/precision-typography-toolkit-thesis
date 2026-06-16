@@ -27,6 +27,7 @@ Extract font metrics, visualize typographic measurements, and generate CSS custo
 - [Roadmap](#roadmap)
 - [Contributing](#contributing)
 - [License](#license)
+- [Related projects](#related-projects)
 
 ---
 
@@ -674,6 +675,11 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - **fontkit** library by Devon Govett
 - **The typography community** for inspiration and resources
 
+---
+
+## Related Projects
+
+- **[TrimScale CSS](https://github.com/bluemountain3d/trimscale-css)** — A framework-agnostic SCSS design system that applies the font-metric and leading-trim math developed in this thesis to a production-ready, reusable styling toolkit.
 ---
 
 ## References & Resources
